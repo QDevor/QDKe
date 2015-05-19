@@ -1,7 +1,7 @@
 =======================
 QDKe
 =======================
-QDKe ¡ª Q Development Kits Environment
+Q Development Kits Environment
 
 -------
 License
