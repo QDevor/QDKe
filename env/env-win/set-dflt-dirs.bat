@@ -35,6 +35,7 @@ set "ORIGIN_TMPDIR=%TMPDIR%"
 set "ORIGIN_APPDATA=%APPDATA%"
 
 set "WORK_HOME=%QDKE_HOME%"
+set "HOME=%WORK_HOME%"
 set "TEMP=%QDKE_TMP%"
 set "TMP=%TEMP%"
 set "TMPDIR=%TEMP%"
@@ -56,14 +57,16 @@ set "QDKE_VAR=!QDKE_VAR:%args%=\!"
 set "QDKE_ETC=!QDKE_ETC:%args%=\!"
 
 set "WORK_HOME=!WORK_HOME:%args%=\!"
+set "HOME=!HOME:%args%=\!"
 set "TEMP=!TEMP:%args%=\!"
 set "TMP=!TMP:%args%=\!"
 set "TMPDIR=!TMPDIR:%args%=\!"
 set "APPDATA=!APPDATA:%args%=\!"
+
 :-------------------------------------
 
-rem set "args=%QDKE_USR%,%QDKE_HOME%,%QDKE_ENV%"
-set "args=%QDKE_TMP%,%QDKE_VAR%,%QDKE_ETC%"
+set "args=%QDKE_USR%,%QDKE_HOME%,%QDKE_ENV%"
+set "args=%args%,%QDKE_TMP%,%QDKE_VAR%,%QDKE_ETC%"
 set "args=%args%,%TEMP%,%TMP%,%TMPDIR%,%APPDATA%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
 

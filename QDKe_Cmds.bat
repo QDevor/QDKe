@@ -51,6 +51,7 @@ call env/env-test/env-test-%DJN%.bat
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
+cmd
 :: setlocal disabledelayedexpansion
 :-------------------------------------
 setlocal disabledelayedexpansion
