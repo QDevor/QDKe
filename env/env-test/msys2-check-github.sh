@@ -15,16 +15,20 @@
 # limitations under the License.
 #
 
-if [[ x$INCLUDE_CHECK_DFLT_VARS_SCRIPT == "xtrue" ]]; then
-	return 0
-fi
+PROGDIR=`dirname $0`
+PROGDIR=`cd $PROGDIR && pwd -P`
 
-_PGMDIR_CHECK_DFLT_VARS=`dirname $0`
-_PGMDIR_CHECK_DFLT_VARS=`cd $_PGMDIR_CHECK_DFLT_VARS && pwd -P`
-_FN_CHECK_DFLT_VARS=`basename $0`
-_FNTYPE_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS#*.}
-_FNNAME_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS%.*}
+# echo [Debug] - '$0'=$0
+FILENAME=`basename $0`
+PROGTYPE=${FILENAME#*.}
+PROGNAME=${FILENAME%.*}
+# echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
-
+. $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
-export INCLUDE_CHECK_DFLT_VARS_SCRIPT=true
+work_home=$WORK_HOME/test
+user_name=QDevor
+apps_name=QDKe
+#----------------------------------------
+utils_github_cloneWithResume   $work_home $user_name $apps_name
+utils_github_updateWithResume  $work_home $user_name $apps_name

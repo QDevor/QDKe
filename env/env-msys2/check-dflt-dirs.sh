@@ -17,7 +17,7 @@
 
 if [[ x$INCLUDE_CHECK_DFLT_DIRS_SCRIPT == "xtrue" ]]; then
 	return 0
-)
+fi
 
 _PGMDIR_CHECK_DFLT_DIRS=`dirname $0`
 _PGMDIR_CHECK_DFLT_DIRS=`cd $_PGMDIR_CHECK_DFLT_DIRS && pwd -P`

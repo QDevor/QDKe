@@ -17,21 +17,35 @@
 
 if [[ x$INCLUDE_ENTRY_COMMON_SCRIPT == "xtrue" ]]; then
 	return 0
-)
+fi
 
+# Normally runme by source or '.',
+# So '$0' will not mean the real script but mean father script.
+# We will only check '$0' at here "entry-common.sh".
+# Validity from env/../x.sh included this script
+# echo [Debug] - '$0'=$0
 _PGMDIR_ENTRY_COMMON=`dirname $0`
 _PGMDIR_ENTRY_COMMON=`cd $_PGMDIR_ENTRY_COMMON && pwd -P`
 _FN_ENTRY_COMMON=`basename $0`
 _FNTYPE_ENTRY_COMMON=${_FN_ENTRY_COMMON#*.}
 _FNNAME_ENTRY_COMMON=${_FN_ENTRY_COMMON%.*}
+# echo [Debug] - The script is: $_PGMDIR_ENTRY_COMMON/$_FNNAME_ENTRY_COMMON.$_FNTYPE_ENTRY_COMMON
+_PGMDIR_ENTRY_COMMON=`dirname $_PGMDIR_ENTRY_COMMON`
+if [ ! -d $_PGMDIR_ENTRY_COMMON/env-msys2 ]; then
+	echo [QDKe] - We Are Running Error, Please Check Reference Path.
+	exit 1
+	return 0
+fi
+
 #----------------------------------------
-. $_PGMDIR_ENTRY_COMMON/utils-console.sh
 
-. $_PGMDIR_ENTRY_COMMON/check-dflt-vars.sh
-. $_PGMDIR_ENTRY_COMMON/check-dflt-dirs.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-console.sh
 
-. $_PGMDIR_ENTRY_COMMON/utils-extract.sh
-. $_PGMDIR_ENTRY_COMMON/utils-github.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-vars.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-dirs.sh
+
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 
 #----------------------------------------
 export INCLUDE_ENTRY_COMMON_SCRIPT=true

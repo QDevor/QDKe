@@ -22,18 +22,19 @@ _FNTYPE_UTILS_GITHUB=${_FN_UTILS_GITHUB#*.}
 _FNNAME_UTILS_GITHUB=${_FN_UTILS_GITHUB%.*}
 
 _utils_github_init() {
-	if [[ "$USERNAME" == "" || "$USEREMIAL" == "" ]]; then
-		log_error "We Are Checking USERNAME and USEREMIAL - NULL."
+	if [[ "$USERNAME" == "" || "$USEREMAIL" == "" ]]; then
+		log_error "We Are Checking USERNAME and USEREMAIL - NULL."
 		# return 1
 	fi
 	
 	_gitconfig=$WORK_HOME/.gitconfig
-	if [[ -f $_gitconfig ]]; then
-		echo [user]                   >$_gitconfig
-		echo 	name = QDevor          >>$_gitconfig
-		echo 	email = QDevor@163.com >>$_gitconfig
-		echo [core]                  >>$_gitconfig
-		echo 	autocrlf = false       >>$_gitconfig
+	if [ ! -f $_gitconfig ]; then
+		log_info "We Are Creating $WORK_HOME/.gitconfig." 
+		echo "[user]"                    >$_gitconfig
+		echo "	name = $USERNAME"       >>$_gitconfig
+		echo "	email = $USEREMAIL"     >>$_gitconfig
+		echo "[core]"                   >>$_gitconfig
+		echo "	autocrlf = false"       >>$_gitconfig
 	fi
 	
 	return 0
@@ -61,12 +62,14 @@ utils_github_cloneWithResume () {
 		cd $work_home || die
 		mkdir -p $user_name/$apps_name/github > /dev/null 2>&1
 		cd $user_name/$apps_name/github || die
+		set HOME=`pwd`
 		
 		git init
 		
 		doloop=1
 		while [ $doloop = 1 ]; do
 			#  git fetch https://github.com/google/zopfli
+			log_info "https://github.com/$user_name/$apps_name."
 			git fetch https://github.com/$user_name/$apps_name
 			
 			if [ $? = 0 ]; then
@@ -75,6 +78,7 @@ utils_github_cloneWithResume () {
 				git checkout -b master remotes/origin/master --
 				# git checkout FETCH_HEAD
 				# git fetch https://github.com/google/zopfli HEAD
+				log_warning "$user_name/$apps_name/github - clone successful."
 				break;
 			fi
 			log_warning "$user_name/$apps_name/github - clone failed - will run again."
@@ -84,8 +88,6 @@ utils_github_cloneWithResume () {
 	else
 		log_warning "$user_name/$apps_name/github - cloned formerly."
 	fi
-	
-	log_warning "$user_name/$apps_name/github - clone successful."
 	
 	return 0
 }
