@@ -19,6 +19,7 @@ echo.
 cd /d %~dp0
 
 :loop
+	title %~n0
 	cmd
 	echo last return - %errorlevel%.
 	goto :loop

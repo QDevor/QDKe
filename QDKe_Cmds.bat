@@ -17,6 +17,7 @@ echo limitations under the License.
 echo.
 
 cd /d %~dp0
+title %~n0
 
 :: setlocal enabledelayedexpansion
 :-------------------------------------
@@ -49,7 +50,7 @@ call env/env-test/env-test-%DJN%.bat
 :: Doing Jobs Finish...
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
-
+title %~n0
 :: setlocal disabledelayedexpansion
 :-------------------------------------
 setlocal disabledelayedexpansion
