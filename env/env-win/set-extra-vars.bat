@@ -44,6 +44,8 @@ set "USERPROFILE=!USERPROFILE:%args%=\!"
 set "args=%HOMEPATH%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
 
+unset HOMEPATH USERPROFILE
+
 :-------------------------------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true
 :EOF

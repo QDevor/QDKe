@@ -30,5 +30,6 @@ work_home=$WORK_HOME/test
 user_name=QDevor
 apps_name=QDKe
 #----------------------------------------
+
 utils_github_cloneWithResume   $work_home $user_name $apps_name
 utils_github_updateWithResume  $work_home $user_name $apps_name

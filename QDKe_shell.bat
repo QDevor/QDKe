@@ -44,7 +44,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
 set DJN=check-dirs-exist
-bash --login -i -c "../env/env-pkg/shell-bmdavll-log.sh"
+bash --login -i -c "../env/env-test/msys2-check-github.sh"
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
