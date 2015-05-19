@@ -28,6 +28,10 @@ call %~dp0check-win-ver.bat
 call %~dp0check-cpu-info.bat
 call %~dp0check-dflt-vars.bat
 
+call %~dp0set-tools-path.bat
+call %~dp0add-tools-path.bat
+call %~dp0set-msys2-path.bat
+
 :-------------------------------------
 set INCLUDE_ENTRY_COMMON_BATCH=true
 :EOF

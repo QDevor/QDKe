@@ -14,8 +14,16 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
-if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
+if "x%INCLUDE_SET_MSYS2_PATH_BATCH%" == "xtrue" (
 	goto :EOF
+)
+
+rem uncomment following sentence, output debug info to be enabled separately
+rem set QDKe_VAR_DEBUG_%~n0=true
+if "x!QDKe_VAR_DEBUG_%~n0!" == "xtrue" (
+	set decho=echo
+) else (
+	set decho=rem
 )
 
 :: Getting MSYS2
@@ -33,8 +41,8 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 
 :: Setting MSYS2 PATH
 :-------------------------------------
-set MSYS2_ROOT_32=D:/msys32
-set MSYS2_ROOT_64=D:/msys64
+set MSYS2_ROOT_32=%QDK_ROOT%/msys32
+set MSYS2_ROOT_64=%QDK_ROOT%/msys64
 
 :: Setting MSYS or MINGW PATH
 :-------------------------------------
@@ -56,6 +64,9 @@ if "!QDKe_VAR_MSYS2!" == "false" (
 	)
 )
 
+%decho%  MSYS_ROOT=%MSYS_ROOT%
+%decho% MINGW_ROOT=%MINGW_ROOT%
+
 :: Can Swtich MinGW to 32bit when On WIN7
 :: Nothing to do
 :: Only set MSYSTEM=MINGW32
@@ -76,8 +87,8 @@ if "!QDKe_VAR_MSYS2!" == "false" (
 for /F "usebackq delims=-" %%v in (`uname`) do (
 	set version=%%v
 )
-echo [QDKe] - We Are Running On !version!.
+echo [QDKe] - We Are Running On !version!(msys2).
 
 :-------------------------------------
-set INCLUDE_SET_TOOLS_PATH_BATCH=true
+set INCLUDE_SET_MSYS2_PATH_BATCH=true
 :EOF

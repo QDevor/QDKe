@@ -20,6 +20,8 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 
 :: Setting tools-path variables
 :-------------------------------------
+set "QDK_ROOT=D:/qdk"
+:-------------------------------------
 
 :: JAVA Tool
 :-------------------------------------

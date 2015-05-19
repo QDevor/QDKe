@@ -21,14 +21,37 @@ if "x%INCLUDE_CHECK_DFLT_VARS_BATCH%" == "xtrue" (
 :: Checking and Setting dflt-vars
 :-------------------------------------
 
+:: Default setting to true
+:-------------------------------------
+if "!QDKe_VAR_MSYS2!" == "" (
+	set QDKe_VAR_MSYS2=true
+)
+
+:-------------------------------------
+:: Default setting to MINGW32(x32) and MINGW64(x64)
+:: MSYS MINGW32 MINGW64
+:-------------------------------------
 if "!MSYSTEM!" == "" (
-	rem MSYS MINGW32 MINGW64
-	if "!QDKe_VAR_IS_XP!" == "true" (
+	if "!QDKe_VAR_xCMD!" == "x32" (
 		set MSYSTEM=MINGW32
 	) else (
 		set MSYSTEM=MINGW64
 	)
 	set MSYSCON=mintty.exe
+)
+
+:-------------------------------------
+:: Default setting to false
+:-------------------------------------
+if "!QDKe_VAR_INCLUDED_MINGW!" == "" (
+	set QDKe_VAR_INCLUDED_MINGW=false
+)
+
+:-------------------------------------
+:: Default setting to false
+:-------------------------------------
+if "!QDKe_VAR_UAC!" == "" (
+	set QDKe_VAR_UAC=false
 )
 
 :-------------------------------------

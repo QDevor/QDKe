@@ -45,7 +45,10 @@ if "%PROCESSOR_ARCHITECTURE%"=="x86" set "xCMD=x32" & if not defined PROCESSOR_A
 %decho% [CPU Info] - xOS      = !xOS!.
 %decho% [CPU Info] - xCMD     = !xCMD!.
 
-echo [QDKe] - We Are Running !xCMD! On !xOS!.
+set "QDKe_VAR_xOS=!xOS!"
+set "QDKe_VAR_xCMD=!xCMD!"
+
+echo [QDKe] - We Are Running !xCMD!(cmd) On !xOS!(os).
 
 :-------------------------------------
 set INCLUDE_CHECK_CPU_INFO_BATCH=true

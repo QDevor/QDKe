@@ -39,7 +39,7 @@ if "x!QDKe_VAR_DEBUG_%~n0!" == "xtrue" (
 :: Sever2008R2		6.1
 :: 8							6.2
 
-rem set QDKe_VAR_IS_XP=1
+rem set QDKe_VAR_IS_XP=true
 
 :: CheckWindowsVersion by ver
 :: http://ss64.com/nt/ver.html
@@ -54,9 +54,9 @@ if %QDKe_VAR_WIN_VER% GTR 6.2 (
 ) else (
 	echo [QDKe] - We Are Checking Windows Version - !QDKe_VAR_WIN_VER!.
 	if !QDKe_VAR_WIN_VER! GEQ 6.0 (
-		set QDKe_VAR_IS_XP=0
+		set QDKe_VAR_IS_XP=false
 	) else (
-		set QDKe_VAR_IS_XP=1
+		set QDKe_VAR_IS_XP=true
 	)
 )
 
