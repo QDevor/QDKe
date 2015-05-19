@@ -21,6 +21,15 @@ if "x%INCLUDE_CHECK_DFLT_VARS_BATCH%" == "xtrue" (
 :: Checking and Setting dflt-vars
 :-------------------------------------
 
+if "!MSYSTEM!" == "" (
+	rem MSYS MINGW32 MINGW64
+	if "!QDKe_VAR_IS_XP!" == "true" (
+		set MSYSTEM=MINGW32
+	) else (
+		set MSYSTEM=MINGW64
+	)
+	set MSYSCON=mintty.exe
+)
 
 :-------------------------------------
 set INCLUDE_CHECK_DFLT_VARS_BATCH=true

@@ -29,25 +29,25 @@ setlocal enabledelayedexpansion
 :--Default setting to true
 :-------------------------------------
 
-:: Checking QDKe env
+:: Checking QDKe Env
 :-------------------------------------
-echo [QDKe] - We Are Checking QDKe env.
+echo [QDKe] - We Are Checking QDKe Env.
 call env/env-win/entry-common.bat
 :-------------------------------------
 
 rem echo "%PATH%"
 
 :+++++++++++++++++++++++++++++++++++++
-:: Doing jobs start...
-echo [QDKe] - We Are Doing jobs... start.
+:: Doing Jobs Start...
+echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
 set DJN=check-dirs-exist
 call env/env-test/env-test-%DJN%.bat
 
 :+++++++++++++++++++++++++++++++++++++
-:: Doing jobs finish...
-echo [QDKe] - We Are Doing jobs... finish.
+:: Doing Jobs Finish...
+echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 
 :: setlocal disabledelayedexpansion

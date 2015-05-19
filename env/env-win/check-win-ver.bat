@@ -42,6 +42,7 @@ if "x!QDKe_VAR_DEBUG_%~n0!" == "xtrue" (
 rem set QDKe_VAR_IS_XP=1
 
 :: CheckWindowsVersion by ver
+:: http://ss64.com/nt/ver.html
 :-------------------------------------
 rem  --> Check Windows Version
 
@@ -49,9 +50,9 @@ set QDKe_VAR_WIN_VER="Unkown"
 for /f "delims=" %%a in ('ver') do call :.ver %%a
 
 if %QDKe_VAR_WIN_VER% GTR 6.2 (
-	echo [QDKe] - We Are Checking windows version - unkown.
+	echo [QDKe] - We Are Checking Windows Version - Unkown.
 ) else (
-	echo [QDKe] - We Are Checking windows version - !QDKe_VAR_WIN_VER!.
+	echo [QDKe] - We Are Checking Windows Version - !QDKe_VAR_WIN_VER!.
 	if !QDKe_VAR_WIN_VER! GEQ 6.0 (
 		set QDKe_VAR_IS_XP=0
 	) else (
