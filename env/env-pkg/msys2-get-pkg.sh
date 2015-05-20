@@ -104,7 +104,7 @@ msys2_getpkg_setType() {
 }
 
 msys2_getpkg_getVer() {
-	log_info "Searching from $PKG_LOOKUP_URL_1."
+	log_info "Searching $pkg_nam from $PKG_LOOKUP_URL_1/$pkg_typ/."
 	
 	pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
 		grep -i 'msys2/files/REPOS/MSYS2/'$pkg_typ'/' | \
@@ -130,13 +130,17 @@ msys2_getpkg_getPkg() {
 	
 	cd $QDKE_TMP || die
 	
-	[ -d $QDKE_LOGDIR/$user_name ] || mkdir -p $QDKE_LOGDIR/$user_name
+	if [ ! -f $QDKE_LOGDIR/$user_name/$apps_name-download ]; then
+		[ -d $QDKE_LOGDIR/$user_name ] || mkdir -p $QDKE_LOGDIR/$user_name
 	
-	wget -c -T 30 -t 3 -q $wget_quiet "$pkg_url/$pkg_file" \
-		&>$QDKE_LOGDIR/$user_name/$apps_name-download
+		wget -c -T 30 -t 3 $wget_quiet "$pkg_url/$pkg_file" \
+			&>$QDKE_LOGDIR/$user_name/$apps_name-download
+	fi
 	
-	cd $work_home/$user_name/$apps_name || die
-	extract $QDKE_TMP/$pkg_file
+	if [ ! -d $work_home/$user_name/$apps_name ]; then
+		cd $work_home/$user_name/$apps_name || die
+		extract $QDKE_TMP/$pkg_file
+	fi
 }
 
 #----------------------------------------

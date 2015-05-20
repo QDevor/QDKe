@@ -32,7 +32,7 @@ test_init() {
 	
 	[ -d $work_home ] || mkdir -p $work_home
 	cd $work_home || die
-	rm -rf $work_home/$user_name/$apps_name
+	# rm -rf $work_home/$user_name/$apps_name
 }
 
 test_main() {
