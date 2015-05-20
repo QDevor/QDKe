@@ -26,7 +26,7 @@ PROGNAME=${FILENAME%.*}
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
-_msys2_getPkgInit() {
+_msys2_getpkg_init() {
 	PKG_MIRROR=http://jaist.dl.sourceforge.net/project
 # lookup source code
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/Sources/
@@ -42,7 +42,26 @@ _msys2_getPkgInit() {
 	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW/
 }
 
-msys2_getPkgConf() {
+_msys2_getpkg_check() {
+	if [[ $# -lt 3 ]]; then
+		log_error "We Are Checking arguments mismatch."
+		# return 1
+	fi
+	return 0
+}
+
+msys2_getpkg_setWork() {
+	_msys2_getpkg_check $1 $2 $3
+	work_home=$1
+	user_name=$2
+	apps_name=$3
+	
+	pkg_nam=$apps_name
+	cd $work_home || die
+	mkdir -p $user_name/$apps_name >/dev/null 2>&1
+}
+
+msys2_getpkg_setType() {
 	if [[ $1 != "src" || $1 != "bin" ]]; then
     log_error "Usage: $FUNCNAME src or $FUNCNAME bin."
 	fi
@@ -54,7 +73,7 @@ msys2_getPkgConf() {
 	fi
 }
 
-msys2_getPkgVer() {
+msys2_getpkg_getVer() {
 	if [[ ! $# -eq 1 ]]; then
     log_error "Usage: $FUNCNAME pkg."
 	fi
@@ -78,28 +97,28 @@ msys2_getPkgVer() {
 	echo "$FUNCNAME - $pkg_url."
 }
 
-msys2_getPkg() {
+msys2_getpkg_getPkg() {
 	cd $QDKe_TMP
 	
 	pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
 
 	wget -c -T 30 -t 3 -q ''$pkg_url'/'$pkg_file''
 	
-	mkdir -p $WORK_HOME/msys2 >/dev/null 2>&1
-	cd $WORK_HOME/msys2
+	
+	cd $work_home/$user_name/$apps_name || die
 	extract $QDKe_TMP/$pkgfile
 }
 
 #----------------------------------------
-_msys2_getPkgInit
+_msys2_getpkg_init
 # 
-# pkg_nam=flex
-# pkg_typ=src
+# pkg_nam=?
+# pkg_typ=?
 # pkg_ver=?
 # pkg_rel=?
 # pkg_url=?
-# msys2_getPkgConf src
-# msys2_getPkgConf bin
-# msys2_getPkgVer
-# msys2_getPkg
+# msys2_getpkg_setWork
+# msys2_getpkg_setType src/bin
+# msys2_getpkg_getVer
+# msys2_getpkg_getPkg
 #----------------------------------------

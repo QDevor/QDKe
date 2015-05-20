@@ -169,7 +169,8 @@ utils_github_update() {
 }
 
 _utils_github_init
-# try wsUtils_github_SrcFetch to resumes transmission at break-points
-# wsUtils_github_SrcFetch
-# wsUtils_github_SrcClone
-# wsUtils_github_SrcUpdate
+# try resumes transmission at break-points
+# utils_github_cloneWithResume
+# utils_github_updateWithResume
+# utils_github_clone
+# utils_github_update

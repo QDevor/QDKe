@@ -43,8 +43,8 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
-rem msys2-check-github
-set DJN=msys2-check-github
+rem msys2-check-github msys2-check-msys2
+set DJN=msys2-check-msys2
 bash --login -i -c "../env/env-test/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++

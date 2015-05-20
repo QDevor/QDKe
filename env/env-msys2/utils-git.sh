@@ -23,8 +23,12 @@ _FNTYPE_UTILS_GIT=${_FN_UTILS_GIT#*.}
 _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 #----------------------------------------
 
+# git whatchanged
+# git status
+
 # git commit -a -m "commit info"
 
 # git push --progress "origin" master:master
+# git push --progress "origin" dev:dev
 
 # git pull -v --progress  "origin"
