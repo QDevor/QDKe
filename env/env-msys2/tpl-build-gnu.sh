@@ -15,17 +15,76 @@
 # limitations under the License.
 #
 
-#----------------------------------------
+#----------------RUN-ONCE----------------
 if [[ x$INCLUDE_TPL_BUILD_GNU_SCRIPT == "xtrue" ]]; then
-	return 0
-fi
-#----------------------------------------
+	echo [QDKe] - We Are Checking Included More Than Once - entry-common.sh.
+else
+#----------------RUN-ONCE----------------
 _PGMDIR_TPL_BUILD_GNU=`dirname $0`
 _PGMDIR_TPL_BUILD_GNU=`cd $_PGMDIR_TPL_BUILD_GNU && pwd -P`
 _FN_TPL_BUILD_GNU=`basename $0`
 _FNTYPE_TPL_BUILD_GNU=${_FN_TPL_BUILD_GNU#*.}
 _FNNAME_TPL_BUILD_GNU=${_FN_TPL_BUILD_GNU%.*}
 #----------------------------------------
+_tpl_buildgnu_init() {
+	export QDKe_BUILD_PREFIX=$QDKE_USR
+	export QDKe_BUILD_TARGET=$QDKe_VAR_ARCH-w64-mingw32
+	
+	export QDKe_CC=$QDKe_BUILD_TARGET-cc
+}
 
+_tpl_buildgnu_checkArgsNum() {
+	if [[ $# -lt 3 ]]; then
+		log_error "We Are Checking arguments mismatch."
+		# return 1
+	fi
+	return 0
+}
+
+tpl_buildgnu_set() {
+	_tpl_buildgnu_checkArgsNum $@
+	work_home=$1
+	user_name=$2
+	apps_name=$3
+	
+	BUILD_SRC_DIR=$work_home/$user_name/$apps_name
+	BUILD_DST_DIR=$work_home/$user_name/$apps_name.build
+}
+
+tpl_buildgnu_setExtra() {
+	:
+}
+
+tpl_buildgnu_conf() {
+	cd ''$BUILD_DST_DIR'' &&  \
+	''${BUILD_SRC_DIR}'/configure' \
+		--prefix=''$QDKe_BUILD_PREFIX'' \
+		  --host=''$QDKe_BUILD_TARGET'' \
+		 --build=''$QDKe_BUILD_TARGET'' \
+		|| die
+	touch ""
+}
+
+tpl_buildgnu_make() {
+	:
+}
+
+tpl_buildgnu_makeExtra() {
+	:
+}
+
+tpl_buildgnu_makeInstall() {
+	:
+}
 #----------------------------------------
+_tpl_buildgnu_init
+# tpl_buildgnu_set
+# tpl_buildgnu_setExtra
+# tpl_buildgnu_conf
+# tpl_buildgnu_make
+# tpl_buildgnu_makeExtra
+# tpl_buildgnu_makeInstall
+#----------------RUN-ONCE----------------
 export INCLUDE_TPL_BUILD_GNU_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------
