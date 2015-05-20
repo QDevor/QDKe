@@ -42,7 +42,7 @@ _msys2_getpkg_init() {
 	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW/
 }
 
-_msys2_getpkg_check() {
+_msys2_getpkg_checkArgsNum() {
 	if [[ $# -lt 3 ]]; then
 		log_error "We Are Checking arguments mismatch."
 		# return 1
@@ -50,19 +50,49 @@ _msys2_getpkg_check() {
 	return 0
 }
 
+_msys2_getpkg_checkArgsValidity() {
+	if [[ $work_home == "" ]]; then
+		log_error "We Are Checking work_home is NULL."
+	fi
+	if [[ $user_name == "" ]]; then
+		log_error "We Are Checking user_name is NULL."
+	fi
+	if [[ $apps_name == "" ]]; then
+		log_error "We Are Checking apps_name is NULL."
+	fi
+	
+	if [[ $pkg_nam == "" ]]; then
+		log_error "We Are Checking pkg_nam is NULL."
+	fi
+	if [[ $pkg_ver == "" ]]; then
+		log_error "We Are Checking pkg_ver is NULL."
+	fi
+	if [[ $pkg_rel == "" ]]; then
+		log_error "We Are Checking pkg_rel is NULL."
+	fi
+#	if [[ $pkg_url == "" ]]; then
+#		log_error "We Are Checking pkg_url is NULL."
+#	fi
+	return 0
+}
+
 msys2_getpkg_setWork() {
-	_msys2_getpkg_check $1 $2 $3
+	_msys2_getpkg_checkArgsNum $1 $2 $3
 	work_home=$1
 	user_name=$2
 	apps_name=$3
 	
 	pkg_nam=$apps_name
+	pkg_ver=
+	pkg_rel=
+	pkg_url=
+	
 	cd $work_home || die
 	mkdir -p $user_name/$apps_name >/dev/null 2>&1
 }
 
 msys2_getpkg_setType() {
-	if [[ $1 != "src" || $1 != "bin" ]]; then
+	if [[ $1 != "src" && $1 != "bin" ]]; then
     log_error "Usage: $FUNCNAME src or $FUNCNAME bin."
 	fi
 	
@@ -74,13 +104,7 @@ msys2_getpkg_setType() {
 }
 
 msys2_getpkg_getVer() {
-	if [[ ! $# -eq 1 ]]; then
-    log_error "Usage: $FUNCNAME pkg."
-	fi
-	
-	pkg_ver=
-	pkg_rel=
-	pkg_url=
+	log_info "Searching from $PKG_LOOKUP_URL_1."
 	
 	pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
 		grep -i 'msys2/files/REPOS/MSYS2/'$pkg_typ'/' | \
@@ -94,19 +118,23 @@ msys2_getpkg_getVer() {
 	#	pkgurl=$PKG_MIRROR/msys2/Base/MINGW/Sources/
 	#	pkgurl=$PKG_MIRROR/msys2/REPOS/MINGW/Sources/
 	pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
-	echo "$FUNCNAME - $pkg_url."
+	pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
+	
+	log_info "Found - $pkg_url/$pkg_file."
 }
 
 msys2_getpkg_getPkg() {
-	cd $QDKe_TMP
+	msys2_getpkg_getVer
 	
-	pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
-
-	wget -c -T 30 -t 3 -q ''$pkg_url'/'$pkg_file''
+	_msys2_getpkg_checkArgsValidity
 	
+	cd $QDKE_TMP || die
+	
+	wget -c -T 30 -t 3 -q $wget_quiet "$pkg_url/$pkg_file" \
+		&>$QDKE_LOGDIR/$user_name/$apps_name-download
 	
 	cd $work_home/$user_name/$apps_name || die
-	extract $QDKe_TMP/$pkgfile
+	extract $QDKE_TMP/$pkg_file
 }
 
 #----------------------------------------

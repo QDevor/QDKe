@@ -25,14 +25,21 @@ PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-msys2/msys2-get-pkg.sh
+. $PROGDIR/../env-pkg/msys2-get-pkg.sh
 #----------------------------------------
 test_init() {
+	log_info "$FUNCNAME"
+	
 	cd $work_home || die
 	rm -rf $work_home/$user_name/$apps_name
 }
 
 test_main() {
+	log_info "$FUNCNAME"
+	echo "work_home=$work_home."
+	echo "user_name=$user_name, apps_name=$apps_name."
+	echo "apps_type=$apps_type."
+	
 	msys2_getpkg_setWork           $work_home $user_name $apps_name
 	msys2_getpkg_setType           $apps_type
 	
@@ -41,6 +48,7 @@ test_main() {
 }
 
 test_example() {
+	log_info "$FUNCNAME"
 	work_home=$WORK_HOME/test
 	user_name=msys2
 	apps_name=$1

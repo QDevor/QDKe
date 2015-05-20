@@ -43,6 +43,8 @@ else
 	export QDKE_ETC=`cygpath -u $QDKE_ETC`
 fi
 
+export QDKE_LOGDIR=$QDKE_ETC/log
+
 export WORK_HOME=$QDKE_HOME
 export HOME=$WORK_HOME
 export TEMP=$QDKE_TMP

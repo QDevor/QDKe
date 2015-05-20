@@ -15,9 +15,11 @@
 # limitations under the License.
 #
 
+#----------------RUN-ONCE----------------
 if [[ x$INCLUDE_ENTRY_COMMON_SCRIPT == "xtrue" ]]; then
-	return 0
-fi
+	echo [QDKe] - We Are Checking Included More Than Once - entry-common.sh.
+else
+#----------------RUN-ONCE----------------
 
 # Normally runme by source or '.',
 # So '$0' will not mean the real script but mean father script.
@@ -47,5 +49,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 
-#----------------------------------------
+#----------------RUN-ONCE----------------
 export INCLUDE_ENTRY_COMMON_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------
