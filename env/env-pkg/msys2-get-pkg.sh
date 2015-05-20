@@ -130,7 +130,7 @@ msys2_getpkg_getPkg() {
 	
 	cd $QDKE_TMP || die
 	
-	[ -d $(QDKE_LOGDIR)/$user_name ] || mkdir -p $(QDKE_LOGDIR)/$user_name
+	[ -d $QDKE_LOGDIR/$user_name ] || mkdir -p $QDKE_LOGDIR/$user_name
 	
 	wget -c -T 30 -t 3 -q $wget_quiet "$pkg_url/$pkg_file" \
 		&>$QDKE_LOGDIR/$user_name/$apps_name-download
