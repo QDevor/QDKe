@@ -26,6 +26,7 @@ _FN_CHECK_DEPS_MSYS2=`basename $0`
 _FNTYPE_CHECK_DEPS_MSYS2=${_FN_CHECK_DEPS_MSYS2#*.}
 _FNNAME_CHECK_DEPS_MSYS2=${_FN_CHECK_DEPS_MSYS2%.*}
 #----------------------------------------
+_check_deps_msys2_base
 
 #----------------------------------------
 export INCLUDE_CHECK_DEPS_MSYS2_SCRIPT=true

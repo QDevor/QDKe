@@ -25,7 +25,7 @@ _FNNAME_UTILS_PYTHON=${_FN_UTILS_PYTHON%.*}
 
 # . utils-msys2.sh
 
-_utils_python_initVersion() {
+_utils_python_initVer() {
 	if [[ "$PYTHON" == "" ]] ; then
 		export PYTHON=python3
 	fi
@@ -175,7 +175,7 @@ utils_python_install() {
 	fi
 }
 
-_utils_python_initVersion
+_utils_python_initVer
 _utils_python_initDeps
 
 # utils_python_install
