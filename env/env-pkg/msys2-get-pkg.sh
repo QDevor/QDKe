@@ -36,10 +36,10 @@ _msys2_getpkg_init() {
 # lookup install pkg
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/i686/
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/x86_64/
-	PKG_LOOKUP_URL_0=http://sourceforge.net/projects/msys2/files/Base/MSYS2/
-	PKG_LOOKUP_URL_1=http://sourceforge.net/projects/msys2/files/REPOS/MSYS2/
-	PKG_LOOKUP_URL_2=http://sourceforge.net/projects/msys2/files/Base/MINGW/
-	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW/
+	PKG_LOOKUP_URL_0=http://sourceforge.net/projects/msys2/files/Base/MSYS2
+	PKG_LOOKUP_URL_1=http://sourceforge.net/projects/msys2/files/REPOS/MSYS2
+	PKG_LOOKUP_URL_2=http://sourceforge.net/projects/msys2/files/Base/MINGW
+	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW
 }
 
 _msys2_getpkg_checkArgsNum() {

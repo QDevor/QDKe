@@ -41,7 +41,7 @@ fi
 
 #----------------------------------------
 
-[ -d $QDKE_ROOT ] || mkdir -p $QDKE_ROOT >/dev/null 2>&1
+[ -z $QDKE_ROOT ] || mkdir -p $QDKE_ROOT >/dev/null 2>&1
 [ -d $QDKE_USR  ] || mkdir -p $QDKE_USR  >/dev/null 2>&1
 [ -d $QDKE_HOME ] || mkdir -p $QDKE_HOME >/dev/null 2>&1
 [ -d $QDKE_ENV  ] || mkdir -p $QDKE_ENV  >/dev/null 2>&1
