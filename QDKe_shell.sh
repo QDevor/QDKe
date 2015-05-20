@@ -18,8 +18,11 @@
 export USERNAME=QDKe
 export USEREMAIL=QDevor@163.com
 
+
+# msys2-check-github msys2-check-msys2
+
+runme_script=msys2-check-msys2
+
 cd ./env/env-test/
+./$runme_script.sh
 
-# ./msys2-check-github.sh
-
-bash
