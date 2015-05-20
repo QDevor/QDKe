@@ -43,8 +43,9 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
-set DJN=check-dirs-exist
-bash --login -i -c "../env/env-test/msys2-check-github.sh"
+rem msys2-check-github
+set DJN=msys2-check-github
+bash --login -i -c "../env/env-test/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

@@ -47,7 +47,7 @@ rm -rf *.bak
 rm -rf env/*/*.bak
 
 set DJN=win-check-dirs-exist
-call env/env-test/%DJN%.bat
+rem call env/env-test/%DJN%.bat
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
