@@ -30,14 +30,28 @@ test_init() {
 	cd $work_home || die
 	rm -rf $work_home/$user_name/$apps_name
 }
+
 test_main() {
 	utils_github_cloneWithResume   $work_home $user_name $apps_name
 	utils_github_updateWithResume  $work_home $user_name $apps_name
 }
+
+test_example() {
+	work_home=$WORK_HOME/test
+	user_name=$1
+	apps_name=$2
+	
+	test_init
+	test_main
+}
 #----------------------------------------
-work_home=$WORK_HOME/test
-user_name=QDevor
-apps_name=QDKe
+test_example bmdavll log
+test_example fredpalmer log4bash
+cd $work_home/$user_name/$apps_name/github || die
+cd tests && ./bashful.sh
+pause
+test_example livibetter-backup log.sh
+cd $work_home/$user_name/$apps_name/github || die
+./example.sh
+pause
 #----------------------------------------
-test_init
-test_main

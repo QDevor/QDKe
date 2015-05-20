@@ -18,7 +18,7 @@ call env/env-win/set-dflt-vars.bat
 call env/env-win/set-dflt-dirs.bat
 
 set filename=%~n0
-set filename=!filename:~9,50!
+set filename=!filename:~4,50!
 
 :: env-test: check-dirs-exist
 :-------------------------------------

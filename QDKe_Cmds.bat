@@ -43,8 +43,11 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
-set DJN=check-dirs-exist
-call env/env-test/env-test-%DJN%.bat
+rm -rf *.bak
+rm -rf env/*/*.bak
+
+set DJN=win-check-dirs-exist
+call env/env-test/%DJN%.bat
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
