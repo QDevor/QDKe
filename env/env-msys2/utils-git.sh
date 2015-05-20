@@ -38,14 +38,10 @@ _utils_git_init() {
 	alias gcv='git commit --no-verify'
 }
 
-utils_git_set() {
-	env		
-	template_prefix=$QDkE_ROOT/env/env-msys2/tpl-git-hooks
+utils_git_set() {	
+	template_prefix=$QDKE_ROOT/env/env-msys2/tpl-git-hooks
 	dst_hooks_dir=$work_home/.git/hooks
-	echo $QDkE_ROOT
-	echo $work_home
-	echo "$template_prefix"
-	echo "$dst_hooks_dir"
+
 	# exe_cmd "mkdir -p $template_dir"
 	exe_cmd "cp -rf $template_prefix-pre-commit.sh $dst_hooks_dir/pre-commit.sh"
 	exe_cmd "chmod -R a+x $dst_hooks_dir/pre-commit.sh"
@@ -79,8 +75,8 @@ utils_git_check() {
 }
 
 _utils_git_init
-echo 123-$QDkE_ROOT
-work_home=$QDkE_ROOT && utils_git_set
-exit 0
+
+work_home=$QDKE_ROOT && utils_git_set
+
 # utils_git_check
 
