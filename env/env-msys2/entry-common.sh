@@ -47,7 +47,9 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-dirs.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-dirs.sh
 
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-base.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 
 #----------------RUN-ONCE----------------
