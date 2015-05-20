@@ -26,10 +26,18 @@ PROGNAME=${FILENAME%.*}
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
+test_init() {
+	cd $work_home || die
+	rm -rf $work_home/$user_name/$apps_name
+}
+test_main() {
+	utils_github_cloneWithResume   $work_home $user_name $apps_name
+	utils_github_updateWithResume  $work_home $user_name $apps_name
+}
+#----------------------------------------
 work_home=$WORK_HOME/test
 user_name=QDevor
 apps_name=QDKe
 #----------------------------------------
-
-utils_github_cloneWithResume   $work_home $user_name $apps_name
-utils_github_updateWithResume  $work_home $user_name $apps_name
+test_init
+test_main

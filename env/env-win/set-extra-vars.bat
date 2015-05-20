@@ -29,10 +29,9 @@ set "ORIGIN_USERDNSDOMAIN=%USERDNSDOMAIN%"
 set "ORIGIN_USERDOMAIN=%USERDOMAIN%"
 
 set "USERNAME=QDKe"
+set "USEREMAIL=QDevor@163.com"
 set "HOMEPATH=%QDKE_USR%/%USERNAME%"
 set "USERPROFILE=%HOMEPATH%"
-
-set "USEREMAIL=QDevor@163.com"
 
 set "USERDNSDOMAIN=QDKe"
 set "USERDOMAIN=QDKe"
@@ -43,8 +42,6 @@ set "USERPROFILE=!USERPROFILE:%args%=\!"
 
 set "args=%HOMEPATH%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
-
-unset HOMEPATH USERPROFILE
 
 :-------------------------------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true

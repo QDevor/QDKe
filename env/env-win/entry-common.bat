@@ -34,6 +34,8 @@ call %~dp0set-tools-path.bat
 call %~dp0add-tools-path.bat
 call %~dp0set-msys2-path.bat
 
+rem call %~dp0unset-dflt-vars.bat
+
 :-------------------------------------
 set INCLUDE_ENTRY_COMMON_BATCH=true
 :EOF
