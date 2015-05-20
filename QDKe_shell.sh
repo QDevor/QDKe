@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-export USERNAME=QDKe
+export USERNAME=QDevor
 export USEREMAIL=QDevor@163.com
 
 
@@ -25,4 +25,7 @@ runme_script=msys2-check-msys2
 
 cd ./env/env-test/
 ./$runme_script.sh
+cd ../../
+echo [QDKe] - Last return $0 - $1
+bash
 
