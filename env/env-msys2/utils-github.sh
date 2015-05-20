@@ -41,7 +41,7 @@ _utils_github_init() {
 }
 
 _utils_github_check() {
-	if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]; then
+	if [[ $# -lt 3 ]]; then
 		log_error "We Are Checking arguments mismatch."
 		# return 1
 	fi
