@@ -40,8 +40,8 @@ test_main() {
 	echo "user_name=$user_name, apps_name=$apps_name."
 	echo "apps_type=$apps_type."
 	
-	msys2_getpkg_setWork           $work_home $user_name $apps_name
-	msys2_getpkg_setType           $apps_type
+	msys2_getpkg_set       $work_home $user_name $apps_name
+	msys2_getpkg_setExtra  $apps_type
 	
 	# msys2_getpkg_getVer
 	msys2_getpkg_getPkg

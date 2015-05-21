@@ -76,8 +76,8 @@ _msys2_getpkg_checkArgsValidity() {
 	return 0
 }
 
-msys2_getpkg_setWork() {
-	_msys2_getpkg_checkArgsNum $1 $2 $3
+msys2_getpkg_set() {
+	_msys2_getpkg_checkArgsNum $@
 	work_home=$1
 	user_name=$2
 	apps_name=$3
@@ -91,7 +91,7 @@ msys2_getpkg_setWork() {
 	mkdir -p $user_name/$apps_name >/dev/null 2>&1
 }
 
-msys2_getpkg_setType() {
+msys2_getpkg_setExtra() {
 	if [[ $1 != "src" && $1 != "bin" ]]; then
     log_error "Usage: $FUNCNAME src or $FUNCNAME bin."
 	fi
@@ -132,7 +132,7 @@ msys2_getpkg_getPkg() {
 	
 	[ -d $QDKE_LOGDIR/$user_name ] || mkdir -p $QDKE_LOGDIR/$user_name
 	
-	wget -c -T 30 -t 3 -q $wget_quiet "$pkg_url/$pkg_file" \
+	wget -c -T 30 -t 3 $wget_quiet "$pkg_url/$pkg_file" \
 		&>$QDKE_LOGDIR/$user_name/$apps_name-download
 	
 	cd $work_home/$user_name/$apps_name || die
@@ -147,8 +147,8 @@ _msys2_getpkg_init
 # pkg_ver=?
 # pkg_rel=?
 # pkg_url=?
-# msys2_getpkg_setWork
-# msys2_getpkg_setType src/bin
+# msys2_getpkg_set
+# msys2_getpkg_setExtra src/bin
 # msys2_getpkg_getVer
 # msys2_getpkg_getPkg
 #----------------------------------------
