@@ -50,6 +50,8 @@ qstk_mathatlas_set() {
 }
 
 qstk_mathatlas_getFromSourceforge() {
+	log_info "$FUNCNAME"
+	
 	SOURCEFORGE_MIRROR=downloads.sourceforge.net
 	pkg=math-atlas
 	pkg_ver=3.10.2
@@ -59,17 +61,50 @@ qstk_mathatlas_getFromSourceforge() {
 	pkg_url=http://$SOURCEFORGE_MIRROR/project/math-atlas/Stable/$pkg_ver/atlas$pkg_ver.tar.bz2
 	work_home=$QSTK_WORK_HOME
 	user_name=math-atlas
-	apps_name=sourceforge
-	
+	apps_name=math-atlas
 }
 
 qstk_mathatlas_getFromGithub() {
+	log_info "$FUNCNAME"
 	
 	work_home=$QSTK_WORK_HOME
-	user_name=$2
-	apps_name=$3
+	user_name=math-atlas
+	apps_name=math-atlas
 }
 
+qstk_mathatlas_getFromGithub2() {
+	log_info "$FUNCNAME"
+	
+	work_home=$QSTK_WORK_HOME
+	user_name=vtjnash
+	apps_name=atlas-3.10.0
+}
 
+test_init() {
+	log_info "$FUNCNAME"
+	
+	tmpdir=$work_home/$user_name/$apps_name
+	[ -d $tmpdir ] || mkdir -p $tmpdir >/dev/null 2>&1
+}
 
+test_main() {
+	log_info "$FUNCNAME"
+	
+	utils_github_cloneWithResume   $work_home $user_name $apps_name
+	utils_github_updateWithResume  $work_home $user_name $apps_name
+	
+	
+}
+
+test_example() {
+	log_info "$FUNCNAME"
+	
+	qstk_mathatlas_getFromGithub2
+	
+	test_init
+	test_main
+}
+# math-atlas/math-atlas
+# vtjnash/atlas-3.10.0
+test_example
 #----------------------------------------

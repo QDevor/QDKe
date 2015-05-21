@@ -44,7 +44,7 @@ _utils_python_initVer() {
 	
 	export EASY_INSTALL=easy_install-$PYVER2
 	
-	export QDKe_PYSP_PATH=mingw$QDKe_VAR_ARCH/lib/python$PYVER2/site-packages
+	export QDKe_PYSP_PATH=/mingw$QDKe_VAR_nCMD/lib/python$PYVER2/site-packages
 	
 	log_warning "We Are Running ON Python $PYVER3."
 }
@@ -142,7 +142,8 @@ _utils_python_installBySetuptools() {
 	is_xp=$QDKe_VAR_IS_XP
 	arch=$QDKe_VAR_ARCH
 	for dep in $@; do
-		_utils_python_installBySetuptoolsCheck $dep
+		#_utils_python_installBySetuptoolsCheck $dep
+		_utils_python_installByPipCheck $dep
 		if [[ $? == "0" ]]; then
 			log_warning "$pkgname - Installed - Ignore."
 			continue

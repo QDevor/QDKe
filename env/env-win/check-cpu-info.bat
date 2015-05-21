@@ -47,6 +47,8 @@ if "%PROCESSOR_ARCHITECTURE%"=="x86" set "xCMD=x32" & if not defined PROCESSOR_A
 
 set "QDKe_VAR_xOS=!xOS!"
 set "QDKe_VAR_xCMD=!xCMD!"
+set "QDKe_VAR_nOS=!xOS:x=!"
+set "QDKe_VAR_nCMD=!xCMD:x=!"
 
 set "QDKe_VAR_HOST=x86_64"
 if "!xOS!" == "x32" (

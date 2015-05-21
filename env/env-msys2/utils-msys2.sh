@@ -23,7 +23,7 @@ _FNTYPE_UTILS_MSYS2=${_FN_UTILS_MSYS2#*.}
 _FNNAME_UTILS_MSYS2=${_FN_UTILS_MSYS2%.*}
 #----------------------------------------
 
-. utils-pacman.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-pacman.sh
 
 utils_msys2_installByPacman() {
 	# log_info "$FUNCNAME"
@@ -39,9 +39,10 @@ utils_msys2_installByPacman() {
 	 	 pkgver=`echo $dep | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '_' '-' | grep "="   | cut -d '=' -f2`
 		
 		# return 0 - not found
-		# return 1 - found any pkg
+		# return 1 - found arch pkg
+		# return 2 - found msys2 pkg
 		_utils_msys2_checkLocal $pkgname
-		if [[ $? == "1" ]]; then
+		if [[ $? == "1" ]] || [[ $? == "2" ]]; then
 			log_warning "$pkgname - Installed - Ignore."
 			continue
 		fi
@@ -52,11 +53,11 @@ utils_msys2_installByPacman() {
 		_utils_msys2_checkRemote $pkgname
 		if [[ $? == "0" ]]; then
 			continue
-		fi
-		log_warning "$pkgname - Installing."
-		if [[ $? == "1" ]]; then
-			#log_warning "mingw-w64-$arch-$pkgname - Found."
+		elif [[ $? == "1" ]]; then
 			pkgname=mingw-w64-$arch-$pkgname
+			log_warning "Installing - $pkgname."
+		else
+			log_warning "Installing - $pkgname."
 		fi
 		
 		doloop=1

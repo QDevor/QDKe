@@ -29,6 +29,7 @@ _utils_pyqstk_initDeps() {
 	# log_info "$FUNCNAME"
 	
 	utils_msys2_installByPacman $PYTHON-pandas
+
 	utils_python_install qstk
 	utils_python_install tushare
 }

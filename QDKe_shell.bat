@@ -43,9 +43,13 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
-rem msys2-check-github msys2-check-msys2
-set DJN=msys2-check-msys2
-bash --login -i -c "../env/env-test/%DJN%.sh"
+:: msys2-check-github msys2-check-msys2
+:: set DJN=msys2-check-msys2
+:: bash --login -i -c "../env/env-test/%DJN%.sh"
+
+:: qstk-math-atlas.sh
+set DJN=qstk-math-atlas
+bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

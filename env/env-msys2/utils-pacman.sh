@@ -128,26 +128,27 @@ _utils_msys2_checkRemote() {
 	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '_' '-' | tr '=' ' ' | cut -d ' ' -f1`
 	 pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '_' '-' | grep "="   | cut -d '=' -f2`
 	
-	log_info "[pacman] try search remote - mingw-w64-$arch-$pkgname."
+#	log_info "[pacman] try search remote - mingw-w64-$arch-$pkgname."
 	pacman -Ss mingw-w64-$arch-$pkgname > /dev/null 2>&1
 	if [[ $? == "0" ]]; then
-		log_warning "[pacman] - found - mingw-w64-$arch-$pkgname."
+		log_warning "[pacman] - found remote - mingw-w64-$arch-$pkgname."
 		return 1
 	fi
 	
-	log_info "[pacman] try search remote - $pkgname."
+#	log_info "[pacman] try search remote - $pkgname."
 	pacman -Ss $pkgname > /dev/null 2>&1
 	if [[ $? == "0" ]]; then
-		log_warning "[pacman] - found - $pkgname."
+#		log_warning "[pacman] - found remote - $pkgname."
 		return 2
 	fi
 	
-	log_warning "[pacman] - not found - $pkgname."
+#	log_warning "[pacman] - not found remote - any $pkgname."
 	return 0
 }
 
 # return 0 - not found
-# return 1 - found any pkg
+# return 1 - found  arch pkg
+# return 2 - found msys2 pkg
 _utils_msys2_checkLocal() {
 	if [[ ! $# -eq 1 ]]; then
     log_error "Usage: $FUNCNAME deps."
@@ -158,14 +159,21 @@ _utils_msys2_checkLocal() {
 	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '_' '-' | tr '=' ' ' | cut -d ' ' -f1`
 	 pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '_' '-' | grep "="   | cut -d '=' -f2`
 	
-	log_info "[pacman] try search local - $pkgname."
-	pacman -Qi $pkgname > /dev/null 2>&1
+	log_info "[pacman] try search local - mingw-w64-$arch-$pkgname."
+	pacman -Qi mingw-w64-$arch-$pkgname > /dev/null 2>&1
 	if [[ $? == "0" ]]; then
-		log_warning "[pacman] - found - $pkgname."
+#		log_warning "[pacman] - found local - mingw-w64-$arch-$pkgname."
 		return 1
 	fi
 	
-	log_warning "[pacman] - not found - $pkgname."
+#	log_info "[pacman] try search local - $pkgname."
+	pacman -Qi $pkgname > /dev/null 2>&1
+	if [[ $? == "0" ]]; then
+#		log_warning "[pacman] - found local - $pkgname."
+		return 2
+	fi
+	
+#	log_warning "[pacman] - not found local - any $pkgname."
 	return 0
 }
 
