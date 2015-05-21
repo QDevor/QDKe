@@ -106,11 +106,11 @@ test_mainExtra() {
 	#[ -d $BUILD_DST_DIR ] && rm -rf $BUILD_DST_DIR >/dev/null 2>&1
 	cd $BUILD_SRC_DIR || die
 	#gitwash || die
-	#make srcdir=../github.build
-#ATLAS/doc :
-#	mkdir ATLAS/doc
-#	cd ATLAS/doc ; $(extH) rout=ATLAS/doc
-#	cd ATLAS/doc ; $(MAKE) -f Make.ext
+	make srcdir=../github.build
+	cd $BUILD_DST_DIR || die
+	sed -i -e 's/.*ATLAS\/doc.*[^\\]$/#&/g' Makefile | grep "ATLAS\/doc"
+	sed -i -e 's/.*mkdir ATLAS\/doc$/#&/g' Makefile | grep "ATLAS\/doc"
+	
 	doloop_1st=1
 	while [ $doloop_1st = 1 ]; do
 		cd $BUILD_DST_DIR || die
@@ -140,8 +140,9 @@ test_mainExtra() {
 	log_info "$FUNCNAME - make done."
 	log_info "$FUNCNAME - shell doing."
 	./atltar.sh >$QDKE_LOGDIR/$user_name-$apps_name-$FUNCNAME-atltar.log 2>&1
-	log_info "$FUNCNAME - shell done."
-	extract || die
+	log_info "$FUNCNAME - ATLS SOURCE PLACED AT:"
+	log_info "$FUNCNAME - $BUILD_DST_DIR/ATLAS."
+	#extract || die
 }
 
 test_example() {
@@ -168,6 +169,6 @@ qstk_mathatlas_init
 
 # math-atlas/math-atlas
 # vtjnash/atlas-3.10.0
-test_example
+test_example2
 # test_example2
 #----------------------------------------
