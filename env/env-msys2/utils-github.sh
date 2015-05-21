@@ -28,14 +28,16 @@ _utils_github_init() {
 	fi
 	
 	_gitconfig=$WORK_HOME/.gitconfig
-	if [ ! -f $_gitconfig ]; then
-		log_info "We Are Creating $WORK_HOME/.gitconfig." 
+	if [[ ! -f $_gitconfig ]]; then
+		log_info "We Are Creating $WORK_HOME/.gitconfig."
 		echo "[user]"                    >$_gitconfig
 		echo "	name = $USERNAME"       >>$_gitconfig
 		echo "	email = $USEREMAIL"     >>$_gitconfig
 		echo "[core]"                   >>$_gitconfig
 		echo "	autocrlf = false"       >>$_gitconfig
-	fi
+else
+	log_info "We Are Finding $WORK_HOME/.gitconfig."	
+fi
 	
 	return 0
 }

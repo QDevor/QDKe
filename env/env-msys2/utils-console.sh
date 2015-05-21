@@ -138,13 +138,3 @@ function die() {
 	log_error "$?"
 }
 
-function _pause() {
-	read -n 1 -p "$*" INP
-	if [ $INP != '' ] ; then
-		echo -ne '\b \n'
-	fi
-}
-
-function pause() {
-	read -n1 -p "Press any key to continue..."
-}

@@ -15,17 +15,16 @@
 # limitations under the License.
 #
 
-export USERNAME=QDevor
-export USEREMAIL=QDevor@163.com
-
-
-# msys2-check-github msys2-check-msys2
-
-runme_script=msys2-check-msys2
-
-cd ./env/env-test/
-./$runme_script.sh
-cd ../../
-echo [QDKe] - Last return $0 - $1
-bash
-
+# A git hook to make sure user.email and user.mail in repository exists before committing
+global_email=$(git config --global user.email)
+global_name=$(git config --global user.name)
+repository_email=$(git config user.email)
+repository_name=$(git config user.name)
+if [ -z "$repository_email" ] || [ -z "$repository_name" ] || [ -n "$global_email" ] || [ -n "$global_name" ]; then
+	# user.email is empty
+	echo "ERROR: [pre-commit hook] Aborting commit because user.email or user.name is missing. Configure them for this repository. Make sure not to configure globally."
+	exit 1
+else
+	# user.email is not empty
+	exit 0
+fi

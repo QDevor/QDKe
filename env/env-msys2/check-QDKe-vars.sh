@@ -16,8 +16,8 @@
 #
 
 #----------------RUN-ONCE----------------
-if [[ x$INCLUDE_ENTRY_COMMON_SCRIPT == "xtrue" ]]; then
-	echo [QDKe] - We Are Checking Included More Than Once - entry-common.sh.
+if [[ x$INCLUDE_CHECK_QDKe_VARS_SCRIPT == "xtrue" ]]; then
+	echo [QDKe] - We Are Checking Included More Than Once - check-QDKe-vars.sh.
 else
 #----------------RUN-ONCE----------------
 
@@ -26,14 +26,14 @@ else
 # We will only check '$0' at here "entry-common.sh".
 # Validity from env/../x.sh included this script
 # echo [Debug] - '$0'=$0
-_PGMDIR_ENTRY_COMMON=`dirname $0`
-_PGMDIR_ENTRY_COMMON=`cd $_PGMDIR_ENTRY_COMMON && pwd -P`
-_FN_ENTRY_COMMON=`basename $0`
-_FNTYPE_ENTRY_COMMON=${_FN_ENTRY_COMMON#*.}
-_FNNAME_ENTRY_COMMON=${_FN_ENTRY_COMMON%.*}
-# echo [Debug] - The script is: $_PGMDIR_ENTRY_COMMON/$_FNNAME_ENTRY_COMMON.$_FNTYPE_ENTRY_COMMON
-_PGMDIR_ENTRY_COMMON=`dirname $_PGMDIR_ENTRY_COMMON`
-if [ ! -d $_PGMDIR_ENTRY_COMMON/env-msys2 ]; then
+_PGMDIR_CHECK_QDKe_VARS=`dirname $0`
+_PGMDIR_CHECK_QDKe_VARS=`cd $_PGMDIR_CHECK_QDKe_VARS && pwd -P`
+_FN_CHECK_QDKe_VARS=`basename $0`
+_FNTYPE_CHECK_QDKe_VARS=${_FN_CHECK_QDKe_VARS#*.}
+_FNNAME_CHECK_QDKe_VARS=${_FN_CHECK_QDKe_VARS%.*}
+# echo [Debug] - The script is: $_PGMDIR_CHECK_QDKe_DIRS/$_FNNAME_CHECK_QDKe_VARS.$_FNTYPE_CHECK_QDKe_VARS
+_PGMDIR_CHECK_QDKe_VARS=`dirname $_PGMDIR_CHECK_QDKe_VARS`
+if [ ! -d $_PGMDIR_CHECK_QDKe_VARS/env-msys2 ]; then
 	echo [QDKe] - We Are Running Error, Please Check Reference Path.
 	exit 1
 	return 0
@@ -41,21 +41,14 @@ fi
 
 #----------------------------------------
 
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-console.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-base.sh
+[[ -z $(echo $QDKe_HOST_OS | grep -i "Linux") ]] || unset QDKe_VAR_IS_XP
 
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-vars.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-dirs.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-vars.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-dirs.sh
+echo "[Debug] -    QDKe_HOST_OS=$QDKe_HOST_OS"
+echo "[Debug] - QDKe_VAR_NPROCS=$QDKe_VAR_NPROCS"
+echo "[Debug] -   QDKe_VAR_ARCH=$QDKe_VAR_ARCH"
 
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-deps-msys2.sh
-
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 
 #----------------RUN-ONCE----------------
-export INCLUDE_ENTRY_COMMON_SCRIPT=true
+export INCLUDE_CHECK_QDKe_VARS_SCRIPT=true
 fi
 #----------------RUN-ONCE----------------

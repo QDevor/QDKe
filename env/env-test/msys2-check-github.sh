@@ -27,6 +27,9 @@ PROGNAME=${FILENAME%.*}
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
 test_init() {
+	log_info "$FUNCNAME"
+	
+	[ -d $work_home ] || mkdir -p $work_home
 	cd $work_home || die
 	rm -rf $work_home/$user_name/$apps_name
 }

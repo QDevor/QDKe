@@ -30,6 +30,12 @@ _tpl_buildgnu_init() {
 	export QDKe_BUILD_PREFIX=$QDKE_USR
 	export QDKe_BUILD_TARGET=$QDKe_VAR_ARCH-w64-mingw32
 	
+	if [ $QDKe_VAR_IS_XP = "true" ]; then
+		export QDKe_JOBS=1
+	else
+		export QDKe_JOBS=$(printf "$QDKe_VAR_DFLT_MAX_JOBS\n$QDKe_VAR_NPROCS" | \
+			sort -n | head -1)
+	fi
 	export QDKe_CC=$QDKe_BUILD_TARGET-cc
 }
 
@@ -56,25 +62,41 @@ tpl_buildgnu_setExtra() {
 }
 
 tpl_buildgnu_conf() {
+	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then	
 	cd ''$BUILD_DST_DIR'' &&  \
 	''${BUILD_SRC_DIR}'/configure' \
 		--prefix=''$QDKe_BUILD_PREFIX'' \
 		  --host=''$QDKe_BUILD_TARGET'' \
 		 --build=''$QDKe_BUILD_TARGET'' \
 		|| die
-	touch ""
+	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+	fi
 }
 
 tpl_buildgnu_make() {
-	:
+	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
+	cd ''$BUILD_DST_DIR'' &&  \
+	make
+	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+	fi
 }
 
 tpl_buildgnu_makeExtra() {
-	:
+	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
+	cd ''$BUILD_DST_DIR'' &&  \
+	make html && \
+	make docs && \
+	make pdf
+	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+	fi
 }
 
 tpl_buildgnu_makeInstall() {
-	:
+	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
+	cd ''$BUILD_DST_DIR'' &&  \
+	make install
+	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+	fi
 }
 #----------------------------------------
 _tpl_buildgnu_init
