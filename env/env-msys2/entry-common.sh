@@ -57,6 +57,8 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-msys2.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python.sh
 
+. $_PGMDIR_ENTRY_COMMON/env-msys2/tpl-build-gnu.sh
+
 #----------------RUN-ONCE----------------
 export INCLUDE_ENTRY_COMMON_SCRIPT=true
 fi

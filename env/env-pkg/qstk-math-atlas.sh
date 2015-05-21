@@ -31,7 +31,7 @@ export PYTHON=python2
 #----------------------------------------
 
 qstk_mathatlas_init() {
-
+	:
 }
 
 qstk_mathatlas_checkArgsNum() {
@@ -92,11 +92,22 @@ test_main() {
 	
 	utils_github_cloneWithResume   $work_home $user_name $apps_name
 	utils_github_updateWithResume  $work_home $user_name $apps_name
-	
+}
+
+test_mainExtra() {
 	
 }
 
 test_example() {
+	log_info "$FUNCNAME"
+	
+	qstk_mathatlas_getFromGithub
+	
+	test_init
+	test_main
+}
+
+test_example2() {
 	log_info "$FUNCNAME"
 	
 	qstk_mathatlas_getFromGithub2
@@ -107,4 +118,5 @@ test_example() {
 # math-atlas/math-atlas
 # vtjnash/atlas-3.10.0
 test_example
+# test_example2
 #----------------------------------------
