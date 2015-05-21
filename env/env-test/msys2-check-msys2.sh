@@ -59,7 +59,7 @@ test_example() {
 	test_main
 }
 #----------------------------------------
-test_example flex src
-pause
+# test_example flex src
+# pause
 test_example grep bin
 #----------------------------------------

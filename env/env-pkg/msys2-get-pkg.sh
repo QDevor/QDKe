@@ -36,10 +36,10 @@ _msys2_getpkg_init() {
 # lookup install pkg
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/i686/
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/x86_64/
-	PKG_LOOKUP_URL_0=http://sourceforge.net/projects/msys2/files/Base/MSYS2/
-	PKG_LOOKUP_URL_1=http://sourceforge.net/projects/msys2/files/REPOS/MSYS2/
-	PKG_LOOKUP_URL_2=http://sourceforge.net/projects/msys2/files/Base/MINGW/
-	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW/
+	PKG_LOOKUP_URL_0=http://sourceforge.net/projects/msys2/files/Base/MSYS2
+	PKG_LOOKUP_URL_1=http://sourceforge.net/projects/msys2/files/REPOS/MSYS2
+	PKG_LOOKUP_URL_2=http://sourceforge.net/projects/msys2/files/Base/MINGW
+	PKG_LOOKUP_URL_3=http://sourceforge.net/projects/msys2/files/REPOS/MINGW
 }
 
 _msys2_getpkg_checkArgsNum() {
@@ -106,19 +106,32 @@ msys2_getpkg_setExtra() {
 msys2_getpkg_getVer() {
 	log_info "Searching from $PKG_LOOKUP_URL_1."
 	
-	pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
-		grep -i 'msys2/files/REPOS/MSYS2/'$pkg_typ'/' | \
-		sed -n 's,.*/'$pkg_nam'-\([0-9\.]*-.*\)\.src.tar.*/.*,\1,p' | \
-		head -1`
-	
-	pkg_ver=`echo $pkgverrel | cut -d '-' -f1`
-	pkg_rel=`echo $pkgverrel | cut -d '-' -f2`
-	
-	#	pkgurl=$PKG_MIRROR/msys2/Base/MSYS2/Sources/
-	#	pkgurl=$PKG_MIRROR/msys2/Base/MINGW/Sources/
-	#	pkgurl=$PKG_MIRROR/msys2/REPOS/MINGW/Sources/
-	pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
-	pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
+	if [[ $pkg_typ == "Sources" ]]; then
+		pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
+			grep -i 'msys2/files/REPOS/MSYS2/'$pkg_typ'/' | \
+			sed -n 's,.*/'$pkg_nam'-\([0-9\.]*-.*\)\.src.tar.*/.*,\1,p' | \
+			head -1`
+		
+		pkg_ver=`echo $pkgverrel | cut -d '-' -f1`
+		pkg_rel=`echo $pkgverrel | cut -d '-' -f2`
+		
+		#	pkgurl=$PKG_MIRROR/msys2/Base/MSYS2/Sources/
+		#	pkgurl=$PKG_MIRROR/msys2/Base/MINGW/Sources/
+		#	pkgurl=$PKG_MIRROR/msys2/REPOS/MINGW/Sources/
+		pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
+		pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
+	else
+		pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
+			grep -i 'msys2/files/REPOS/MSYS2/'$pkg_typ'/' | \
+			sed -n 's,.*/'$pkg_nam'-\([0-9\.]*-.*\)\.pkg.tar.*/.*,\1,p' | \
+			head -1`
+		
+		pkg_ver=`echo $pkgverrel | cut -d '-' -f1`
+		pkg_rel=`echo $pkgverrel | cut -d '-' -f2`
+		
+		pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
+		pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.pkg.tar.xz
+	fi
 	
 	log_info "Found - $pkg_url/$pkg_file."
 }
