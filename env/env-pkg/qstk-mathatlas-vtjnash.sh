@@ -29,26 +29,23 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
-. $PROGDIR/../env-pkg/tools-txt2man.sh
+# . $PROGDIR/../env-pkg/tools-txt2man.sh
 #----------------------------------------
-qstk_mathatlas_init() {
+QDKeDev_init() {
 	:
-	#utils_msys2_installByPacman txt2man
 }
 
-qstk_mathatlas_checkArgsNum() {
-	if [[ $# -lt 3 ]]; then
-		log_error "We Are Checking arguments mismatch."
-		# return 1
-	fi
-	return 0
+QDKeDev_set() {
+	log_info "$FUNCNAME"
+	
+	work_home=$QSTK_WORK_HOME
+	user_name=vtjnash
+	apps_name=atlas-3.10.0
 }
 
-qstk_mathatlas_set() {
-	qstk_mathatlas_checkArgsNum $@
-	work_home=$1
-	user_name=$2
-	apps_name=$3
+QDKeDev_get() {
+	utils_github_cloneWithResume   $work_home $user_name $apps_name
+	utils_github_updateWithResume  $work_home $user_name $apps_name
 }
 
 qstk_mathatlas_getFromSourceforge() {
@@ -145,6 +142,10 @@ test_mainExtra() {
 	#extract || die
 }
 
+test_mainExtra2() {
+	
+}
+
 test_example() {
 	log_info "$FUNCNAME"
 	
@@ -163,12 +164,19 @@ test_example2() {
 	
 	test_init
 	test_main
+	test_mainExtra2
 }
 
-qstk_mathatlas_init
+#----------------------------------------
+work_home=$QSTK_WORK_HOME
+user_name=vtjnash
+apps_name=atlas-3.10.0
+#----------------------------------------
+QDKeDev_init
+QDKeDev_set
 
 # math-atlas/math-atlas
 # vtjnash/atlas-3.10.0
 test_example2
 # test_example2
-#----------------------------------------
+
