@@ -61,41 +61,41 @@ tpl_buildgnu_setExtra() {
 	:
 }
 
-tpl_buildgnu_conf() {
+tpl_buildgnu_config() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then	
-	cd ''$BUILD_DST_DIR'' &&  \
-	''${BUILD_SRC_DIR}'/configure' \
-		--prefix=''$QDKe_BUILD_PREFIX'' \
-		  --host=''$QDKe_BUILD_TARGET'' \
-		 --build=''$QDKe_BUILD_TARGET'' \
-		|| die
-	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+		cd ''$BUILD_DST_DIR'' &&  \
+		''${BUILD_SRC_DIR}'/configure' \
+			--prefix=''$QDKe_BUILD_PREFIX'' \
+			  --host=''$QDKe_BUILD_TARGET'' \
+			 --build=''$QDKe_BUILD_TARGET'' \
+			|| die
+		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
 
 tpl_buildgnu_make() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
-	cd ''$BUILD_DST_DIR'' &&  \
-	make
-	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+		cd ''$BUILD_DST_DIR'' &&  \
+		make
+		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
 
 tpl_buildgnu_makeExtra() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
-	cd ''$BUILD_DST_DIR'' &&  \
-	make html && \
-	make docs && \
-	make pdf
-	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+		cd ''$BUILD_DST_DIR'' &&  \
+		make html && \
+		make docs && \
+		make pdf
+		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
 
 tpl_buildgnu_makeInstall() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
-	cd ''$BUILD_DST_DIR'' &&  \
-	make install
-	touch $BUILD_DST_DIR/$FUNCNAME-stamp
+		cd ''$BUILD_DST_DIR'' &&  \
+		make install
+		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
 #----------------------------------------

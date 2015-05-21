@@ -34,12 +34,15 @@ _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 # git pull -v --progress  "origin"
 
 _utils_git_init() {
+	#git config user.name=
+	#git config user.email=
+	
 	alias gc='git commit'
 	alias gcv='git commit --no-verify'
 }
 
 utils_git_set() {	
-	template_prefix=$QDKE_ROOT/env/env-msys2/tpl-git-hooks
+	template_prefix=$QDKE_ROOT/env/env-msys2/tpl-githooks
 	dst_hooks_dir=$work_home/.git/hooks
 
 	# exe_cmd "mkdir -p $template_dir"
@@ -60,13 +63,14 @@ utils_git_set() {
 }
 
 utils_git_check() {
-	global_email=$(git config --global user.email)
 	global_name=$(git config --global user.name)
-	repository_email=$(git config user.email)
+	global_email=$(git config --global user.email)
 	repository_name=$(git config user.name)
-	if [ -z "$repository_email" ] || [ -z "$repository_name" ] || [ -n "$global_email" ] || [ -n "$global_name" ]; then
+	repository_email=$(git config user.email)
+	
+	if [ -z "$repository_name" ] || [ -z "$repository_email" ] || [ -n "$global_name" ] || [ -n "$global_email" ]; then
 	# user.email is empty
-	echo "ERROR: [pre-commit hook] Aborting commit because user.email or user.name is missing. Configure them for this repository. Make sure not to configure globally."
+	echo "[ERROR] - [pre-commit hook] Aborting commit because user.name or user.email is missing. Configure them for this repository. Make sure not to configure globally."
 	exit 1
 	else
 	# user.email is not empty
