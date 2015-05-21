@@ -30,8 +30,8 @@ _utils_pyqstk_initDeps() {
 	
 	utils_msys2_installByPacman $PYTHON-pandas
 
-	utils_python_install qstk
-	utils_python_install tushare
+	# utils_python_install qstk
+	# utils_python_install tushare
 }
 
 _utils_pyqstk_initDfltEnv() {
