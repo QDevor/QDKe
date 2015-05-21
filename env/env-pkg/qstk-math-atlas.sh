@@ -24,43 +24,52 @@ PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
+export PYTHON=python2
+#----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-pkg/msys2-get-pkg.sh
+. $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
-test_init() {
-	log_info "$FUNCNAME"
-	
-	[ -d $work_home ] || mkdir -p $work_home
-	cd $work_home || die
-	# rm -rf $work_home/$user_name/$apps_name
+
+qstk_mathatlas_init() {
+
 }
 
-test_main() {
-	log_info "$FUNCNAME"
-	echo "work_home=$work_home."
-	echo "user_name=$user_name, apps_name=$apps_name."
-	echo "apps_type=$apps_type."
-	
-	msys2_getpkg_set       $work_home $user_name $apps_name
-	msys2_getpkg_setExtra  $apps_type
-	
-	# msys2_getpkg_getVer
-	msys2_getpkg_getPkg
+qstk_mathatlas_checkArgsNum() {
+	if [[ $# -lt 3 ]]; then
+		log_error "We Are Checking arguments mismatch."
+		# return 1
+	fi
+	return 0
 }
 
-test_example() {
-	log_info "$FUNCNAME"
-	work_home=$WORK_HOME/test
-	user_name=msys2
-	apps_name=$1
-	apps_type=$2
-	
-	test_init
-	test_main
+qstk_mathatlas_set() {
+	qstk_mathatlas_checkArgsNum $@
+	work_home=$1
+	user_name=$2
+	apps_name=$3
 }
-#----------------------------------------
-# ^^acess http://sourceforge.net/ is too slow
-# test_example flex src
-# pause
-test_example grep bin
+
+qstk_mathatlas_getFromSourceforge() {
+	SOURCEFORGE_MIRROR=downloads.sourceforge.net
+	pkg=math-atlas
+	pkg_ver=3.10.2
+	pkg_file=$pkg-$pkg_ver.tar.bz2
+	pkg_dir=$pkg-$pkg_ver
+	# http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2
+	pkg_url=http://$SOURCEFORGE_MIRROR/project/math-atlas/Stable/$pkg_ver/atlas$pkg_ver.tar.bz2
+	work_home=$QSTK_WORK_HOME
+	user_name=math-atlas
+	apps_name=sourceforge
+	
+}
+
+qstk_mathatlas_getFromGithub() {
+	
+	work_home=$QSTK_WORK_HOME
+	user_name=$2
+	apps_name=$3
+}
+
+
+
 #----------------------------------------

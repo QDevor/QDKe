@@ -27,6 +27,7 @@ PROGNAME=${FILENAME%.*}
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
 _msys2_getpkg_init() {
+	SOURCEFORGE_MIRROR=downloads.sourceforge.net
 	PKG_MIRROR=http://jaist.dl.sourceforge.net/project
 # lookup source code
 # http://sourceforge.net/projects/msys2/files/Base/MSYS2/Sources/
@@ -87,8 +88,8 @@ msys2_getpkg_set() {
 	pkg_rel=
 	pkg_url=
 	
-	cd $work_home || die
-	mkdir -p $user_name/$apps_name >/dev/null 2>&1
+	tmpdir=$work_home/$user_name/$apps_name
+	[ -d $tmpdir ] || mkdir -p $tmpdir >/dev/null 2>&1
 }
 
 msys2_getpkg_setExtra() {
@@ -118,7 +119,7 @@ msys2_getpkg_getVer() {
 		#	pkgurl=$PKG_MIRROR/msys2/Base/MSYS2/Sources/
 		#	pkgurl=$PKG_MIRROR/msys2/Base/MINGW/Sources/
 		#	pkgurl=$PKG_MIRROR/msys2/REPOS/MINGW/Sources/
-		pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
+		pkg_url=http://$SOURCEFORGE_MIRROR/project/msys2/REPOS/MSYS2/$pkg_typ
 		pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.src.tar.gz
 	else
 		pkgverrel=`wget -q -O- ''$PKG_LOOKUP_URL_1'/'$pkg_typ'/' | \
@@ -128,9 +129,10 @@ msys2_getpkg_getVer() {
 		
 		pkg_ver=`echo $pkgverrel | cut -d '-' -f1`
 		pkg_rel=`echo $pkgverrel | cut -d '-' -f2`
+		pkg_any=`echo $pkgverrel | cut -d '-' -f3`
 		
-		pkg_url=$PKG_MIRROR/msys2/REPOS/MSYS2/$pkg_typ
-		pkg_file=$pkg_nam-$pkg_ver-$pkg_rel.pkg.tar.xz
+		pkg_url=http://$SOURCEFORGE_MIRROR/project/msys2/REPOS/MSYS2/$pkg_typ
+		pkg_file=$pkg_nam-$pkg_ver-$pkg_rel-$pkg_any.pkg.tar.xz
 	fi
 	
 	log_info "Found - $pkg_url/$pkg_file."
