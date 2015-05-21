@@ -78,7 +78,7 @@ utils_github_cloneWithResume () {
 				git remote add origin https://github.com/$user_name/$apps_name
 				# git fetch -v "origin"
 				# git checkout -b master remotes/origin/master --
-				# git checkout FETCH_HEAD
+				git checkout FETCH_HEAD
 				# git fetch https://github.com/google/zopfli HEAD
 				log_warning "$user_name/$apps_name/github - clone successful."
 				break;

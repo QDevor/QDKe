@@ -68,6 +68,7 @@ tpl_buildgnu_config() {
 			--prefix=''$QDKe_BUILD_PREFIX'' \
 			  --host=''$QDKe_BUILD_TARGET'' \
 			 --build=''$QDKe_BUILD_TARGET'' \
+			 $@ \
 			|| die
 		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
@@ -76,7 +77,7 @@ tpl_buildgnu_config() {
 tpl_buildgnu_make() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
 		cd ''$BUILD_DST_DIR'' &&  \
-		make
+		make $@
 		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
@@ -84,9 +85,9 @@ tpl_buildgnu_make() {
 tpl_buildgnu_makeExtra() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
 		cd ''$BUILD_DST_DIR'' &&  \
-		make html && \
-		make docs && \
-		make pdf
+		make html $@ && \
+		make docs $@ && \
+		make pdf $@
 		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }
@@ -94,7 +95,7 @@ tpl_buildgnu_makeExtra() {
 tpl_buildgnu_makeInstall() {
 	if [ ! -f $BUILD_DST_DIR/$FUNCNAME-stamp ]; then
 		cd ''$BUILD_DST_DIR'' &&  \
-		make install
+		make install $@
 		touch $BUILD_DST_DIR/$FUNCNAME-stamp
 	fi
 }

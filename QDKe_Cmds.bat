@@ -54,6 +54,7 @@ rem call env/env-test/%DJN%.bat
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
+cd home\qstk_home\math-atlas\math-atlas\github.build\ATLAS\include
 cmd
 :: setlocal disabledelayedexpansion
 :-------------------------------------
