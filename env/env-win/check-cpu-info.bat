@@ -39,6 +39,22 @@ echo [CPU Info] - NPROCS   = !QDKe_VAR_NPROCS!.
 echo [CPU Info] - CPU_ID   = !QDKe_VAR_CPU_ID!.
 %decho% [CPU Info] - CPU_ARCH = !QDKe_VAR_CPU_ARCH!.
 
+set tee=0
+for /f "tokens=1,* delims==" %%a in ('wmic cpu get name^,ExtClock^,NumberOfCores^,MaxClockSpeed /value') do (
+    set /a tee+=1
+    if "!tee!" == "3" set _cpu_exthz=%%b
+    if "!tee!" == "4" set _cpu_inthz=%%b
+    if "!tee!" == "5" set _cpu_name=%%b
+    if "!tee!" == "6" set _cpu_nprocs=%%b
+)
+%decho% CPU:
+%decho%      CPU个数       = %_cpu_nprocs%
+%decho%      处理器名称    = %_cpu_name%
+%decho%      外  频        = %_cpu_exthz%
+%decho%      主  频        = %_cpu_inthz%
+echo [CPU Info] - CPU_MHZ   = %_cpu_inthz%MHz
+set "QDKe_VAR_CPUMHZ=%_cpu_inthz%"
+
 set "xOS=x64"
 set "xCMD=x64"
 if "%PROCESSOR_ARCHITECTURE%"=="x86" set "xCMD=x32" & if not defined PROCESSOR_ARCHITEW6432 set "xOS=x32"

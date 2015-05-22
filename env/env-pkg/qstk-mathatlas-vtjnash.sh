@@ -50,9 +50,15 @@ QDKeDev_check() {
 QDKeDev_get() {
 	utils_github_cloneWithResume   $work_home $user_name $apps_name
 	utils_github_updateWithResume  $work_home $user_name $apps_name
+	
+	_pkg_file=lapack-3.5.0.tgz
+	_pkg_url=http://www.netlib.org/lapack/lapack-3.5.0.tgz
+	cd $QDKE_TMP || die
+	loop_curl $_pkg_file $_pkg_url
+	export QDEV_NETLIB_LAPACK_TARFILE=$QDKE_TMP/lapack-3.5.0.tgz
 }
 
-QDKeDev_set() {
+QDKeDev_try() {
 	:
 }
 

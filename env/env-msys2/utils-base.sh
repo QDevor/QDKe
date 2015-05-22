@@ -45,20 +45,48 @@ _utils_base_init() {
 	# 查看当前操作系统发行版信息
 	#cat /etc/issue | grep Linux
 	# 查看CPU信息
-	#cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
-	#cat /proc/cpuinfo | grep physical | uniq -c
+	_utils_base_cpuinfo=$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c)
+	# echo $_utils_base_cpuinfo
+	_utils_base_nprocs=$(echo $_utils_base_cpuinfo | cut -f1 -d' ')
+	#echo $_utils_base_nprocs
+	_utils_base_cpuhz=$(cat /proc/cpuinfo | grep 'cpu MHz' | cut -f2 -d: | uniq -c)
+	#echo $_utils_base_cpuhz
+	_utils_base_cpuhz=$(echo $_utils_base_cpuhz | cut -f2 -d' ' | cut -f1 -d'.')
+	#echo $_utils_base_cpuhz
+	# cat /proc/cpuinfo | grep physical | uniq -c
 	# CPU运行在32/64bit模式
 	#getconf LONG_BIT
 	# lm指long mode, 支持lm则是64bit
-	#cat /proc/cpuinfo | grep flags | grep ' lm ' | wc -l
+	_utils_base_lm=$(cat /proc/cpuinfo | grep flags | grep ' lm ' | wc -l)
 	# cpu完整物理信息
 	#dmidecode | grep -A48 'Processor Information$'
 	
+	log_info "We Are Checking CPU Info Again."
+	if [[ $_utils_base_lm -gt 0 ]]; then
+		log_info "We Are Finding $_utils_base_nprocs CPU, $_utils_base_cpuhz MHz(not support 64bit)."
+	else
+		log_info "We Are Finding $_utils_base_nprocs CPU, $_utils_base_cpuhz MHz(support 64bit)."
+	fi
+	# [[ -n $QDKe_VAR_NPROCS ]]  || export QDKe_VAR_NPROCS=$_utils_base_nprocs
+	[[ -n $QDKe_VAR_CPUMHZ ]]  || export QDKe_VAR_CPUMHZ=$_utils_base_cpuhz
+	
 	# [ x$QDKe_HOST_OS != "x" ] || export QDKe_HOST_OS=$(uname -s)
-	[[ -n $QDKe_HOST_OS ]]    || export QDKe_HOST_OS=$(uname -s)
-	[[ -n $QDKe_VAR_NPROCS ]] || QDKe_VAR_NPROCS=$(nproc 2>/dev/null || echo 1)
-	[[ -n $QDKe_VAR_ARCH ]]   || QDKe_VAR_ARCH=$(uname -m)
+	[[ -n $QDKe_HOST_OS ]]     || export QDKe_HOST_OS=$(uname -s)
+	[[ -n $QDKe_VAR_NPROCS ]]  || QDKe_VAR_NPROCS=$(nproc 2>/dev/null || echo 1)
+	[[ -n $QDKe_VAR_ARCH ]]    || QDKe_VAR_ARCH=$(uname -m)
 
+}
+
+# $1 - pkg_file, $2 - pkg_url
+# $3 - true - loop until sucessful
+loop_curl() {
+	exe_loop=1
+	while [ $exe_loop = 1 ]; do
+		if [ ! -f $1 ]; then
+			curl -O $2
+		fi
+		sleep 3
+	done
 }
 
 _utils_base_init

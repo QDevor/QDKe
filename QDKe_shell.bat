@@ -47,8 +47,8 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: set DJN=msys2-check-msys2
 :: bash --login -i -c "../env/env-test/%DJN%.sh"
 
-:: qstk-math-atlas.sh
-set DJN=qstk-math-atlas
+:: qstk-mathatlas-vtjnash 
+set DJN=qstk-mathatlas-vtjnash
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
