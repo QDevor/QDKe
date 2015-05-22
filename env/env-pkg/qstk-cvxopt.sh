@@ -38,6 +38,11 @@ qdev_get() {
 	utils_github_updateWithResume  $work_home $user_name $apps_name
 }
 
+qdev_set() {
+	export CVXOPT_BLAS_LIB='blas','gfortran','quadmath'
+	export CVXOPT_LAPACK_LIB='lapack'
+}
+
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
@@ -58,6 +63,9 @@ qdev_tst() {
 	return 1
 }
 
+#
+# http://cvxopt.org/install/index.html
+#
 # Required and optional software
 # ATLAS or BLAS + LAPACK
 # The GNU Scientific Library GSL.
@@ -75,6 +83,7 @@ apps_more=github
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
+qdev_setmore
 qdev_get
 qdev_check
 qdev_try
