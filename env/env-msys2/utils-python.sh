@@ -120,7 +120,7 @@ _utils_python_installBySetuptoolsCheck() {
 	check_pkg_exist=`cat $check_pkg_exist_file | grep "\./$pkgname-.*"`
 	if test "$check_pkg_exist" == ""; then
 		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-		check_pkg_exist=`cd $check_pkg_exist_file && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+		check_pkg_exist=`cd $check_pkg_exist_file >/dev/null 2>&1 && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
 	fi
 
 	if test "$check_pkg_exist" != ""; then
@@ -142,8 +142,8 @@ _utils_python_installBySetuptools() {
 	is_xp=$QDKe_VAR_IS_XP
 	arch=$QDKe_VAR_ARCH
 	for dep in $@; do
-		#_utils_python_installBySetuptoolsCheck $dep
-		_utils_python_installByPipCheck $dep
+		_utils_python_installBySetuptoolsCheck $dep
+		#_utils_python_installByPipCheck $dep
 		if [[ $? == "0" ]]; then
 			log_warning "$pkgname - Installed - Ignore."
 			continue
