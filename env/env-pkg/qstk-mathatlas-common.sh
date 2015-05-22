@@ -41,6 +41,19 @@ qdev_set() {
 	work_home=$1
 	user_name=$2
 	apps_name=$3
+	apps_more=$4
+	
+	if [[ -n $apps_more ]]; then
+		qdev_build_top=$work_home/$user_name/$apps_name
+		qdev_build_src=$qdev_build_top/$apps_more
+		qdev_build_dir=$qdev_build_top/$apps_more.build
+	else
+		qdev_build_top=$work_home/$user_name
+		qdev_build_src=$qdev_build_top/$apps_name
+		qdev_build_dir=$qdev_build_top/$apps_name.build
+	fi
+	
+	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 }
 
 qdev_check() {
@@ -85,14 +98,8 @@ qdev_build_make() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	qdev_build_top=$work_home/$user_name/$apps_name
-	qdev_build_src=$qdev_build_top/github
-	qdev_build_dir=$qdev_build_top/github.build
-	
 	set ORIGIN_HOME=$HOME
 	set HOME=$qdev_build_dir
-	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
-	
 	cd $qdev_build_dir
 	
 	qdev_build_config

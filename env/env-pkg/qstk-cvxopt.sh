@@ -41,13 +41,7 @@ qdev_get() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	qdev_build_top=$work_home/$user_name/$apps_name
-	qdev_build_src=$qdev_build_top/github
-	qdev_build_dir=$qdev_build_top/github.build
-	
-	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 	cd $qdev_build_dir
-	
 	$PYTHON setup.py install
 	# $PIP install cvxopt
 }
@@ -77,9 +71,10 @@ pkg_deps_py=
 work_home=$QSTK_WORK_HOME
 user_name=cvxopt
 apps_name=cvxopt
+apps_more=github
 #----------------------------------------
 qdev_init
-qdev_set					$work_home $user_name $apps_name
+qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_get
 qdev_check
 qdev_try
