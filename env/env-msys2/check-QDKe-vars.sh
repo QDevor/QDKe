@@ -43,9 +43,9 @@ fi
 
 [[ -z $(echo $QDKe_HOST_OS | grep -i "Linux") ]] || unset QDKe_VAR_IS_XP
 
-echo "[Debug] -    QDKe_HOST_OS=$QDKe_HOST_OS"
-echo "[Debug] - QDKe_VAR_NPROCS=$QDKe_VAR_NPROCS"
-echo "[Debug] -   QDKe_VAR_ARCH=$QDKe_VAR_ARCH"
+echo "[Debug] - QDKe_HOST_OS    = $QDKe_HOST_OS"
+echo "[Debug] - QDKe_VAR_NPROCS = $QDKe_VAR_NPROCS"
+echo "[Debug] - QDKe_VAR_ARCH   = $QDKe_VAR_ARCH"
 
 
 #----------------RUN-ONCE----------------

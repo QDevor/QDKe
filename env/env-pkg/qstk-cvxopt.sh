@@ -33,12 +33,22 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/qstk-mathatlas-common.sh
 #----------------------------------------
 
+qdev_init() {
+	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
+		utils_msys2_installByPacman gcc-fortran gcc-libgfortran
+		utils_msys2_installByPacman openblas lapack
+		touch $TMP/${PROGNAME}-stamp
+	fi
+}
+
 qdev_get() {
 	utils_github_cloneWithResume   $work_home $user_name $apps_name
 	utils_github_updateWithResume  $work_home $user_name $apps_name
 }
 
-qdev_set() {
+qdev_setmore() {
+	qdev_build_dir=$qdev_build_src
+	
 	export CVXOPT_BLAS_LIB='blas','gfortran','quadmath'
 	export CVXOPT_LAPACK_LIB='lapack'
 }
@@ -46,7 +56,7 @@ qdev_set() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	cd $qdev_build_dir
+	exe_cmd "cd $qdev_build_dir" || die
 	$PYTHON setup.py install
 	# $PIP install cvxopt
 }

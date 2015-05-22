@@ -52,7 +52,7 @@ for /f "tokens=1,* delims==" %%a in ('wmic cpu get name^,ExtClock^,NumberOfCores
 %decho%      处理器名称    = %_cpu_name%
 %decho%      外  频        = %_cpu_exthz%
 %decho%      主  频        = %_cpu_inthz%
-echo [CPU Info] - CPU_MHZ   = %_cpu_inthz%MHz
+echo [CPU Info] - CPU_MHZ  = %_cpu_inthz%MHz
 set "QDKe_VAR_CPUMHZ=%_cpu_inthz%"
 
 set "xOS=x64"
