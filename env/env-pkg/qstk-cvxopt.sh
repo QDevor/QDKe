@@ -33,6 +33,11 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/qstk-mathatlas-common.sh
 #----------------------------------------
 
+qdev_get() {
+	utils_github_cloneWithResume   $work_home $user_name $apps_name
+	utils_github_updateWithResume  $work_home $user_name $apps_name
+}
+
 # Required and optional software
 # ATLAS or BLAS + LAPACK
 # The GNU Scientific Library GSL.
