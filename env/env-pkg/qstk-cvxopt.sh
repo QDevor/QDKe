@@ -38,6 +38,32 @@ qdev_get() {
 	utils_github_updateWithResume  $work_home $user_name $apps_name
 }
 
+qdev_try() {
+	log_info "$FUNCNAME - $PROGNAME"
+	
+	qdev_build_top=$work_home/$user_name/$apps_name
+	qdev_build_src=$qdev_build_top/github
+	qdev_build_dir=$qdev_build_top/github.build
+	
+	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
+	cd $qdev_build_dir
+	
+	$PYTHON setup.py install
+	# $PIP install cvxopt
+}
+
+qdev_tst() {
+	cd $qdev_build_dir || die
+	cd examples/doc/chap8 || die
+	$PYTHON lp.py
+	if [ $? = 0 ]; then
+		log_info "$FUNCNAME - $PROGNAME - installation was successful."
+		return 0
+	fi
+	log_info "$FUNCNAME - $PROGNAME - installation was failed."
+	return 1
+}
+
 # Required and optional software
 # ATLAS or BLAS + LAPACK
 # The GNU Scientific Library GSL.
@@ -57,4 +83,4 @@ qdev_set					$work_home $user_name $apps_name
 qdev_get
 qdev_check
 qdev_try
-
+qdev_tst

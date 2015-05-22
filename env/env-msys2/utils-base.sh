@@ -84,6 +84,9 @@ loop_curl() {
 		exe_loop=1
 		while [ $exe_loop = 1 ]; do
 			curl -O $2
+			if [ $? = 0 ]; then
+				break;
+			fi
 			sleep 3
 		done
 	fi
