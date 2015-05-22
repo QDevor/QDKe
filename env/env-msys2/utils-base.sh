@@ -63,9 +63,9 @@ _utils_base_init() {
 	
 	log_info "We Are Checking CPU Info Again."
 	if [[ $_utils_base_lm -gt 0 ]]; then
-		log_info "We Are Finding $_utils_base_nprocs CPU, $_utils_base_cpuhz MHz(not support 64bit)."
-	else
 		log_info "We Are Finding $_utils_base_nprocs CPU, $_utils_base_cpuhz MHz(support 64bit)."
+	else
+		log_info "We Are Finding $_utils_base_nprocs CPU, $_utils_base_cpuhz MHz(not support 64bit)."
 	fi
 	# [[ -n $QDKe_VAR_NPROCS ]]  || export QDKe_VAR_NPROCS=$_utils_base_nprocs
 	[[ -n $QDKe_VAR_CPUMHZ ]]  || export QDKe_VAR_CPUMHZ=$_utils_base_cpuhz
