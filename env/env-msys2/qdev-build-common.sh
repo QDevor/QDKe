@@ -41,6 +41,19 @@ qdev_set() {
 	work_home=$1
 	user_name=$2
 	apps_name=$3
+	apps_more=$4
+	
+	if [[ -n $apps_more ]]; then
+		qdev_build_top=$work_home/$user_name/$apps_name
+		qdev_build_src=$qdev_build_top/$apps_more
+		qdev_build_dir=$qdev_build_top/$apps_more.build
+	else
+		qdev_build_top=$work_home/$user_name
+		qdev_build_src=$qdev_build_top/$apps_name
+		qdev_build_dir=$qdev_build_top/$apps_name.build
+	fi
+	
+	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 }
 
 qdev_check() {
@@ -85,14 +98,8 @@ qdev_build_make() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	qdev_build_top=$work_home/$user_name/$apps_name
-	qdev_build_src=$qdev_build_top/github
-	qdev_build_dir=$qdev_build_top/github.build
-	
 	set ORIGIN_HOME=$HOME
 	set HOME=$qdev_build_dir
-	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
-	
 	cd $qdev_build_dir
 	
 	qdev_build_config
@@ -107,21 +114,13 @@ qdev_try() {
 }
 
 #----------------------------------------
-pkg=math-atlas
-pkg_ver=3.10.2
-pkg_file=$pkg-$pkg_ver.tar.bz2
-pkg_dir=$pkg-$pkg_ver
-#pkg_url=http://liquidtelecom.dl.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2
-pkg_url=http://liquidtelecom.dl.sourceforge.net/project/math-atlas/Stable/$pkg_ver/atlas$pkg_ver.tar.bz2
-
-work_home=$QSTK_WORK_HOME
-user_name=math-atlas
-apps_name=math-atlas
-apps_more=sourceforge
+# work_home=$QSTK_WORK_HOME
+# user_name=?
+# apps_name=?
 #----------------------------------------
-qdev_init
-qdev_set					$work_home $user_name $apps_name $apps_more
-qdev_get
-qdev_check
-qdev_try
+# qdev_init
+# qdev_set					$work_home $user_name $apps_name
+# qdev_get
+# qdev_check
+# qdev_try
 
