@@ -80,13 +80,13 @@ _utils_base_init() {
 # $1 - pkg_file, $2 - pkg_url
 # $3 - true - loop until sucessful
 loop_curl() {
-	exe_loop=1
-	while [ $exe_loop = 1 ]; do
-		if [ ! -f $1 ]; then
+	if [ ! -f $1 ]; then
+		exe_loop=1
+		while [ $exe_loop = 1 ]; do
 			curl -O $2
-		fi
-		sleep 3
-	done
+			sleep 3
+		done
+	fi
 }
 
 _utils_base_init
