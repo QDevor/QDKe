@@ -30,45 +30,17 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
 # . $PROGDIR/../env-pkg/tools-txt2man.sh
+. $PROGDIR/../env-pkg/qstk-mathatlas-common.sh
 #----------------------------------------
-QDKeDev_init() {
-	:
-}
-
-QDKeDev_set() {
-	log_info "$FUNCNAME"
-	
-	work_home=$1
-	user_name=$2
-	apps_name=$3
-}
-
-QDKeDev_check() {
-	:
-}
-
-QDKeDev_get() {
-	utils_github_cloneWithResume   $work_home $user_name $apps_name
-	utils_github_updateWithResume  $work_home $user_name $apps_name
-	
-	_pkg_file=lapack-3.5.0.tgz
-	_pkg_url=http://www.netlib.org/lapack/lapack-3.5.0.tgz
-	cd $QDKE_TMP || die
-	loop_curl $_pkg_file $_pkg_url
-	export QDEV_NETLIB_LAPACK_TARFILE=$QDKE_TMP/lapack-3.5.0.tgz
-}
-
-QDKeDev_try() {
-	:
-}
 
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
 user_name=vtjnash
 apps_name=atlas-3.10.0
 #----------------------------------------
-QDKeDev_init
-QDKeDev_set					$work_home $user_name $apps_name
-QDKeDev_check
-QDKeDev_try
+qdev_init
+qdev_set					$work_home $user_name $apps_name
+qdev_get
+qdev_check
+qdev_try
 
