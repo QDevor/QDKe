@@ -35,6 +35,7 @@ export PYTHON=python2
 qdev_init() {
 	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
 		utils_msys2_installByPacman $PYTHON-pandas
+		utils_msys2_installByPacman $PYTHON-lxml
 		# utils_msys2_installByPacman $PYTHON-scipy
 		# utils_msys2_installByPacman $PYTHON-matplotlib
 		touch $TMP/${PROGNAME}-stamp
@@ -63,8 +64,8 @@ qdev_try() {
 
 qdev_tst() {
 	cd $qdev_build_dir || die
-	cd examples/doc/chap8 || die
-	$PYTHON lp.py
+	cd test || die
+	$PYTHON trading_test.py
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
 		return 0
@@ -76,9 +77,9 @@ qdev_tst() {
 #
 # Required and optional software
 #
-pkg_deps_gcc=
-# pkg_deps_py=scipy matplotlib cvxopt
-pkg_deps_py=python 2.x/3.x pandas
+pkg_deps_gcc=''
+# pkg_deps_py='scipy matplotlib cvxopt'
+pkg_deps_py='python2 python3 pandas lxml'
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
 user_name=waditu
