@@ -29,18 +29,43 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
-# . $PROGDIR/../env-pkg/tools-txt2man.sh
-. $PROGDIR/../env-pkg/qstk-mathatlas-common.sh
+. $PROGDIR/../env-pkg/tools-txt2man.sh
+. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
 #----------------------------------------
 
+# qdev_init 
+
+# qdev_set
+
+# qdev_setmore 
+
+# qdev_get
+
+# qdev_check
+
+# qdev_build_config
+
+# qdev_build_make
+
+# qdev_try
+
+# qdev_tst
+
+#
+# Required and optional software
+#
+pkg_deps_gcc=''
+pkg_deps_py=''
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
 user_name=vtjnash
 apps_name=atlas-3.10.0
+apps_more=sourceforge
 #----------------------------------------
 qdev_init
-qdev_set					$work_home $user_name $apps_name
+qdev_set					$work_home $user_name $apps_name $apps_more
+qdev_setmore
 qdev_get
 qdev_check
 qdev_try
-
+qdev_tst

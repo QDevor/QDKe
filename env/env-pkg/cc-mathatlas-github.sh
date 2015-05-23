@@ -30,150 +30,43 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
 . $PROGDIR/../env-pkg/tools-txt2man.sh
+. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
 #----------------------------------------
-qstk_mathatlas_init() {
-	:
-	#utils_msys2_installByPacman txt2man
-}
 
-qstk_mathatlas_checkArgsNum() {
-	if [[ $# -lt 3 ]]; then
-		log_error "We Are Checking arguments mismatch."
-		# return 1
-	fi
-	return 0
-}
+# qdev_init 
 
-qstk_mathatlas_set() {
-	qstk_mathatlas_checkArgsNum $@
-	work_home=$1
-	user_name=$2
-	apps_name=$3
-}
+# qdev_set
 
-qstk_mathatlas_getFromSourceforge() {
-	log_info "$FUNCNAME"
-	
-	SOURCEFORGE_MIRROR=downloads.sourceforge.net
-	pkg=math-atlas
-	pkg_ver=3.10.2
-	pkg_file=$pkg-$pkg_ver.tar.bz2
-	pkg_dir=$pkg-$pkg_ver
-	# http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2
-	pkg_url=http://$SOURCEFORGE_MIRROR/project/math-atlas/Stable/$pkg_ver/atlas$pkg_ver.tar.bz2
-	work_home=$QSTK_WORK_HOME
-	user_name=math-atlas
-	apps_name=math-atlas
-}
+# qdev_setmore 
 
-qstk_mathatlas_getFromGithub() {
-	log_info "$FUNCNAME"
-	
-	work_home=$QSTK_WORK_HOME
-	user_name=math-atlas
-	apps_name=math-atlas
-}
+# qdev_get
 
-qstk_mathatlas_getFromGithub2() {
-	log_info "$FUNCNAME"
-	
-	work_home=$QSTK_WORK_HOME
-	user_name=vtjnash
-	apps_name=atlas-3.10.0
-}
+# qdev_check
 
-test_init() {
-	log_info "$FUNCNAME"
-	
-	tmpdir=$work_home/$user_name/$apps_name
-	[ -d $tmpdir ] || mkdir -p $tmpdir >/dev/null 2>&1
-}
+# qdev_build_config
 
-test_main() {
-	log_info "$FUNCNAME"
-	
-	utils_github_cloneWithResume   $work_home $user_name $apps_name
-	utils_github_updateWithResume  $work_home $user_name $apps_name
-}
+# qdev_build_make
 
-test_mainExtra() {
-	tmpdir=$work_home/$user_name/$apps_name
-	
-	BUILD_SRC_DIR=$work_home/$user_name/$apps_name/github
-	BUILD_DST_DIR=$work_home/$user_name/$apps_name/github.build
-	
-	#[ -d $BUILD_DST_DIR ] || mkdir -p $BUILD_DST_DIR >/dev/null 2>&1
-	#[ -d $BUILD_DST_DIR ] && rm -rf $BUILD_DST_DIR >/dev/null 2>&1
-	cd $BUILD_SRC_DIR || die
-	#gitwash || die
-	make srcdir=../github.build
-	cd $BUILD_DST_DIR || die
-	sed -i -e 's/.*ATLAS\/doc.*[^\\]$/#&/g' Makefile | grep "ATLAS\/doc"
-	sed -i -e 's/.*mkdir ATLAS\/doc$/#&/g' Makefile | grep "ATLAS\/doc"
-	
-	doloop_1st=1
-	while [ $doloop_1st = 1 ]; do
-		cd $BUILD_DST_DIR || die
-		log_info "$FUNCNAME - make doing."
-		make >$QDKE_LOGDIR/$user_name-$apps_name-$FUNCNAME-1.log 2>&1
-		do_ok=$?
-		echo "make1 return - $do_ok"
-		if [ $do_ok != 0 ]; then
-			doloop_2nd=1
-			while [ $doloop_2nd = 1 ]; do
-				cd $BUILD_DST_DIR/ATLAS || die
-				make -f Make.ext >/dev/null 2>&1
-				do_ok=$?
-				echo "make1-ATLAS return - $do_ok"
-				if [ $do_ok = 0 ]; then
-					break;
-				fi
-				log_warning "ATLAS - make failed - auto try again inner."
-				sleep 3
-			done
-			log_warning "ATLAS - make failed - auto try again outer."
-		else
-			break;
-		fi
-	done
-	
-	log_info "$FUNCNAME - make done."
-	log_info "$FUNCNAME - shell doing."
-	./atltar.sh >$QDKE_LOGDIR/$user_name-$apps_name-$FUNCNAME-atltar.log 2>&1
-	log_info "$FUNCNAME - ATLS SOURCE PLACED AT:"
-	log_info "$FUNCNAME - $BUILD_DST_DIR/ATLAS."
-	#extract || die
-}
+# qdev_try
 
-test_mainExtra2() {
-	
-}
+# qdev_tst
 
-test_example() {
-	log_info "$FUNCNAME"
-	
-	qstk_mathatlas_getFromGithub
-	
-	test_init
-	test_main
-	test_mainExtra
-}
-
-test_example2() {
-	log_info "$FUNCNAME"
-	
-
-	qstk_mathatlas_getFromGithub2
-	
-	test_init
-	test_main
-	test_mainExtra2
-}
-
-qstk_mathatlas_init
-
-# math-atlas/math-atlas
-# vtjnash/atlas-3.10.0
-test_example2
-# test_example2
+#
+# Required and optional software
+#
+pkg_deps_gcc=''
+pkg_deps_py=''
 #----------------------------------------
+work_home=$QSTK_WORK_HOME
+user_name=math-atlas
+apps_name=math-atlas
+apps_more=github
+#----------------------------------------
+qdev_init
+qdev_set					$work_home $user_name $apps_name $apps_more
+qdev_setmore
+qdev_get
+qdev_check
+qdev_try
+qdev_tst
+

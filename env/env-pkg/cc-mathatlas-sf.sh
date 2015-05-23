@@ -29,27 +29,20 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
-# . $PROGDIR/../env-pkg/tools-txt2man.sh
+. $PROGDIR/../env-pkg/tools-txt2man.sh
+. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
 #----------------------------------------
-qdev_init() {
-	:
-}
 
-qdev_set() {
-	log_info "$FUNCNAME"
-	
-	work_home=$1
-	user_name=$2
-	apps_name=$3
-}
+# qdev_init 
 
-qdev_check() {
-	:
-}
+# qdev_set
+
+# qdev_setmore 
 
 qdev_get() {
-	utils_github_cloneWithResume   $work_home $user_name $apps_name
-	utils_github_updateWithResume  $work_home $user_name $apps_name
+	cd $QDKE_TMP || die
+	loop_curl $pkg_file $pkg_url
+	export _NETLIB_LAPACK_TARFILE=$QDKE_TMP/lapack-3.5.0.tgz
 	
 	_pkg_file=lapack-3.5.0.tgz
 	_pkg_url=http://www.netlib.org/lapack/lapack-3.5.0.tgz
@@ -58,55 +51,19 @@ qdev_get() {
 	export _NETLIB_LAPACK_TARFILE=$QDKE_TMP/lapack-3.5.0.tgz
 }
 
-qdev_build_config() {
-	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
-		cd $qdev_build_dir
-		$qdev_build_src/configure \
-			--cc=$QDKe_BUILD_TARGET-gcc \
-			-v 10 \
-			-b $QDKe_VAR_nCMD \
-			-D c -DPentiumCPS=$QDKe_VAR_CPUMHZ \
-			--prefix=''$QDKe_BUILD_PREFIX'/'$QDKe_BUILD_TARGET'' \
-			--with-netlib-lapack-tarfile=''$_NETLIB_LAPACK_TARFILE'' \
-			|| die
-		touch $qdev_build_dir/${FUNCNAME}-stamp-config
-	fi
-}
+# qdev_check
 
-qdev_build_make() {
-	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-make$1 ]; then
-		cd $qdev_build_dir
-		make $@ \
-			|| die
-		touch $qdev_build_dir/${FUNCNAME}-stamp-make$1
-	fi
-}
+# qdev_build_config
 
-qdev_try() {
-	log_info "$FUNCNAME - $PROGNAME"
-	
-	qdev_build_top=$work_home/$user_name/$apps_name
-	qdev_build_src=$qdev_build_top/github
-	qdev_build_dir=$qdev_build_top/github.build
-	
-	set ORIGIN_HOME=$HOME
-	set HOME=$qdev_build_dir
-	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
-	
-	cd $qdev_build_dir
-	
-	qdev_build_config
-	qdev_build_make build   || die # tune & build lib
-	qdev_build_make check   || die # sanity check correct answer
-	qdev_build_make ptcheck || die # sanity check parallel
-	qdev_build_make time    || die # check if lib is fast
-	qdev_build_make install || die # copy libs to install dir
-	
-	set $HOME=$ORIGIN_HOME
-	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
-}
+# qdev_build_make
 
-#----------------------------------------
+# qdev_try
+
+# qdev_tst
+
+#
+# Required and optional software
+#
 pkg=math-atlas
 pkg_ver=3.10.2
 pkg_file=$pkg-$pkg_ver.tar.bz2
@@ -114,6 +71,9 @@ pkg_dir=$pkg-$pkg_ver
 #pkg_url=http://liquidtelecom.dl.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2
 pkg_url=http://liquidtelecom.dl.sourceforge.net/project/math-atlas/Stable/$pkg_ver/atlas$pkg_ver.tar.bz2
 
+pkg_deps_gcc=''
+pkg_deps_py=''
+#----------------------------------------
 work_home=$QSTK_WORK_HOME
 user_name=math-atlas
 apps_name=math-atlas
@@ -121,7 +81,8 @@ apps_more=sourceforge
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
+qdev_setmore
 qdev_get
 qdev_check
 qdev_try
-
+qdev_tst

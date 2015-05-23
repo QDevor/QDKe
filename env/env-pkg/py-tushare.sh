@@ -28,8 +28,7 @@ export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
-#----------------------------------------
-. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
+. $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
 qdev_init() {
@@ -42,10 +41,7 @@ qdev_init() {
 	fi
 }
 
-qdev_get() {
-	utils_github_cloneWithResume   $work_home $user_name $apps_name
-	utils_github_updateWithResume  $work_home $user_name $apps_name
-}
+# qdev_set
 
 qdev_setmore() {
 	qdev_build_dir=$qdev_build_src
@@ -53,6 +49,14 @@ qdev_setmore() {
 	export CVXOPT_BLAS_LIB='blas','gfortran','quadmath'
 	export CVXOPT_LAPACK_LIB='lapack'
 }
+
+# qdev_get
+
+# qdev_check
+
+# qdev_build_config
+
+# qdev_build_make
 
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"

@@ -28,37 +28,16 @@ export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
+. $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
-# . $PROGDIR/../env-pkg/tools-txt2man.sh
-#----------------------------------------
+
 qdev_init() {
 	:
 }
 
-qdev_set() {
-	log_info "$FUNCNAME"
-	
-	work_home=$1
-	user_name=$2
-	apps_name=$3
-	apps_more=$4
-	
-	if [[ -n $apps_more ]]; then
-		qdev_build_top=$work_home/$user_name/$apps_name
-		qdev_build_src=$qdev_build_top/$apps_more
-		qdev_build_dir=$qdev_build_top/$apps_more.build
-	else
-		qdev_build_top=$work_home/$user_name
-		qdev_build_src=$qdev_build_top/$apps_name
-		qdev_build_dir=$qdev_build_top/$apps_name.build
-	fi
-	
-	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
-}
+# qdev_set
 
-qdev_check() {
-	:
-}
+# qdev_setmore
 
 qdev_get() {
 	utils_github_cloneWithResume   $work_home $user_name $apps_name
@@ -69,6 +48,10 @@ qdev_get() {
 	cd $QDKE_TMP || die
 	loop_curl $_pkg_file $_pkg_url
 	export _NETLIB_LAPACK_TARFILE=$QDKE_TMP/lapack-3.5.0.tgz
+}
+
+qdev_check() {
+	:
 }
 
 qdev_build_config() {
@@ -86,14 +69,7 @@ qdev_build_config() {
 	fi
 }
 
-qdev_build_make() {
-	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-make$1 ]; then
-		cd $qdev_build_dir
-		make $@ \
-			|| die
-		touch $qdev_build_dir/${FUNCNAME}-stamp-make$1
-	fi
-}
+# qdev_build_make
 
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
@@ -117,9 +93,10 @@ qdev_try() {
 # work_home=$QSTK_WORK_HOME
 # user_name=?
 # apps_name=?
+# apps_more=?
 #----------------------------------------
 # qdev_init
-# qdev_set					$work_home $user_name $apps_name
+# qdev_set					$work_home $user_name $apps_name $apps_more
 # qdev_get
 # qdev_check
 # qdev_try
