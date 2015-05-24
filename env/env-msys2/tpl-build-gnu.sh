@@ -30,7 +30,7 @@ _tpl_buildgnu_init() {
 	export QDKe_BUILD_PREFIX=$QDKE_USR
 	export QDKe_BUILD_TARGET=$QDKe_VAR_ARCH-w64-mingw32
 	
-	if [ $QDKe_VAR_IS_XP = "true" ]; then
+	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		export QDKe_JOBS=1
 	else
 		export QDKe_JOBS=$(printf "$QDKe_VAR_DFLT_MAX_JOBS\n$QDKe_VAR_NPROCS" | \

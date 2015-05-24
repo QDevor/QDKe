@@ -34,8 +34,8 @@ _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 # git pull -v --progress  "origin"
 
 _utils_git_init() {
-	#git config user.name=
-	#git config user.email=
+	git config --global user.email "QDevor@163.com"
+	git config --global user.name  "QDevor"
 	
 	alias gc='git commit'
 	alias gcv='git commit --no-verify'

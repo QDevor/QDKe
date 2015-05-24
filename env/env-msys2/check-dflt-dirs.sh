@@ -24,7 +24,7 @@ _PGMDIR_CHECK_DFLT_DIRS=`cd $_PGMDIR_CHECK_DFLT_DIRS && pwd -P`
 _FN_CHECK_DFLT_DIRS=`basename $0`
 _FNTYPE_CHECK_DFLT_DIRS=${_FN_CHECK_DFLT_DIRS#*.}
 _FNNAME_CHECK_DFLT_DIRS=${_FN_CHECK_DFLT_DIRS%.*}
-
+echo $0
 if [[ $QDKE_ROOT == "" ]]; then
 	export QDKE_ROOT=`cd $_PGMDIR_CHECK_DFLT_DIRS/../../ && pwd -P`
 	export QDKE_USR=$QDKE_ROOT/usr

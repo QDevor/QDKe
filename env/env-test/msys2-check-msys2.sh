@@ -25,7 +25,7 @@ PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-pkg/msys2-get-pkg.sh
+. $PROGDIR/../env-pkg/tool-msys2-getpkg.sh
 #----------------------------------------
 test_init() {
 	log_info "$FUNCNAME"

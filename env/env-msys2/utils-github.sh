@@ -27,7 +27,12 @@ _utils_github_init() {
 		# return 1
 	fi
 	
-	_gitconfig=$WORK_HOME/.gitconfig
+	if [ x$QDKe_HOST_OS = "xLinux" ]; then
+		_gitconfig=$HOME/.gitconfig
+	else
+		_gitconfig=$WORK_HOME/.gitconfig
+	fi
+
 	if [[ ! -f $_gitconfig ]]; then
 		log_info "We Are Creating $WORK_HOME/.gitconfig."
 		echo "[user]"                    >$_gitconfig
@@ -35,9 +40,9 @@ _utils_github_init() {
 		echo "	email = $USEREMAIL"     >>$_gitconfig
 		echo "[core]"                   >>$_gitconfig
 		echo "	autocrlf = false"       >>$_gitconfig
-else
-	log_info "We Are Finding $WORK_HOME/.gitconfig."	
-fi
+	else
+		log_info "We Are Finding $WORK_HOME/.gitconfig."	
+	fi
 	
 	return 0
 }

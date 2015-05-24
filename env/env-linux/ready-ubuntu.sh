@@ -15,16 +15,31 @@
 # limitations under the License.
 #
 
-export USERNAME=QDevor
-export USEREMAIL=QDevor@163.com
+# 更新apt-get版本
+# gedit /etc/apt/sources.list
+# 前面的“#”号，小心不要去掉注释前面的“#”号
+apt-get update
+
+# 安装 vsftpd 服务
+apt-get install vsftpd
+
+# gedit /etc/vsftpd.conf
+
+# 以下两行前面的“#”去掉
+#local_enable=YES
+
+#write_enable=YES
+
+# 输入命令重启 vsftpd：
+/etc/init.d/vsftpd restart
+
+#安装编译器 gcc、g++等
+#依次在终端输入一下命令:
+
+apt-get install build-essential
+apt-get install bison flex
+apt-get install manpages-dev
 
 
-# msys2-check-github msys2-check-msys2
 
-runme_script=msys2-check-msys2
-
-./env/env-test/$runme_script.sh
-
-echo [QDKe] - Last return $0 - $1
-bash
 
