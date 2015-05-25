@@ -70,7 +70,7 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 
-	$PYTHON ./src/python/html.py
+	qdev_django_runserver
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."

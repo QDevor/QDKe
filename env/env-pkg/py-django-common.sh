@@ -85,7 +85,7 @@ qdev_django_startapp() {
 	
 	cd $django_work_dir/$django_projectname || die
 	
-	if [ ! -d 1$django_projectname ]; then
+	if [ ! -d $django_appname ]; then
 		log_warning "[Django] - Creating Application - $django_appname."
 		$PYTHON manage.py startapp $django_appname
 		return $?
