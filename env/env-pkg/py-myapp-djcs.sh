@@ -33,7 +33,7 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	:
+	_utils_python_installByPip django_stockandflow
 }
 
 # qdev_set
