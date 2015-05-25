@@ -34,8 +34,6 @@ _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 # git pull -v --progress  "origin"
 
 _utils_git_init() {
-	git config --global user.email "QDevor@163.com"
-	git config --global user.name  "QDevor"
 	
 	alias gc='git commit'
 	alias gcv='git commit --no-verify'
@@ -46,6 +44,9 @@ utils_git_set() {
 	dst_hooks_dir=$work_home/.git/hooks
 	
 	if [ ! -f $dst_hooks_dir/pre-commit.sh ]; then
+		git config --global user.name  "QDevor"
+		git config --global user.email "QDevor@163.com"
+		
 		# exe_cmd "mkdir -p $template_dir"
 		exe_cmd "cp -rf $template_prefix-pre-commit.sh $dst_hooks_dir/pre-commit.sh"
 		exe_cmd "chmod -R a+x $dst_hooks_dir/pre-commit.sh"
