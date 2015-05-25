@@ -48,7 +48,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: bash --login -i -c "../env/env-test/%DJN%.sh"
 
 :: py-mathatlas-vtjnash py-cvxopt py-tushare
-set DJN=py-tushare
+set DJN=py-cvxopt
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
