@@ -40,6 +40,8 @@ qdev_init() {
 
 qdev_setmore() {
 	qdev_build_dir=$qdev_build_src
+	
+	#qdev_django_setmore mysite myapp
 }
 
 # qdev_get
@@ -53,13 +55,22 @@ qdev_setmore() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
+	_django_work_home=$qdev_build_src/src/python
+	_django_projectname=mysite
+	_django_appname=myapp
+	
 	# qdev_install
+	qdev_django_newproject \
+		$_django_work_home \
+		$_django_projectname \
+		$_django_appname
 	
 }
 
 qdev_tst() {
 	cd $qdev_build_dir || die
-	
+
+	$PYTHON ./src/python/html.py
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
@@ -77,7 +88,7 @@ pkg_deps_py=
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
 user_name=QDevor
-apps_name=myapp-qstk
+apps_name=djcs
 apps_more=github
 #----------------------------------------
 qdev_init
