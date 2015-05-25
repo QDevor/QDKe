@@ -48,8 +48,8 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: bash --login -i -c "../env/env-test/%DJN%.sh"
 
 :: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
-:: py-myapp-qstk
-set DJN=py-myapp-qstk
+:: py-myapp-djcs
+set DJN=py-myapp-djcs
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
