@@ -28,62 +28,53 @@ export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
-. $PROGDIR/../env-pkg/py-django-common.sh
-. $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
 
-qdev_init() {
-	:
+_py_django_common_init() {
+	utils_msys2_installByPacman sqlite3
+	utils_msys2_installByPacman $PYTHON-pandas
+	
+	utils_python_install django==1.8.1
+	utils_python_install django_crontab
 }
+
+# qdev_django_init
 
 # qdev_set
 
-qdev_setmore() {
-	qdev_build_dir=$qdev_build_src
+qdev_django_setmore() {
+	:
 }
 
-# qdev_get
+# qdev_django_get
 
-# qdev_check
+qdev_django_check() {
+	:
+}
 
 # qdev_build_config
 
 # qdev_build_make
 
-qdev_try() {
-	log_info "$FUNCNAME - $PROGNAME"
-	
-	# qdev_install
-	
-}
+# qdev_install
 
-qdev_tst() {
-	cd $qdev_build_dir || die
-	
-	
-	if [ $? = 0 ]; then
-		log_info "$FUNCNAME - $PROGNAME - installation was successful."
-		return 0
-	fi
-	log_info "$FUNCNAME - $PROGNAME - installation was failed."
-	return 1
-}
+# qdev_try
 
-#
-# Required and optional software
-#
-pkg_deps_gcc=
-pkg_deps_py=
+# qdev_tst
+
 #----------------------------------------
-work_home=$QSTK_WORK_HOME
-user_name=QDevor
-apps_name=myapp-qstk
-apps_more=github
+# work_home=$QSTK_WORK_HOME
+# user_name=?
+# apps_name=?
+# apps_more=?
 #----------------------------------------
-qdev_init
-qdev_set					$work_home $user_name $apps_name $apps_more
-qdev_setmore
-qdev_get
-qdev_check
-qdev_try
-qdev_tst
+_py_django_common_init
+# qdev_init
+# qdev_set					$work_home $user_name $apps_name $apps_more
+# qdev_setmore
+# qdev_get
+# qdev_check
+# qdev_install
+# qdev_try
+# qdev_tst
+

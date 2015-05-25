@@ -27,11 +27,12 @@ PROGNAME=${FILENAME%.*}
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-msys2/utils-python-qstk.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
-qdev_init() {
+_py_qstk_common_init() {
+	export QSTK_WORK_HOME=$WORK_HOME/qstk_home
+	
 	export QSTK_HOME=$QDKe_PYSP_PATH/QSTK
 	export QS=$QSTK_HOME
 	#	export QS=$QSTK_WORK_HOME
@@ -78,6 +79,8 @@ qdev_init() {
 #	export NAG_KUSARI_FILE=/usr/local/lib/NAG/nagkey.txt
 }
 
+# qdev_init
+
 # qdev_set
 
 qdev_setmore() {
@@ -94,7 +97,24 @@ qdev_check() {
 
 # qdev_build_make
 
+qdev_install() {
+	exe_cmd "cd $qdev_build_dir" || die
+	$PYTHON setup.py install
+}
+
 # qdev_try
+
+qdev_tst() {
+	cd $qdev_build_dir || die
+
+	$PYTHON test.py
+	if [ $? = 0 ]; then
+		log_info "$FUNCNAME - $PROGNAME - installation was successful."
+		return 0
+	fi
+	log_info "$FUNCNAME - $PROGNAME - installation was failed."
+	return 1
+}
 
 #----------------------------------------
 # work_home=$QSTK_WORK_HOME
@@ -102,9 +122,13 @@ qdev_check() {
 # apps_name=?
 # apps_more=?
 #----------------------------------------
+_py_qstk_common_init
 # qdev_init
 # qdev_set					$work_home $user_name $apps_name $apps_more
+# qdev_setmore
 # qdev_get
 # qdev_check
+# qdev_install
 # qdev_try
+# qdev_tst
 

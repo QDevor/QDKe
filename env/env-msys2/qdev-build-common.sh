@@ -27,7 +27,6 @@ PROGNAME=${FILENAME%.*}
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-msys2/utils-python-qstk.sh
 #----------------------------------------
 
 qdev_init() {
@@ -41,6 +40,7 @@ qdev_set() {
 	user_name=$2
 	apps_name=$3
 	apps_more=$4
+	# echo work_home=$work_home,user_name=$user_name,apps_name=$apps_name,apps_more=$apps_more
 	
 	if [[ -n $apps_more ]]; then
 		qdev_build_top=$work_home/$user_name/$apps_name
@@ -53,6 +53,8 @@ qdev_set() {
 	fi
 	
 	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
+	
+	# echo $qdev_build_dir
 }
 
 qdev_get() {
