@@ -28,8 +28,7 @@ export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/utils-python-qstk.sh
-#----------------------------------------
-. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
+. $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
 qdev_init() {

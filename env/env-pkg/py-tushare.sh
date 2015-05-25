@@ -81,8 +81,7 @@ qdev_tst() {
 #
 # Required and optional software
 #
-pkg_deps_gcc=''
-# pkg_deps_py='scipy matplotlib cvxopt'
+pkg_deps_gcc=
 pkg_deps_py='python2 python3 pandas lxml'
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
