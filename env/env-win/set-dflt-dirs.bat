@@ -47,21 +47,25 @@ set "APPDATA=%TEMP%/appdata"
 :: In addition, more working needed to be moved into Linux-like shell(msys2).
 :: But now we are formatting the path variables string.
 :-------------------------------------
-set "args=/"
-set "QDKE_ROOT=!QDKE_ROOT:%args%=\!"
-set "QDKE_USR=!QDKE_USR:%args%=\!"
-set "QDKE_HOME=!QDKE_HOME:%args%=\!"
-set "QDKE_ENV=!QDKE_ENV:%args%=\!"
-set "QDKE_TMP=!QDKE_TMP:%args%=\!"
-set "QDKE_VAR=!QDKE_VAR:%args%=\!"
-set "QDKE_ETC=!QDKE_ETC:%args%=\!"
+set "win_token=\"
+set "unix_token=/"
 
-set "WORK_HOME=!WORK_HOME:%args%=\!"
-set "HOME=!HOME:%args%=\!"
-set "TEMP=!TEMP:%args%=\!"
-set "TMP=!TMP:%args%=\!"
-set "TMPDIR=!TMPDIR:%args%=\!"
-set "APPDATA=!APPDATA:%args%=\!"
+set "_old_char=%unix_token%"
+set "_new_char=%win_token%"
+set "QDKE_ROOT=!QDKE_ROOT:%_old_char%=%_new_char%!"
+set "QDKE_USR=!QDKE_USR:%_old_char%=%_new_char%!"
+set "QDKE_HOME=!QDKE_HOME:%_old_char%=%_new_char%!"
+set "QDKE_ENV=!QDKE_ENV:%_old_char%=%_new_char%!"
+set "QDKE_TMP=!QDKE_TMP:%_old_char%=%_new_char%!"
+set "QDKE_VAR=!QDKE_VAR:%_old_char%=%_new_char%!"
+set "QDKE_ETC=!QDKE_ETC:%_old_char%=%_new_char%!"
+
+set "WORK_HOME=!WORK_HOME:%_old_char%=%_new_char%!"
+set "HOME=!HOME:%_old_char%=%_new_char%!"
+set "TEMP=!TEMP:%_old_char%=%_new_char%!"
+set "TMP=!TMP:%_old_char%=%_new_char%!"
+set "TMPDIR=!TMPDIR:%_old_char%=%_new_char%!"
+set "APPDATA=!APPDATA:%_old_char%=%_new_char%!"
 
 :-------------------------------------
 
@@ -69,6 +73,25 @@ set "args=%QDKE_USR%,%QDKE_HOME%,%QDKE_ENV%"
 set "args=%args%,%QDKE_TMP%,%QDKE_VAR%,%QDKE_ETC%"
 set "args=%args%,%TEMP%,%TMP%,%TMPDIR%,%APPDATA%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
+
+:-------------------------------------
+set "_old_char=%win_token%"
+set "_new_char=%unix_token%"
+set "QDKE_ROOT=!QDKE_ROOT:%_old_char%=%_new_char%!"
+set "QDKE_USR=!QDKE_USR:%_old_char%=%_new_char%!"
+set "QDKE_HOME=!QDKE_HOME:%_old_char%=%_new_char%!"
+set "QDKE_ENV=!QDKE_ENV:%_old_char%=%_new_char%!"
+set "QDKE_TMP=!QDKE_TMP:%_old_char%=%_new_char%!"
+set "QDKE_VAR=!QDKE_VAR:%_old_char%=%_new_char%!"
+set "QDKE_ETC=!QDKE_ETC:%_old_char%=%_new_char%!"
+
+set "WORK_HOME=!WORK_HOME:%_old_char%=%_new_char%!"
+set "HOME=!HOME:%_old_char%=%_new_char%!"
+set "TEMP=!TEMP:%_old_char%=%_new_char%!"
+set "TMP=!TMP:%_old_char%=%_new_char%!"
+set "TMPDIR=!TMPDIR:%_old_char%=%_new_char%!"
+set "APPDATA=!APPDATA:%_old_char%=%_new_char%!"
+:-------------------------------------
 
 :-------------------------------------
 set INCLUDE_SET_DFLT_DIRS_BATCH=true

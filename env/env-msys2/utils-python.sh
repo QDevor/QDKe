@@ -168,7 +168,7 @@ utils_python_install() {
 	if [[ $# -lt 1 ]]; then
     log_error "Usage: $FUNCNAME deps1,deps2,..."
 	fi
-	
+
 	if [[ $QDKe_VAR_IS_XP == "true" ]] ; then
 		_utils_python_installBySetuptools $@
 	else
