@@ -32,15 +32,14 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
-		utils_msys2_installByPacman $PYTHON-matplotlib
-		touch $TMP/${PROGNAME}-stamp
-	fi
+	:
 }
 
 # qdev_set
 
-# qdev_setmore
+qdev_setmore() {
+	qdev_build_dir=$qdev_build_src
+}
 
 # qdev_get
 
@@ -55,12 +54,13 @@ qdev_try() {
 	
 	exe_cmd "cd $qdev_build_dir" || die
 	$PYTHON setup.py install
+	# $PIP install cvxopt
 }
 
 qdev_tst() {
 	cd $qdev_build_dir || die
 	cd test || die
-	$PYTHON test.py
+	$PYTHON trading_test.py
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
 		return 0
@@ -76,8 +76,8 @@ pkg_deps_gcc=
 pkg_deps_py=
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
-user_name=QuantSoftware
-apps_name=QuantSoftwareToolkit
+user_name=QDevor
+apps_name=myapp-qstk
 apps_more=github
 #----------------------------------------
 qdev_init

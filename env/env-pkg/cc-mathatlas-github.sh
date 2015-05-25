@@ -27,7 +27,8 @@ PROGNAME=${FILENAME%.*}
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-msys2/utils-python-qstk.sh
+. $PROGDIR/../env-msys2/qdev-build-common.sh
+. $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
 . $PROGDIR/../env-pkg/tools-txt2man.sh
 . $PROGDIR/../env-pkg/cc-mathatlas-common.sh
