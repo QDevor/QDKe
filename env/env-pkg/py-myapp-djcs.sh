@@ -33,7 +33,10 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	_utils_python_installByPip django_stockandflow
+	utils_python_install django_stockandflow
+	utils_python_install sqlalchemy
+	utils_python_install pymongo
+	utils_python_install tushare
 }
 
 # qdev_set
@@ -69,8 +72,10 @@ qdev_try() {
 
 qdev_tst() {
 	cd $qdev_build_dir || die
-
-	qdev_django_runserver
+	
+	$PYTHON src/python/core/storing_test.py
+	
+	# qdev_django_runserver
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
