@@ -23,6 +23,10 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 set "QDK_ROOT=D:/qdk"
 :-------------------------------------
 
+:: MySQL Tool
+:-------------------------------------
+set "MYSQL_ROOT=%QDK_ROOT%/mysql"
+
 :: JAVA Tool
 :-------------------------------------
 set "JAVA_ROOT=D:/cygwin/opt/Java"

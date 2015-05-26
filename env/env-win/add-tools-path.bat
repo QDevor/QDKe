@@ -30,12 +30,14 @@ set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 :: Add Tools to PATH
 :-------------------------------------
 
+:-------------------------------------
+set "PATH=!PATH!;!MYSQL_ROOT!/bin"
+:-------------------------------------
 set "JAVA_ROOT=!JAVA6_ROOT!"
 set "JAVA_HOME=!JAVA6_HOME!"
 set "JRE_HOME=!JRE6_HOME!"
 set "PATH=!PATH!;!JAVA_HOME!/bin"
-
-
+:-------------------------------------
 
 :-------------------------------------
 set INCLUDE_ADD_TOOLS_PATH_BATCH=true

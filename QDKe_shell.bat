@@ -42,12 +42,13 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-
+:: py-MySQL-python.sh
 :: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
 :: py-yjclegend-stockAnalyze py-jasti-StockPredictor
-:: py-aneumeier-stocks py-king2k23-stockexchange
+:: py-aneumeier-stocks py-king2k23-stockexchange py-pabloleites-stockapp
+:: py-bashpy-stock-django
 :: py-myapp-djcs
-set DJN=py-myapp-djcs
+set DJN=py-MySQL-python
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
