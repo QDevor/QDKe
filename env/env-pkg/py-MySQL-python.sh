@@ -45,7 +45,7 @@ qdev_setmore() {
 	
 #	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		needed_patch_file=$qdev_build_src/setup_windows.py
-		sed -i -e 's/extra_compile_args = [ '/Zl' ]/# &/g' \
+		sed -i -e 's/\(extra_compile_args = \)\(\[.*\]\)/\1\[\]/g' \
 			$needed_patch_file
 #	fi
 }

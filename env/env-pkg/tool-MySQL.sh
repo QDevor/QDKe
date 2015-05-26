@@ -63,7 +63,18 @@ _tool_MySQL_get() {
 	extract $QDKE_TMP/$pkg_file
 }
 
+_tool_MySQL_set() {
+	cd $QDK_ROOT
+	cd $MYSQL_ROOT
+	needed_patch_file=my-default.ini
+	sed -i -e 's/# \(basedir = \)/basedir = $MYSQL_ROOT/g' \
+		$needed_patch_file
+	needed_patch_file=my-default.ini
+	sed -i -e 's/# \(datadir = \)/datadir = $MYSQL_ROOT\/data/g' \
+		$needed_patch_file
+}
 #----------------------------------------
 _tool_MySQL_init
 _tool_MySQL_get
+# _tool_MySQL_set
 #----------------------------------------
