@@ -43,10 +43,9 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
-:: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
-:: py-myapp-djcs
-set DJN=py-myapp-djcs
-bash --login -i -c "../env/env-pkg/%DJN%.sh"
+:: msys2-check-github msys2-check-msys2
+set DJN=py-qstk-3rd
+bash --login -i -c "../env/env-test/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

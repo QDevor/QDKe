@@ -35,64 +35,94 @@ _py_qstk_3rd_init() {
 	log_info "$FUNCNAME"
 	cd $work_home
 	
-	pkg=stock-DengZuoheng
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/DengZuoheng/bull
-		git clone $pkgurl $pkg
+	pkgurl=github.com/DengZuoheng/bull
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-jasti
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/jasti/Stock-Predictor
-		git clone $pkgurl $pkg
+	pkgurl=github.com/jasti/Stock-Predictor
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-yjclegend
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/yjclegend/stockAnalyze
-		git clone $pkgurl $pkg
+	pkgurl=github.com/yjclegend/stockAnalyze
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-tangguangyao
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/tangguangyao/stock
-		git clone $pkgurl $pkg
+	pkgurl=github.com/tangguangyao/stock
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-cforth
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/cforth/stock
-		git clone $pkgurl $pkg
+	pkgurl=github.com/cforth/stock
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=django-stockandflow
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/jesseh/django-stockandflow
-		git clone $pkgurl $pkg
+	pkgurl=github.com/jesseh/django-stockandflow
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+#	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+#	cd $work_home/$user_name/$apps_name
+#	if [ ! -d github ]; then
+#		git clone https://$pkgurl github
+#	fi
+	
+	pkgurl=github.com/blactangeri/stocks
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-blactangeri
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/blactangeri/stocks
-		git clone $pkgurl $pkg
+	pkgurl=github.com/narasimhaprasad/StockPy
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-narasimhaprasad
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/narasimhaprasad/StockPy
-		git clone $pkgurl $pkg
+	pkgurl=github.com/maihde/quant
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
 	fi
 	
-	pkg=stock-maihde
-	if [ ! -d $pkg ]; then
-		pkgurl=https://github.com/maihde/quant
-		git clone $pkgurl $pkg
-	fi
-	
-#	pkg=stock-StockSharp
-#	if [ ! -d $pkg ]; then
-#		pkgurl=https://github.com/StockSharp/StockSharp
-#		git clone $pkgurl $pkg
+	pkgurl=github.com/StockSharp/StockSharp
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+#	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+#	cd $work_home/$user_name/$apps_name
+#	if [ ! -d github ]; then
+#		git clone https://$pkgurl github
 #	fi
 }
 
