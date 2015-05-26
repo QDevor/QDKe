@@ -27,6 +27,7 @@ set "QDKE_ENV=%QDKE_ROOT%/env"
 set "QDKE_TMP=%QDKE_ROOT%/tmp"
 set "QDKE_VAR=%QDKE_ROOT%/var"
 set "QDKE_ETC=%QDKE_ROOT%/etc"
+set "QDKE_LOGIDR=%QDKE_VAR%/log"
 
 set "ORIGIN_WORK_HOME=%WORK_HOME%"
 set "ORIGIN_TEMP=%TEMP%"
@@ -59,6 +60,7 @@ set "QDKE_ENV=!QDKE_ENV:%_old_char%=%_new_char%!"
 set "QDKE_TMP=!QDKE_TMP:%_old_char%=%_new_char%!"
 set "QDKE_VAR=!QDKE_VAR:%_old_char%=%_new_char%!"
 set "QDKE_ETC=!QDKE_ETC:%_old_char%=%_new_char%!"
+set "QDKE_LOGIDR=!QDKE_LOGIDR:%_old_char%=%_new_char%!"
 
 set "WORK_HOME=!WORK_HOME:%_old_char%=%_new_char%!"
 set "HOME=!HOME:%_old_char%=%_new_char%!"
@@ -70,7 +72,7 @@ set "APPDATA=!APPDATA:%_old_char%=%_new_char%!"
 :-------------------------------------
 
 set "args=%QDKE_USR%,%QDKE_HOME%,%QDKE_ENV%"
-set "args=%args%,%QDKE_TMP%,%QDKE_VAR%,%QDKE_ETC%"
+set "args=%args%,%QDKE_TMP%,%QDKE_VAR%,%QDKE_ETC%,%QDKE_LOGIDR%"
 set "args=%args%,%TEMP%,%TMP%,%TMPDIR%,%APPDATA%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
 
@@ -84,6 +86,7 @@ set "QDKE_ENV=!QDKE_ENV:%_old_char%=%_new_char%!"
 set "QDKE_TMP=!QDKE_TMP:%_old_char%=%_new_char%!"
 set "QDKE_VAR=!QDKE_VAR:%_old_char%=%_new_char%!"
 set "QDKE_ETC=!QDKE_ETC:%_old_char%=%_new_char%!"
+set "QDKE_LOGIDR=!QDKE_LOGIDR:%_old_char%=%_new_char%!"
 
 set "WORK_HOME=!WORK_HOME:%_old_char%=%_new_char%!"
 set "HOME=!HOME:%_old_char%=%_new_char%!"

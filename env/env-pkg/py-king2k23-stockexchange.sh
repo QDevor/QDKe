@@ -34,6 +34,7 @@ export PYTHON=python2
 
 qdev_init() {
 	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
+		utils_msys2_installByPacman postgresql
 		utils_python_install Django
 		utils_python_install South
 		utils_python_install dj-database-url
@@ -46,6 +47,14 @@ qdev_init() {
 		utils_python_install six
 		utils_python_install static
 		utils_python_install wsgiref
+		
+		needed_patch_file=$QDKe_PYSP_PATH/south/db/postgresql_psycopg2.py
+		sed -i -e 's/django.db.backends.util/django.db.backends.utils/g' \
+			$needed_patch_file
+		needed_patch_file=$QDKe_PYSP_PATH/south/db/generic.py
+		sed -i -e 's/django.db.backends.util/django.db.backends.utils/g' \
+			$needed_patch_file
+		
 		touch $TMP/${PROGNAME}-stamp
 	fi
 }
@@ -75,6 +84,10 @@ qdev_try() {
 
 qdev_tst() {
 	cd $qdev_build_dir || die
+	
+	# $PYTHON manage.py makemigrations.
+	$PYTHON manage.py migrate --fake-initial
+	$PYTHON manage.py migrate --fake backend
 	
 	#qdev_django_runserver
 	$PYTHON manage.py runserver
