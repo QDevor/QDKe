@@ -69,12 +69,7 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-#	cd 'Examples/Event Analysis/Stock Details'
-#	$PYTHON NSE_India.py
-#	cd 'Examples/Event Analysis/Event Analysis Generalised Code'
-#	$PYTHON Event_Analysis_Generalized_Code.py
-	cd 'Examples/EventProfiler'
-	$PYTHON tutorial.py
+	$PYTHON StockAnalyze.py
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."

@@ -31,99 +31,31 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
 
+_py_qstk_3rd_init_getsrc() {
+	pkgurl=$1
+	user_name=$(echo $pkgurl | cut -f2 -d'/')
+	apps_name=$(echo $pkgurl | cut -f3 -d'/')
+	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
+	cd $work_home/$user_name/$apps_name
+	if [ ! -d github ]; then
+		git clone https://$pkgurl github
+	fi
+}
+
 _py_qstk_3rd_init() {
 	log_info "$FUNCNAME"
 	cd $work_home
 	
-	pkgurl=github.com/DengZuoheng/bull
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/jasti/Stock-Predictor
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/yjclegend/stockAnalyze
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/tangguangyao/stock
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/cforth/stock
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/jesseh/django-stockandflow
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-#	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-#	cd $work_home/$user_name/$apps_name
-#	if [ ! -d github ]; then
-#		git clone https://$pkgurl github
-#	fi
-	
-	pkgurl=github.com/blactangeri/stocks
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/narasimhaprasad/StockPy
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/maihde/quant
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-	cd $work_home/$user_name/$apps_name
-	if [ ! -d github ]; then
-		git clone https://$pkgurl github
-	fi
-	
-	pkgurl=github.com/StockSharp/StockSharp
-	user_name=$(echo $pkgurl | cut -f2 -d'/')
-	apps_name=$(echo $pkgurl | cut -f3 -d'/')
-#	[ -d $work_home/$user_name/$apps_name ] || mkdir -p $work_home/$user_name/$apps_name >/dev/null 2>&1
-#	cd $work_home/$user_name/$apps_name
-#	if [ ! -d github ]; then
-#		git clone https://$pkgurl github
-#	fi
+	_py_qstk_3rd_init_getsrc github.com/DengZuoheng/bull
+	_py_qstk_3rd_init_getsrc github.com/jasti/Stock-Predictor
+	_py_qstk_3rd_init_getsrc github.com/yjclegend/stockAnalyze
+	_py_qstk_3rd_init_getsrc github.com/tangguangyao/stock
+	_py_qstk_3rd_init_getsrc github.com/cforth/stock
+	_py_qstk_3rd_init_getsrc github.com/blactangeri/stocks
+	_py_qstk_3rd_init_getsrc github.com/narasimhaprasad/StockPy
+	_py_qstk_3rd_init_getsrc github.com/maihde/quant
+#	_py_qstk_3rd_init_getsrc github.com/jesseh/django-stockandflow
+#	_py_qstk_3rd_init_getsrc github.com/StockSharp/StockSharp
 }
 
 qdev_init() {

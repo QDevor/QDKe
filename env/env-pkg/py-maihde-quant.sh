@@ -69,8 +69,8 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-	cd bull || die
-	$PYTHON bull.py
+	# $PYTHON test.py
+	./quant < scripts/example.txt
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
@@ -84,11 +84,11 @@ qdev_tst() {
 # Required and optional software
 #
 pkg_deps_gcc=
-pkg_deps_py='python2 python3 pandas lxml'
+pkg_deps_py='Numpy, Pandas, Matplotlib'
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
-user_name=DengZuoheng
-apps_name=bull
+user_name=maihde
+apps_name=quant
 apps_more=github
 #----------------------------------------
 qdev_init
