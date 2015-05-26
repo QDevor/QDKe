@@ -59,15 +59,14 @@ qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
 	exe_cmd "cd $qdev_build_dir" || die
-	# $PYTHON setup.py install
+	$PYTHON setup.py install
 	# $PIP install cvxopt
 }
 
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-	cd src || die
-	$PYTHON main.py
+	$PYTHON stocktest.py
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
@@ -84,8 +83,8 @@ pkg_deps_gcc=
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
-user_name=jasti
-apps_name=Stock-Predictor
+user_name=aneumeier
+apps_name=stocks
 apps_more=github
 #----------------------------------------
 qdev_init

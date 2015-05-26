@@ -45,8 +45,9 @@ echo [QDKe] - We Are Doing Jobs... Start.
 
 :: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
 :: py-yjclegend-stockAnalyze py-jasti-StockPredictor
+:: py-aneumeier-stocks py-king2k23-stockexchange
 :: py-myapp-djcs
-set DJN=py-jasti-StockPredictor
+set DJN=py-king2k23-stockexchange
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 
 :+++++++++++++++++++++++++++++++++++++

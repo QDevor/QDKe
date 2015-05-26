@@ -45,7 +45,10 @@ _py_qstk_3rd_init_getsrc() {
 _py_qstk_3rd_init() {
 	log_info "$FUNCNAME"
 	cd $work_home
-	
+
+	_py_qstk_3rd_init_getsrc github.com/king2k23/stock-exchange
+	_py_qstk_3rd_init_getsrc github.com/aneumeier/stocks
+	_py_qstk_3rd_init_getsrc github.com/pabloleites/stockapp
 	_py_qstk_3rd_init_getsrc github.com/DengZuoheng/bull
 	_py_qstk_3rd_init_getsrc github.com/jasti/Stock-Predictor
 	_py_qstk_3rd_init_getsrc github.com/yjclegend/stockAnalyze
