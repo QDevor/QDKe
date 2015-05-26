@@ -49,6 +49,11 @@ qdev_setmore() {
 	
 	export CVXOPT_BLAS_LIB='blas','gfortran','quadmath'
 	export CVXOPT_LAPACK_LIB='lapack'
+	
+	if [ x$QDKe_VAR_IS_XP != "xtrue" ]; then
+		needed_patch_file=$qdev_build_src/setup.py
+		sed -i -e 's/if sys.maxsize.*/# &/g' $needed_patch_file
+	fi
 }
 
 qdev_try() {

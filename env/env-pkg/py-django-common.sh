@@ -88,6 +88,7 @@ qdev_django_startapp() {
 	if [ ! -d $django_appname ]; then
 		log_warning "[Django] - Creating Application - $django_appname."
 		$PYTHON manage.py startapp $django_appname
+		$PYTHON manage.py migrate
 		return $?
 	fi
 	return 0
