@@ -34,10 +34,18 @@ export PYTHON=python2
 
 qdev_init() {
 	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
-		utils_msys2_installByPacman $PYTHON-pandas
-		utils_msys2_installByPacman $PYTHON-lxml
-		# utils_msys2_installByPacman $PYTHON-scipy
-		# utils_msys2_installByPacman $PYTHON-matplotlib
+		utils_python_install Django==1.5.5
+		utils_python_install South==1.0
+		utils_python_install dj-database-url==0.2.2
+		utils_python_install dj-static==0.0.5
+		utils_python_install django-extensions==1.2.5
+		utils_python_install django-toolbelt==0.0.1
+		utils_python_install djangorestframework==2.3.8
+		utils_python_install gunicorn==18.0
+		utils_python_install psycopg2==2.5.1
+		utils_python_install six==1.4.1
+		utils_python_install static==0.4
+		utils_python_install wsgiref==0.1.2
 		touch $TMP/${PROGNAME}-stamp
 	fi
 }
