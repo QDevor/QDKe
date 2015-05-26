@@ -74,7 +74,7 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-	$PYTHON src/python/core/storing_test.py
+	$PYTHON src/python/core/test.py
 	
 	# qdev_django_runserver
 	
