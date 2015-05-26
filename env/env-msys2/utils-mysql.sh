@@ -55,8 +55,10 @@ _utils_mysql_init_install() {
 }
 
 _utils_mysql_init() {
+	_old_pwd=$(pwd)
 	_utils_mysql_init_config
 	_utils_mysql_init_install
+	cd $_old_pwd || die
 }
 
 #----------------------------------------
