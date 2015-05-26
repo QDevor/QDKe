@@ -169,7 +169,7 @@ utils_python_install() {
     log_error "Usage: $FUNCNAME deps1,deps2,..."
 	fi
 
-	if [[ $QDKe_VAR_IS_XP == "true" ]] ; then
+	if [[ $QDKe_VAR_IS_XP == "true" ]] && [[ x$PYVER = "x3" ]] ; then
 		_utils_python_installBySetuptools $@
 	else
 		_utils_python_installByPip $@
