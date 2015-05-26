@@ -28,6 +28,7 @@ export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
+. $PROGDIR/../env-pkg/py-django-common.sh
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
 
@@ -58,15 +59,17 @@ qdev_setmore() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	exe_cmd "cd $qdev_build_dir" || die
-	$PYTHON setup.py install
-	# $PIP install cvxopt
+	_django_work_home=$qdev_build_src
+	#_django_projectname=mysite
+	#_django_appname=myapp
+	
 }
 
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-	$PYTHON stocktest.py
+	#qdev_django_runserver
+	$PYTHON manage.py runserver
 	
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
