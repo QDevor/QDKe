@@ -69,7 +69,7 @@ _utils_install_mysql_get() {
 		
 		cd $QDK_ROOT || die
 		extract $QDKE_TMP/$pkg_file
-		mv mysql-5.6.24-win32 mysql
+		mv $_pkg_file mysql
 	fi
 }
 
@@ -119,10 +119,35 @@ _utils_mysql_init_install() {
 	fi
 }
 
+_utils_install_mysql_connector_c_get() {
+	if [ ! -d $MYSQL_ROOT ]; then
+		_pkg=mysql-connector-c
+		_pkg_ver=6.1.6
+		#_utils_install_mysql_getMore
+		
+		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+			_pkg_file=$_pkg-$_pkg_ver-win32.zip
+		else
+			_pkg_file=$_pkg-$_pkg_ver-winx64.zip
+		fi
+		# http://cdn.mysql.com/Downloads/Connector-C/mysql-connector-c-6.1.6-winx64.zip
+		_pkg_url=$CDN_MIRROR/Connector-C/$_pkg_file
+		echo "_pkg_url=$_pkg_url."
+		cd $QDKE_TMP || die
+		loop_curl $_pkg_file $_pkg_url
+		
+		cd $QDK_ROOT || die
+		extract $QDKE_TMP/$pkg_file
+		mv $_pkg_file mysql
+	fi
+}
+
 _utils_mysql_init() {
 	_old_pwd=$(pwd)
 	_utils_mysql_init_config
 	_utils_mysql_init_install
+	
+	_utils_install_mysql_connector_c_get
 	cd $_old_pwd || die
 }
 

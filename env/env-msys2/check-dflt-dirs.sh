@@ -18,13 +18,13 @@
 if [[ x$INCLUDE_CHECK_DFLT_DIRS_SCRIPT == "xtrue" ]]; then
 	return 0
 fi
-
+#----------------------------------------
 _PGMDIR_CHECK_DFLT_DIRS=`dirname $0`
 _PGMDIR_CHECK_DFLT_DIRS=`cd $_PGMDIR_CHECK_DFLT_DIRS && pwd -P`
 _FN_CHECK_DFLT_DIRS=`basename $0`
 _FNTYPE_CHECK_DFLT_DIRS=${_FN_CHECK_DFLT_DIRS#*.}
 _FNNAME_CHECK_DFLT_DIRS=${_FN_CHECK_DFLT_DIRS%.*}
-
+#----------------------------------------
 if [[ $QDKE_ROOT == "" ]]; then
 	export QDKE_ROOT=`cd $_PGMDIR_CHECK_DFLT_DIRS/../../ && pwd -P`
 	export QDKE_USR=$QDKE_ROOT/usr
@@ -42,7 +42,7 @@ else
 	export QDKE_VAR=`cygpath -u $QDKE_VAR`
 	export QDKE_ETC=`cygpath -u $QDKE_ETC`
 fi
-
+#----------------------------------------
 export QDK_STAMP_DIR=/var/ready_qdk
 export QDKE_STAMP_DIR=$QDKE_VAR/ready_qdke
 export QDKE_LOGDIR=$QDKE_VAR/log
@@ -56,7 +56,7 @@ export APPDATA=$TEMP/appdata
 
 export HOMEPATH=$QDKE_USR/$USERNAME
 export USERPROFILE=$HOMEPATH
-
-# env > env.txt
-
+#----------------------------------------
+[ -n $MYSQL_ROOT ] && export MYSQL_ROOT=`cygpath -u $MYSQL_ROOT`
+#----------------------------------------
 export INCLUDE_CHECK_DFLT_DIRS_SCRIPT=true
