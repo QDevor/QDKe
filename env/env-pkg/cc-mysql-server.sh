@@ -109,7 +109,7 @@ qdev_build_cmake() {
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-cmake ]; then
 		cd $qdev_build_dir
 		cmake ../$apps_more \
-			-G "MinGW Makefiles" \
+			-G "MSYS Makefiles" \
 			-DBUILD_CONFIG=mysql_release \
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DWITH_EMBEDDED_SERVER=1 \
