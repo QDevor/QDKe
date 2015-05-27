@@ -41,7 +41,7 @@ if exist "!MSVS_VCVARSALL_BATCH!" (
 ) else (
 	echo [QDKe] - We Are Finding Microsoft Visual Studio Not Exist.
 )
-echo [Debug] - PATH=%PATH%
+rem echo [Debug] - PATH=%PATH%
 :-------------------------------------
 :: Microsoft SQL Server
 :-------------------------------------

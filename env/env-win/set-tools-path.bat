@@ -35,7 +35,8 @@ if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_D_PGM_FILES_DIR=C:/Program Files
 set "MSVS_2005_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 8.0"
 set "MSVS_2008_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 9.0"
 set "MSVS_2010_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 10.0"
-set "MSVS_2013_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 11.0"
+set "MSVS_2012_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 11.0"
+set "MSVS_2013_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 12.0"
 
 set "MSVS_2005_VC_ROOT=%MSVS_2005_ROOT%/VC"
 set "MSVS_2008_VC_ROOT=%MSVS_2008_ROOT%/VC"

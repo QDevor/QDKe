@@ -22,6 +22,7 @@ _FN_UTILS_PYTHON=`basename $0`
 _FNTYPE_UTILS_PYTHON=${_FN_UTILS_PYTHON#*.}
 _FNNAME_UTILS_PYTHON=${_FN_UTILS_PYTHON%.*}
 #----------------------------------------
+# http://matthew-brett.github.io/pydagogue/python_msvc.html
 # 
 # Compiling Python 2.7 Modules on Windows 32 and 64 using 
 # MSVC++ 2008 Express
