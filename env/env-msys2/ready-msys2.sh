@@ -126,6 +126,7 @@ _ready_msys2_updating_extrakgs() {
 
 _ready_msys2_init() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
+	_ready_msys2_updating_init
 	_ready_msys2_updating_localpkgs
 	_ready_msys2_updating_corekgs
 	_ready_msys2_autorebase
