@@ -35,9 +35,12 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
 
+_qdev_build_common_init() {
+	export QDEV_WORK_HOME=$WORK_HOME/qdev_home
+}
+
 qdev_init() {
 	:
-	export QDEV_WORK_HOME=$WORK_HOME/qdev_home
 }
 
 qdev_set() {
@@ -112,6 +115,7 @@ qdev_try() {
 # user_name=?
 # apps_name=?
 #----------------------------------------
+_qdev_build_common_init
 # qdev_init
 # qdev_set					$work_home $user_name $apps_name $apps_more
 # qdev_get

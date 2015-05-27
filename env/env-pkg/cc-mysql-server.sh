@@ -40,14 +40,32 @@ qdev_setmore() {
 	:
 }
 
-# qdev_get
+qdev_get_rc_src() {
+	_pkg=mysql-server-mysql
+	_pkg_ver=5.7.7
+	_pkg_file=$_pkg-$_pkg_ver.tar.gz
+	_pkg_dir=$_pkg-$_pkg_ver
+	_pkg_url=https://github.com/mysql/mysql-server/archive/$_pkg_file
+	cd $QDKE_TMP || die
+	if [ -f $_pkg_file ]; then
+		return 0
+	fi
+	loop_curl $_pkg_file $_pkg_url
+	cd $qdev_build_top || die
+	extract $QDKE_TMP/$_pkg_file || die
+	mv $_pkg_dir $apps_more || die
+}
+
+qdev_get() {
+	qdev_get_rc_src
+}
 
 # qdev_check
 
 qdev_build_prepare() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	cd $qdev_build_dir
+	cd $qdev_build_src
 	log_info "Separately configure the InnoDB storage engine"
 	if [ ! -f $qdev_build_dir/$FUNCNAME-stamp-1 ]; then
 		cd storage/innobase; autoreconf --force --install || die
@@ -68,11 +86,57 @@ qdev_build_prepare() {
 	fi
 }
 
-# qdev_build_config
+qdev_build_config() {
+	mysql_build_prefix=$QDKE_USR/mysql-gpl
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
+		cd $qdev_build_dir
+		CFLAGS="-O3" CXX=gcc CXXFLAGS="-O3 -felide-constructors -fno-exceptions -fno-rtti" \
+		$qdev_build_src/configure \
+			--prefix=''$mysql_build_prefix'' \
+			--host=''$QDKe_BUILD_TARGET'' \
+			--build=''$QDKe_BUILD_TARGET'' \
+			--enable-assembler \
+			--with-client-ldflags=-all-static \
+			--with-mysqld-ldflags=-all-static \
+			--with-embedded-server \
+			|| die
+		touch $qdev_build_dir/${FUNCNAME}-stamp-config
+	fi
+}
+
+qdev_build_cmake() {
+	mysql_build_prefix=$QDKE_USR/mysql-gpl
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-cmake ]; then
+		cd $qdev_build_dir
+		cmake ../$apps_more \
+			-G "MinGW Makefiles" \
+			-DBUILD_CONFIG=mysql_release \
+			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
+			-DWITH_EMBEDDED_SERVER=1 \
+			|| die
+		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake
+	fi
+}
 
 # qdev_build_make
 
-# qdev_try
+qdev_try() {
+	log_info "$FUNCNAME - $PROGNAME"
+	
+	cd $qdev_build_dir || die
+	
+	if [ x$apps_more != "xssd" ]; then
+		:
+		# qdev_build_prepare
+	fi
+	
+	# qdev_build_config
+	qdev_build_cmake
+	qdev_build_make VERBOSE=1
+	# qdev_build_make install
+	
+	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
+}
 
 # qdev_tst
 
@@ -90,10 +154,11 @@ pkg_url=http://dev.mysql.com/get/Downloads/MySQL-5.7/$pkg_file
 pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
-work_home=$QSTK_WORK_HOME
+work_home=$QDEV_WORK_HOME
 user_name=mysql
 apps_name=mysql-server
-apps_more=github
+apps_more=github-rc
+# Standard Source Distribution
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
