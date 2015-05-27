@@ -49,6 +49,8 @@ fi
 [ -d $QDKE_VAR  ] || mkdir -p $QDKE_VAR  >/dev/null 2>&1
 [ -d $QDKE_ETC  ] || mkdir -p $QDKE_ETC  >/dev/null 2>&1
 
+[ -d $QDK_STAMP_DIR ]  || mkdir -p $QDK_STAMP_DIR  >/dev/null 2>&1
+[ -d $QDKE_STAMP_DIR ] || mkdir -p $QDKE_STAMP_DIR >/dev/null 2>&1
 [ -d $QDKE_LOGDIR  ] || mkdir -p  $QDKE_LOGDIR >/dev/null 2>&1
 
 [ -d $APPDATA      ] || mkdir -p  $HOMEPATH >/dev/null 2>&1

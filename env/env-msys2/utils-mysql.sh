@@ -35,11 +35,20 @@ _utils_install_mysql_init() {
 }
 
 _utils_install_mysql_getMore() {
-	_pkg=MySQL
-	_pkg_ver=`wget -q -O- ''$PKG_MIRROR'/' | \
+	_pkg=mysql
+	
+	doloop=1
+	while [ $doloop = 1 ]; do
+		_pkg_ver=`wget -q -O- ''$PKG_MIRROR'/' | \
 			grep -i '(mysql-.*\.zip)' | \
-			sed -n 's,.*/mysql-\([0-9\.]*-.*\)\.zip.*/.*,\1,p' | \
+			sed -n 's,.*mysql-\([0-9\.].*\)*-.*.zip.*,\1,p' | \
 			head -1`
+		
+		if [ $? = 0 ]; then
+			break;
+		fi
+		sleep 3
+	done
 	_pkg_ver2=$(echo $_pkg_ver | cut -f1-2 -d'.')
 }
 
@@ -53,7 +62,8 @@ _utils_install_mysql_get() {
 			_pkg_file=$_pkg-$_pkg_ver-winx64.zip
 		fi
 		# http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.24-win32.zip
-		_pkg_url=$CDN_MIRROR/$_pkg-$_pkg_ver2/$_pkg_file
+		_pkg_url=$CDN_MIRROR/MySQL-$_pkg_ver2/$_pkg_file
+		echo "_pkg_url=$_pkg_url."
 		cd $QDKE_TMP || die
 		loop_curl $_pkg_file $_pkg_url
 		
@@ -71,21 +81,21 @@ _utils_install_mysql() {
 _utils_mysql_init_config() {
 	:
 	cd $MYSQL_ROOT || die
-	if [ ! -f $MYSQL_ROOT/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
 		needed_patch_file=my-default.ini
 		sed -i -e 's/# \(basedir = \)/basedir = $MYSQL_ROOT/g' \
 			$needed_patch_file
 		needed_patch_file=my-default.ini
 		sed -i -e 's/# \(datadir = \)/datadir = $MYSQL_ROOT\/data/g' \
 			$needed_patch_file
-		touch $MYSQL_ROOT/$FUNCNAME-stamp
+		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
 	fi
 }
 
 _utils_mysql_init_install() {
 	:
 	cd $MYSQL_ROOT || die
-	if [ ! -f $MYSQL_ROOT/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
 		cd $MYSQL_ROOT/bin || die
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 			mysqld -install
@@ -95,7 +105,7 @@ _utils_mysql_init_install() {
 		fi
 		
 		net start mysql
-		touch $MYSQL_ROOT/$FUNCNAME-stamp
+		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
 	fi
 }
 
