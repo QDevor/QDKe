@@ -23,6 +23,51 @@ _FNTYPE_UTILS_GIT=${_FN_UTILS_GIT#*.}
 _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 #----------------------------------------
 
+_utils_install_mysql_init() {
+	:
+	PKG_MIRROR=http://dev.mysql.com/downloads/mysql
+	CDN_MIRROR=http://cdn.mysql.com/Downloads
+# Windows (x86, 32-bit), ZIP Archive
+# mysql-5.6.24-win32.zip
+# http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.24-win32.zip
+# Windows (x86, 64-bit), ZIP Archive
+# mysql-5.6.24-winx64.zip
+}
+
+_utils_install_mysql_getMore() {
+	_pkg=MySQL
+	_pkg_ver=`wget -q -O- ''$PKG_MIRROR'/' | \
+			grep -i '(mysql-.*\.zip)' | \
+			sed -n 's,.*/mysql-\([0-9\.]*-.*\)\.zip.*/.*,\1,p' | \
+			head -1`
+	_pkg_ver2=$(echo $_pkg_ver | cut -f1-2 -d'.')
+}
+
+_utils_install_mysql_get() {
+	if [ ! -d $QDK_ROOT/mysql ]; then
+		_tool_MySQL_getMore
+		
+		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+			_pkg_file=$_pkg-$_pkg_ver-win32.zip
+		else
+			_pkg_file=$_pkg-$_pkg_ver-winx64.zip
+		fi
+		# http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.24-win32.zip
+		_pkg_url=$CDN_MIRROR/$_pkg-$_pkg_ver2/$_pkg_file
+		cd $QDKE_TMP || die
+		loop_curl $_pkg_file $_pkg_url
+		
+		cd $QDK_ROOT || die
+		extract $QDKE_TMP/$pkg_file
+		mv mysql-5.6.24-win32 mysql
+	fi
+}
+
+_utils_install_mysql() {
+	_utils_install_mysql_init
+	_utils_install_mysql_get
+}
+
 _utils_mysql_init_config() {
 	:
 	cd $MYSQL_ROOT || die
@@ -62,5 +107,6 @@ _utils_mysql_init() {
 }
 
 #----------------------------------------
+_utils_install_mysql
 _utils_mysql_init
 
