@@ -138,7 +138,30 @@ _utils_install_mysql_connector_c_get() {
 		
 		cd $QDK_ROOT || die
 		extract $QDKE_TMP/$pkg_file
-		mv $_pkg_file mysql
+		mv $_pkg_file mysql-connector-c
+	fi
+}
+
+_utils_install_mysql_connector_cpp_get() {
+	if [ ! -d $MYSQL_ROOT ]; then
+		_pkg=mysql-connector-c++-noinstall
+		_pkg_ver=1.1.5
+		#_utils_install_mysql_getMore
+		
+		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+			_pkg_file=$_pkg-$_pkg_ver-win32.zip
+		else
+			_pkg_file=$_pkg-$_pkg_ver-winx64.zip
+		fi
+		# http://cdn.mysql.com/Downloads/Connector-C++/mysql-connector-c++-noinstall-1.1.5-winx64.zip
+		_pkg_url=$CDN_MIRROR/Connector-C/$_pkg_file
+		echo "_pkg_url=$_pkg_url."
+		cd $QDKE_TMP || die
+		loop_curl $_pkg_file $_pkg_url
+		
+		cd $QDK_ROOT || die
+		extract $QDKE_TMP/$pkg_file
+		mv $_pkg_file mysql-connector-c++
 	fi
 }
 
