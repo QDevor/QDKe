@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+#----------------RUN-ONCE----------------
+if [[ x$INCLUDE_QDEV_BUILD_COMMON_SCRIPT == "xtrue" ]]; then
+	:
+else
+#----------------RUN-ONCE----------------
+
 PROGDIR=`dirname $0`
 PROGDIR=`cd $PROGDIR && pwd -P`
 
@@ -31,6 +37,7 @@ export PYTHON=python2
 
 qdev_init() {
 	:
+	export QDEV_WORK_HOME=$WORK_HOME/qdev_home
 }
 
 qdev_set() {
@@ -101,7 +108,7 @@ qdev_try() {
 }
 
 #----------------------------------------
-# work_home=$QSTK_WORK_HOME
+# work_home=$QDEV_WORK_HOME
 # user_name=?
 # apps_name=?
 #----------------------------------------
@@ -111,3 +118,7 @@ qdev_try() {
 # qdev_check
 # qdev_try
 
+#----------------RUN-ONCE----------------
+export INCLUDE_QDEV_BUILD_COMMON_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------

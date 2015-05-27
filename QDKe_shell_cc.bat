@@ -20,21 +20,22 @@ cd /d %~dp0
 title %~n0
 
 :: setlocal enabledelayedexpansion
-:-------------------------------------
+:----------------------------------------
 setlocal enabledelayedexpansion
-:-------------------------------------
+:----------------------------------------
 
 :: settings requirements
-:-------------------------------------
+:----------------------------------------
 :--Default setting to false
 :--Default setting to true
-:-------------------------------------
+set QDKe_VAR_MSVS_VER_YEAR=None
+:----------------------------------------
 
 :: Checking QDKe Env
-:-------------------------------------
+:----------------------------------------
 echo [QDKe] - We Are Checking QDKe Env.
 call env/env-win/entry-common.bat
-:-------------------------------------
+:----------------------------------------
 
 rem echo "%PATH%"
 
@@ -42,19 +43,20 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-
+:: cc-mysql-server
+:: 
 :+++++++++++++++++++++++++++++++++++++
-set DJN=
-bash --login -i
+set DJN=cc-mysql-server
+bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
 :: setlocal disabledelayedexpansion
-:-------------------------------------
+:----------------------------------------
 setlocal disabledelayedexpansion
-:-------------------------------------
+:----------------------------------------
 
 PAUSE
 EXIT

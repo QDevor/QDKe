@@ -15,9 +15,11 @@
 # limitations under the License.
 #
 
+#----------------RUN-ONCE----------------
 if [[ x$INCLUDE_CHECK_DFLT_VARS_SCRIPT == "xtrue" ]]; then
-	return 0
-fi
+	:
+else
+#----------------RUN-ONCE----------------
 
 _PGMDIR_CHECK_DFLT_VARS=`dirname $0`
 _PGMDIR_CHECK_DFLT_VARS=`cd $_PGMDIR_CHECK_DFLT_VARS && pwd -P`
@@ -26,5 +28,7 @@ _FNTYPE_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS#*.}
 _FNNAME_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS%.*}
 #----------------------------------------
 
-#----------------------------------------
+#----------------RUN-ONCE----------------
 export INCLUDE_CHECK_DFLT_VARS_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------

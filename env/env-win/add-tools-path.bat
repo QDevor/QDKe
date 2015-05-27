@@ -32,6 +32,7 @@ set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 :: Microsoft Visual Studio
 :: Run vcvars32.bat at first
 :-------------------------------------
+if x%QDKe_VAR_MSVS_VER_YEAR% == "xNone" goto :skip_add_tools_path_msvs
 set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
 set "MSVS_VCVARSALL_BATCH=%MSVS_VC_ROOT%/vcvarsall.bat"
 if exist "!MSVS_VCVARSALL_BATCH!" (
@@ -42,17 +43,21 @@ if exist "!MSVS_VCVARSALL_BATCH!" (
 	echo [QDKe] - We Are Finding Microsoft Visual Studio Not Exist.
 )
 rem echo [Debug] - PATH=%PATH%
+:skip_add_tools_path_msvs
 :-------------------------------------
 :: Microsoft SQL Server
 :-------------------------------------
 set "PATH=!PATH!;!MSSQL_TOOLS_ROOT!"
 set "PATH=!PATH!;!MSSQL_DTS_ROOT!"
+:skip_add_tools_path_mssql
 :-------------------------------------
 :: MySQL
 :-------------------------------------
+goto :skip_add_tools_path_mysql
 set "PATH=!PATH!;!MYSQL_SERVER_ROOT!/bin"
 set "PATH=!PATH!;!MYSQL_UTILITIES_ROOT!"
 set "PATH=!PATH!;!MYSQL_UTILITIES_EXT_ROOT!"
+:skip_add_tools_path_mysql
 :-------------------------------------
 :: Java
 :-------------------------------------

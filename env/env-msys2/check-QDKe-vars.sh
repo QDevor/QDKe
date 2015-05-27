@@ -17,7 +17,7 @@
 
 #----------------RUN-ONCE----------------
 if [[ x$INCLUDE_CHECK_QDKe_VARS_SCRIPT == "xtrue" ]]; then
-	echo [QDKe] - We Are Checking Included More Than Once - check-QDKe-vars.sh.
+	:
 else
 #----------------RUN-ONCE----------------
 

@@ -51,7 +51,7 @@ rem Default setting to false
 rem set QDKe_VAR_UAC=true
 :----------------------------------------
 rem Default setting to 2010(WINXP) or 2013(WIN7)
-set QDKe_VAR_MSVS_VER_YEAR=2008
+rem set QDKe_VAR_MSVS_VER_YEAR=None
 
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_DFLT_VARS_BATCH=true
