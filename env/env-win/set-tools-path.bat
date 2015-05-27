@@ -20,22 +20,45 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 
 :: Setting tools-path variables
 :-------------------------------------
-:: Microsoft Visual Studio
+:: Default settings
 :-------------------------------------
-set "MSVS_2010_ROOT=C:/Program Files/Microsoft Visual Studio 10.0"
-set "MSVS_ROOT=%MSVS_2010_ROOT%"
-set "MSVS_VC_ROOT=%MSVS_2010_ROOT%/VC"
+set QDKE_C_PGM_FILES_DIR=C:/Program Files (x86)
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_C_PGM_FILES_DIR=C:/Program Files
+set QDKE_D_PGM_FILES_DIR=C:/Program Files (x86)
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_D_PGM_FILES_DIR=C:/Program Files
+:-------------------------------------
+:: Microsoft Visual Studio
+:: Microsoft Visual Studio 2008 Service Pack 1
+:: https://www.microsoft.com/en-us/download/details.aspx?id=10986
+:: 
+:-------------------------------------
+set "MSVS_2005_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 8.0"
+set "MSVS_2008_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 9.0"
+set "MSVS_2010_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 10.0"
+set "MSVS_2013_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 11.0"
+
+set "MSVS_2005_VC_ROOT=%MSVS_2005_ROOT%/VC"
+set "MSVS_2008_VC_ROOT=%MSVS_2008_ROOT%/VC"
+set "MSVS_2010_VC_ROOT=%MSVS_2010_ROOT%/VC"
+set "MSVS_2013_VC_ROOT=%MSVS_2013_ROOT%/VC"
+
+set VS80COMNTOOLS=!MSVS_2005_ROOT!/Common7/Tools/
+set VS90COMNTOOLS=!MSVS_2008_ROOT!/Common7/Tools/
+set VS100COMNTOOLS=!MSVS_2010_ROOT!/Common7/Tools/
+
+set "MSVS_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_ROOT!"
+set "MSVS_VC_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_VC_ROOT!"
 :-------------------------------------
 :: Microsoft SQL Server
 :-------------------------------------
-set "MSSQL_ROOT=C:/Program Files/Microsoft SQL Server/100"
+set "MSSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft SQL Server/100"
 set "MSSQL_TOOLS_ROOT=%MSSQL_ROOT%/Tools/Binn"
 set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
 :-------------------------------------
 :: MySQL
 :-------------------------------------
 rem set "MYSQL_ROOT=%QDK_ROOT%/mysql"
-set "MYSQL_ROOT=C:/Program Files/MySQL"
+set "MYSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/MySQL"
 set "MYSQL_SERVER_ROOT=%MYSQL_ROOT%/MySQL Server 5.6"
 set "MYSQL_UTILITIES_ROOT=%MYSQL_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
 set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL_UTILITIES_ROOT%/Doctrine extensions for PHP

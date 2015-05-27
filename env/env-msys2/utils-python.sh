@@ -22,9 +22,20 @@ _FN_UTILS_PYTHON=`basename $0`
 _FNTYPE_UTILS_PYTHON=${_FN_UTILS_PYTHON#*.}
 _FNNAME_UTILS_PYTHON=${_FN_UTILS_PYTHON%.*}
 #----------------------------------------
-
-# . utils-msys2.sh
-
+# 
+# Compiling Python 2.7 Modules on Windows 32 and 64 using 
+# MSVC++ 2008 Express
+# 
+# http://blog.victorjabur.com/2011/06/05/compiling-python-2-7-modules-on-windows-32-and-64-using-msvc-2008-express/
+# 
+# Observation: 
+# Don¡¯t use Microsoft Visual C++ Express Edition 2010 to 
+# build python modules, because this will not work due to 
+# Python 2.7 was built using the 2008 version. 
+# This is an error that occurs when you try to build 
+# PyCrypto and Paramiko using the 2010 version and 
+# execute the import module:
+#----------------------------------------
 _utils_python_initVer() {
 	if [[ "$PYTHON" == "" ]] ; then
 		export PYTHON=python3
@@ -44,7 +55,8 @@ _utils_python_initVer() {
 	
 	export EASY_INSTALL=easy_install-$PYVER2
 	
-	export QDKe_PYSP_PATH=/mingw$QDKe_VAR_nCMD/lib/python$PYVER2/site-packages
+	export QDKE_PYTHON_ROOT=/mingw$QDKe_VAR_nCMD/lib/python$PYVER2
+	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/site-packages
 	
 	log_warning "We Are Running ON Python $PYVER3."
 }

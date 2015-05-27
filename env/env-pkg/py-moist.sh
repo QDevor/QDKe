@@ -49,23 +49,27 @@ qdev_setmore() {
 		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server 5.6/" \
 			$needed_patch_file
 #	fi
+		# [build]
+		# compiler = mingw32
 		needed_patch_file=$qdev_build_src/setup_windows.py
-		sed -i -e 's/\(extra_compile_args = \)\(\[.*\]\)/\1\[\]/g' \
-			$needed_patch_file
+#		sed -i -e 's/\(extra_compile_args = \)\(\[.*\]\)/\1\[\]/g' \
+#			$needed_patch_file
 		
 		sed -i -e 's/\(.*\)lib\\\opt\(.*\)/\1lib\2/g' \
 			$needed_patch_file
 		
 		needed_patch_file=$qdev_build_src/setup_windows.py
-		sed -i -e "s/\(libraries = \[.*'wsock32'\), client\(.*\]\)/\1, 'mysql', client\2/g" \
-			$needed_patch_file
+#		sed -i -e "s/\(libraries = \[.*'wsock32'\), client\(.*\]\)/\1, 'mysql', client\2/g" \
+#			$needed_patch_file
 }
 
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
 	exe_cmd "cd $qdev_build_dir" || die
-	$PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
+	# $PYTHON setup.py build --compiler="mingw32"  install
+	$PYTHON setup.py build --compiler="msvc"  install
+	# $PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
 	# $PIP install cvxopt
 }
 

@@ -14,23 +14,25 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_CHECK_DFLT_VARS_BATCH%" == "xtrue" (
 	goto :EOF
 )
+:----------------RUN-ONCE----------------
 
 :: Checking and Setting dflt-vars
-:-------------------------------------
+:----------------------------------------
 
 :: Default setting to true
-:-------------------------------------
+:----------------------------------------
 if "!QDKe_VAR_MSYS2!" == "" (
 	set QDKe_VAR_MSYS2=true
 )
 
-:-------------------------------------
+:----------------------------------------
 :: Default setting to MINGW32(x32) and MINGW64(x64)
 :: MSYS MINGW32 MINGW64
-:-------------------------------------
+:----------------------------------------
 if "!MSYSTEM!" == "" (
 	if "!QDKe_VAR_xCMD!" == "x32" (
 		set MSYSTEM=MINGW32
@@ -40,20 +42,29 @@ if "!MSYSTEM!" == "" (
 	set MSYSCON=mintty.exe
 )
 
-:-------------------------------------
+:----------------------------------------
 :: Default setting to false
-:-------------------------------------
+:----------------------------------------
 if "!QDKe_VAR_INCLUDED_MINGW!" == "" (
 	set QDKe_VAR_INCLUDED_MINGW=false
 )
 
-:-------------------------------------
+:----------------------------------------
 :: Default setting to false
-:-------------------------------------
+:----------------------------------------
 if "!QDKe_VAR_UAC!" == "" (
 	set QDKe_VAR_UAC=false
 )
 
-:-------------------------------------
+:----------------------------------------
+:: Default setting to 2010(WINXP) or 2013(WIN7)
+:----------------------------------------
+if "!QDKe_VAR_MSVS_VER_YEAR!" == "" (
+	set QDKe_VAR_MSVS_VER_YEAR=2013
+	if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKe_VAR_MSVS_VER_YEAR=2010
+)
+
+:----------------RUN-ONCE----------------
 set INCLUDE_CHECK_DFLT_VARS_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

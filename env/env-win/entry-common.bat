@@ -14,28 +14,29 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_ENTRY_COMMON_BATCH%" == "xtrue" (
 	goto :EOF
 )
-
+:----------------RUN-ONCE----------------
 :: Common entry of call QDKe batches
-:-------------------------------------
-
-call %~dp0set-dflt-vars.bat
-call %~dp0set-dflt-dirs.bat
-
-call %~dp0set-extra-vars.bat
-
+:----------------------------------------
 call %~dp0check-win-ver.bat
 call %~dp0check-cpu-info.bat
+:----------------------------------------
+call %~dp0set-dflt-vars.bat
+call %~dp0set-dflt-dirs.bat
+:----------------------------------------
+call %~dp0set-extra-vars.bat
+:----------------------------------------
 call %~dp0check-dflt-vars.bat
-
+:----------------------------------------
 call %~dp0set-tools-path.bat
 call %~dp0add-tools-path.bat
 call %~dp0set-msys2-path.bat
-
+:----------------------------------------
 rem call %~dp0unset-dflt-vars.bat
-
-:-------------------------------------
+:----------------RUN-ONCE----------------
 set INCLUDE_ENTRY_COMMON_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

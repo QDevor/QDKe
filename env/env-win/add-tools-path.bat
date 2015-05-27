@@ -34,12 +34,11 @@ set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 :-------------------------------------
 set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
 set "MSVS_VCVARSALL_BATCH=%MSVS_VC_ROOT%/vcvarsall.bat"
-if exist "!_MSVS_VCVARSALL_BATCH!" (
+if exist "!MSVS_VCVARSALL_BATCH!" (
 	echo [QDKe] - We Are Calling vcvars32.bat Will Reset Envirment Variables.
 	call "!MSVS_VCVARSALL_BATCH!"
 	echo [QDKe] - We Are Adding Microsoft Visual Studio.
 ) else (
-	set VS100COMNTOOLS=!MSVS_ROOT!/Common7/Tools
 	echo [QDKe] - We Are Finding Microsoft Visual Studio Not Exist.
 )
 echo [Debug] - PATH=%PATH%
