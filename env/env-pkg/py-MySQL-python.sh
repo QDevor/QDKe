@@ -45,7 +45,7 @@ qdev_setmore() {
 	
 #	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		needed_patch_file=$qdev_build_src/site.cfg
-		sed -i -e 's/\(connector = \).*/\1$MYSQL_ROOT/g' \
+		sed -i -e 's/\(connector = \).*/\1'$MYSQL_ROOT'/g' \
 			$needed_patch_file
 #	fi
 }
