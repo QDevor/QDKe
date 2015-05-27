@@ -59,6 +59,7 @@ _ready_msys2_updating_corekgs() {
 			sleep 3
 		done
 		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		pause && exit 0
 	fi
 }
 
@@ -78,7 +79,7 @@ _ready_msys2_updating_otherpkgs() {
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
-			echo y | pacman -Su
+			echo y | pacman -Syu
 			if [ $? = 0 ]; then
 				break;
 			fi
