@@ -29,11 +29,33 @@ set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 
 :: Add Tools to PATH
 :-------------------------------------
-
+:: Microsoft Visual Studio
+:: Run vcvars32.bat at first
+:-------------------------------------
+set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
+set "MSVS_VCVARSALL_BATCH=%MSVS_VC_ROOT%/vcvarsall.bat"
+if exist "!_MSVS_VCVARSALL_BATCH!" (
+	echo [QDKe] - We Are Calling vcvars32.bat Will Reset Envirment Variables.
+	call "!MSVS_VCVARSALL_BATCH!"
+	echo [QDKe] - We Are Adding Microsoft Visual Studio.
+) else (
+	set VS100COMNTOOLS=!MSVS_ROOT!/Common7/Tools
+	echo [QDKe] - We Are Finding Microsoft Visual Studio Not Exist.
+)
+echo [Debug] - PATH=%PATH%
+:-------------------------------------
+:: Microsoft SQL Server
+:-------------------------------------
+set "PATH=!PATH!;!MSSQL_TOOLS_ROOT!"
+set "PATH=!PATH!;!MSSQL_DTS_ROOT!"
+:-------------------------------------
+:: MySQL
 :-------------------------------------
 set "PATH=!PATH!;!MYSQL_SERVER_ROOT!/bin"
 set "PATH=!PATH!;!MYSQL_UTILITIES_ROOT!"
 set "PATH=!PATH!;!MYSQL_UTILITIES_EXT_ROOT!"
+:-------------------------------------
+:: Java
 :-------------------------------------
 set "JAVA_ROOT=!JAVA6_ROOT!"
 set "JAVA_HOME=!JAVA6_HOME!"

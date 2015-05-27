@@ -20,16 +20,27 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 
 :: Setting tools-path variables
 :-------------------------------------
-
-:: MySQL Tool
+:: Microsoft Visual Studio
+:-------------------------------------
+set "MSVS_2010_ROOT=C:/Program Files/Microsoft Visual Studio 10.0"
+set "MSVS_ROOT=%MSVS_2010_ROOT%"
+set "MSVS_VC_ROOT=%MSVS_2010_ROOT%/VC"
+:-------------------------------------
+:: Microsoft SQL Server
+:-------------------------------------
+set "MSSQL_ROOT=C:/Program Files/Microsoft SQL Server/100"
+set "MSSQL_TOOLS_ROOT=%MSSQL_ROOT%/Tools/Binn"
+set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
+:-------------------------------------
+:: MySQL
 :-------------------------------------
 rem set "MYSQL_ROOT=%QDK_ROOT%/mysql"
 set "MYSQL_ROOT=C:/Program Files/MySQL"
 set "MYSQL_SERVER_ROOT=%MYSQL_ROOT%/MySQL Server 5.6"
 set "MYSQL_UTILITIES_ROOT=%MYSQL_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
 set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL_UTILITIES_ROOT%/Doctrine extensions for PHP
-
-:: JAVA Tool
+:-------------------------------------
+:: JAVA
 :-------------------------------------
 set "JAVA_ROOT=D:/cygwin/opt/Java"
 set "JAVA6_ROOT=%JAVA_ROOT%"

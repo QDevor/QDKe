@@ -57,6 +57,6 @@ export APPDATA=$TEMP/appdata
 export HOMEPATH=$QDKE_USR/$USERNAME
 export USERPROFILE=$HOMEPATH
 #----------------------------------------
-[ -n $MYSQL_ROOT ] && export MYSQL_ROOT=`cygpath -u $MYSQL_ROOT`
+[ -n "$MYSQL_ROOT" ] && export MYSQL_ROOT=`cygpath -u $MYSQL_ROOT`
 #----------------------------------------
 export INCLUDE_CHECK_DFLT_DIRS_SCRIPT=true

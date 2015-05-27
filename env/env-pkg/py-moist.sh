@@ -44,11 +44,21 @@ qdev_setmore() {
 	qdev_build_dir=$qdev_build_src
 	
 #	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
-#		needed_patch_file=$qdev_build_src/site.cfg
-#		tmp_mysql_root=`cygpath -w $QDK_ROOT/mysql-connector-c | sed -e 's#\\\#\\\\\\\#g'`
-#		sed -i -e "s#connector = .*#connector = $tmp_mysql_root#g" \
-#			$needed_patch_file
+		needed_patch_file=$qdev_build_src/site.cfg
+		tmp_mysql_root=`cygpath -w $QDK_ROOT/mysql-connector-c | sed -e 's#\\\#\\\\\\\#g'`
+		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server 5.6/" \
+			$needed_patch_file
 #	fi
+		needed_patch_file=$qdev_build_src/setup_windows.py
+		sed -i -e 's/\(extra_compile_args = \)\(\[.*\]\)/\1\[\]/g' \
+			$needed_patch_file
+		
+		sed -i -e 's/\(.*\)lib\\\opt\(.*\)/\1lib\2/g' \
+			$needed_patch_file
+		
+		needed_patch_file=$qdev_build_src/setup_windows.py
+		sed -i -e "s/\(libraries = \[.*'wsock32'\), client\(.*\]\)/\1, 'mysql', client\2/g" \
+			$needed_patch_file
 }
 
 qdev_try() {
