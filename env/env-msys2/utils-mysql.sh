@@ -99,12 +99,22 @@ _utils_mysql_init_install() {
 		cd $MYSQL_ROOT/bin || die
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 			mysqld -install
+			net start mysql
 		else
-			log_warning "Please Run As Administrator: mysqld -install."
-			pause && pause && pause
+			# log_warning "Please Run As Administrator: mysqld -install."
+			# pause && pause && pause
+			needed_admin_batch=$QDKE_TMP/needed_admin_batch.bat
+			echo "cd /d $MYSQL_ROOT/bin"  >$needed_admin_batch  || die
+			echo "mysqld -install"     >>$needed_admin_batch || die
+			echo "net start mysql"     >>$needed_admin_batch || die
+			needed_admin_vbs=$QDKE_TMP/getadmin.vbs
+			needed_admin_batch=`cygpath -w $needed_admin_batch`
+			echo 'Set UAC = CreateObject("Shell.Application")' >$needed_admin_vbs || die
+			echo 'UAC.ShellExecute "'$needed_admin_batch'", "", "", "runas", 1' >>$needed_admin_vbs || die
+			start $needed_admin_vbs || die
+			rm -rf $needed_admin_vbs
+			rm -rf $needed_admin_batch 
 		fi
-		
-		net start mysql
 		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
 	fi
 }
