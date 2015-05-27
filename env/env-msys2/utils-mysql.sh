@@ -44,8 +44,8 @@ _utils_install_mysql_getMore() {
 }
 
 _utils_install_mysql_get() {
-	if [ ! -d $QDK_ROOT/mysql ]; then
-		_tool_MySQL_getMore
+	if [ ! -d $MYSQL_ROOT ]; then
+		_utils_install_mysql_getMore
 		
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 			_pkg_file=$_pkg-$_pkg_ver-win32.zip

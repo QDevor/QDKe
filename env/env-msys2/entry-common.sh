@@ -48,7 +48,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-vars.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-dirs.sh
 #----------------------------------------
-. $_PGMDIR_ENTRY_COMMON/env-msys2/check-deps-msys2.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/ready-msys2.sh
 #----------------------------------------
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
