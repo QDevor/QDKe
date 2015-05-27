@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+#----------------RUN-ONCE----------------
+if [[ x$INCLUDE_READY_UBUNTU_SCRIPT == "xtrue" ]]; then
+	:
+else
+#----------------RUN-ONCE----------------
+
 # 更新apt-get版本
 # gedit /etc/apt/sources.list
 # 前面的“#”号，小心不要去掉注释前面的“#”号
@@ -40,6 +46,8 @@ apt-get install build-essential
 apt-get install bison flex
 apt-get install manpages-dev
 
-
-
+#----------------RUN-ONCE----------------
+export INCLUDE_READY_UBUNTU_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------
 

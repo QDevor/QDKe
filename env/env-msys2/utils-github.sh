@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+#----------------RUN-ONCE----------------
+if [[ x$INCLUDE_UTILS_GITHUB_SCRIPT == "xtrue" ]]; then
+	:
+else
+#----------------RUN-ONCE----------------
+
 _PGMDIR_UTILS_GITHUB=`dirname $0`
 _PGMDIR_UTILS_GITHUB=`cd $_PGMDIR_UTILS_GITHUB && pwd -P`
 _FN_UTILS_GITHUB=`basename $0`
@@ -182,3 +188,8 @@ _utils_github_init
 # utils_github_updateWithResume
 # utils_github_clone
 # utils_github_update
+
+#----------------RUN-ONCE----------------
+export INCLUDE_UTILS_GITHUB_SCRIPT=true
+fi
+#----------------RUN-ONCE----------------

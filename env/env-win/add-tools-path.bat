@@ -31,7 +31,9 @@ set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 :-------------------------------------
 
 :-------------------------------------
-set "PATH=!PATH!;!MYSQL_ROOT!/bin"
+set "PATH=!PATH!;!MYSQL_SERVER_ROOT!/bin"
+set "PATH=!PATH!;!MYSQL_UTILITIES_ROOT!"
+set "PATH=!PATH!;!MYSQL_UTILITIES_EXT_ROOT!"
 :-------------------------------------
 set "JAVA_ROOT=!JAVA6_ROOT!"
 set "JAVA_HOME=!JAVA6_HOME!"

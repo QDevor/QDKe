@@ -35,8 +35,6 @@ _utils_install_mysql_init() {
 }
 
 _utils_install_mysql_getMore() {
-	_pkg=mysql
-	
 	doloop=1
 	while [ $doloop = 1 ]; do
 		_pkg_ver=`wget -q -O- ''$PKG_MIRROR'/' | \
@@ -52,8 +50,9 @@ _utils_install_mysql_getMore() {
 	_pkg_ver2=$(echo $_pkg_ver | cut -f1-2 -d'.')
 }
 
-_utils_install_mysql_get() {
+_utils_install_mysql_getzip() {
 	if [ ! -d $MYSQL_ROOT ]; then
+		_pkg=mysql
 		_utils_install_mysql_getMore
 		
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
@@ -70,6 +69,28 @@ _utils_install_mysql_get() {
 		cd $QDK_ROOT || die
 		extract $QDKE_TMP/$pkg_file
 		mv $_pkg_file mysql
+	fi
+}
+
+#http://cdn.mysql.com/Downloads/MySQLInstaller/mysql-installer-community-5.6.24.0.msi
+_utils_install_mysql_getmsi() {
+	if [ ! -d $MYSQL_ROOT ]; then
+		_pkg=mysql-installer-community
+		_utils_install_mysql_getMore
+		
+		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+			_pkg_file=$_pkg-$_pkg_ver.0-win32.msi
+		else
+			_pkg_file=$_pkg-$_pkg_ver.0-winx64.msi
+		fi
+		
+		_pkg_url=$CDN_MIRROR/MySQLInstaller/$_pkg_file
+		echo "_pkg_url=$_pkg_url."
+		cd $QDKE_TMP || die
+		loop_curl $_pkg_file $_pkg_url
+		
+		cd $QDKE_TMP || die
+		start $QDKE_TMP/$pkg_file
 	fi
 }
 
@@ -119,6 +140,12 @@ _utils_mysql_init_install() {
 	fi
 }
 
+_utils_remove_mysql() {
+	:
+	cd /d $MYSQL_ROOT/bin
+	mysqld -remove
+}
+
 _utils_install_mysql_connector_c_get() {
 	if [ ! -d $MYSQL_ROOT ]; then
 		_pkg=mysql-connector-c
@@ -165,7 +192,7 @@ _utils_install_mysql_connector_cpp_get() {
 	fi
 }
 
-_utils_mysql_init() {
+_utils_mysql_zip_init() {
 	_old_pwd=$(pwd)
 	_utils_mysql_init_config
 	_utils_mysql_init_install
@@ -174,7 +201,14 @@ _utils_mysql_init() {
 	cd $_old_pwd || die
 }
 
+_utils_mysql_msi_init() {
+	_old_pwd=$(pwd)
+	_utils_mysql_init_config
+	_utils_mysql_init_install
+	
+	_utils_install_mysql_connector_c_get
+	cd $_old_pwd || die
+}
 #----------------------------------------
-_utils_install_mysql
-_utils_mysql_init
-
+#_utils_mysql_zip_init
+#_utils_mysql_msi_init

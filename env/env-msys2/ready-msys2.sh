@@ -15,11 +15,12 @@
 # limitations under the License.
 #
 
-#----------------------------------------
+#----------------RUN-ONCE----------------
 if [[ x$INCLUDE_READY_MSYS2_SCRIPT == "xtrue" ]]; then
 	:
 else
-#----------------------------------------
+#----------------RUN-ONCE----------------
+
 _PGMDIR_READY_MSYS2=`dirname $0`
 _PGMDIR_READY_MSYS2=`cd $_PGMDIR_READY_MSYS2 && pwd -P`
 _FN_READY_MSYS2=`basename $0`
@@ -62,7 +63,13 @@ _ready_msys2_updating_corekgs() {
 }
 
 _ready_msys2_autorebase() {
-	:
+	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
+	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+		if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+			start $MSYS_ROOT/autorebase.bat || die
+			touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		fi
+	fi
 }
 
 _ready_msys2_updating_otherpkgs() {
