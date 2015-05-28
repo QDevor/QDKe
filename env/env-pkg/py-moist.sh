@@ -68,7 +68,7 @@ qdev_try() {
 	
 	exe_cmd "cd $qdev_build_dir" || die
 	# $PYTHON setup.py build --compiler="mingw32"  install
-	$PYTHON setup.py build --compiler="msvc"  install
+	$PYTHON -v setup.py build --compiler="msvc"  install
 	# $PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
 	# $PIP install cvxopt
 }

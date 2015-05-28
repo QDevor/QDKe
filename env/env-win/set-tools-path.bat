@@ -31,6 +31,24 @@ if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_D_PGM_FILES_DIR=C:/Program Files
 :: Microsoft Visual Studio 2008 Service Pack 1
 :: https://www.microsoft.com/en-us/download/details.aspx?id=10986
 :: 
+:: You must at least run the Visual Studio GUI once
+:: 
+:: http://matthew-brett.github.io/pydagogue/python_msvc.html
+:: 
+:: VC++ version	_MSC_VER	Alternative name
+:: Version 1.0	800	 
+:: Version 2.0	900	 
+:: Version 2.x	900	 
+:: Version 4.0	1000	 
+:: Version 5.0	1100	 
+:: Version 6.0	1200	 
+:: Version 7.0	1300	Visual Studio 2002
+:: Version 7.1	1310	Visual Studio 2003
+:: Version 8.0	1400	Visual Studio 2005
+:: Version 9.0	1500	Visual Studio 2008
+:: Version 10.0	1600	Visual Studio 2010
+:: Version 11.0	1700	Visual Studio 2012
+:: Version 12.0	1800	Visual Studio 2013
 :-------------------------------------
 set "MSVS_2005_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 8.0"
 set "MSVS_2008_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 9.0"

@@ -28,6 +28,7 @@ setlocal enabledelayedexpansion
 :-------------------------------------
 :--Default setting to false
 :--Default setting to true
+set QDKe_VAR_MSVS_VER_YEAR=None
 :-------------------------------------
 
 :: Checking QDKe Env

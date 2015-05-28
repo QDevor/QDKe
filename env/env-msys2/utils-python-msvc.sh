@@ -23,6 +23,17 @@ _FNTYPE_UTILS_PYTHON=${_FN_UTILS_PYTHON#*.}
 _FNNAME_UTILS_PYTHON=${_FN_UTILS_PYTHON%.*}
 #----------------------------------------
 # 
+# Python version	VC++ version
+# 
+# 2.5.6						7.1
+# 2.6.9						9.0
+# 2.7.6						9.0
+# 3.2.3						9.0
+# 3.3.5						10.0
+# 3.4.0						10.0
+# 
+# http://matthew-brett.github.io/pydagogue/python_msvc.html
+# 
 # Compiling Python 2.7 Modules on Windows 32 and 64 using 
 # MSVC++ 2008 Express
 # 
