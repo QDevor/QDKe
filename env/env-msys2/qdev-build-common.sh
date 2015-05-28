@@ -36,12 +36,12 @@ export PYTHON=python2
 #----------------------------------------
 
 _qdev_build_lookup_gcc_predefined_macro() {
-	if [ ! -f $QDKE_STAMP_DIR/${FUNCNAME}-stamp ]; then
+	if [ ! -f $QDKE_STAMP_DIR/$FUNCNAME-stamp ]; then
 		local src_file=lookup_gcc_predefined_macro.c
 		echo "int main(void) {}" >$QDKE_TMP/$src_file
 		$1gcc -dM -E $QDKE_TMP/$src_file \
 			>$QDKE_ETC/current_gcc_predefined_macro || die
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDKE_STAMP_DIR/$FUNCNAME-stamp
 	fi
 }
 
@@ -115,6 +115,7 @@ qdev_try() {
 	
 	cd $qdev_build_dir
 	
+	# > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	qdev_build_config
 	qdev_build_make
 	qdev_build_make install

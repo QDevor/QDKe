@@ -97,7 +97,12 @@ qdev_build_prepare() {
 qdev_build_fix() {
 	:
 	needed_patch_file=$qdev_build_src/include/my_global.h
-	sed -i -e 's/if sys.maxsize.*/# &/g' $needed_patch_file
+	# line637 - #ifdef _WIN32 -> #if (defined(_WIN32) && !defined(__MINGW32__))
+	# #ifndef _WIN32
+	sed -i -e 's/ifdef _WIN32/#if (defined(_WIN32) && !defined(__MINGW32__))/g' \
+		$needed_patch_file
+	sed -i -e 's/ifndef _WIN32/#if (!defined(_WIN32) || defined(__MINGW32__))/g' \
+		$needed_patch_file
 }
 
 qdev_build_config() {
@@ -149,6 +154,7 @@ qdev_try() {
 	# qdev_build_config
 	qdev_build_cmake \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1
+	qdev_build_fix
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
