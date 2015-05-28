@@ -124,6 +124,16 @@ qdev_build_fix() {
 	# touch $qdev_build_dir/${FUNCNAME}-stamp-fix
 }
 
+qdev_build_fix2() {
+	:
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix ]; then
+		return 0
+	fi
+	#----------------------------------------
+	
+	# touch $qdev_build_dir/${FUNCNAME}-stamp-fix
+}
+
 qdev_build_config() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
@@ -173,7 +183,7 @@ qdev_try() {
 	# qdev_build_config
 	qdev_build_cmake \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1
-	qdev_build_fix
+	qdev_build_fix2
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
