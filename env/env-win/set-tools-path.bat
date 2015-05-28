@@ -84,7 +84,7 @@ set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
 :: 
 :: -----------------------------------
 :: Microsoft Windows SDK for Windows 7 and .NET Framework 4 (ISO)
-:: Windows SDK 7.1不支持Microsoft Visual C++ 2010 x86 Redistributable - 10.0.30319 以上版本
+:: Windows SDK 7.1 do not support version up to Microsoft Visual C++ 2010 x86 Redistributable - 10.0.30319
 :: https://www.microsoft.com/en-us/download/details.aspx?id=8442
 :: GRMSDK_EN_DVD.iso is a version for x86 environment.
 :: GRMSDKX_EN_DVD.iso is a version for x64 environment.
