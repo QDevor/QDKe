@@ -53,8 +53,8 @@ set "PATH=!PATH!;!MSSQL_DTS_ROOT!"
 :-------------------------------------
 :: Microsoft Platform SDK
 :-------------------------------------
-set "PATH=!PATH!;!MSPSDK_ROOT!/bin"
-:skip_add_tools_path_mspsdk
+set "PATH=!PATH!;!MSSDK_ROOT!/bin"
+:skip_add_tools_path_mssdk
 :-------------------------------------
 :: MySQL
 :-------------------------------------

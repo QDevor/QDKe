@@ -22,10 +22,14 @@ if "x%INCLUDE_SET_TOOLS_PATH_BATCH%" == "xtrue" (
 :-------------------------------------
 :: Default settings
 :-------------------------------------
-set QDKE_C_PGM_FILES_DIR=C:/Program Files (x86)
-if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_C_PGM_FILES_DIR=C:/Program Files
-set QDKE_D_PGM_FILES_DIR=C:/Program Files (x86)
-if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKE_D_PGM_FILES_DIR=C:/Program Files
+set "QDKE_XP_C_PGM_FILES_DIR=C:/Program Files"
+set "QDKE_WIN7_C_PGM_FILES_DIR=C:/Program Files (x86)"
+set "QDKE_C_PGM_FILES_DIR=%QDKE_WIN7_C_PGM_FILES_DIR%"
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set "QDKE_C_PGM_FILES_DIR=%QDKE_XP_C_PGM_FILES_DIR%"
+set "QDKE_XP_D_PGM_FILES_DIR=D:/Program Files"
+set "QDKE_WIN7_D_PGM_FILES_DIR=D:/Program Files (x86)"
+set QDKE_D_PGM_FILES_DIR=%QDKE_WIN7_D_PGM_FILES_DIR%"
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set "QDKE_D_PGM_FILES_DIR=%QDKE_XP_D_PGM_FILES_DIR%"
 :-------------------------------------
 :: Microsoft Visual Studio
 :: Microsoft Visual Studio 2008 Service Pack 1
@@ -74,11 +78,30 @@ set "MSSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft SQL Server/100"
 set "MSSQL_TOOLS_ROOT=%MSSQL_ROOT%/Tools/Binn"
 set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
 :-------------------------------------
-:: Microsoft Platform SDK
+:: Microsoft Windows SDK
+:: -----------------------------------
+:: Microsoft Platform SDK for Windows XP SP2
+:: 
+:: -----------------------------------
+:: Microsoft Windows SDK for Windows 7 and .NET Framework 4 (ISO)
+:: Windows SDK 7.1不支持Microsoft Visual C++ 2010 x86 Redistributable - 10.0.30319 以上版本
+:: https://www.microsoft.com/en-us/download/details.aspx?id=8442
+:: GRMSDK_EN_DVD.iso is a version for x86 environment.
+:: GRMSDKX_EN_DVD.iso is a version for x64 environment.
+:: GRMSDKIAI_EN_DVD.iso is a version for Itanium environment.
+:: http://download.microsoft.com/download/F/1/0/F10113F5-B750-4969-A255-274341AC6BCE/GRMSDKX_EN_DVD.iso
+:: windows 7 - What SDK version to download?
+:: http://stackoverflow.com/questions/20115186/what-sdk-version-to-download
+:: -----------------------------------
 :-------------------------------------
-set "MSPSDK_WINXPSP2_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
+set "MSSDK_WINXPSP2_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
+set "MSSDK_V60_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v6.0A"
+set "MSSDK_V70_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0"
+set "MSSDK_V71_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.1"
 
-set "MSPSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!"
+set "MSSDK_ROOT=!MSSDK_V70_ROOT!"
+if exist "!MSSDK_V71_ROOT!" set "MSSDK_ROOT=!MSSDK_V71_ROOT!"
+if x$QDe_VAR_IS_XP == "xtrue" set "MSSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!"
 :-------------------------------------
 :: MySQL
 :-------------------------------------
