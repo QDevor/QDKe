@@ -99,9 +99,9 @@ qdev_build_fix() {
 	needed_patch_file=$qdev_build_src/include/my_global.h
 	# line637 - #ifdef _WIN32 -> #if (defined(_WIN32) && !defined(__MINGW32__))
 	# #ifndef _WIN32
-	sed -i -e 's/ifdef _WIN32/#if (defined(_WIN32) && !defined(__MINGW32__))/g' \
+	sed -i -e 's/#ifdef _WIN32/#if (defined(_WIN32) && !defined(__MINGW32__))/g' \
 		$needed_patch_file
-	sed -i -e 's/ifndef _WIN32/#if (!defined(_WIN32) || defined(__MINGW32__))/g' \
+	sed -i -e 's/#ifndef _WIN32/#if (!defined(_WIN32) || defined(__MINGW32__))/g' \
 		$needed_patch_file
 }
 
