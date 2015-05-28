@@ -96,13 +96,24 @@ qdev_build_prepare() {
 
 qdev_build_fix() {
 	:
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix ]; then
+		return 0
+	fi
 	needed_patch_file=$qdev_build_src/include/my_global.h
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
 	# line637 - #ifdef _WIN32 -> #if (defined(_WIN32) && !defined(__MINGW32__))
 	# #ifndef _WIN32
-	sed -i -e 's/#ifdef _WIN32/#if (defined(_WIN32) && !defined(__MINGW32__))/g' \
+	sed -i -e 's/#ifdef _WIN32/#if (defined(_WIN32) \&\& !defined(__MINGW32__))/g' \
 		$needed_patch_file
-	sed -i -e 's/#ifndef _WIN32/#if (!defined(_WIN32) || defined(__MINGW32__))/g' \
+	sed -i -e '28s/.*/#ifdef _WIN32/' \
 		$needed_patch_file
+	
+	sed -i -e 's/#ifndef _WIN32/#if (!defined(_WIN32) \|\| defined(__MINGW32__))/g' \
+		$needed_patch_file
+
+	touch $qdev_build_dir/${FUNCNAME}-stamp-fix
 }
 
 qdev_build_config() {
