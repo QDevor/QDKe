@@ -43,16 +43,18 @@ qdev_setmore() {
 qdev_get_rc_src() {
 	_pkg=mysql-server-mysql
 	_pkg_ver=5.7.7
-	_pkg_file=$_pkg-$_pkg_ver.tar.gz
+	_pkg_file=$_pkg-$_pkg_ver
+	_pkg_ffile=$_pkg_file.tar.gz
 	_pkg_dir=$_pkg-$_pkg_ver
-	_pkg_url=https://github.com/mysql/mysql-server/archive/$_pkg_file
+	# https://codeload.github.com/mysql/mysql-server/tar.gz/mysql-5.7.7
+	_pkg_url=https://codeload.github.com/mysql/mysql-server/tar.gz/$_pkg_file
 	cd $QDKE_TMP || die
-	if [ -f $_pkg_file ]; then
+	if [ -f $_pkg_ffile ]; then
 		return 0
 	fi
-	loop_curl $_pkg_file $_pkg_url
+	curl -I -L -O $_pkg_ffile $_pkg_url
 	cd $qdev_build_top || die
-	extract $QDKE_TMP/$_pkg_file || die
+	extract $QDKE_TMP/$_pkg_ffile || die
 	mv $_pkg_dir $apps_more || die
 }
 
