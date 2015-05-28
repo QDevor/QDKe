@@ -94,6 +94,12 @@ qdev_build_prepare() {
 	fi
 }
 
+qdev_build_fix() {
+	:
+	needed_patch_file=$qdev_build_src/include/my_global.h
+	sed -i -e 's/if sys.maxsize.*/# &/g' $needed_patch_file
+}
+
 qdev_build_config() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
@@ -122,6 +128,7 @@ qdev_build_cmake() {
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
 			-DWITH_EMBEDDED_SERVER=1 \
+			-DWITH_SSL=yes -DWITH_ZLIB=yes \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake
 	fi
@@ -140,8 +147,10 @@ qdev_try() {
 	fi
 	
 	# qdev_build_config
-	qdev_build_cmake
-	qdev_build_make VERBOSE=1
+	qdev_build_cmake \
+		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1
+	qdev_build_make VERBOSE=1 \
+		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."

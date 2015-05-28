@@ -35,8 +35,20 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------
 
+_qdev_build_lookup_gcc_predefined_macro() {
+	if [ ! -f $QDKE_STAMP_DIR/${FUNCNAME}-stamp ]; then
+		local src_file=lookup_gcc_predefined_macro.c
+		echo "int main(void) {}" >$QDKE_TMP/$src_file
+		$1gcc -dM -E $QDKE_TMP/$src_file \
+			>$QDKE_ETC/current_gcc_predefined_macro || die
+		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+	fi
+}
+
 _qdev_build_common_init() {
 	export QDEV_WORK_HOME=$WORK_HOME/qdev_home
+	
+	_qdev_build_lookup_gcc_predefined_macro
 }
 
 qdev_init() {
