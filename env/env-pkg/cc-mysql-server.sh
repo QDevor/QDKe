@@ -32,7 +32,13 @@ export PYTHON=python2
 
 #----------------------------------------
 
-# qdev_init 
+qdev_init() {
+	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-$PROGNAME-stamp ]; then
+		# utils_msys2_installByPacman m4 bison
+		utils_msys2_installByPacman boost
+		touch $QDK_STAMP_DIR/$FUNCNAME-$PROGNAME-stamp
+	fi
+}
 
 # qdev_set
 
@@ -52,7 +58,7 @@ qdev_get_rc_src() {
 	if [ -f $_pkg_ffile ]; then
 		return 0
 	fi
-	curl -I -L -O $_pkg_ffile $_pkg_url
+	curl -L -O $_pkg_ffile $_pkg_url
 	cd $qdev_build_top || die
 	extract $QDKE_TMP/$_pkg_ffile || die
 	mv $_pkg_dir $apps_more || die
@@ -114,6 +120,7 @@ qdev_build_cmake() {
 			-G "MSYS Makefiles" \
 			-DBUILD_CONFIG=mysql_release \
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
+			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
 			-DWITH_EMBEDDED_SERVER=1 \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake

@@ -74,13 +74,20 @@ set "MSSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft SQL Server/100"
 set "MSSQL_TOOLS_ROOT=%MSSQL_ROOT%/Tools/Binn"
 set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
 :-------------------------------------
+:: Microsoft Platform SDK
+:-------------------------------------
+set "MSPSDK_WINXPSP2_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
+
+set "MSPSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!"
+:-------------------------------------
 :: MySQL
 :-------------------------------------
-rem set "MYSQL_ROOT=%QDK_ROOT%/mysql"
 set "MYSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/MySQL"
 set "MYSQL_SERVER_ROOT=%MYSQL_ROOT%/MySQL Server 5.6"
 set "MYSQL_UTILITIES_ROOT=%MYSQL_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
 set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL_UTILITIES_ROOT%/Doctrine extensions for PHP
+
+set "MYSQL_QDK_ROOT=%QDK_ROOT%/mysql"
 :-------------------------------------
 :: JAVA
 :-------------------------------------
