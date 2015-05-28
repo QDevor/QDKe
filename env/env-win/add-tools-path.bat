@@ -53,6 +53,7 @@ set "PATH=!PATH!;!MSSQL_DTS_ROOT!"
 :-------------------------------------
 :: Microsoft Platform SDK
 :-------------------------------------
+if x%QDKe_VAR_MSSDK_VER% == "xNone" goto :skip_add_tools_path_mssdk
 set "PATH=!PATH!;!MSSDK_ROOT!/bin"
 :skip_add_tools_path_mssdk
 :-------------------------------------
