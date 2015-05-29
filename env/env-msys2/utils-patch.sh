@@ -38,19 +38,33 @@ _utils_patch_init() {
 }
 
 utils_patch_set() {
-	_utils_patch_work_home=$1
-	_utils_patch_apps_name=$2
+	work_home=$1 
+	user_name=$2
+	apps_name=$3
+	apps_more=$4
 }
 
 utils_patch() {
-	:
-	cd $_utils_patch_work_home || die
+	cd $qdev_build_dir || die
+	foreach pkg_patch,$(sort $(wildcard $QDKE_PATCHDIR/.*-$user_name-$apps_name-*.patch)),
+		(cd '$_utils_patch_work_home' && patch -p1 -u < $pkg_patch)
+}
+
+utils_patch() {
+	cd $qdev_build_dir || die
 	foreach pkg_patch,$(sort $(wildcard $QDKE_PATCHDIR/.*-$_utils_patch_apps_name-*.patch)),
 		(cd '$_utils_patch_work_home' && patch -p1 -u < $pkg_patch)
 }
 
 utils_diff() {
-	:
+	cd $qdev_build_top || die
+	diff -crN $apps_more $apps_more.orig > $mydate-$user_name-$apps_name-patch.diff
+	diff -upr $apps_more $apps_more.orig > $mydate-$user_name-$apps_name-patch.diff
+}
+
+utils_diff2() {
+	cd $qdev_build_top || die
+	diff -crN $apps_more $apps_more.orig > $mydate-$user_name-$apps_name-patch.diff
 }
 
 #----------------------------------------
