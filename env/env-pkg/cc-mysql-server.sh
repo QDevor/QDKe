@@ -170,6 +170,13 @@ qdev_build_fix2() {
 	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
 	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
 	#----------------------------------------
+	needed_patch_file=$qdev_build_dir/mysys/my_my_thr_init.c
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
+	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
+	sed -i -e '250s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
+	#----------------------------------------
 	touch $qdev_build_dir/${FUNCNAME}-stamp-fix2
 }
 
