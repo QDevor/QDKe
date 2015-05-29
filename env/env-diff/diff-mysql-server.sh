@@ -70,6 +70,8 @@ utils_diff() {
 		-x *.bak \
 		-x *.orig \
 		-x *.*.orig \
+		-x *.rej \
+		-x *.*.rej \
 		-x default.release \
 		-x default.release.done \
 		-x libseh \
@@ -110,7 +112,7 @@ qdev_init
 qdev_set								$work_home $user_name $apps_name $apps_more
 utils_init
 pause && pause
-# utils_diff
-utils_diff2
+utils_diff
+# utils_diff2
 fi
 #----------------------------------------

@@ -1,4 +1,4 @@
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/CMakeLists.txt github-rc/CMakeLists.txt
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/CMakeLists.txt github-rc/CMakeLists.txt
 --- github-rc.orig/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/CMakeLists.txt	2015-05-29 23:43:49.957720300 +0800
 @@ -494,7 +494,7 @@ OPTION(MYSQL_MAINTAINER_MODE
@@ -19,7 +19,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
    ADD_SUBDIRECTORY(unittest)
    ADD_SUBDIRECTORY(unittest/examples)
    ADD_SUBDIRECTORY(unittest/mytap)
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
 --- github-rc.orig/include/my_global.h	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/include/my_global.h	2015-05-29 23:47:12.315294400 +0800
 @@ -338,7 +338,7 @@ typedef socket_len_t SOCKET_SIZE_TYPE; /
@@ -31,7 +31,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
  #if !defined(_WIN64)
  inline double my_ulonglong2double(unsigned long long value)
  {
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
 --- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
 @@ -13,7 +13,7 @@
@@ -43,7 +43,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
  
  SET(MYSYS_SOURCES  array.c charset-def.c charset.c checksum.c
  				errors.c hash.c list.c mf_cache.c mf_dirname.c mf_fn_ext.c
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_gethwaddr.c github-rc/mysys/my_gethwaddr.c
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_gethwaddr.c github-rc/mysys/my_gethwaddr.c
 --- github-rc.orig/mysys/my_gethwaddr.c	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/my_gethwaddr.c	2015-05-29 21:48:16.859468200 +0800
 @@ -138,6 +138,7 @@ my_bool my_gethwaddr(uchar *to)
@@ -54,7 +54,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
  #include <iphlpapi.h>
  
  /*
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_thr_init.c github-rc/mysys/my_thr_init.c
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_thr_init.c github-rc/mysys/my_thr_init.c
 --- github-rc.orig/mysys/my_thr_init.c	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/my_thr_init.c	2015-05-29 21:52:31.926990800 +0800
 @@ -43,7 +43,7 @@ native_mutexattr_t my_fast_mutexattr;
@@ -75,7 +75,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
    install_sigabrt_handler();
  #endif
  
-diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/stacktrace.c github-rc/mysys/stacktrace.c
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/stacktrace.c github-rc/mysys/stacktrace.c
 --- github-rc.orig/mysys/stacktrace.c	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/stacktrace.c	2015-05-29 23:36:55.257000700 +0800
 @@ -14,6 +14,7 @@
@@ -114,3 +114,20 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.old' -x '*.*.old' -x 
  }
  #endif /* _WIN32 */
  
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/storage/innobase/os/os0thread.cc github-rc/storage/innobase/os/os0thread.cc
+--- github-rc.orig/storage/innobase/os/os0thread.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/storage/innobase/os/os0thread.cc	2015-05-30 02:03:54.264414800 +0800
+@@ -217,8 +217,11 @@ os_thread_exit(
+ 	ut_a(ret == 1);
+ 
+ 	mutex_exit(&thread_mutex);
+-
+-	ExitThread((DWORD) exit_value);
++#ifdef _WIN64
++  ExitThread((DWORD) (__int64)exit_value);
++#else
++  ExitThread((DWORD) exit_value);
++#endif
+ #else
+ 	mutex_exit(&thread_mutex);
+ 	pthread_detach(pthread_self());
