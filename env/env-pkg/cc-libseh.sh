@@ -48,6 +48,8 @@ qdev_setmore() {
 }
 
 qdev_get_ssd_src() {
+	log_info "$FUNCNAME - $PROGNAME"
+	
 	_pkg=$1
 	_pkg_ver=$2
 	_pkg_file=$3
@@ -58,14 +60,14 @@ qdev_get_ssd_src() {
 	if [ -f $_pkg_ffile ]; then
 		return 0
 	fi
-	curl -L -O $_pkg_ffile $_pkg_url
+	curl -O $_pkg_url
 	cd $qdev_build_top || die
 	extract $QDKE_TMP/$_pkg_ffile || die
 	mv $_pkg_dir $apps_more || die
 }
 
 qdev_get() {
-	qdev_get_ssd_src
+	qdev_get_ssd_src $@
 }
 
 # qdev_check
@@ -129,10 +131,11 @@ qdev_try() {
 #
 pkg=libseh
 pkg_ver=0.0.4
-pkg_file=$pkg-$pkg_ver.zip
-pkg_dir=$pkg-$pkg_ver
+pkg_file=$pkg-$pkg_ver
+pkg_ffile=$pkg_file.zip
+pkg_dir=$pkg_file
 # http://www.programmingunlimited.net/files/libseh-0.0.4.zip
-pkg_url=http://www.programmingunlimited.net/files/$pkg_file
+pkg_url=http://www.programmingunlimited.net/files/$pkg_ffile
 
 pkg_deps_gcc=''
 pkg_deps_py=''
@@ -146,7 +149,7 @@ apps_more=ssd
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
-qdev_get
+qdev_get					$pkg $pkg_ver $pkg_file $pkg_ffile $pkg_url
 qdev_check
 qdev_try
 #qdev_tst

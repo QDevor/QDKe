@@ -26,6 +26,9 @@ PROGNAME=${FILENAME%.*}
 #----------------------------------------
 if [ ! -f $QDEV_WORK_HOME/libseh/libseh/ssd/build/libseh.a ]; then
 . $PROGDIR/../env-pkg/cc-libseh.sh
+export INCLUDE_ENTRY_COMMON_SCRIPT=false
+export INCLUDE_QDEV_BUILD_COMMON_SCRIPT=false
+cd $QDKE_ROOT/env/env-pkg
 fi
 #----------------------------------------
 export PYTHON=python2
