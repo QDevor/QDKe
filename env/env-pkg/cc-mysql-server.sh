@@ -182,6 +182,8 @@ qdev_build_config() {
 	fi
 }
 
+# -DWITH_UNIT_TESTS=0 avoid 
+# ADD_DEFINITIONS( /D _VARIADIC_MAX=10 )
 qdev_build_cmake() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-cmake ]; then
@@ -193,6 +195,7 @@ qdev_build_cmake() {
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
 			-DWITH_EMBEDDED_SERVER=1 \
+			-DWITH_UNIT_TESTS=0 \
 			> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1 \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake
@@ -213,7 +216,7 @@ qdev_try() {
 	
 	# qdev_build_config
 	qdev_build_cmake
-	# qdev_build_fix2
+	qdev_build_fix2
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
