@@ -37,6 +37,8 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
+. $PROGDIR/../env-diff/diff-mysql-server.sh
+#----------------------------------------
 
 qdev_init() {
 	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-$PROGNAME-stamp ]; then
@@ -135,8 +137,8 @@ qdev_build_fix_before_cmake() {
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
-	
-	touch $qdev_build_dir/${FUNCNAME}-stamp
+	utils_patch
+	# touch $qdev_build_dir/${FUNCNAME}-stamp
 	return 0
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/CMakeLists.txt
@@ -172,8 +174,8 @@ qdev_build_fix_before_make() {
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
-	
-	touch $qdev_build_dir/${FUNCNAME}-stamp
+	utils_patch2
+	# touch $qdev_build_dir/${FUNCNAME}-stamp
 	return 0
 	#----------------------------------------
 	needed_patch_file=$qdev_build_dir/include/my_config.h

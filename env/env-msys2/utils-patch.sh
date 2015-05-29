@@ -32,6 +32,8 @@ _FNNAME_UTILS_PATCH=${_FN_UTILS_PATCH%.*}
 # 20150529-name-info.patch
 _utils_patch_init() {
 	:
+#	export QDKe_VAR_DATE_DIFF=$(date +%Y%m%d)
+	export QDKe_VAR_DATE_DIFF=$(date +%Y)
 	export QDKE_PATCHDIR=$QDKE_ETC/patch
 	
 	[ -d $QDKE_PATCHDIR ] || mkdir -p $QDKE_PATCHDIR >/dev/null 2>&1

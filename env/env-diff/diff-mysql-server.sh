@@ -61,7 +61,6 @@ _diff_notes() {
 
 utils_init() {
 	:
-	export QDKe_VAR_DATE_DIFF=$(date +%Y%m%d)
 }
 
 utils_diff() {
@@ -71,19 +70,31 @@ utils_diff() {
 		-x *.bak \
 		-x *.orig \
 		-x *.*.orig \
+		-x *.old \
+		-x *.*.old \
 		-x default.release \
 		-x default.release.done \
 		-x libseh \
 		-x source_downloads \
 		$apps_more.orig $apps_more \
-		>$QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-before-cmake-mingw-port.patch
+		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
 }
 
 utils_diff2() {
 	cd $qdev_build_dir/include || die
 	diff -upr \
-		my_config.h.orig my_config.h \
-		>$QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-before-make-mingw-port.patch
+		my_config.h.old my_config.h \
+		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+}
+
+utils_patch() {
+	cd $qdev_build_src || die
+	patch -p1 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch || die
+}
+
+utils_patch2() {
+	cd $qdev_build_src/include || die
+	patch -p0 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch || die
 }
 
 #----------------------------------------
@@ -92,9 +103,12 @@ user_name=mysql
 apps_name=mysql-server
 apps_more=github-rc
 #----------------------------------------
+if [ x$PROGNAME = "xdiff-mysql-server" ]; then
 qdev_init
 qdev_set								$work_home $user_name $apps_name $apps_more
 utils_init
+pause && pause
 utils_diff
-utils_diff2
+# utils_diff2
+fi
 #----------------------------------------
