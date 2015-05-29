@@ -130,6 +130,13 @@ qdev_build_fix2() {
 		return 0
 	fi
 	#----------------------------------------
+	needed_patch_file=$qdev_build_src/CMakeLists.txt
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
+	sed -i -e 's/IF(WITH_UNIT_TESTS)/IF(0) #WITH_UNIT_TESTS)/g' \
+		$needed_patch_file || die
+	#----------------------------------------
 	needed_patch_file=$qdev_build_src/include/my_global.h
 	if [ ! -f $needed_patch_file.orig ]; then
 		cp -f $needed_patch_file $needed_patch_file.orig
@@ -145,7 +152,7 @@ qdev_build_fix2() {
 	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
 	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
 	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
-	
+	#----------------------------------------
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
 		cp -f $needed_patch_file $needed_patch_file.orig
@@ -160,7 +167,7 @@ qdev_build_fix2() {
 	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
 	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
 	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
-	
+	#----------------------------------------
 	touch $qdev_build_dir/${FUNCNAME}-stamp-fix2
 }
 
