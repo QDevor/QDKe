@@ -31,6 +31,18 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #if !defined(_WIN64)
  inline double my_ulonglong2double(unsigned long long value)
  {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysql/authentication_win/handshake.h github-rc/libmysql/authentication_win/handshake.h
+--- github-rc.orig/libmysql/authentication_win/handshake.h	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libmysql/authentication_win/handshake.h	2015-05-30 02:18:51.083709900 +0800
+@@ -100,7 +100,7 @@ public:
+   Handshake(const char *ssp, side_t side);
+   virtual ~Handshake();
+ 
+-  int Handshake::packet_processing_loop();
++  int packet_processing_loop();
+ 
+   bool virtual is_complete() const
+   {
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
 --- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
