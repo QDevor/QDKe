@@ -28,7 +28,8 @@ if [ ! -f $(cygpath -u $WORK_HOME)/qdev_home/libseh/libseh/ssd/build/libseh.a ];
 . $PROGDIR/../env-pkg/cc-libseh.sh
 export INCLUDE_ENTRY_COMMON_SCRIPT=false
 export INCLUDE_QDEV_BUILD_COMMON_SCRIPT=false
-cd $WORK_HOME
+cp -rf $WORK_HOME/qdev_home/libseh/libseh/ssd $WORK_HOME/qdev_home/libseh/libseh/libseh || die
+cd $WORK_HOME || die
 fi
 #----------------------------------------
 export PYTHON=python2
@@ -134,6 +135,9 @@ qdev_build_fix_before_cmake() {
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
+	
+	touch $qdev_build_dir/${FUNCNAME}-stamp
+	return 0
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/CMakeLists.txt
 	if [ ! -f $needed_patch_file.orig ]; then
@@ -169,6 +173,8 @@ qdev_build_fix_before_make() {
 		return 0
 	fi
 	
+	touch $qdev_build_dir/${FUNCNAME}-stamp
+	return 0
 	#----------------------------------------
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
@@ -198,6 +204,32 @@ qdev_build_fix_before_make() {
 	fi
 	sed -i -e '140s/.*/\n/' $needed_patch_file || die
 	sed -i -e '141s/.*/#include <WinCrypt.h>\n/' $needed_patch_file
+	#----------------------------------------
+	needed_patch_file=$qdev_build_src/mysys/stacktrace.c
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig || die
+	fi
+
+# #include <seh.h>       /* The LibSEH header needs to be included */
+	sed -i -e '17s/.*/#include <seh.h>\n/' $needed_patch_file || die
+
+# int ExceptionFilter(unsigned int code, unsigned int excToFilter)
+# {
+# 	if(code == excToFilter) return EXCEPTION_EXECUTE_HANDLER;
+# 	else return EXCEPTION_CONTINUE_SEARCH;
+# }	
+	sed -i -e '550s/.*/int ExceptionFilter(unsigned int code, unsigned int excToFilter)\n/' $needed_patch_file || die
+	sed -i -e '551s/.*/{\n/' $needed_patch_file || die
+	sed -i -e '552s/.*/	if(code == excToFilter) return EXCEPTION_EXECUTE_HANDLER;\n/' $needed_patch_file || die
+  sed -i -e '553s/.*/	else return EXCEPTION_CONTINUE_SEARCH;\n/' $needed_patch_file || die
+  sed -i -e '554s/.*/}\n/' $needed_patch_file || die
+
+# __seh_try   /* __try becomes __seh_try */
+# __seh_except(ExceptionFilter(GetExceptionCode(),   /* __except becomes __seh_except */
+# 	EXCEPTION_INT_DIVIDE_BY_ZERO))
+#
+# __seh_end_except   /* This must terminate all __seh_except blocks */ 
+  sed -i -e '558s/.*/__seh_try   /* __try becomes __seh_try */\n/' $needed_patch_file || die
 	#----------------------------------------
 	touch $qdev_build_dir/${FUNCNAME}-stamp
 }

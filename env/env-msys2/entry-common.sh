@@ -53,6 +53,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-patch.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-msys2.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-mysql.sh

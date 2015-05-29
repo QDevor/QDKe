@@ -29,10 +29,12 @@ _FNNAME_UTILS_PATCH=${_FN_UTILS_PATCH%.*}
 #----------------------------------------
 
 # Patch file name rule:
-# 0000-name-info.patch
+# 20150529-name-info.patch
 _utils_patch_init() {
 	:
 	export QDKE_PATCHDIR=$QDKE_ETC/patch
+	
+	[ -d $QDKE_PATCHDIR ] || mkdir -p $QDKE_PATCHDIR >/dev/null 2>&1
 }
 
 utils_patch_set() {
@@ -47,7 +49,7 @@ utils_patch() {
 		(cd '$_utils_patch_work_home' && patch -p1 -u < $pkg_patch)
 }
 
-utils_unpatch() {
+utils_diff() {
 	:
 }
 
