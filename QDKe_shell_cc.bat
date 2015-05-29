@@ -43,7 +43,7 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: cc-mysql-server
+:: cc-libseh cc-mysql-server
 :: 
 :+++++++++++++++++++++++++++++++++++++
 set DJN=cc-mysql-server

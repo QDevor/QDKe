@@ -126,12 +126,42 @@ qdev_build_fix() {
 
 qdev_build_fix2() {
 	:
-	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix ]; then
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix2 ]; then
 		return 0
 	fi
 	#----------------------------------------
+	needed_patch_file=$qdev_build_src/include/my_global.h
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
+#if defined(__MINGW32__)
+#define _TIMESPEC_DEFINED
+#define _MODE_T_
+#define _SSIZE_T_DEFINED
+#endif
+	sed -i -e '19s/.*/\n/' $needed_patch_file
+	sed -i -e '20s/.*/#if defined(__MINGW32__)\n/' $needed_patch_file
+	sed -i -e '21s/.*/#define _TIMESPEC_DEFINED\n/' $needed_patch_file
+	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
+	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
+	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
 	
-	# touch $qdev_build_dir/${FUNCNAME}-stamp-fix
+	needed_patch_file=$qdev_build_src/include/my_config.h
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
+	
+	sed -i -e 's/.*undef HAVE_BUILTIN_STPCPY.*/#define HAVE_GCC_ATOMIC_BUILTINS 1/g' \
+		$needed_patch_file
+	
+	sed -i -e '19s/.*/\n/' $needed_patch_file
+	sed -i -e '20s/.*/#if defined(__MINGW32__)\n/' $needed_patch_file
+	sed -i -e '21s/.*/#define _TIMESPEC_DEFINED\n/' $needed_patch_file
+	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
+	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
+	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
+	
+	touch $qdev_build_dir/${FUNCNAME}-stamp-fix2
 }
 
 qdev_build_config() {
@@ -155,6 +185,7 @@ qdev_build_config() {
 qdev_build_cmake() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-cmake ]; then
+		# -DWITH_SSL=yes -DWITH_ZLIB=yes
 		cd $qdev_build_dir
 		cmake ../$apps_more \
 			-G "MSYS Makefiles" \
@@ -162,7 +193,7 @@ qdev_build_cmake() {
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
 			-DWITH_EMBEDDED_SERVER=1 \
-			-DWITH_SSL=yes -DWITH_ZLIB=yes \
+			> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1 \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake
 	fi
@@ -181,9 +212,8 @@ qdev_try() {
 	fi
 	
 	# qdev_build_config
-	qdev_build_cmake \
-		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1
-	qdev_build_fix2
+	qdev_build_cmake
+	# qdev_build_fix2
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
