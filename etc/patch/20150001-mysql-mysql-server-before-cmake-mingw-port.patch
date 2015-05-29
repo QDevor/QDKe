@@ -21,7 +21,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ADD_SUBDIRECTORY(unittest/mytap)
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
 --- github-rc.orig/include/my_global.h	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/include/my_global.h	2015-05-29 23:47:12.315294400 +0800
++++ github-rc/include/my_global.h	2015-05-30 02:45:44.798880400 +0800
 @@ -338,7 +338,7 @@ typedef socket_len_t SOCKET_SIZE_TYPE; /
  
  /* Some defines of functions for portability */
@@ -31,6 +31,21 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #if !defined(_WIN64)
  inline double my_ulonglong2double(unsigned long long value)
  {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/statement_events.cpp github-rc/libbinlogevents/src/statement_events.cpp
+--- github-rc.orig/libbinlogevents/src/statement_events.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/statement_events.cpp	2015-05-30 02:46:16.030135200 +0800
+@@ -13,6 +13,11 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
+ #include "statement_events.h"
+ #include <algorithm>
+ #include <string>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysql/authentication_win/handshake.h github-rc/libmysql/authentication_win/handshake.h
 --- github-rc.orig/libmysql/authentication_win/handshake.h	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/libmysql/authentication_win/handshake.h	2015-05-30 02:18:51.083709900 +0800
