@@ -152,6 +152,8 @@ qdev_build_fix2() {
 	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
 	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
 	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
+	
+	sed -i -e '347s/.*/#if (_MSC_VER)/' $needed_patch_file || die
 	#----------------------------------------
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
