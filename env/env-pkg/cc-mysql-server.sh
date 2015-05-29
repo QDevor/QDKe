@@ -24,19 +24,17 @@ PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
-if [ ! -f $QDEV_WORK_HOME/libseh/libseh/ssd/build/libseh.a ]; then
+if [ ! -f $(cygpath -u $WORK_HOME)/qdev_home/libseh/libseh/ssd/build/libseh.a ]; then
 . $PROGDIR/../env-pkg/cc-libseh.sh
 export INCLUDE_ENTRY_COMMON_SCRIPT=false
 export INCLUDE_QDEV_BUILD_COMMON_SCRIPT=false
-cd $QDKE_ROOT/env/env-pkg
+cd $WORK_HOME
 fi
 #----------------------------------------
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
-#----------------------------------------
-
 #----------------------------------------
 
 qdev_init() {
@@ -139,30 +137,14 @@ qdev_build_fix_before_cmake() {
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/CMakeLists.txt
 	if [ ! -f $needed_patch_file.orig ]; then
-		cp -f $needed_patch_file $needed_patch_file.orig
-	fi
-	sed -i -e 's/IF(WITH_UNIT_TESTS)/IF(0) #WITH_UNIT_TESTS)/g' \
-		$needed_patch_file || die
-	#----------------------------------------
-	touch $qdev_build_dir/${FUNCNAME}-stamp
-}
-
-qdev_build_fix_before_make() {
-	:
-	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
-		return 0
-	fi
-	#----------------------------------------
-	needed_patch_file=$qdev_build_src/CMakeLists.txt
-	if [ ! -f $needed_patch_file.orig ]; then
-		cp -f $needed_patch_file $needed_patch_file.orig
+		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
 	sed -i -e 's/IF(WITH_UNIT_TESTS)/IF(0) #WITH_UNIT_TESTS)/g' \
 		$needed_patch_file || die
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/include/my_global.h
 	if [ ! -f $needed_patch_file.orig ]; then
-		cp -f $needed_patch_file $needed_patch_file.orig
+		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
 #if defined(__MINGW32__)
 #define _TIMESPEC_DEFINED
@@ -178,9 +160,19 @@ qdev_build_fix_before_make() {
 	
 	sed -i -e '347s/.*/#if (_MSC_VER)/' $needed_patch_file || die
 	#----------------------------------------
+	touch $qdev_build_dir/${FUNCNAME}-stamp
+}
+
+qdev_build_fix_before_make() {
+	:
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		return 0
+	fi
+	
+	#----------------------------------------
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
-		cp -f $needed_patch_file $needed_patch_file.orig
+		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
 	
 	sed -i -e 's/.*undef HAVE_BUILTIN_STPCPY.*/#define HAVE_GCC_ATOMIC_BUILTINS 1/g' \
@@ -193,11 +185,11 @@ qdev_build_fix_before_make() {
 	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
 	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
 	#----------------------------------------
-	needed_patch_file=$qdev_build_dir/mysys/my_my_thr_init.c
+	needed_patch_file=$qdev_build_src/mysys/my_thr_init.c
 	if [ ! -f $needed_patch_file.orig ]; then
-		cp -f $needed_patch_file $needed_patch_file.orig
+		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
-	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
+	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file || die
 	sed -i -e '250s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
 	#----------------------------------------
 	touch $qdev_build_dir/${FUNCNAME}-stamp
