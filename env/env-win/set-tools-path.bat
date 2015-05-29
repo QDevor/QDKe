@@ -100,6 +100,7 @@ set "MSSDK_V70_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0"
 set "MSSDK_V70A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0A"
 set "MSSDK_V71_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.1"
 
+if x$QDe_VAR_IS_XP == "xtrue" set "MSSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V71_ROOT!" set "MSSDK_ROOT=!MSSDK_V71_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V70_ROOT!" set "MSSDK_ROOT=!MSSDK_V70_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V70A_ROOT!" set "MSSDK_ROOT=!MSSDK_V70A_ROOT!" && goto :skip_set_tools_path_mssdk
