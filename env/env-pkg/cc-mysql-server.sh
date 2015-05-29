@@ -101,7 +101,7 @@ qdev_build_prepare() {
 
 qdev_build_fix() {
 	:
-	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix ]; then
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
 	#----------------------------------------
@@ -126,7 +126,7 @@ qdev_build_fix() {
 	sed -i -e 's/#ifdef _WIN32/#if (defined(_WIN32) \&\& !defined(__MINGW32__))/g' \
 		$needed_patch_file
 	#----------------------------------------
-	# touch $qdev_build_dir/${FUNCNAME}-stamp-fix
+	# touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
 qdev_build_fix_before_cmake() {
@@ -178,12 +178,12 @@ qdev_build_fix_before_make() {
 	sed -i -e 's/.*undef HAVE_BUILTIN_STPCPY.*/#define HAVE_GCC_ATOMIC_BUILTINS 1/g' \
 		$needed_patch_file || die
 	
-	sed -i -e '19s/.*/\n/' $needed_patch_file
-	sed -i -e '20s/.*/#if defined(__MINGW32__)\n/' $needed_patch_file
-	sed -i -e '21s/.*/#define _TIMESPEC_DEFINED\n/' $needed_patch_file
-	sed -i -e '22s/.*/#define _MODE_T_\n/' $needed_patch_file
-	sed -i -e '23s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
-	sed -i -e '24s/.*/#endif\n/' $needed_patch_file
+	sed -i -e '18s/.*/\n/' $needed_patch_file
+	sed -i -e '19s/.*/#if defined(__MINGW32__)\n/' $needed_patch_file
+	sed -i -e '20s/.*/#define _TIMESPEC_DEFINED\n/' $needed_patch_file
+	sed -i -e '21s/.*/#define _MODE_T_\n/' $needed_patch_file
+	sed -i -e '22s/.*/#define _SSIZE_T_DEFINED\n/' $needed_patch_file
+	sed -i -e '23s/.*/#endif\n/' $needed_patch_file
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/mysys/my_thr_init.c
 	if [ ! -f $needed_patch_file.orig ]; then
@@ -197,7 +197,7 @@ qdev_build_fix_before_make() {
 
 qdev_build_config() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
-	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir
 		CFLAGS="-O3" CXX=gcc CXXFLAGS="-O3 -felide-constructors -fno-exceptions -fno-rtti" \
 		$qdev_build_src/configure \
@@ -209,7 +209,7 @@ qdev_build_config() {
 			--with-mysqld-ldflags=-all-static \
 			--with-embedded-server \
 			|| die
-		touch $qdev_build_dir/${FUNCNAME}-stamp-config
+		touch $qdev_build_dir/${FUNCNAME}-stamp
 	fi
 }
 
@@ -217,7 +217,7 @@ qdev_build_config() {
 # ADD_DEFINITIONS( /D _VARIADIC_MAX=10 )
 qdev_build_cmake() {
 	mysql_build_prefix=$QDKE_USR/mysql-gpl
-	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-cmake ]; then
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		# -DWITH_SSL=yes -DWITH_ZLIB=yes
 		cd $qdev_build_dir
 		cmake ../$apps_more \
@@ -229,7 +229,7 @@ qdev_build_cmake() {
 			-DWITH_UNIT_TESTS=0 \
 			> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1 \
 			|| die
-		touch $qdev_build_dir/${FUNCNAME}-stamp-cmake
+		touch $qdev_build_dir/${FUNCNAME}-stamp
 	fi
 }
 
