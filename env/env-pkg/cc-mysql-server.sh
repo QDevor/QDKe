@@ -189,8 +189,8 @@ qdev_build_fix_before_make() {
 	if [ ! -f $needed_patch_file.orig ]; then
 		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
-	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file || die
-	sed -i -e '250s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
+	sed -i -e '46s/.*/#ifdef _MSC_VER/' $needed_patch_file || die
+	sed -i -e '250s/.*/#ifdef _MSC_VER/' $needed_patch_file
 	#----------------------------------------
 	needed_patch_file=$qdev_build_src/mysys/my_gethwaddr.c
 	if [ ! -f $needed_patch_file.orig ]; then
