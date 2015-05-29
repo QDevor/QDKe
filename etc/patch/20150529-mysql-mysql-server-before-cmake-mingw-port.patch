@@ -1,0 +1,116 @@
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/CMakeLists.txt github-rc/CMakeLists.txt
+--- github-rc.orig/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/CMakeLists.txt	2015-05-29 23:43:49.957720300 +0800
+@@ -494,7 +494,7 @@ OPTION(MYSQL_MAINTAINER_MODE
+ 
+ INCLUDE(maintainer)
+ 
+-IF(WITH_UNIT_TESTS)
++IF(0)
+  ENABLE_TESTING()
+ ENDIF()
+ 
+@@ -519,7 +519,7 @@ ADD_SUBDIRECTORY(libmysql)
+ ADD_SUBDIRECTORY(libbinlogevents)
+ ADD_SUBDIRECTORY(libbinlogstandalone)
+ 
+-IF(WITH_UNIT_TESTS)
++IF(0)
+   ADD_SUBDIRECTORY(unittest)
+   ADD_SUBDIRECTORY(unittest/examples)
+   ADD_SUBDIRECTORY(unittest/mytap)
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
+--- github-rc.orig/include/my_global.h	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/include/my_global.h	2015-05-29 23:47:12.315294400 +0800
+@@ -338,7 +338,7 @@ typedef socket_len_t SOCKET_SIZE_TYPE; /
+ 
+ /* Some defines of functions for portability */
+ 
+-#if (_WIN32)
++#if (_MSC_VER)
+ #if !defined(_WIN64)
+ inline double my_ulonglong2double(unsigned long long value)
+ {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
+--- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
+@@ -13,7 +13,7 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ 
+-INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/mysys)
++INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/libseh ${CMAKE_SOURCE_DIR}/mysys)
+ 
+ SET(MYSYS_SOURCES  array.c charset-def.c charset.c checksum.c
+ 				errors.c hash.c list.c mf_cache.c mf_dirname.c mf_fn_ext.c
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_gethwaddr.c github-rc/mysys/my_gethwaddr.c
+--- github-rc.orig/mysys/my_gethwaddr.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/my_gethwaddr.c	2015-05-29 21:48:16.859468200 +0800
+@@ -138,6 +138,7 @@ my_bool my_gethwaddr(uchar *to)
+ #define VOID void
+ #endif
+ 
++#include <WinCrypt.h>
+ #include <iphlpapi.h>
+ 
+ /*
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_thr_init.c github-rc/mysys/my_thr_init.c
+--- github-rc.orig/mysys/my_thr_init.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/my_thr_init.c	2015-05-29 21:52:31.926990800 +0800
+@@ -43,7 +43,7 @@ native_mutexattr_t my_fast_mutexattr;
+ #ifdef PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP
+ native_mutexattr_t my_errorcheck_mutexattr;
+ #endif
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ static void install_sigabrt_handler();
+ #endif
+ 
+@@ -247,7 +247,7 @@ my_bool my_thread_init()
+   if (mysys_thread_var())
+     return FALSE;
+ 
+-#ifdef _WIN32
++#ifdef _MSC_VER
+   install_sigabrt_handler();
+ #endif
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/stacktrace.c github-rc/mysys/stacktrace.c
+--- github-rc.orig/mysys/stacktrace.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/stacktrace.c	2015-05-29 23:36:55.257000700 +0800
+@@ -14,6 +14,7 @@
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
+ #include "my_stacktrace.h"
++#include <seh.h>
+ 
+ #ifndef _WIN32
+ #include "my_thread.h"
+@@ -546,18 +547,25 @@ void my_create_minidump(const char *name
+   }
+ }
+ 
++int ExceptionFilter(unsigned int code, unsigned int excToFilter)
++{
++	if(code == excToFilter) return EXCEPTION_EXECUTE_HANDLER;
++	else return EXCEPTION_CONTINUE_SEARCH;
++}
+ 
+ void my_safe_puts_stderr(const char *val, size_t len)
+ {
+-  __try
++  __seh_try   /* __try becomes __seh_try */
+   {
+     my_write_stderr(val, len);
+     my_safe_printf_stderr("%s", "\n");
+   }
+-  __except(EXCEPTION_EXECUTE_HANDLER)
++  __seh_except(ExceptionFilter(GetExceptionCode(),   /* __except becomes __seh_except */
++		 EXCEPTION_INT_DIVIDE_BY_ZERO)) 
+   {
+     my_safe_printf_stderr("%s", "is an invalid string pointer\n");
+   }
++  __seh_end_except   /* This must terminate all __seh_except blocks */ 
+ }
+ #endif /* _WIN32 */
+ 

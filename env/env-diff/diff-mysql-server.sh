@@ -67,14 +67,23 @@ utils_init() {
 utils_diff() {
 	cd $qdev_build_top || die
 #	diff -crN $apps_more $apps_more.orig > $QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-patch.patch
-	diff -upr -x *.bak -x libseh \
-		$apps_more $apps_more.orig \
-		>$QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-mingw-port.patch
+	diff -upr \
+		-x *.bak \
+		-x *.orig \
+		-x *.*.orig \
+		-x default.release \
+		-x default.release.done \
+		-x libseh \
+		-x source_downloads \
+		$apps_more.orig $apps_more \
+		>$QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-before-cmake-mingw-port.patch
 }
 
 utils_diff2() {
-	cd $qdev_build_top || die
-	diff -upr $apps_more $apps_more.orig > $QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-mingw-port.patch
+	cd $qdev_build_dir/include || die
+	diff -upr \
+		my_config.h.orig my_config.h \
+		>$QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-before-make-mingw-port.patch
 }
 
 #----------------------------------------
@@ -87,5 +96,5 @@ qdev_init
 qdev_set								$work_home $user_name $apps_name $apps_more
 utils_init
 utils_diff
-# utils_diff2
+utils_diff2
 #----------------------------------------
