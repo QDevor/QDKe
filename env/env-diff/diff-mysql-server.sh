@@ -70,8 +70,6 @@ utils_diff() {
 		-x *.bak \
 		-x *.orig \
 		-x *.*.orig \
-		-x *.old \
-		-x *.*.old \
 		-x default.release \
 		-x default.release.done \
 		-x libseh \
@@ -82,19 +80,23 @@ utils_diff() {
 
 utils_diff2() {
 	cd $qdev_build_dir/include || die
-	diff -upr \
-		my_config.h.old my_config.h \
+	diff -up \
+		my_config.h.orig my_config.h \
 		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+
+	sed -i -e 's/my_config\.h\.orig/my_config_h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	sed -i -e 's/my_config\.h/my_config\.h\.new/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	sed -i -e 's/my_config_h/my_config\.h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
 }
 
 utils_patch() {
 	cd $qdev_build_src || die
-	patch -p1 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch || die
+	echo a | patch -p1 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
 }
 
 utils_patch2() {
-	cd $qdev_build_src/include || die
-	patch -p0 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch || die
+	cd $qdev_build_dir/include || die
+	echo a | patch -RE -p0 < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
 }
 
 #----------------------------------------
@@ -108,7 +110,7 @@ qdev_init
 qdev_set								$work_home $user_name $apps_name $apps_more
 utils_init
 pause && pause
-utils_diff
-# utils_diff2
+# utils_diff
+utils_diff2
 fi
 #----------------------------------------
