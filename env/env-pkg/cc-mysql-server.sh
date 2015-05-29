@@ -192,6 +192,13 @@ qdev_build_fix_before_make() {
 	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file || die
 	sed -i -e '250s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
 	#----------------------------------------
+	needed_patch_file=$qdev_build_src/mysys/my_gethwaddr.c
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig || die
+	fi
+	sed -i -e '140s/.*/\n/' $needed_patch_file || die
+	sed -i -e '141s/.*/#include <WinCrypt.h>\n/' $needed_patch_file
+	#----------------------------------------
 	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
