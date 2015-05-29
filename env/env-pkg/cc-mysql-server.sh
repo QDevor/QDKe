@@ -24,6 +24,10 @@ PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
+if [ ! -f $QDEV_WORK_HOME/libseh/libseh/ssd/build/libseh.a ]; then
+. $PROGDIR/../env-pkg/cc-libseh.sh
+fi
+#----------------------------------------
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
@@ -124,9 +128,25 @@ qdev_build_fix() {
 	# touch $qdev_build_dir/${FUNCNAME}-stamp-fix
 }
 
-qdev_build_fix2() {
+qdev_build_fix_before_cmake() {
 	:
-	if [ -f $qdev_build_dir/${FUNCNAME}-stamp-fix2 ]; then
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		return 0
+	fi
+	#----------------------------------------
+	needed_patch_file=$qdev_build_src/CMakeLists.txt
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig
+	fi
+	sed -i -e 's/IF(WITH_UNIT_TESTS)/IF(0) #WITH_UNIT_TESTS)/g' \
+		$needed_patch_file || die
+	#----------------------------------------
+	touch $qdev_build_dir/${FUNCNAME}-stamp
+}
+
+qdev_build_fix_before_make() {
+	:
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
 	#----------------------------------------
@@ -177,7 +197,7 @@ qdev_build_fix2() {
 	sed -i -e '46s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
 	sed -i -e '250s/.*/#ifdef _MSC_VER\n/' $needed_patch_file
 	#----------------------------------------
-	touch $qdev_build_dir/${FUNCNAME}-stamp-fix2
+	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
 qdev_build_config() {
@@ -231,8 +251,9 @@ qdev_try() {
 	fi
 	
 	# qdev_build_config
+	qdev_build_fix_before_cmake
 	qdev_build_cmake
-	qdev_build_fix2
+	qdev_build_fix_before_make
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
