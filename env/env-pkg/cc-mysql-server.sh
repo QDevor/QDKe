@@ -297,6 +297,14 @@ qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
 
+qdev_try_extra() {
+	log_info "$FUNCNAME - $PROGNAME"
+	
+	cd $qdev_build_dir/libbinlogevents || die
+	qdev_build_make VERBOSE=1 \
+		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
+}
+
 # qdev_tst
 
 #
@@ -325,4 +333,5 @@ qdev_setmore
 qdev_get
 qdev_check
 qdev_try
+# qdev_try_extra
 qdev_tst
