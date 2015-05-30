@@ -1,0 +1,511 @@
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/CMakeLists.txt github-rc/client/CMakeLists.txt
+--- github-rc.orig/client/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/CMakeLists.txt	2015-05-30 16:03:32.953719300 +0800
+@@ -23,6 +23,7 @@ INCLUDE_DIRECTORIES(
+   ${CMAKE_SOURCE_DIR}/libbinlogevents/include
+   ${CMAKE_SOURCE_DIR}/regex
+   ${CMAKE_SOURCE_DIR}/strings
++  ${CMAKE_SOURCE_DIR}/libseh
+   ${EDITLINE_INCLUDE_DIR}
+   ${CMAKE_CURRENT_BINARY_DIR}
+ )
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysqltest.cc github-rc/client/mysqltest.cc
+--- github-rc.orig/client/mysqltest.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/mysqltest.cc	2015-05-30 16:03:11.741506100 +0800
+@@ -23,7 +23,7 @@
+ 
+   Please keep the test framework tools identical in all versions!
+ */
+-
++#include <seh.h>   /* The LibSEH header needs to be included */
+ #define MTEST_VERSION "3.3"
+ 
+ #include "client_priv.h"
+@@ -8885,16 +8885,17 @@ static void signal_handler(int sig)
+ 
+ LONG WINAPI exception_filter(EXCEPTION_POINTERS *exp)
+ {
+-  __try
++  __seh_try   /* __try becomes __seh_try */
+   {
+     my_set_exception_pointers(exp);
+     signal_handler(exp->ExceptionRecord->ExceptionCode);
+   }
+-  __except(EXCEPTION_EXECUTE_HANDLER)
++  __seh_except(EXCEPTION_EXECUTE_HANDLER)   /* __except becomes __seh_except */
+   {
+     fputs("Got exception in exception handler!\n", stderr);
+   }
+-
++	__seh_end_except   /* This must terminate all __seh_except blocks */
++	
+   return EXCEPTION_CONTINUE_SEARCH;
+ }
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/CMakeLists.txt github-rc/CMakeLists.txt
+--- github-rc.orig/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/CMakeLists.txt	2015-05-29 23:43:49.957720300 +0800
+@@ -494,7 +494,7 @@ OPTION(MYSQL_MAINTAINER_MODE
+ 
+ INCLUDE(maintainer)
+ 
+-IF(WITH_UNIT_TESTS)
++IF(0)
+  ENABLE_TESTING()
+ ENDIF()
+ 
+@@ -519,7 +519,7 @@ ADD_SUBDIRECTORY(libmysql)
+ ADD_SUBDIRECTORY(libbinlogevents)
+ ADD_SUBDIRECTORY(libbinlogstandalone)
+ 
+-IF(WITH_UNIT_TESTS)
++IF(0)
+   ADD_SUBDIRECTORY(unittest)
+   ADD_SUBDIRECTORY(unittest/examples)
+   ADD_SUBDIRECTORY(unittest/mytap)
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
+--- github-rc.orig/include/my_global.h	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/include/my_global.h	2015-05-30 13:29:13.052411300 +0800
+@@ -338,7 +338,7 @@ typedef socket_len_t SOCKET_SIZE_TYPE; /
+ 
+ /* Some defines of functions for portability */
+ 
+-#if (_WIN32)
++#if (_MSC_VER)
+ #if !defined(_WIN64)
+ inline double my_ulonglong2double(unsigned long long value)
+ {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/binary_log_funcs.cpp github-rc/libbinlogevents/src/binary_log_funcs.cpp
+--- github-rc.orig/libbinlogevents/src/binary_log_funcs.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/binary_log_funcs.cpp	2015-05-30 11:49:27.381050500 +0800
+@@ -13,6 +13,12 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "binary_log_funcs.h"
+ 
+ #include "byteorder.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/binlog_event.cpp github-rc/libbinlogevents/src/binlog_event.cpp
+--- github-rc.orig/libbinlogevents/src/binlog_event.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/binlog_event.cpp	2015-05-30 11:47:25.354071000 +0800
+@@ -13,6 +13,12 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "binary_log_types.h"
+ 
+ #include "statement_events.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/control_events.cpp github-rc/libbinlogevents/src/control_events.cpp
+--- github-rc.orig/libbinlogevents/src/control_events.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/control_events.cpp	2015-05-30 11:28:00.475443700 +0800
+@@ -13,6 +13,12 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "binary_log_types.h"
+ 
+ #include "statement_events.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/load_data_events.cpp github-rc/libbinlogevents/src/load_data_events.cpp
+--- github-rc.orig/libbinlogevents/src/load_data_events.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/load_data_events.cpp	2015-05-30 11:47:04.247863800 +0800
+@@ -13,6 +13,12 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "load_data_events.h"
+ #include <stdlib.h>
+ #include <string.h>
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/rows_event.cpp github-rc/libbinlogevents/src/rows_event.cpp
+--- github-rc.orig/libbinlogevents/src/rows_event.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/rows_event.cpp	2015-05-30 11:47:16.382557800 +0800
+@@ -13,6 +13,12 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "rows_event.h"
+ #include <stdlib.h>
+ #include <cstring>
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/statement_events.cpp github-rc/libbinlogevents/src/statement_events.cpp
+--- github-rc.orig/libbinlogevents/src/statement_events.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/statement_events.cpp	2015-05-30 02:46:16.030135200 +0800
+@@ -13,6 +13,11 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
+ #include "statement_events.h"
+ #include <algorithm>
+ #include <string>
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/uuid.cpp github-rc/libbinlogevents/src/uuid.cpp
+--- github-rc.orig/libbinlogevents/src/uuid.cpp	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libbinlogevents/src/uuid.cpp	2015-05-30 11:51:35.308367500 +0800
+@@ -15,6 +15,12 @@
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+    02110-1301 USA */
+ 
++#if defined(__MINGW32__)
++#undef __STRICT_ANSI__
++# include <winsock2.h>
++#define __STRICT_ANSI__ 1
++#endif
++
+ #include "control_events.h"
+ 
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysql/authentication_win/handshake.h github-rc/libmysql/authentication_win/handshake.h
+--- github-rc.orig/libmysql/authentication_win/handshake.h	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libmysql/authentication_win/handshake.h	2015-05-30 02:18:51.083709900 +0800
+@@ -100,7 +100,7 @@ public:
+   Handshake(const char *ssp, side_t side);
+   virtual ~Handshake();
+ 
+-  int Handshake::packet_processing_loop();
++  int packet_processing_loop();
+ 
+   bool virtual is_complete() const
+   {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
+--- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
+@@ -13,7 +13,7 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ 
+-INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/mysys)
++INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/libseh ${CMAKE_SOURCE_DIR}/mysys)
+ 
+ SET(MYSYS_SOURCES  array.c charset-def.c charset.c checksum.c
+ 				errors.c hash.c list.c mf_cache.c mf_dirname.c mf_fn_ext.c
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_gethwaddr.c github-rc/mysys/my_gethwaddr.c
+--- github-rc.orig/mysys/my_gethwaddr.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/my_gethwaddr.c	2015-05-29 21:48:16.859468200 +0800
+@@ -138,6 +138,7 @@ my_bool my_gethwaddr(uchar *to)
+ #define VOID void
+ #endif
+ 
++#include <WinCrypt.h>
+ #include <iphlpapi.h>
+ 
+ /*
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_thr_init.c github-rc/mysys/my_thr_init.c
+--- github-rc.orig/mysys/my_thr_init.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/my_thr_init.c	2015-05-29 21:52:31.926990800 +0800
+@@ -43,7 +43,7 @@ native_mutexattr_t my_fast_mutexattr;
+ #ifdef PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP
+ native_mutexattr_t my_errorcheck_mutexattr;
+ #endif
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ static void install_sigabrt_handler();
+ #endif
+ 
+@@ -247,7 +247,7 @@ my_bool my_thread_init()
+   if (mysys_thread_var())
+     return FALSE;
+ 
+-#ifdef _WIN32
++#ifdef _MSC_VER
+   install_sigabrt_handler();
+ #endif
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/stacktrace.c github-rc/mysys/stacktrace.c
+--- github-rc.orig/mysys/stacktrace.c	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/mysys/stacktrace.c	2015-05-30 16:07:39.347812300 +0800
+@@ -14,6 +14,7 @@
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
+ #include "my_stacktrace.h"
++#include <seh.h>   /* The LibSEH header needs to be included */
+ 
+ #ifndef _WIN32
+ #include "my_thread.h"
+@@ -546,18 +547,18 @@ void my_create_minidump(const char *name
+   }
+ }
+ 
+-
+ void my_safe_puts_stderr(const char *val, size_t len)
+ {
+-  __try
++  __seh_try   /* __try becomes __seh_try */
+   {
+     my_write_stderr(val, len);
+     my_safe_printf_stderr("%s", "\n");
+   }
+-  __except(EXCEPTION_EXECUTE_HANDLER)
++  __seh_except(EXCEPTION_EXECUTE_HANDLER)   /* __except becomes __seh_except */
+   {
+     my_safe_printf_stderr("%s", "is an invalid string pointer\n");
+   }
++  __seh_end_except   /* This must terminate all __seh_except blocks */
+ }
+ #endif /* _WIN32 */
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/CMakeLists.txt github-rc/sql/CMakeLists.txt
+--- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/CMakeLists.txt	2015-05-30 21:30:40.518556700 +0800
+@@ -21,6 +21,7 @@ INCLUDE_DIRECTORIES(
+   ${CMAKE_SOURCE_DIR}/sql 
+   ${CMAKE_SOURCE_DIR}/sql/auth
+   ${CMAKE_SOURCE_DIR}/regex 
++  ${CMAKE_SOURCE_DIR}/libseh
+   ${ZLIB_INCLUDE_DIR}
+   ${SSL_INCLUDE_DIRS}
+   ${CMAKE_BINARY_DIR}/sql
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_relchecks.cc github-rc/sql/item_geofunc_relchecks.cc
+--- github-rc.orig/sql/item_geofunc_relchecks.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/item_geofunc_relchecks.cc	2015-05-30 14:57:52.290250700 +0800
+@@ -20,7 +20,7 @@
+   @brief
+   This file defines implementations of GIS relation check functions.
+ */
+-#include "my_config.h"
++#include "my_global.h"
+ #include "item_geofunc_internal.h"
+ #include "item_geofunc_relchecks_bgwrap.h"
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_relchecks_bgwrap.cc github-rc/sql/item_geofunc_relchecks_bgwrap.cc
+--- github-rc.orig/sql/item_geofunc_relchecks_bgwrap.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/item_geofunc_relchecks_bgwrap.cc	2015-05-30 14:57:13.521781600 +0800
+@@ -13,7 +13,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+ 
+-#include "my_config.h"
++#include "my_global.h"
+ #include "item_geofunc_internal.h"
+ 
+ #include "item_geofunc_relchecks_bgwrap.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_setops.cc github-rc/sql/item_geofunc_setops.cc
+--- github-rc.orig/sql/item_geofunc_setops.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/item_geofunc_setops.cc	2015-05-30 15:01:17.931821600 +0800
+@@ -20,7 +20,7 @@
+   @brief
+   This file defines implementations of GIS set operation functions.
+ */
+-#include "my_config.h"
++#include "my_global.h"
+ #include "item_geofunc_internal.h"
+ 
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_strfunc.cc github-rc/sql/item_strfunc.cc
+--- github-rc.orig/sql/item_strfunc.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/item_strfunc.cc	2015-05-30 15:20:54.602361100 +0800
+@@ -5697,7 +5697,11 @@ String *Item_func_uuid::val_str(String *
+         with a clock_seq value (initialized random below), we use a separate
+         randominit() here
+       */
++#ifdef _WIN64
++      randominit(&uuid_rand, tmp + (ulong) (__int64)thd, tmp + (ulong)global_query_id);
++#else
+       randominit(&uuid_rand, tmp + (ulong) thd, tmp + (ulong)global_query_id);
++#endif
+       for (i=0; i < (int)sizeof(mac); i++)
+         mac[i]=(uchar)(my_rnd(&uuid_rand)*255);
+       /* purecov: end */    
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/mysqld.cc github-rc/sql/mysqld.cc
+--- github-rc.orig/sql/mysqld.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/mysqld.cc	2015-05-30 16:01:05.354277100 +0800
+@@ -15,6 +15,7 @@
+ 
+ #include "mysqld.h"
+ #include "mysqld_daemon.h"
++#include <seh.h>   /* The LibSEH header needs to be included */
+ 
+ #include <vector>
+ #include <algorithm>
+@@ -2020,18 +2021,19 @@ LONG WINAPI my_unhandler_exception_filte
+   */
+   wait_for_debugger(DEBUGGER_ATTACH_TIMEOUT);
+ #endif /* DEBUG_UNHANDLED_EXCEPTION_FILTER */
+-  __try
++  __seh_try   /* __try becomes __seh_try */
+   {
+     my_set_exception_pointers(ex_pointers);
+     handle_fatal_signal(ex_pointers->ExceptionRecord->ExceptionCode);
+   }
+-  __except(EXCEPTION_EXECUTE_HANDLER)
++  __seh_except(EXCEPTION_EXECUTE_HANDLER)   /* __except becomes __seh_except */
+   {
+     DWORD written;
+     const char msg[] = "Got exception in exception handler!\n";
+     WriteFile(GetStdHandle(STD_OUTPUT_HANDLE),msg, sizeof(msg)-1,
+       &written,NULL);
+   }
++  __seh_end_except   /* This must terminate all __seh_except blocks */
+   /*
+     Return EXCEPTION_CONTINUE_SEARCH to give JIT debugger
+     (drwtsn32 or vsjitdebugger) possibility to attach,
+@@ -5223,7 +5225,7 @@ int mysqld_main(int argc, char **argv)
+   if (my_strcasecmp(system_charset_info, argv[1],"mysql"))
+     load_default_groups[load_default_groups_sz-2]= argv[1];
+         start_mode= 1;
+-        Service.Init(argv[1], mysql_service);
++        Service.Init(argv[1], (void*)mysql_service);
+         return 0;
+       }
+     }
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/opt_range.cc github-rc/sql/opt_range.cc
+--- github-rc.orig/sql/opt_range.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/opt_range.cc	2015-05-30 15:22:40.808352100 +0800
+@@ -9144,7 +9144,11 @@ bool SEL_ARG::test_use_count(SEL_ARG *ro
+       if (count > pos->next_key_part->use_count)
+       {
+         sql_print_information("Use_count: Wrong count for key at 0x%lx, %lu "
++#ifdef _WIN64
++                              "should be %lu", (long unsigned int) (__int64)pos,
++#else
+                               "should be %lu", (long unsigned int)pos,
++#endif
+                               pos->next_key_part->use_count, count);
+         // DBUG_ASSERT(false); // Todo - enable and clean up mess
+ 	return true;
+@@ -9155,7 +9159,11 @@ bool SEL_ARG::test_use_count(SEL_ARG *ro
+   if (e_count != elements)
+   {
+     sql_print_warning("Wrong use count: %u (should be %u) for tree at 0x%lx",
++#ifdef _WIN64
++                      e_count, elements, (long unsigned int) (__int64)this);
++#else
+                       e_count, elements, (long unsigned int) this);
++#endif
+     // DBUG_ASSERT(false); // Todo - enable and clean up mess
+     return true;
+   }
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/rpl_group_replication.cc github-rc/sql/rpl_group_replication.cc
+--- github-rc.orig/sql/rpl_group_replication.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/rpl_group_replication.cc	2015-05-30 15:26:07.380138500 +0800
+@@ -13,6 +13,7 @@
+    along with this program; if not, write to the Free Software Foundation,
+    51 Franklin Street, Suite 500, Boston, MA 02110-1335 USA */
+ 
++#include "my_global.h"
+ #include "rpl_group_replication.h"
+ #include "rpl_channel_service_interface.h"
+ #include "rpl_info_factory.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/sql_class.cc github-rc/sql/sql_class.cc
+--- github-rc.orig/sql/sql_class.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/sql_class.cc	2015-05-30 15:31:06.949921900 +0800
+@@ -1645,7 +1645,11 @@ void THD::init(void)
+   {
+     ulong tmp;
+     tmp= sql_rnd_with_mutex();
++#ifdef _WIN64
++    randominit(&rand, tmp + (ulong) (__int64)&rand, tmp + (ulong) ::global_query_id);
++#else
+     randominit(&rand, tmp + (ulong) &rand, tmp + (ulong) ::global_query_id);
++#endif
+   }
+ 
+   server_status= SERVER_STATUS_AUTOCOMMIT;
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/sql_show.cc github-rc/sql/sql_show.cc
+--- github-rc.orig/sql/sql_show.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/sql_show.cc	2015-05-30 15:38:26.219037900 +0800
+@@ -2717,7 +2717,11 @@ const char* get_one_variable(THD *thd, c
+   switch (show_type)
+   {
+     case SHOW_DOUBLE_STATUS:
++#ifdef _WIN64
++      value= ((char *) status_var + (ulong) (__int64)value);
++#else
+       value= ((char *) status_var + (ulong) value);
++#endif
+       /* fall through */
+ 
+     case SHOW_DOUBLE:
+@@ -2726,7 +2730,11 @@ const char* get_one_variable(THD *thd, c
+       break;
+ 
+     case SHOW_LONG_STATUS:
++#ifdef _WIN64
++      value= ((char *) status_var + (ulong) (__int64)value);
++#else
+       value= ((char *) status_var + (ulong) value);
++#endif
+       /* fall through */
+ 
+     case SHOW_LONG:
+@@ -2740,7 +2748,11 @@ const char* get_one_variable(THD *thd, c
+       break;
+ 
+     case SHOW_LONGLONG_STATUS:
++#ifdef _WIN64
++      value= ((char *) status_var + (ulong) (__int64)value);
++#else
+       value= ((char *) status_var + (ulong) value);
++#endif
+       /* fall through */
+ 
+     case SHOW_LONGLONG:
+@@ -2805,12 +2817,20 @@ const char* get_one_variable(THD *thd, c
+     }
+ 
+     case SHOW_KEY_CACHE_LONG:
++#ifdef _WIN64
++      value= (char*) dflt_key_cache + (ulong) (__int64)value;
++#else
+       value= (char*) dflt_key_cache + (ulong)value;
++#endif
+       end= int10_to_str(*(long*) value, buff, 10);
+       break;
+ 
+     case SHOW_KEY_CACHE_LONGLONG:
++#ifdef _WIN64
++      value= (char*) dflt_key_cache + (ulong) (__int64)value;
++#else
+       value= (char*) dflt_key_cache + (ulong)value;
++#endif
+       end= longlong10_to_str(*(longlong*) value, buff, 10);
+       break;
+ 
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/storage/innobase/os/os0thread.cc github-rc/storage/innobase/os/os0thread.cc
+--- github-rc.orig/storage/innobase/os/os0thread.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/storage/innobase/os/os0thread.cc	2015-05-30 02:03:54.264414800 +0800
+@@ -217,8 +217,11 @@ os_thread_exit(
+ 	ut_a(ret == 1);
+ 
+ 	mutex_exit(&thread_mutex);
+-
+-	ExitThread((DWORD) exit_value);
++#ifdef _WIN64
++  ExitThread((DWORD) (__int64)exit_value);
++#else
++  ExitThread((DWORD) exit_value);
++#endif
+ #else
+ 	mutex_exit(&thread_mutex);
+ 	pthread_detach(pthread_self());
