@@ -278,6 +278,17 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  }
  #endif /* _WIN32 */
  
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/CMakeLists.txt github-rc/sql/CMakeLists.txt
+--- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/sql/CMakeLists.txt	2015-05-31 00:55:10.954294500 +0800
+@@ -21,6 +21,7 @@ INCLUDE_DIRECTORIES(
+   ${CMAKE_SOURCE_DIR}/sql 
+   ${CMAKE_SOURCE_DIR}/sql/auth
+   ${CMAKE_SOURCE_DIR}/regex 
++  ${CMAKE_SOURCE_DIR}/libseh
+   ${ZLIB_INCLUDE_DIR}
+   ${SSL_INCLUDE_DIRS}
+   ${CMAKE_BINARY_DIR}/sql
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/conn_handler/shared_memory_connection.cc github-rc/sql/conn_handler/shared_memory_connection.cc
 --- github-rc.orig/sql/conn_handler/shared_memory_connection.cc	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/sql/conn_handler/shared_memory_connection.cc	2015-05-30 22:20:15.168333300 +0800
