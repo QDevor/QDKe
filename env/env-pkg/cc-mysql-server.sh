@@ -289,7 +289,7 @@ qdev_try() {
 	# qdev_build_config
 	# qdev_build_fix_before_cmake
 	qdev_build_cmake
-	# qdev_build_fix_before_make
+	qdev_build_fix_before_make
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 	# qdev_build_make install
