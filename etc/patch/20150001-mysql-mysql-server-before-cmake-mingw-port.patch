@@ -1,3 +1,98 @@
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/abstract_options_provider.cc github-rc/client/base/abstract_options_provider.cc
+--- github-rc.orig/client/base/abstract_options_provider.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/abstract_options_provider.cc	2015-05-31 03:07:22.255833100 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+    */
+-
++#include <my_global.h>
+ #include <vector>
+ #include <iostream>
+ #include "my_getopt.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/bool_option.cc github-rc/client/base/bool_option.cc
+--- github-rc.orig/client/base/bool_option.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/bool_option.cc	2015-05-31 03:01:40.705297500 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ #include "bool_option.h"
+ 
+ using namespace Mysql::Tools::Base::Options;
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/char_array_option.cc github-rc/client/base/char_array_option.cc
+--- github-rc.orig/client/base/char_array_option.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/char_array_option.cc	2015-05-31 03:03:10.814451500 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ #include "char_array_option.h"
+ 
+ using namespace Mysql::Tools::Base::Options;
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/mysql_connection_options.cc github-rc/client/base/mysql_connection_options.cc
+--- github-rc.orig/client/base/mysql_connection_options.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/mysql_connection_options.cc	2015-05-31 03:09:58.604775700 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ #include <vector>
+ #include "abstract_options_provider.h"
+ #include "mysql_connection_options.h"
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/simple_option.cc github-rc/client/base/simple_option.cc
+--- github-rc.orig/client/base/simple_option.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/simple_option.cc	2015-05-31 03:04:44.860830600 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ #include "simple_option.h"
+ 
+ using namespace Mysql::Tools::Base::Options;
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/string_option.cc github-rc/client/base/string_option.cc
+--- github-rc.orig/client/base/string_option.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/base/string_option.cc	2015-05-31 03:06:03.250314200 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ #include "string_option.h"
+ 
+ using namespace Mysql::Tools::Base::Options;
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/CMakeLists.txt github-rc/client/CMakeLists.txt
+--- github-rc.orig/client/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/CMakeLists.txt	2015-05-31 03:25:59.715748100 +0800
+@@ -23,6 +23,7 @@ INCLUDE_DIRECTORIES(
+   ${CMAKE_SOURCE_DIR}/libbinlogevents/include
+   ${CMAKE_SOURCE_DIR}/regex
+   ${CMAKE_SOURCE_DIR}/strings
++  ${CMAKE_SOURCE_DIR}/libseh
+   ${EDITLINE_INCLUDE_DIR}
+   ${CMAKE_CURRENT_BINARY_DIR}
+ )
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysql_ssl_rsa_setup.cc github-rc/client/mysql_ssl_rsa_setup.cc
+--- github-rc.orig/client/mysql_ssl_rsa_setup.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/mysql_ssl_rsa_setup.cc	2015-05-31 02:57:26.445754700 +0800
+@@ -14,7 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+-
++#include <my_global.h>
+ /* C Headers */
+ #include <sys/stat.h>
+ #include <sys/types.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysqltest.cc github-rc/client/mysqltest.cc
 --- github-rc.orig/client/mysqltest.cc	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/client/mysqltest.cc	2015-05-30 16:03:11.741506100 +0800
@@ -31,6 +126,17 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    return EXCEPTION_CONTINUE_SEARCH;
  }
  
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/path.cc github-rc/client/path.cc
+--- github-rc.orig/client/path.cc	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/client/path.cc	2015-05-31 02:59:34.668088600 +0800
+@@ -14,6 +14,7 @@
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ */
++#include <my_global.h>
+ #include "path.h"
+ #ifdef HAVE_UNISTD_H
+ #include <unistd.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/cmake/os/Windows.cmake github-rc/cmake/os/Windows.cmake
 --- github-rc.orig/cmake/os/Windows.cmake	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/cmake/os/Windows.cmake	2015-05-31 01:53:00.849586700 +0800
@@ -278,6 +384,18 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  }
  #endif /* _WIN32 */
  
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/scripts/CMakeLists.txt github-rc/scripts/CMakeLists.txt
+--- github-rc.orig/scripts/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/scripts/CMakeLists.txt	2015-05-31 03:27:19.181106100 +0800
+@@ -21,7 +21,7 @@ ENDIF()
+ 
+ 
+ # Build mysql_fix_privilege_tables.sql (concatenate 2 sql scripts)
+-IF(NOT WIN32 OR CMAKE_CROSSCOMPILING)
++IF(NOT WIN32 OR NOT MINGW OR CMAKE_CROSSCOMPILING)
+   FIND_PROGRAM(CAT_EXECUTABLE cat DOC "path to the executable")
+   MARK_AS_ADVANCED(CAT_EXECUTABLE)
+ ENDIF()
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/CMakeLists.txt github-rc/sql/CMakeLists.txt
 --- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/sql/CMakeLists.txt	2015-05-31 00:55:10.954294500 +0800
