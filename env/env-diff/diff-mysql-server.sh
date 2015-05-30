@@ -63,6 +63,15 @@ utils_init() {
 	:
 }
 
+utils_diff_tar() {
+	cd $QDKE_PATCHDIR || die
+	
+	# 搜索 /tmp 目录下 创建超过 24 分钟的文件
+	# find /tmp -cmin +24 > tmp.list
+	# tar -T tmp.list -czvf tmp.expire.tar.gz
+	tar -czvf ${QDKe_VAR_DATE_DIFF}-$user_name-$apps_name-mingw-port.tar.gz *$user_name-$apps_name*.patch
+}
+
 utils_diff() {
 	cd $qdev_build_top || die
 #	diff -crN $apps_more $apps_more.orig > $QDKE_PATCHDIR/$QDKe_VAR_DATE_DIFF-$user_name-$apps_name-patch.patch
@@ -124,7 +133,8 @@ qdev_init
 qdev_set								$work_home $user_name $apps_name $apps_more
 utils_init
 pause && pause
-utils_diff
+# utils_diff
 # utils_diff2
+utils_diff_tar
 fi
 #----------------------------------------
