@@ -276,6 +276,7 @@ qdev_build_cmake() {
 			> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1 \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
+		rm -rf $qdev_build_dir/utils_patch2-stamp || die
 	fi
 }
 

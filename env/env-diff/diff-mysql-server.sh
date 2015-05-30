@@ -110,7 +110,7 @@ utils_patch() {
 }
 
 utils_patch2() {
-	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ] && [ -f $qdev_build_dir/qdev_build_cmake-stamp ]; then
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
 	cd $qdev_build_dir/include || die
