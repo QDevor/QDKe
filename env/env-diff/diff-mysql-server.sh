@@ -93,12 +93,16 @@ utils_diff2() {
 
 utils_patch() {
 	cd $qdev_build_src || die
-	echo a | patch -p1 -u < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
+	echo a | patch -p1 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
 }
 
 utils_patch2() {
 	cd $qdev_build_dir/include || die
-	echo a | patch -RE -p0 < $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	needed_patch_file=$qdev_build_dir/include/my_config.h
+	if [ ! -f $needed_patch_file.orig ]; then
+		cp -f $needed_patch_file $needed_patch_file.orig || die
+	fi
+	echo a | patch -p0 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
 }
 
 #----------------------------------------
