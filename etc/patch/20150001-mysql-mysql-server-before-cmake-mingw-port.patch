@@ -33,7 +33,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/cmake/os/Windows.cmake github-rc/cmake/os/Windows.cmake
 --- github-rc.orig/cmake/os/Windows.cmake	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/cmake/os/Windows.cmake	2015-05-31 00:14:38.664175500 +0800
++++ github-rc/cmake/os/Windows.cmake	2015-05-31 01:04:39.535815500 +0800
 @@ -133,7 +133,9 @@ IF(MSVC)
  ENDIF()
  
@@ -41,7 +41,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
 -LINK_LIBRARIES(ws2_32)
 +LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libseh)
 +# LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libseh)
-+LINK_LIBRARIES(ws2_32 seh)
++LINK_LIBRARIES(ws2_32 -imagehlp seh)
  # ..also for tests
  SET(CMAKE_REQUIRED_LIBRARIES ws2_32)
  
