@@ -92,17 +92,25 @@ utils_diff2() {
 }
 
 utils_patch() {
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		return 0
+	fi
 	cd $qdev_build_src || die
-	echo a | patch -p1 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
+	patch -f -p1 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
+	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
 utils_patch2() {
+	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		return 0
+	fi
 	cd $qdev_build_dir/include || die
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
 		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
-	echo a | patch -p0 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	patch -f -p0 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
 #----------------------------------------
