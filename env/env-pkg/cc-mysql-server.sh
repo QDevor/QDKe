@@ -138,6 +138,7 @@ qdev_build_fix_before_cmake() {
 		return 0
 	fi
 	utils_patch
+	[ -d $qdev_build_src/libseh ] || cp -rf $qdev_build_top/../../libseh/libseh/ssd $qdev_build_src/libseh
 	# touch $qdev_build_dir/${FUNCNAME}-stamp
 	return 0
 	#----------------------------------------
@@ -175,6 +176,10 @@ qdev_build_fix_before_make() {
 		return 0
 	fi
 	utils_patch2
+	if [ ! -d $qdev_build_dir/libseh ]; then
+		mkdir -p $qdev_build_src/libseh >/dev/null 2>&1
+		cp -rf $qdev_build_src/libseh/libseh.a $qdev_build_dir/libseh/libseh.a || die
+	fi
 	# touch $qdev_build_dir/${FUNCNAME}-stamp
 	return 0
 	#----------------------------------------
