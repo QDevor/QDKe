@@ -172,7 +172,7 @@ qdev_build_fix_before_cmake() {
 
 qdev_build_fix_before_make() {
 	:
-	[ -d $qdev_build_dir/sql/data ] || mkdir -p $qdev_build_dir/sql/data >/dev/null 2>&1
+	#[ -d $qdev_build_dir/sql/data ] || mkdir -p $qdev_build_dir/sql/data >/dev/null 2>&1
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
@@ -299,7 +299,7 @@ qdev_try() {
 	qdev_build_fix_before_make
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
-	qdev_build_make install
+	#qdev_build_make install
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
@@ -307,9 +307,17 @@ qdev_try() {
 qdev_try_extra() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	cd $qdev_build_dir/libbinlogevents || die
-	qdev_build_make VERBOSE=1 \
-		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
+	log_info "Generating data"
+	cd /D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql && /D/qdk/msys64/mingw64/bin/cmake.exe \
+		-E remove_directory D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data
+	cd /D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql && /D/qdk/msys64/mingw64/bin/cmake.exe  \
+		-E make_directory D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data
+	cd /D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql &&  \
+		/D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/mysqld.exe  \
+		--no-defaults --console --lc-messages-dir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/share  \
+		--datadir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data  \
+		--default-storage-engine=MyISAM --default-tmp-storage-engine=MyISAM   \
+		--log_syslog=0 --skip-ssl
 }
 
 qdev_tst() {
@@ -341,6 +349,6 @@ qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
 qdev_check
-qdev_try
-# qdev_try_extra
+# qdev_try
+qdev_try_extra
 qdev_tst
