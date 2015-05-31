@@ -319,6 +319,17 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ${ZLIB_INCLUDE_DIR}
    ${SSL_INCLUDE_DIRS}
    ${SSL_INTERNAL_INCLUDE_DIRS}
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysqld/examples/CMakeLists.txt github-rc/libmysqld/examples/CMakeLists.txt
+--- github-rc.orig/libmysqld/examples/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libmysqld/examples/CMakeLists.txt	2015-05-31 20:21:50.114707900 +0800
+@@ -17,6 +17,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/
+                     ${CMAKE_SOURCE_DIR}/libmysqld/include
+                     ${CMAKE_SOURCE_DIR}/regex 
+                     ${CMAKE_SOURCE_DIR}/tests
++                     ${CMAKE_SOURCE_DIR}/libseh
+                     ${EDITLINE_INCLUDE_DIR}                 
+                     )
+ 
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
 --- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
