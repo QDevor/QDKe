@@ -299,7 +299,7 @@ qdev_try() {
 	qdev_build_fix_before_make
 	qdev_build_make VERBOSE=1 \
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
-	# qdev_build_make install
+	qdev_build_make install
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
@@ -312,7 +312,9 @@ qdev_try_extra() {
 		> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-make.log 2>&1
 }
 
-# qdev_tst
+qdev_tst() {
+	:
+}
 
 #
 # Required and optional software
