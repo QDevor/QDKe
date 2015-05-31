@@ -172,6 +172,7 @@ qdev_build_fix_before_cmake() {
 
 qdev_build_fix_before_make() {
 	:
+	[ -d $qdev_build_dir/sql/data ] || mkdir -p $qdev_build_dir/sql/data >/dev/null 2>&1
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi

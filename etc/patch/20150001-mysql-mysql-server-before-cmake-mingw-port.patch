@@ -95,17 +95,18 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <sys/types.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysqltest.cc github-rc/client/mysqltest.cc
 --- github-rc.orig/client/mysqltest.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/mysqltest.cc	2015-05-30 16:03:11.741506100 +0800
-@@ -23,7 +23,7 @@
++++ github-rc/client/mysqltest.cc	2015-05-31 18:35:11.516044900 +0800
+@@ -23,7 +23,8 @@
  
    Please keep the test framework tools identical in all versions!
  */
 -
++#include <my_global.h>
 +#include <seh.h>   /* The LibSEH header needs to be included */
  #define MTEST_VERSION "3.3"
  
  #include "client_priv.h"
-@@ -8885,16 +8885,17 @@ static void signal_handler(int sig)
+@@ -8885,16 +8886,17 @@ static void signal_handler(int sig)
  
  LONG WINAPI exception_filter(EXCEPTION_POINTERS *exp)
  {
@@ -307,6 +308,17 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
    bool virtual is_complete() const
    {
+diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysqld/CMakeLists.txt github-rc/libmysqld/CMakeLists.txt
+--- github-rc.orig/libmysqld/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
++++ github-rc/libmysqld/CMakeLists.txt	2015-05-31 19:29:29.256155500 +0800
+@@ -26,6 +26,7 @@ INCLUDE_DIRECTORIES(
+   ${CMAKE_SOURCE_DIR}/sql/conn_handler
+   ${CMAKE_BINARY_DIR}/sql 
+   ${CMAKE_SOURCE_DIR}/regex
++  ${CMAKE_SOURCE_DIR}/libseh
+   ${ZLIB_INCLUDE_DIR}
+   ${SSL_INCLUDE_DIRS}
+   ${SSL_INTERNAL_INCLUDE_DIRS}
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
 --- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
@@ -398,7 +410,7 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  ENDIF()
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/CMakeLists.txt github-rc/sql/CMakeLists.txt
 --- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/CMakeLists.txt	2015-05-31 00:55:10.954294500 +0800
++++ github-rc/sql/CMakeLists.txt	2015-05-31 19:41:12.365276600 +0800
 @@ -21,6 +21,7 @@ INCLUDE_DIRECTORIES(
    ${CMAKE_SOURCE_DIR}/sql 
    ${CMAKE_SOURCE_DIR}/sql/auth
@@ -407,6 +419,35 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ${ZLIB_INCLUDE_DIR}
    ${SSL_INCLUDE_DIRS}
    ${CMAKE_BINARY_DIR}/sql
+@@ -590,7 +591,7 @@ IF(INSTALL_LAYOUT STREQUAL "STANDALONE")
+ 
+ # Install initial database on windows
+ IF(NOT CMAKE_CROSSCOMPILING)
+-  IF(DEBUG_EXTNAME)
++  IF(0)
+     GET_TARGET_PROPERTY(MYSQLD_EXECUTABLE mysqld LOCATION_DEBUG)
+   ELSE()
+     GET_TARGET_PROPERTY(MYSQLD_EXECUTABLE mysqld LOCATION)
+@@ -601,6 +602,8 @@ IF(WIN32 AND MYSQLD_EXECUTABLE)
+      OUTPUT data
+      COMMAND "${CMAKE_COMMAND}" -E remove_directory
+        ${CMAKE_CURRENT_BINARY_DIR}/data
++     COMMAND "${CMAKE_COMMAND}" -E make_directory
++       ${CMAKE_CURRENT_BINARY_DIR}/data
+      COMMAND "${MYSQLD_EXECUTABLE}"
+        --no-defaults
+        --console
+@@ -608,9 +611,7 @@ IF(WIN32 AND MYSQLD_EXECUTABLE)
+        --datadir=${CMAKE_CURRENT_BINARY_DIR}/data
+        --default-storage-engine=MyISAM
+        --default-tmp-storage-engine=MyISAM
+-       --loose-skip-auto_generate_certs
+-       --loose-skip-sha256_password_auto_generate_rsa_keys
+-       --initialize-insecure
++       --explicit_defaults_for_timestamp
+        --log_syslog=0
+        --skip-ssl
+      COMMAND "${CMAKE_COMMAND}" -E make_directory
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/conn_handler/shared_memory_connection.cc github-rc/sql/conn_handler/shared_memory_connection.cc
 --- github-rc.orig/sql/conn_handler/shared_memory_connection.cc	2015-04-09 18:35:31.000000000 +0800
 +++ github-rc/sql/conn_handler/shared_memory_connection.cc	2015-05-30 22:20:15.168333300 +0800
