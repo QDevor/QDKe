@@ -179,6 +179,7 @@ qdev_build_fix_before_make() {
 	utils_patch2
 	if [ ! -d $qdev_build_dir/libseh ]; then
 		mkdir -p $qdev_build_src/libseh >/dev/null 2>&1
+		[ -d $qdev_build_dir/libseh ] || mkdir -p $qdev_build_dir/libseh >/dev/null 2>&1
 		cp -rf $qdev_build_src/libseh/libseh.a $qdev_build_dir/libseh/libseh.a || die
 	fi
 	# touch $qdev_build_dir/${FUNCNAME}-stamp
@@ -269,6 +270,7 @@ qdev_build_cmake() {
 		cd $qdev_build_dir
 		cmake ../$apps_more \
 			-G "MSYS Makefiles" \
+			-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 			-DBUILD_CONFIG=mysql_release \
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
@@ -317,6 +319,9 @@ qdev_try_extra() {
 		--no-defaults --console --lc-messages-dir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/share  \
 		--datadir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data  \
 		--default-storage-engine=MyISAM --default-tmp-storage-engine=MyISAM   \
+		--loose-skip-auto_generate_certs \
+    --loose-skip-sha256_password_auto_generate_rsa_keys \
+    --initialize-insecure \
 		--log_syslog=0 --skip-ssl
 }
 
@@ -349,6 +354,6 @@ qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
 qdev_check
-# qdev_try
-qdev_try_extra
+qdev_try
+# qdev_try_extra
 qdev_tst
