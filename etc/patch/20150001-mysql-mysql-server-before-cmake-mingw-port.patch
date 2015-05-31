@@ -386,13 +386,13 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/scripts/CMakeLists.txt github-rc/scripts/CMakeLists.txt
 --- github-rc.orig/scripts/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/scripts/CMakeLists.txt	2015-05-31 03:27:19.181106100 +0800
++++ github-rc/scripts/CMakeLists.txt	2015-05-31 10:19:09.499292000 +0800
 @@ -21,7 +21,7 @@ ENDIF()
  
  
  # Build mysql_fix_privilege_tables.sql (concatenate 2 sql scripts)
 -IF(NOT WIN32 OR CMAKE_CROSSCOMPILING)
-+IF(NOT WIN32 OR NOT MINGW OR CMAKE_CROSSCOMPILING)
++IF(NOT WIN32 OR MINGW OR CMAKE_CROSSCOMPILING)
    FIND_PROGRAM(CAT_EXECUTABLE cat DOC "path to the executable")
    MARK_AS_ADVANCED(CAT_EXECUTABLE)
  ENDIF()
