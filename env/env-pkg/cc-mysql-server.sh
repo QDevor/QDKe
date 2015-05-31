@@ -270,7 +270,6 @@ qdev_build_cmake() {
 		cd $qdev_build_dir
 		cmake ../$apps_more \
 			-G "MSYS Makefiles" \
-			-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 			-DBUILD_CONFIG=mysql_release \
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \

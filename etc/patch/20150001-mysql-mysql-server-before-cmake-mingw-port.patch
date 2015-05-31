@@ -140,14 +140,14 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <unistd.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/cmake/build_configurations/mysql_release.cmake github-rc/cmake/build_configurations/mysql_release.cmake
 --- github-rc.orig/cmake/build_configurations/mysql_release.cmake	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/cmake/build_configurations/mysql_release.cmake	2015-06-01 00:05:43.164902800 +0800
++++ github-rc/cmake/build_configurations/mysql_release.cmake	2015-06-01 00:14:18.115356300 +0800
 @@ -18,7 +18,8 @@
  INCLUDE(CheckIncludeFiles)
  INCLUDE(CheckLibraryExists)
  
 -OPTION(DEBUG_EXTNAME "" ON)
 +OPTION(DEBUG_EXTNAME "" OFF)
-+OPTION(DISABLE_SHARED "" ON)
++OPTION(DISABLE_SHARED "" OFF)
  OPTION(ENABLED_LOCAL_INFILE "" ON)
  
  IF(NOT COMPILATION_COMMENT)
