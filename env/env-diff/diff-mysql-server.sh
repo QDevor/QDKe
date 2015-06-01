@@ -59,8 +59,19 @@ _diff_notes() {
 ##-y 产生并排格式的输出
 }
 
+#MYSQL_VERSION_MAJOR=5
+#MYSQL_VERSION_MINOR=6
+#MYSQL_VERSION_PATCH=24
+#MYSQL_VERSION_EXTRA=
 utils_init() {
-	:
+	cd $qdev_build_src || die
+	_ver_major=$(cat VERSION | grep "MAJOR" | cut -d'=' -f2)
+	_ver_minor=$(cat VERSION | grep "MINOR" | cut -d'=' -f2)
+	_ver_patch=$(cat VERSION | grep "PATCH" | cut -d'=' -f2)
+	_ver_extra=$(cat VERSION | grep "EXTRA" | cut -d'=' -f2)
+	
+#	echo major=$_ver_major, minor=$_ver_minor, patch=$_ver_patch, extra=$_ver_extra
+	patch_extra_name=$user_name-$apps_name-$_ver_major.$_ver_minor.$_ver_patch
 }
 
 utils_diff_tar() {
@@ -69,7 +80,7 @@ utils_diff_tar() {
 	# 搜索 /tmp 目录下 创建超过 24 分钟的文件
 	# find /tmp -cmin +24 > tmp.list
 	# tar -T tmp.list -czvf tmp.expire.tar.gz
-	tar -czvf ${QDKe_VAR_DATE_DIFF}-$user_name-$apps_name-mingw-port-patch.tar.gz *$user_name-$apps_name*.patch
+	tar -czvf ${QDKe_VAR_DATE_DIFF}-$patch_extra_name-mingw-port-patch.tar.gz *$user_name-$apps_name*.patch
 }
 
 utils_diff() {
@@ -86,26 +97,28 @@ utils_diff() {
 		-x libseh \
 		-x source_downloads \
 		$apps_more.orig $apps_more \
-		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
+		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$patch_extra_name-before-cmake-mingw-port.patch
 }
 
 utils_diff2() {
 	cd $qdev_build_dir/include || die
 	diff -up \
 		my_config.h.orig my_config.h \
-		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+		>$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$patch_extra_name-before-make-mingw-port.patch
 
-	sed -i -e 's/my_config\.h\.orig/my_config_h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
-	sed -i -e 's/my_config\.h/my_config\.h\.new/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
-	sed -i -e 's/my_config_h/my_config\.h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	sed -i -e 's/my_config\.h\.orig/my_config_h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$patch_extra_name-before-make-mingw-port.patch
+	sed -i -e 's/my_config\.h/my_config\.h\.new/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$patch_extra_name-before-make-mingw-port.patch
+	sed -i -e 's/my_config_h/my_config\.h/g' $QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$patch_extra_name-before-make-mingw-port.patch
 }
 
 utils_patch() {
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
+	
+	[ x$QDKe_VAR_IS_XP = "xtrue" ] && patch_extra_name=$user_name-$apps_name-5.7.7
 	cd $qdev_build_src || die
-	patch -f -p1 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$user_name-$apps_name-before-cmake-mingw-port.patch
+	patch -f -p1 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0001-$patch_extra_name-before-cmake-mingw-port.patch
 	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
@@ -113,12 +126,14 @@ utils_patch2() {
 	if [ -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		return 0
 	fi
+	
+	[ x$QDKe_VAR_IS_XP = "xtrue" ] && patch_extra_name=$user_name-$apps_name-5.7.7
 	cd $qdev_build_dir/include || die
 	needed_patch_file=$qdev_build_dir/include/my_config.h
 	if [ ! -f $needed_patch_file.orig ]; then
 		cp -f $needed_patch_file $needed_patch_file.orig || die
 	fi
-	patch -f -p0 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$user_name-$apps_name-before-make-mingw-port.patch
+	patch -f -p0 -u <$QDKE_PATCHDIR/${QDKe_VAR_DATE_DIFF}0002-$patch_extra_name-before-make-mingw-port.patch
 	touch $qdev_build_dir/${FUNCNAME}-stamp
 }
 
