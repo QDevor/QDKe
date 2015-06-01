@@ -94,19 +94,19 @@ set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
 :: http://stackoverflow.com/questions/20115186/what-sdk-version-to-download
 :: -----------------------------------
 :-------------------------------------
-set "MSSDK_WINXPSP2_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
+set "MSSDK_VXPSP2_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
 set "MSSDK_V60A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v6.0A"
 set "MSSDK_V70_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0"
 set "MSSDK_V70A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0A"
 set "MSSDK_V71_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.1"
 
-if x$QDe_VAR_IS_XP == "xtrue" set "MSSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V71_ROOT!" set "MSSDK_ROOT=!MSSDK_V71_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V70_ROOT!" set "MSSDK_ROOT=!MSSDK_V70_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V70A_ROOT!" set "MSSDK_ROOT=!MSSDK_V70A_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V60A_ROOT!" set "MSSDK_ROOT=!MSSDK_V60A_ROOT!" && goto :skip_set_tools_path_mssdk
-if x$QDe_VAR_IS_XP != "xtrue" goto :skip_set_tools_path_mssdk
-if exist "!MSPSDK_WINXPSP2_ROOT!" set "MSSDK_ROOT=!MSPSDK_WINXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
+if "x%QDKe_VAR_IS_XP%" != "xtrue" goto :skip_set_tools_path_mssdk
+if exist "!MSSDK_VXPSP2_ROOT!" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
 :skip_set_tools_path_mssdk
 :-------------------------------------
 :: MySQL
