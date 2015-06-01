@@ -1,6 +1,6 @@
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/abstract_options_provider.cc github-rc/client/base/abstract_options_provider.cc
---- github-rc.orig/client/base/abstract_options_provider.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/abstract_options_provider.cc	2015-05-31 03:07:22.255833100 +0800
+--- github-rc.orig/client/base/abstract_options_provider.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/abstract_options_provider.cc	2015-06-01 15:09:07.121257200 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -11,8 +11,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <iostream>
  #include "my_getopt.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/bool_option.cc github-rc/client/base/bool_option.cc
---- github-rc.orig/client/base/bool_option.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/bool_option.cc	2015-05-31 03:01:40.705297500 +0800
+--- github-rc.orig/client/base/bool_option.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/bool_option.cc	2015-06-01 15:09:07.183754800 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -23,8 +23,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  using namespace Mysql::Tools::Base::Options;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/char_array_option.cc github-rc/client/base/char_array_option.cc
---- github-rc.orig/client/base/char_array_option.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/char_array_option.cc	2015-05-31 03:03:10.814451500 +0800
+--- github-rc.orig/client/base/char_array_option.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/char_array_option.cc	2015-06-01 15:09:07.199379200 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -35,8 +35,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  using namespace Mysql::Tools::Base::Options;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/mysql_connection_options.cc github-rc/client/base/mysql_connection_options.cc
---- github-rc.orig/client/base/mysql_connection_options.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/mysql_connection_options.cc	2015-05-31 03:09:58.604775700 +0800
+--- github-rc.orig/client/base/mysql_connection_options.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/mysql_connection_options.cc	2015-06-01 15:09:07.386872000 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -47,8 +47,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include "abstract_options_provider.h"
  #include "mysql_connection_options.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/simple_option.cc github-rc/client/base/simple_option.cc
---- github-rc.orig/client/base/simple_option.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/simple_option.cc	2015-05-31 03:04:44.860830600 +0800
+--- github-rc.orig/client/base/simple_option.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/simple_option.cc	2015-06-01 15:09:07.418120800 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -59,8 +59,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  using namespace Mysql::Tools::Base::Options;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/base/string_option.cc github-rc/client/base/string_option.cc
---- github-rc.orig/client/base/string_option.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/base/string_option.cc	2015-05-31 03:06:03.250314200 +0800
+--- github-rc.orig/client/base/string_option.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/base/string_option.cc	2015-06-01 15:09:07.449369600 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -71,8 +71,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  using namespace Mysql::Tools::Base::Options;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/CMakeLists.txt github-rc/client/CMakeLists.txt
---- github-rc.orig/client/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/CMakeLists.txt	2015-05-31 03:25:59.715748100 +0800
+--- github-rc.orig/client/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/CMakeLists.txt	2015-06-01 15:09:07.543116000 +0800
 @@ -23,6 +23,7 @@ INCLUDE_DIRECTORIES(
    ${CMAKE_SOURCE_DIR}/libbinlogevents/include
    ${CMAKE_SOURCE_DIR}/regex
@@ -82,8 +82,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ${CMAKE_CURRENT_BINARY_DIR}
  )
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysql_ssl_rsa_setup.cc github-rc/client/mysql_ssl_rsa_setup.cc
---- github-rc.orig/client/mysql_ssl_rsa_setup.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/mysql_ssl_rsa_setup.cc	2015-05-31 02:57:26.445754700 +0800
+--- github-rc.orig/client/mysql_ssl_rsa_setup.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/mysql_ssl_rsa_setup.cc	2015-06-01 15:09:07.574364800 +0800
 @@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -94,8 +94,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <sys/stat.h>
  #include <sys/types.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/mysqltest.cc github-rc/client/mysqltest.cc
---- github-rc.orig/client/mysqltest.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/mysqltest.cc	2015-05-31 18:35:11.516044900 +0800
+--- github-rc.orig/client/mysqltest.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/mysqltest.cc	2015-06-01 15:09:07.621238000 +0800
 @@ -23,7 +23,8 @@
  
    Please keep the test framework tools identical in all versions!
@@ -128,8 +128,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  }
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/client/path.cc github-rc/client/path.cc
---- github-rc.orig/client/path.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/client/path.cc	2015-05-31 02:59:34.668088600 +0800
+--- github-rc.orig/client/path.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/client/path.cc	2015-06-01 15:09:07.683735600 +0800
 @@ -14,6 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
@@ -139,8 +139,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #ifdef HAVE_UNISTD_H
  #include <unistd.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/cmake/build_configurations/mysql_release.cmake github-rc/cmake/build_configurations/mysql_release.cmake
---- github-rc.orig/cmake/build_configurations/mysql_release.cmake	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/cmake/build_configurations/mysql_release.cmake	2015-06-01 00:14:18.115356300 +0800
+--- github-rc.orig/cmake/build_configurations/mysql_release.cmake	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/cmake/build_configurations/mysql_release.cmake	2015-06-01 15:09:07.730608800 +0800
 @@ -18,7 +18,8 @@
  INCLUDE(CheckIncludeFiles)
  INCLUDE(CheckLibraryExists)
@@ -152,9 +152,26 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  IF(NOT COMPILATION_COMMENT)
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/cmake/os/Windows.cmake github-rc/cmake/os/Windows.cmake
---- github-rc.orig/cmake/os/Windows.cmake	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/cmake/os/Windows.cmake	2015-05-31 01:53:00.849586700 +0800
-@@ -133,7 +133,9 @@ IF(MSVC)
+--- github-rc.orig/cmake/os/Windows.cmake	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/cmake/os/Windows.cmake	2015-06-01 15:12:57.362415600 +0800
+@@ -49,9 +49,14 @@ ELSE()
+   SET(SYSTEM_TYPE "Win32")
+ ENDIF()
+ 
++IF(CMAKE_SYSTEM_VERSION VERSION_GREATER 6.0 )
+ # Target Windows 7 / Windows Server 2008 R2 or later, i.e _WIN32_WINNT_WIN7
+-ADD_DEFINITIONS(-D_WIN32_WINNT=0x0601)
+-SET(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -D_WIN32_WINNT=0x0601")
++	ADD_DEFINITIONS(-D_WIN32_WINNT=0x0601)
++	SET(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -D_WIN32_WINNT=0x0601")
++ELSE()
++	ADD_DEFINITIONS(-D_WIN32_WINNT=0x0501)
++	SET(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -D_WIN32_WINNT=0x0501")
++ENDIF()
+ 
+ # Speed up build process excluding unused header files
+ ADD_DEFINITIONS(-DWIN32_LEAN_AND_MEAN -DNOGDI)
+@@ -133,7 +138,9 @@ IF(MSVC)
  ENDIF()
  
  # Always link with socket library
@@ -166,8 +183,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  SET(CMAKE_REQUIRED_LIBRARIES ws2_32)
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/CMakeLists.txt github-rc/CMakeLists.txt
---- github-rc.orig/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/CMakeLists.txt	2015-05-29 23:43:49.957720300 +0800
+--- github-rc.orig/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/CMakeLists.txt	2015-06-01 15:09:07.808730800 +0800
 @@ -494,7 +494,7 @@ OPTION(MYSQL_MAINTAINER_MODE
  
  INCLUDE(maintainer)
@@ -187,8 +204,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ADD_SUBDIRECTORY(unittest/examples)
    ADD_SUBDIRECTORY(unittest/mytap)
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/include/my_global.h github-rc/include/my_global.h
---- github-rc.orig/include/my_global.h	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/include/my_global.h	2015-05-30 13:29:13.052411300 +0800
+--- github-rc.orig/include/my_global.h	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/include/my_global.h	2015-06-01 15:09:07.855604000 +0800
 @@ -338,7 +338,7 @@ typedef socket_len_t SOCKET_SIZE_TYPE; /
  
  /* Some defines of functions for portability */
@@ -199,8 +216,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  inline double my_ulonglong2double(unsigned long long value)
  {
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/binary_log_funcs.cpp github-rc/libbinlogevents/src/binary_log_funcs.cpp
---- github-rc.orig/libbinlogevents/src/binary_log_funcs.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/binary_log_funcs.cpp	2015-05-30 11:49:27.381050500 +0800
+--- github-rc.orig/libbinlogevents/src/binary_log_funcs.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/binary_log_funcs.cpp	2015-06-01 15:09:07.886852800 +0800
 @@ -13,6 +13,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -215,8 +232,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  #include "byteorder.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/binlog_event.cpp github-rc/libbinlogevents/src/binlog_event.cpp
---- github-rc.orig/libbinlogevents/src/binlog_event.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/binlog_event.cpp	2015-05-30 11:47:25.354071000 +0800
+--- github-rc.orig/libbinlogevents/src/binlog_event.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/binlog_event.cpp	2015-06-01 15:09:07.902477200 +0800
 @@ -13,6 +13,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -231,8 +248,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  #include "statement_events.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/control_events.cpp github-rc/libbinlogevents/src/control_events.cpp
---- github-rc.orig/libbinlogevents/src/control_events.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/control_events.cpp	2015-05-30 11:28:00.475443700 +0800
+--- github-rc.orig/libbinlogevents/src/control_events.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/control_events.cpp	2015-06-01 15:09:07.933726000 +0800
 @@ -13,6 +13,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -247,8 +264,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  #include "statement_events.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/load_data_events.cpp github-rc/libbinlogevents/src/load_data_events.cpp
---- github-rc.orig/libbinlogevents/src/load_data_events.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/load_data_events.cpp	2015-05-30 11:47:04.247863800 +0800
+--- github-rc.orig/libbinlogevents/src/load_data_events.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/load_data_events.cpp	2015-06-01 15:09:07.980599200 +0800
 @@ -13,6 +13,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -263,8 +280,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <stdlib.h>
  #include <string.h>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/rows_event.cpp github-rc/libbinlogevents/src/rows_event.cpp
---- github-rc.orig/libbinlogevents/src/rows_event.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/rows_event.cpp	2015-05-30 11:47:16.382557800 +0800
+--- github-rc.orig/libbinlogevents/src/rows_event.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/rows_event.cpp	2015-06-01 15:09:08.043096800 +0800
 @@ -13,6 +13,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -279,8 +296,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <stdlib.h>
  #include <cstring>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/statement_events.cpp github-rc/libbinlogevents/src/statement_events.cpp
---- github-rc.orig/libbinlogevents/src/statement_events.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/statement_events.cpp	2015-05-30 02:46:16.030135200 +0800
+--- github-rc.orig/libbinlogevents/src/statement_events.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/statement_events.cpp	2015-06-01 15:09:08.089970000 +0800
 @@ -13,6 +13,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -294,8 +311,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include <algorithm>
  #include <string>
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libbinlogevents/src/uuid.cpp github-rc/libbinlogevents/src/uuid.cpp
---- github-rc.orig/libbinlogevents/src/uuid.cpp	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libbinlogevents/src/uuid.cpp	2015-05-30 11:51:35.308367500 +0800
+--- github-rc.orig/libbinlogevents/src/uuid.cpp	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libbinlogevents/src/uuid.cpp	2015-06-01 15:09:08.105594400 +0800
 @@ -15,6 +15,12 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     02110-1301 USA */
@@ -310,8 +327,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysql/authentication_win/handshake.h github-rc/libmysql/authentication_win/handshake.h
---- github-rc.orig/libmysql/authentication_win/handshake.h	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libmysql/authentication_win/handshake.h	2015-05-30 02:18:51.083709900 +0800
+--- github-rc.orig/libmysql/authentication_win/handshake.h	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libmysql/authentication_win/handshake.h	2015-06-01 15:09:08.136843200 +0800
 @@ -100,7 +100,7 @@ public:
    Handshake(const char *ssp, side_t side);
    virtual ~Handshake();
@@ -322,8 +339,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    bool virtual is_complete() const
    {
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysqld/CMakeLists.txt github-rc/libmysqld/CMakeLists.txt
---- github-rc.orig/libmysqld/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libmysqld/CMakeLists.txt	2015-05-31 19:29:29.256155500 +0800
+--- github-rc.orig/libmysqld/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libmysqld/CMakeLists.txt	2015-06-01 15:09:08.168092000 +0800
 @@ -26,6 +26,7 @@ INCLUDE_DIRECTORIES(
    ${CMAKE_SOURCE_DIR}/sql/conn_handler
    ${CMAKE_BINARY_DIR}/sql 
@@ -333,8 +350,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    ${SSL_INCLUDE_DIRS}
    ${SSL_INTERNAL_INCLUDE_DIRS}
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/libmysqld/examples/CMakeLists.txt github-rc/libmysqld/examples/CMakeLists.txt
---- github-rc.orig/libmysqld/examples/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/libmysqld/examples/CMakeLists.txt	2015-05-31 20:21:50.114707900 +0800
+--- github-rc.orig/libmysqld/examples/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/libmysqld/examples/CMakeLists.txt	2015-06-01 15:09:08.199340800 +0800
 @@ -17,6 +17,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/
                      ${CMAKE_SOURCE_DIR}/libmysqld/include
                      ${CMAKE_SOURCE_DIR}/regex 
@@ -344,8 +361,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
                      )
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/CMakeLists.txt github-rc/mysys/CMakeLists.txt
---- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/mysys/CMakeLists.txt	2015-05-29 22:11:37.763305500 +0800
+--- github-rc.orig/mysys/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/mysys/CMakeLists.txt	2015-06-01 15:09:08.293087200 +0800
 @@ -13,7 +13,7 @@
  # along with this program; if not, write to the Free Software
  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
@@ -356,8 +373,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  SET(MYSYS_SOURCES  array.c charset-def.c charset.c checksum.c
  				errors.c hash.c list.c mf_cache.c mf_dirname.c mf_fn_ext.c
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_gethwaddr.c github-rc/mysys/my_gethwaddr.c
---- github-rc.orig/mysys/my_gethwaddr.c	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/mysys/my_gethwaddr.c	2015-05-29 21:48:16.859468200 +0800
+--- github-rc.orig/mysys/my_gethwaddr.c	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/mysys/my_gethwaddr.c	2015-06-01 15:09:08.324336000 +0800
 @@ -138,6 +138,7 @@ my_bool my_gethwaddr(uchar *to)
  #define VOID void
  #endif
@@ -367,8 +384,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  /*
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/my_thr_init.c github-rc/mysys/my_thr_init.c
---- github-rc.orig/mysys/my_thr_init.c	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/mysys/my_thr_init.c	2015-05-29 21:52:31.926990800 +0800
+--- github-rc.orig/mysys/my_thr_init.c	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/mysys/my_thr_init.c	2015-06-01 15:09:08.402458000 +0800
 @@ -43,7 +43,7 @@ native_mutexattr_t my_fast_mutexattr;
  #ifdef PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP
  native_mutexattr_t my_errorcheck_mutexattr;
@@ -388,8 +405,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #endif
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/mysys/stacktrace.c github-rc/mysys/stacktrace.c
---- github-rc.orig/mysys/stacktrace.c	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/mysys/stacktrace.c	2015-05-30 16:07:39.347812300 +0800
+--- github-rc.orig/mysys/stacktrace.c	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/mysys/stacktrace.c	2015-06-01 15:09:08.558702000 +0800
 @@ -14,6 +14,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
  
@@ -421,8 +438,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #endif /* _WIN32 */
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/scripts/CMakeLists.txt github-rc/scripts/CMakeLists.txt
---- github-rc.orig/scripts/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/scripts/CMakeLists.txt	2015-05-31 23:44:21.863616600 +0800
+--- github-rc.orig/scripts/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/scripts/CMakeLists.txt	2015-06-01 15:09:08.652448400 +0800
 @@ -21,7 +21,7 @@ ENDIF()
  
  
@@ -433,8 +450,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    MARK_AS_ADVANCED(CAT_EXECUTABLE)
  ENDIF()
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/scripts/mysql_sys_schema.sql github-rc/scripts/mysql_sys_schema.sql
---- github-rc.orig/scripts/mysql_sys_schema.sql	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/scripts/mysql_sys_schema.sql	2015-05-31 23:55:32.091951500 +0800
+--- github-rc.orig/scripts/mysql_sys_schema.sql	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/scripts/mysql_sys_schema.sql	2015-06-01 15:09:08.761819200 +0800
 @@ -13,350 +13,3 @@
  -- along with this program; if not, write to the Free Software
  -- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
@@ -787,8 +804,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
 -
 -CREATE DEFINER='root'@'localhost' PROCEDURE ps_truncate_all_tables ( IN in_verbose BOOLEAN ) COMMENT '\n Description\n \n Truncates all summary tables within Performance Schema, \n resetting all aggregated instrumentation as a snapshot.\n \n Parameters\n \n in_verbose (BOOLEAN):\n Whether to print each TRUNCATE statement before running\n \n Example\n \n mysql> CALL sys.ps_truncate_all_tables(false);\n +---------------------+\n | summary             |\n +---------------------+\n | Truncated 44 tables |\n +---------------------+\n 1 row in set (0.10 sec)\n \n Query OK, 0 rows affected (0.10 sec)\n ' SQL SECURITY INVOKER DETERMINISTIC MODIFIES SQL DATA BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_total_tables INT DEFAULT 0; DECLARE v_ps_table VARCHAR(64); DECLARE ps_tables CURSOR FOR SELECT table_name  FROM INFORMATION_SCHEMA.TABLES  WHERE table_schema = 'performance_schema'  AND (table_name LIKE '%summary%'  OR table_name LIKE '%history%'); DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE;  OPEN ps_tables;  ps_tables_loop: LOOP FETCH ps_tables INTO v_ps_table; IF v_done THEN LEAVE ps_tables_loop; END IF;  SET @truncate_stmt := CONCAT('TRUNCATE TABLE performance_schema.', v_ps_table); IF in_verbose THEN SELECT CONCAT('Running: ', @truncate_stmt) AS status; END IF;  PREPARE truncate_stmt FROM @truncate_stmt; EXECUTE truncate_stmt; DEALLOCATE PREPARE truncate_stmt;  SET v_total_tables = v_total_tables + 1; END LOOP;  CLOSE ps_tables;  SELECT CONCAT('Truncated ', v_total_tables, ' tables') AS summary;  END;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/CMakeLists.txt github-rc/sql/CMakeLists.txt
---- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/CMakeLists.txt	2015-05-31 21:02:42.556979500 +0800
+--- github-rc.orig/sql/CMakeLists.txt	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/CMakeLists.txt	2015-06-01 15:09:08.793068000 +0800
 @@ -21,6 +21,7 @@ INCLUDE_DIRECTORIES(
    ${CMAKE_SOURCE_DIR}/sql 
    ${CMAKE_SOURCE_DIR}/sql/auth
@@ -816,8 +833,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
         --no-defaults
         --console
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/conn_handler/shared_memory_connection.cc github-rc/sql/conn_handler/shared_memory_connection.cc
---- github-rc.orig/sql/conn_handler/shared_memory_connection.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/conn_handler/shared_memory_connection.cc	2015-05-30 22:20:15.168333300 +0800
+--- github-rc.orig/sql/conn_handler/shared_memory_connection.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/conn_handler/shared_memory_connection.cc	2015-06-01 15:09:08.839941200 +0800
 @@ -236,6 +236,7 @@ Channel_info* Shared_mem_listener::liste
  
    const char *errmsg= NULL;
@@ -836,8 +853,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
                              m_handle_client_map,
                              m_event_server_wrote,
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_relchecks.cc github-rc/sql/item_geofunc_relchecks.cc
---- github-rc.orig/sql/item_geofunc_relchecks.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/item_geofunc_relchecks.cc	2015-05-30 14:57:52.290250700 +0800
+--- github-rc.orig/sql/item_geofunc_relchecks.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/item_geofunc_relchecks.cc	2015-06-01 15:09:08.886814400 +0800
 @@ -20,7 +20,7 @@
    @brief
    This file defines implementations of GIS relation check functions.
@@ -848,8 +865,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include "item_geofunc_relchecks_bgwrap.h"
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_relchecks_bgwrap.cc github-rc/sql/item_geofunc_relchecks_bgwrap.cc
---- github-rc.orig/sql/item_geofunc_relchecks_bgwrap.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/item_geofunc_relchecks_bgwrap.cc	2015-05-30 14:57:13.521781600 +0800
+--- github-rc.orig/sql/item_geofunc_relchecks_bgwrap.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/item_geofunc_relchecks_bgwrap.cc	2015-06-01 15:09:08.949312000 +0800
 @@ -13,7 +13,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
@@ -860,8 +877,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  #include "item_geofunc_relchecks_bgwrap.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_geofunc_setops.cc github-rc/sql/item_geofunc_setops.cc
---- github-rc.orig/sql/item_geofunc_setops.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/item_geofunc_setops.cc	2015-05-30 15:01:17.931821600 +0800
+--- github-rc.orig/sql/item_geofunc_setops.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/item_geofunc_setops.cc	2015-06-01 15:09:09.058682800 +0800
 @@ -20,7 +20,7 @@
    @brief
    This file defines implementations of GIS set operation functions.
@@ -872,8 +889,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/item_strfunc.cc github-rc/sql/item_strfunc.cc
---- github-rc.orig/sql/item_strfunc.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/item_strfunc.cc	2015-05-30 15:20:54.602361100 +0800
+--- github-rc.orig/sql/item_strfunc.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/item_strfunc.cc	2015-06-01 15:09:09.152429200 +0800
 @@ -5697,7 +5697,11 @@ String *Item_func_uuid::val_str(String *
          with a clock_seq value (initialized random below), we use a separate
          randominit() here
@@ -887,8 +904,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
          mac[i]=(uchar)(my_rnd(&uuid_rand)*255);
        /* purecov: end */    
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/mysqld.cc github-rc/sql/mysqld.cc
---- github-rc.orig/sql/mysqld.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/mysqld.cc	2015-05-30 22:55:48.750367200 +0800
+--- github-rc.orig/sql/mysqld.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/mysqld.cc	2015-06-01 15:09:09.277424400 +0800
 @@ -15,6 +15,7 @@
  
  #include "mysqld.h"
@@ -947,8 +964,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
      }
    }
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/opt_range.cc github-rc/sql/opt_range.cc
---- github-rc.orig/sql/opt_range.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/opt_range.cc	2015-05-30 15:22:40.808352100 +0800
+--- github-rc.orig/sql/opt_range.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/opt_range.cc	2015-06-01 15:09:09.339922000 +0800
 @@ -9144,7 +9144,11 @@ bool SEL_ARG::test_use_count(SEL_ARG *ro
        if (count > pos->next_key_part->use_count)
        {
@@ -974,8 +991,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
      return true;
    }
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/rpl_group_replication.cc github-rc/sql/rpl_group_replication.cc
---- github-rc.orig/sql/rpl_group_replication.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/rpl_group_replication.cc	2015-05-30 15:26:07.380138500 +0800
+--- github-rc.orig/sql/rpl_group_replication.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/rpl_group_replication.cc	2015-06-01 15:09:09.511790400 +0800
 @@ -13,6 +13,7 @@
     along with this program; if not, write to the Free Software Foundation,
     51 Franklin Street, Suite 500, Boston, MA 02110-1335 USA */
@@ -985,8 +1002,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  #include "rpl_channel_service_interface.h"
  #include "rpl_info_factory.h"
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/sql_class.cc github-rc/sql/sql_class.cc
---- github-rc.orig/sql/sql_class.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/sql_class.cc	2015-05-30 15:31:06.949921900 +0800
+--- github-rc.orig/sql/sql_class.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/sql_class.cc	2015-06-01 15:09:09.668034400 +0800
 @@ -1645,7 +1645,11 @@ void THD::init(void)
    {
      ulong tmp;
@@ -1000,8 +1017,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
  
    server_status= SERVER_STATUS_AUTOCOMMIT;
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql/sql_show.cc github-rc/sql/sql_show.cc
---- github-rc.orig/sql/sql_show.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql/sql_show.cc	2015-05-30 15:38:26.219037900 +0800
+--- github-rc.orig/sql/sql_show.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql/sql_show.cc	2015-06-01 15:09:09.714907600 +0800
 @@ -2717,7 +2717,11 @@ const char* get_one_variable(THD *thd, c
    switch (show_type)
    {
@@ -1060,8 +1077,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
        break;
  
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/sql-common/client.c github-rc/sql-common/client.c
---- github-rc.orig/sql-common/client.c	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/sql-common/client.c	2015-05-30 22:58:30.996647200 +0800
+--- github-rc.orig/sql-common/client.c	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/sql-common/client.c	2015-06-01 15:09:09.824278400 +0800
 @@ -160,7 +160,7 @@ const char	*unknown_sqlstate= "HY000";
  const char	*not_error_sqlstate= "00000";
  const char	*cant_connect_sqlstate= "08001";
@@ -1115,8 +1132,8 @@ diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x 
    my_stpcpy(suffix_pos, "DATA");
    if ((handle_file_map = OpenFileMapping(FILE_MAP_WRITE,FALSE,tmp)) == NULL)
 diff -upr -x '*.bak' -x github-rc.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github-rc.orig/storage/innobase/os/os0thread.cc github-rc/storage/innobase/os/os0thread.cc
---- github-rc.orig/storage/innobase/os/os0thread.cc	2015-04-09 18:35:31.000000000 +0800
-+++ github-rc/storage/innobase/os/os0thread.cc	2015-05-30 02:03:54.264414800 +0800
+--- github-rc.orig/storage/innobase/os/os0thread.cc	2015-04-09 18:35:32.000000000 +0800
++++ github-rc/storage/innobase/os/os0thread.cc	2015-06-01 15:09:09.871151600 +0800
 @@ -217,8 +217,11 @@ os_thread_exit(
  	ut_a(ret == 1);
  
