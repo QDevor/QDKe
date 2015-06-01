@@ -73,6 +73,12 @@ set "JAVA_HOME=!JAVA6_HOME!"
 set "JRE_HOME=!JRE6_HOME!"
 set "PATH=!PATH!;!JAVA_HOME!/bin"
 :-------------------------------------
+:: Python
+:-------------------------------------
+set "PATH=!PYTHON_ROOT!;!PATH!"
+set "PATH=!PYTHON_ROOT!/Tools;!PATH!"
+set "PATH=!PYTHON_ROOT!/Scripts;!PATH!"
+:-------------------------------------
 
 :-------------------------------------
 set INCLUDE_ADD_TOOLS_PATH_BATCH=true

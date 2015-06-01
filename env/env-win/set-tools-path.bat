@@ -128,7 +128,14 @@ set "JRE6_HOME=!JAVA6_ROOT!/jre6"
 set "JAVA7_ROOT=%JAVA_ROOT%"
 set "JAVA7_HOME=!JAVA7_ROOT!/jdk7"
 set "JRE7_HOME=!JAVA7_ROOT!/jre7"
-
+:-------------------------------------
+:: Python
+:-------------------------------------
+set "PYTHON27_ROOT=%QDK_ROOT%/Python27"
+set "PYTHON34_ROOT=%QDK_ROOT%/Python34"
+if x%PYTHON_VER% == "x27" set "PYTHON_ROOT=%PYTHON27_ROOT%"
+if x%PYTHON_VER% == "x34" set "PYTHON_ROOT=%PYTHON34_ROOT%"
+:-------------------------------------
 :: Android Toolchains
 :-------------------------------------
 set "ANDROID_ROOT=D:/Android"

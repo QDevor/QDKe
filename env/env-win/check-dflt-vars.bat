@@ -64,6 +64,11 @@ if "!QDKe_VAR_MSVS_VER_YEAR!" == "" (
 	if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKe_VAR_MSVS_VER_YEAR=2010
 )
 
+:----------------------------------------
+:: Default setting to 27
+:----------------------------------------
+if "!QDKe_VAR_PYTHON_VER!" == "" set QDKe_VAR_PYTHON_VER=27
+
 :----------------RUN-ONCE----------------
 set INCLUDE_CHECK_DFLT_VARS_BATCH=true
 :EOF
