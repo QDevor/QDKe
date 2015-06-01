@@ -63,7 +63,8 @@ _utils_python_initVer() {
 }
 
 _utils_python_initDeps() {
-	utils_msys2_installByPacman $PYTHON-pip
+	:
+	[ x$PYTHON_ROOT = "x" ] || utils_msys2_installByPacman $PYTHON-pip
 }
 
 _utils_python_installByPipCheck() {

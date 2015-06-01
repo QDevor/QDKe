@@ -50,8 +50,14 @@ rem set QDKe_VAR_MSYS2=false
 rem Default setting to false
 rem set QDKe_VAR_UAC=true
 :----------------------------------------
+rem Default setting to VXPSP2(WINXP) or V71(WIN7)
+rem set QDKe_VAR_MSSDK_VER=VXPSP2 V60A V70 V70A V71
+:----------------------------------------
 rem Default setting to 2010(WINXP) or 2013(WIN7)
 rem set QDKe_VAR_MSVS_VER_YEAR=None
+:----------------------------------------
+rem Default setting to 27(WINXP or WIN7)
+rem set QDKe_VAR_PYTHON_VER=None
 
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_DFLT_VARS_BATCH=true

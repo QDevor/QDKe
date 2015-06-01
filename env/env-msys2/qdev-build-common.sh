@@ -30,7 +30,7 @@ PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
-export PYTHON=python2
+# [ "$PYTHON" == "" ] && export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 #----------------------------------------

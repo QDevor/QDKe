@@ -65,9 +65,9 @@ set "MSVS_2008_VC_ROOT=%MSVS_2008_ROOT%/VC"
 set "MSVS_2010_VC_ROOT=%MSVS_2010_ROOT%/VC"
 set "MSVS_2013_VC_ROOT=%MSVS_2013_ROOT%/VC"
 
-set VS80COMNTOOLS=!MSVS_2005_ROOT!/Common7/Tools/
+rem set VS80COMNTOOLS=!MSVS_2005_ROOT!/Common7/Tools/
 set VS90COMNTOOLS=!MSVS_2008_ROOT!/Common7/Tools/
-set VS100COMNTOOLS=!MSVS_2010_ROOT!/Common7/Tools/
+rem set VS100COMNTOOLS=!MSVS_2010_ROOT!/Common7/Tools/
 
 set "MSVS_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_ROOT!"
 set "MSVS_VC_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_VC_ROOT!"
@@ -100,6 +100,7 @@ set "MSSDK_V70_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0"
 set "MSSDK_V70A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0A"
 set "MSSDK_V71_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.1"
 
+set "MSSDK_ROOT=!MSSDK_%QDKe_VAR_MSSDK_VER%_ROOT!" && goto :skip_set_tools_path_mssdk
 if "x%QDKe_VAR_IS_XP%" == "xtrue" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V71_ROOT!" set "MSSDK_ROOT=!MSSDK_V71_ROOT!" && goto :skip_set_tools_path_mssdk
 if exist "!MSSDK_V70_ROOT!" set "MSSDK_ROOT=!MSSDK_V70_ROOT!" && goto :skip_set_tools_path_mssdk
@@ -111,12 +112,12 @@ if exist "!MSSDK_VXPSP2_ROOT!" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :ski
 :-------------------------------------
 :: MySQL
 :-------------------------------------
-set "MYSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/MySQL"
-set "MYSQL_SERVER_ROOT=%MYSQL_ROOT%/MySQL Server 5.6"
-set "MYSQL_UTILITIES_ROOT=%MYSQL_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
-set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL_UTILITIES_ROOT%/Doctrine extensions for PHP
+set "MYSQL57_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/MySQL"
+set "MYSQL57_SERVER_ROOT=%MYSQL57_ROOT%/MySQL Server 5.7"
+set "MYSQL_UTILITIES_ROOT=%MYSQL57_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
+set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL57_UTILITIES_ROOT%/Doctrine extensions for PHP
 
-set "MYSQL_QDK_ROOT=%QDK_ROOT%/mysql"
+rem set "MYSQL_ROOT=%MYSQL57_ROOT%"
 :-------------------------------------
 :: JAVA
 :-------------------------------------
@@ -133,8 +134,9 @@ set "JRE7_HOME=!JAVA7_ROOT!/jre7"
 :-------------------------------------
 set "PYTHON27_ROOT=%QDK_ROOT%/Python27"
 set "PYTHON34_ROOT=%QDK_ROOT%/Python34"
-if x%PYTHON_VER% == "x27" set "PYTHON_ROOT=%PYTHON27_ROOT%"
-if x%PYTHON_VER% == "x34" set "PYTHON_ROOT=%PYTHON34_ROOT%"
+set "PYTHON_ROOT=%PYTHON27_ROOT%"
+if x%QDKe_VAR_PYTHON_VER% == "x27" set "PYTHON_ROOT=%PYTHON27_ROOT%"
+if x%QDKe_VAR_PYTHON_VER% == "x34" set "PYTHON_ROOT=%PYTHON34_ROOT%"
 :-------------------------------------
 :: Android Toolchains
 :-------------------------------------

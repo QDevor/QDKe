@@ -97,8 +97,8 @@ _ready_msys2_updating_basepkgs() {
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
 			echo y | pacman -S unzip wget make autoconf automake bison gperf intltool libtool patch nasm yasm mercurial git svn cvs rsync \
-				perl python2 ruby scons
-			
+				perl ruby
+			# python2 scons
 			if [ $? = 0 ]; then
 				break;
 			fi

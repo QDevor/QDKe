@@ -24,7 +24,7 @@ PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 # echo [Debug] - The script is: $PROGDIR/$PROGNAME.$PROGTYPE
 #----------------------------------------
-export PYTHON=python2
+export PYTHON=python
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
@@ -33,6 +33,7 @@ export PYTHON=python2
 
 qdev_init() {
 	:
+	echo $PATH
 }
 
 qdev_get() {
@@ -46,7 +47,7 @@ qdev_setmore() {
 #	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		needed_patch_file=$qdev_build_src/site.cfg
 		tmp_mysql_root=`cygpath -w $QDK_ROOT/mysql-connector-c | sed -e 's#\\\#\\\\\\\#g'`
-		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server 5.6/" \
+		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server 5.7/" \
 			$needed_patch_file
 #	fi
 		# [build]
@@ -65,7 +66,7 @@ qdev_setmore() {
 
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
-	
+
 	exe_cmd "cd $qdev_build_dir" || die
 	# $PYTHON setup.py build --compiler="mingw32"  install
 	$PYTHON -v setup.py build --compiler="msvc"  install

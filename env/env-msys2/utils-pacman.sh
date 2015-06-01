@@ -89,7 +89,8 @@ _FNNAME_UTILS_PACMAN=${_FN_UTILS_PACMAN%.*}
 # pacman -Rsn 软件包名称	
 # 删除包时不检查依赖
 # pacman -Rd 软件包名称
-# 
+# 强制删除
+# pacman -Rdd 软件包名称
 # 搜索
 # 
 # 通过关键字搜索软件包
