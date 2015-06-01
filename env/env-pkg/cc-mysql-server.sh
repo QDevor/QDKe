@@ -316,17 +316,29 @@ qdev_try_extra() {
 		-E make_directory D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data
 	cd /D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql &&  \
 		/D/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/mysqld.exe  \
-		--no-defaults --console --lc-messages-dir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/share  \
+		--no-defaults \
+		--console \
+		--lc-messages-dir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/share  \
 		--datadir=D:/work_code/QDKe/home/qdev_home/mysql/mysql-server/github-rc.build/sql/data  \
 		--default-storage-engine=MyISAM --default-tmp-storage-engine=MyISAM   \
 		--loose-skip-auto_generate_certs \
     --loose-skip-sha256_password_auto_generate_rsa_keys \
     --initialize-insecure \
-		--log_syslog=0 --skip-ssl
+		--log_syslog=0 \
+		--skip-ssl
 }
 
 qdev_tst() {
 	:
+	qdev_build_make install
+}
+
+qdev_tst_install() {
+	:
+	cd $QDK_ROOT/mysql-zip/bin || die
+	mysqld --install-manual
+	# NET START MySQL
+	# mysqld --remove
 }
 
 #
@@ -354,6 +366,6 @@ qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
 qdev_check
-qdev_try
+# qdev_try
 # qdev_try_extra
 qdev_tst
