@@ -274,6 +274,7 @@ qdev_build_cmake() {
 			-DCMAKE_INSTALL_PREFIX=''$mysql_build_prefix'' \
 			-DMYSQL_DATADIR=''$mysql_build_prefix'/data' \
 			-DWITH_EMBEDDED_SERVER=1 \
+			-DWITH_EMBEDDED_SHARED_LIBRARY=1 \
 			-DWITH_UNIT_TESTS=0 \
 			> $QDKE_LOGDIR/$PROGNAME-$FUNCNAME-cmake.log 2>&1 \
 			|| die
