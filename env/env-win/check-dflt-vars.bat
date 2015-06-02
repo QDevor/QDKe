@@ -59,10 +59,10 @@ if "!QDKe_VAR_UAC!" == "" (
 :----------------------------------------
 :: Default setting to VXPSP2(WINXP) or V71(WIN7)
 :----------------------------------------
-if not "x%QDKe_VAR_MSSDK_VER%" == "x" goto :skip_check_dflt_vars_mssdk
-set QDKe_VAR_MSSDK_VER=VXPSP2
-if "x%QDKe_VAR_IS_XP%" != "xtrue" set QDKe_VAR_MSSDK_VER=V71
-:skip_check_dflt_vars_mssdk
+if "x%QDKe_VAR_MSSDK_VER%" == "x" (
+	set QDKe_VAR_MSSDK_VER=V71
+	if "x!QDKe_VAR_IS_XP!" == "xtrue" set QDKe_VAR_MSSDK_VER=VXPSP2
+)
 :----------------------------------------
 :: Default setting to 2010(WINXP) or 2013(WIN7)
 :----------------------------------------

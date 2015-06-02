@@ -33,7 +33,7 @@ export PYTHON=python
 
 qdev_init() {
 	:
-	echo $PATH
+	mv $MSYS_ROOT/usr/bin/link.exe mv $MSYS_ROOT/usr/bin/link.exe.msys
 }
 
 qdev_get() {
@@ -47,7 +47,7 @@ qdev_setmore() {
 #	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		needed_patch_file=$qdev_build_src/site.cfg
 		tmp_mysql_root=`cygpath -w $QDK_ROOT/mysql-connector-c | sed -e 's#\\\#\\\\\\\#g'`
-		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server 5.7/" \
+		sed -i -e "s/\(.*\)MySQL Server .*/\1MySQL Server $MYSQL_SERVER_VER/" \
 			$needed_patch_file
 #	fi
 		# [build]
@@ -69,7 +69,7 @@ qdev_try() {
 
 	exe_cmd "cd $qdev_build_dir" || die
 	# $PYTHON setup.py build --compiler="mingw32"  install
-	$PYTHON -v setup.py build --compiler="msvc"  install
+	$PYTHON -v setup.py build --compiler="msvc"  install >$QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
 	# $PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
 	# $PIP install cvxopt
 }
@@ -77,7 +77,7 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 	cd tests || die
-	$PYTHON test_MySQLdb_capabilities.py
+	$PYTHON test_MySQLdb_capabilities.py >$QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
 	if [ $? = 0 ]; then
 		log_info "$FUNCNAME - $PROGNAME - installation was successful."
 		return 0

@@ -23,6 +23,11 @@ _FNTYPE_UTILS_GIT=${_FN_UTILS_GIT#*.}
 _FNNAME_UTILS_GIT=${_FN_UTILS_GIT%.*}
 #----------------------------------------
 
+_utils_mysql_common_init() {
+	export MYSQL_SERVER_VER=5.7
+	[ x$QDKe_VAR_IS_XP = "xtrue" ] && export MYSQL_SERVER_VER=5.6
+}
+
 _utils_install_mysql_init() {
 	:
 	PKG_MIRROR=http://dev.mysql.com/downloads/mysql
@@ -209,6 +214,14 @@ _utils_mysql_msi_init() {
 	_utils_install_mysql_connector_c_get
 	cd $_old_pwd || die
 }
+
+utils_mysql_add_user() {
+	mysql -u root -p
+	GRANT USAGE ON *.* TO 'root'@'localhost' IDENTIFIED BY '123456' WITH GRANT OPTION;
+	mysqladmin -uroot -p123456 password ''
+}
+
 #----------------------------------------
+_utils_mysql_common_init
 #_utils_mysql_zip_init
 #_utils_mysql_msi_init

@@ -60,7 +60,7 @@ set "PATH=!PATH!;!MSSDK_ROOT!/bin"
 :: MySQL
 :-------------------------------------
 rem goto :skip_add_tools_path_mysql
-set "PATH=!PATH!;!MYSQL57_SERVER_ROOT!/bin"
+set "PATH=!PATH!;!MYSQL_SERVER_ROOT!/bin"
 set "PATH=!PATH!;!MYSQL_UTILITIES_ROOT!"
 set "PATH=!PATH!;!MYSQL_UTILITIES_EXT_ROOT!"
 :skip_add_tools_path_mysql

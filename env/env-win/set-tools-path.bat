@@ -71,6 +71,9 @@ rem set VS100COMNTOOLS=!MSVS_2010_ROOT!/Common7/Tools/
 
 set "MSVS_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_ROOT!"
 set "MSVS_VC_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_VC_ROOT!"
+
+set DISTUTILS_USE_SDK=1
+set MSSdk=1
 :-------------------------------------
 :: Microsoft SQL Server
 :-------------------------------------
@@ -112,12 +115,15 @@ if exist "!MSSDK_VXPSP2_ROOT!" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :ski
 :-------------------------------------
 :: MySQL
 :-------------------------------------
-set "MYSQL57_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/MySQL"
-set "MYSQL57_SERVER_ROOT=%MYSQL57_ROOT%/MySQL Server 5.7"
-set "MYSQL_UTILITIES_ROOT=%MYSQL57_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
+set "MYSQL_MSI_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/MySQL"
+set "MYSQL56_SERVER_ROOT=%MYSQL_MSI_ROOT%/MySQL Server 5.6"
+set "MYSQL57_SERVER_ROOT=%MYSQL_MSI_ROOT%/MySQL Server 5.7"
+
+set "MYSQL_UTILITIES_ROOT=%MYSQL_MSI_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
 set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL57_UTILITIES_ROOT%/Doctrine extensions for PHP
 
-rem set "MYSQL_ROOT=%MYSQL57_ROOT%"
+set "MYSQL_SERVER_ROOT=%MYSQL57_SERVER_ROOT%"
+if "x%QDKe_VAR_IS_XP%" == "xtrue" set "MYSQL_SERVER_ROOT=%MYSQL56_SERVER_ROOT%"
 :-------------------------------------
 :: JAVA
 :-------------------------------------
