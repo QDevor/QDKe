@@ -33,7 +33,7 @@ export PYTHON=python
 
 qdev_init() {
 	:
-	mv $MSYS_ROOT/usr/bin/link.exe mv $MSYS_ROOT/usr/bin/link.exe.msys
+	mv $MSYS_ROOT/usr/bin/link.exe $MSYS_ROOT/usr/bin/link.exe.msys
 }
 
 qdev_get() {
@@ -66,12 +66,16 @@ qdev_setmore() {
 
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
-
-	exe_cmd "cd $qdev_build_dir" || die
-	# $PYTHON setup.py build --compiler="mingw32"  install
-	$PYTHON -v setup.py build --compiler="msvc"  install >$QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
-	# $PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
-	# $PIP install cvxopt
+	
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		exe_cmd "cd $qdev_build_dir" || die
+		# $PYTHON setup.py build --compiler="mingw32"  install
+		$PYTHON -v setup.py build --compiler="msvc"  install >$QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
+		# $PYTHON setup.py install > $QDKE_LOGDIR/$PROGNAME-$FUNCNAME.log 2>&1
+		# $PIP install cvxopt
+		#----------------------------------------
+		touch $qdev_build_dir/${FUNCNAME}-stamp
+	fi
 }
 
 qdev_tst() {
