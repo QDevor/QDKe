@@ -43,6 +43,9 @@ else
 	export QDKE_ETC=`cygpath -u $QDKE_ETC`
 fi
 #----------------------------------------
+export QDK_ROOT=`cygpath -u $QDK_ROOT`
+export QDK_OPT_DIR=$QDK_ROOT/opt
+
 export QDK_STAMP_DIR=/var/ready_qdk
 export QDKE_STAMP_DIR=$QDKE_VAR/ready_qdke
 export QDKE_LOGDIR=$QDKE_VAR/log

@@ -40,6 +40,10 @@ if [ ! -d $_PGMDIR_CHECK_QDKe_DIRS/env-msys2 ]; then
 fi
 
 #----------------------------------------
+[ -d $QDK_OPT_DIR ]         || mkdir -p $QDK_OPT_DIR  >/dev/null 2>&1
+[ -d $QDK_OPT_DIR/bin ]     || mkdir -p $QDK_OPT_DIR/bin  >/dev/null 2>&1
+[ -d $QDK_OPT_DIR/lib ]     || mkdir -p $QDK_OPT_DIR/lib  >/dev/null 2>&1
+[ -d $QDK_OPT_DIR/include ] || mkdir -p $QDK_OPT_DIR/include  >/dev/null 2>&1
 
 [ -d $QDKE_ROOT ] || mkdir -p $QDKE_ROOT >/dev/null 2>&1
 [ -d $QDKE_USR  ] || mkdir -p $QDKE_USR  >/dev/null 2>&1

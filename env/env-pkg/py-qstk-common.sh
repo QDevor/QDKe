@@ -30,6 +30,21 @@ PROGNAME=${FILENAME%.*}
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
+_py_qstk_lib_OpenBLAS_init() {
+	[ -d $QDK_OPT_DIR/lib/OpenBLAS ]     || mkdir -p $QDK_OPT_DIR/lib/OpenBLAS  >/dev/null 2>&1
+	cd $QDK_OPT_DIR/lib/OpenBLAS || die
+	find /mingw$QDKe_VAR_nCMD/lib/ -name '*blas*.a' | \
+		xargs -i cp {} .
+	find /mingw$QDKe_VAR_nCMD/lib/ -name '*lapack*.a' | \
+		xargs -i cp {} .
+	[ -d $QDK_OPT_DIR/include/OpenBLAS ] || mkdir -p $QDK_OPT_DIR/include/OpenBLAS  >/dev/null 2>&1
+	cd $QDK_OPT_DIR/include/OpenBLAS || die
+	find /mingw$QDKe_VAR_nCMD/include/OpenBLAS -name '*.*' | \
+		xargs -i cp {} .
+	find /mingw$QDKe_VAR_nCMD/include/ -name '*lapack*.h' | \
+		xargs -i cp {} .
+}
+
 _py_qstk_common_init() {
 	export QSTK_WORK_HOME=$WORK_HOME/qstk_home
 	
@@ -122,6 +137,7 @@ qdev_tst() {
 # apps_name=?
 # apps_more=?
 #----------------------------------------
+#_py_qstk_lib_OpenBLAS_init
 _py_qstk_common_init
 # qdev_init
 # qdev_set					$work_home $user_name $apps_name $apps_more
