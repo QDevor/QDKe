@@ -40,7 +40,7 @@ extpkgs_uwb_findPkgByName() {
 			sed 's/&#8209;/-/g' | \
 			sed -n 's,.*'$pkg_nam'-\([0-9\.]*-.*\)\.whl.*,\1,p' | \
 			head -1`
-	[ -n $pkgverrel] || log_error "$FUNCNAME - Not Found pkg version."
+	[ x$pkgverrel = "x" ] && log_error "$FUNCNAME - Not Found pkg version."
 	pkg_ffile=$pkg_nam-$pkgverrel.whl
 	echo $pkg_ffile
 }
