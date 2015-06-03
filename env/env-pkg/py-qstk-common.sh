@@ -92,6 +92,8 @@ _py_qstk_common_init() {
 	# if you have a NAG library license.
 #	export PYTHONPATH=$PYTHONPATH:/usr/local/lib/NAG/
 #	export NAG_KUSARI_FILE=/usr/local/lib/NAG/nagkey.txt
+
+	mv $MSYS_ROOT/usr/bin/link.exe $MSYS_ROOT/usr/bin/link.exe.msys
 }
 
 # qdev_init

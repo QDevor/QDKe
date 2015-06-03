@@ -50,7 +50,6 @@ set INCLUDE=%QDK_OPT_DIR%/include
 rem set LIB=%QDK_OPT_DIR%/lib
 set LIBPATH=%QDK_OPT_DIR%/lib
 
-set CL=/I\%INCLUDE%
 :----------------------------------------
 :: ready python
 :----------------------------------------

@@ -33,7 +33,6 @@ export PYTHON=python
 
 qdev_init() {
 	:
-	mv $MSYS_ROOT/usr/bin/link.exe $MSYS_ROOT/usr/bin/link.exe.msys
 }
 
 qdev_get() {

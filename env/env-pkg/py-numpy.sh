@@ -34,12 +34,15 @@ export PYTHON=python2
 qdev_init() {
 	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
 		:
+		$PIP install cython
 	fi
 }
 
 # qdev_set
 
-# qdev_setmore
+qdev_setmore() {
+	qdev_build_dir=$qdev_build_src
+}
 
 # qdev_get
 
