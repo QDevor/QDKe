@@ -31,75 +31,35 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
 
-qdev_init() {
-	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
-		:
-		$PIP install cython
-	fi
-}
-
-# qdev_set
-
-qdev_setmore() {
-	qdev_build_dir=$qdev_build_src
-}
-
-qdev_get() {
-	cd $QDKE_TMP || die
-	loop_curl $pkg_file $pkg_url
-	cd $QDK_OPT_DIR || die
-	$pkg_ffile
-}
-
-# qdev_check
-
-# qdev_build_config
-
-# qdev_build_make
-
-qdev_try() {
-	log_info "$FUNCNAME - $PROGNAME"
-	
-	exe_cmd "cd $qdev_build_dir" || die
-	$PYTHON setup.py install
-}
-
-qdev_tst() {
-	cd $qdev_build_dir || die
-	cd test || die
-	$PYTHON test.py
-	if [ $? = 0 ]; then
-		log_info "$FUNCNAME - $PROGNAME - installation was successful."
-		return 0
-	fi
-	log_info "$FUNCNAME - $PROGNAME - installation was failed."
-	return 1
+#numpy-1.9.2+mkl-cp27-none-win32.whl
+#wget -q -O- 'http://www.lfd.uci.edu/~gohlke/pythonlibs/' | grep -i '\>numpy&#8209*.whl\<\/a\>'
+extpkgs_uwb_findPkgByName() {
+	pkg_nam=$1
+	pkgverrel=`wget -q -O- ''$extpkgs_uwb_url'/' | \
+			grep -i '>'$pkg_nam'&#8209;.*whl' | \
+			sed 's/&#8209;/-/g' | \
+			sed -n 's,.*/'$pkg_nam'-\([0-9\.]*-.*\)\.whl.*/.*,\1,p' | \
+			head -1`
 }
 
 #
 # Required and optional software
 #
 #----------------------------------------
-pkg=numpy
-pkg_ver=1.9.2
-#numpy-1.9.2-win32-superpack-python3.4.exe
-#numpy-1.9.2-win32-superpack-python3.3.exe
-if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
-pkg_file=$pkg-$pkg_ver-win32-superpack-python${PYVER2}
-else
-pkg_file=$pkg-$pkg_ver-win32-superpack-python${PYVER2}
-fi
-pkg_ffile=$pkg_file.exe
-pkg_dir=$pkg_file
-pkg_url=http://jaist.dl.sourceforge.net/project/numpy/NumPy/1.9.2/$pkg_ffile
-#----------------------------------------
-pkg_deps_gcc=
-pkg_deps_py=
+extpkgs_uwb_url=http://www.lfd.uci.edu/~gohlke/pythonlibs
+extpkgs_uwb_dnl=$extpkgs_uwb_url/68tmfkay
+extpkgs_uwb_pkg=
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
-user_name=numpy
-apps_name=numpy
-apps_more=sourceforge
+user_name=extpkgs_uwb
+apps_name=
+apps_more=
+#----------------------------------------
+# pkg_nam=?
+# pkg_typ=?
+# pkg_ver=?
+# pkg_rel=?
+# pkg_url=?
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
