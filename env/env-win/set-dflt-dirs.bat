@@ -21,6 +21,7 @@ if "x%INCLUDE_SET_DFLT_DIRS_BATCH%" == "xtrue" (
 :: Setting and Checking dflt-dirs
 :-------------------------------------
 set "QDK_ROOT=D:/qdk"
+set "QDK_OPT_DIR=D:/qdk/opt"
 :-------------------------------------
 set "QDKE_ROOT=%cd%"
 set "QDKE_USR=%QDKE_ROOT%/usr"

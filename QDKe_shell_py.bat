@@ -48,6 +48,7 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
+:: py-numpy.sh
 :: py-MySQL-python.sh py-moist.sh
 :: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
 :: py-yjclegend-stockAnalyze py-jasti-StockPredictor
@@ -55,7 +56,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: py-bashpy-stock-django
 :: py-myapp-djcs
 :+++++++++++++++++++++++++++++++++++++
-set DJN=py-moist
+set DJN=py-numpy
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

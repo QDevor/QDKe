@@ -14,24 +14,17 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_ADD_TOOLS_PATH_BATCH%" == "xtrue" (
 	goto :EOF
 )
-
-:: Clear PATH Variable and resetting
-:-------------------------------------
-
-set "ORIGINAL_PATH=%PATH%"
-set "PATH="
-
-:: Add WINDOWS PATH...
-set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
+:----------------RUN-ONCE----------------
 
 :: Add Tools to PATH
-:-------------------------------------
+:----------------------------------------
 :: Microsoft Visual Studio
 :: Run vcvars32.bat at first
-:-------------------------------------
+:----------------------------------------
 if x%QDKe_VAR_MSVS_VER_YEAR% == "xNone" goto :skip_add_tools_path_msvs
 set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
 set "MSVS_VCVARSALL_BATCH=%MSVS_VC_ROOT%/vcvarsall.bat"
@@ -44,42 +37,48 @@ if exist "!MSVS_VCVARSALL_BATCH!" (
 )
 rem echo [Debug] - PATH=%PATH%
 :skip_add_tools_path_msvs
-:-------------------------------------
+:----------------------------------------
 :: Microsoft SQL Server
-:-------------------------------------
+:----------------------------------------
 set "PATH=!PATH!;!MSSQL_TOOLS_ROOT!"
 set "PATH=!PATH!;!MSSQL_DTS_ROOT!"
 :skip_add_tools_path_mssql
-:-------------------------------------
+:----------------------------------------
 :: Microsoft Platform SDK
-:-------------------------------------
+:----------------------------------------
 if x%QDKe_VAR_MSSDK_VER% == "xNone" goto :skip_add_tools_path_mssdk
 set "PATH=!PATH!;!MSSDK_ROOT!/bin"
 :skip_add_tools_path_mssdk
-:-------------------------------------
+:----------------------------------------
 :: MySQL
-:-------------------------------------
+:----------------------------------------
 rem goto :skip_add_tools_path_mysql
 set "PATH=!PATH!;!MYSQL_SERVER_ROOT!/bin"
 set "PATH=!PATH!;!MYSQL_UTILITIES_ROOT!"
 set "PATH=!PATH!;!MYSQL_UTILITIES_EXT_ROOT!"
 :skip_add_tools_path_mysql
 rem set "PATH=!PATH!;!QDK_ROOT!//mysql-gpl/bin"
-:-------------------------------------
+:----------------------------------------
 :: Java
-:-------------------------------------
+:----------------------------------------
 set "JAVA_ROOT=!JAVA6_ROOT!"
 set "JAVA_HOME=!JAVA6_HOME!"
 set "JRE_HOME=!JRE6_HOME!"
 set "PATH=!PATH!;!JAVA_HOME!/bin"
-:-------------------------------------
+:----------------------------------------
 :: Python
-:-------------------------------------
+:----------------------------------------
 set "PATH=!PYTHON_ROOT!;!PATH!"
 set "PATH=!PYTHON_ROOT!/Tools;!PATH!"
 set "PATH=!PYTHON_ROOT!/Scripts;!PATH!"
-:-------------------------------------
+:----------------------------------------
 
-:-------------------------------------
+:----------------------------------------
+:: Finally add %QDK_OPT_DIR%/bin
+:----------------------------------------
+set "PATH=!PATH!;!QDK_OPT_DIR!/bin"
+:----------------------------------------
+:----------------RUN-ONCE----------------
 set INCLUDE_ADD_TOOLS_PATH_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

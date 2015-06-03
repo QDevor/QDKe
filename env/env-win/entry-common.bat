@@ -21,6 +21,7 @@ if "x%INCLUDE_ENTRY_COMMON_BATCH%" == "xtrue" (
 :----------------RUN-ONCE----------------
 :: Common entry of call QDKe batches
 :----------------------------------------
+call %~dp0clear-dflt-vars.bat
 call %~dp0check-win-ver.bat
 call %~dp0check-cpu-info.bat
 :----------------------------------------

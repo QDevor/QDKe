@@ -14,13 +14,14 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_SET_EXTRA_VARS_BATCH%" == "xtrue" (
 	goto :EOF
 )
+:----------------RUN-ONCE----------------
 
 :: Setting extra-vars
-:-------------------------------------
-
+:----------------------------------------
 set "ORIGIN_USERNAME=%USERNAME%"
 set "ORIGIN_HOMEPATH=%HOMEPATH%"
 set "ORIGIN_USERPROFILE=%USERPROFILE%"
@@ -42,7 +43,21 @@ set "USERPROFILE=!USERPROFILE:%args%=\!"
 
 set "args=%HOMEPATH%"
 call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
+:----------------------------------------
+:: common include, lib
+:----------------------------------------
+set INCLUDE=%QDK_OPT_DIR%/include
+rem set LIB=%QDK_OPT_DIR%/lib
+set LIBPATH=%QDK_OPT_DIR%/lib
 
-:-------------------------------------
+set CL=/I\%INCLUDE%
+:----------------------------------------
+:: ready python
+:----------------------------------------
+set PYTHONPATH=%LIBPATH%
+set PATH=%PATH%;%LIBPATH%
+
+:----------------RUN-ONCE----------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

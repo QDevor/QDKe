@@ -30,27 +30,18 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
-. $PROGDIR/../env-pkg/tools-txt2man.sh
-. $PROGDIR/../env-pkg/cc-mathatlas-common.sh
-#----------------------------------------
 
 qdev_init() {
-	export OPENATLAS_ROOT=$QDK_OPT_DIR/$pkg_file
+	if [ ! -f $TMP/${PROGNAME}-stamp ]; then
+		:
+	fi
 }
 
 # qdev_set
 
-# qdev_setmore 
+# qdev_setmore
 
-qdev_get() {
-	cd $QDKE_TMP || die
-
-	_pkg_url=http://ncu.dl.sourceforge.net/project/openblas/v0.2.14/$pkg_ffile
-	cd $QDKE_TMP || die
-	loop_curl $_pkg_file $_pkg_url
-	cd $QDK_OPT_DIR || die
-	extract $pkg_ffile
-}
+# qdev_get
 
 # qdev_check
 
@@ -58,37 +49,40 @@ qdev_get() {
 
 # qdev_build_make
 
-# qdev_try
+qdev_try() {
+	log_info "$FUNCNAME - $PROGNAME"
+	
+	exe_cmd "cd $qdev_build_dir" || die
+	$PYTHON setup.py install
+}
 
-# qdev_tst
+qdev_tst() {
+	cd $qdev_build_dir || die
+	cd test || die
+	$PYTHON test.py
+	if [ $? = 0 ]; then
+		log_info "$FUNCNAME - $PROGNAME - installation was successful."
+		return 0
+	fi
+	log_info "$FUNCNAME - $PROGNAME - installation was failed."
+	return 1
+}
 
 #
 # Required and optional software
 #
-pkg=OpenBLAS
-pkg_ver=v0.2.14
-if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
-pkg_file=OpenBLAS-v0.2.14-Win32
-else
-#pkg_file=OpenBLAS-v0.2.14-Win64-int32
-pkg_file=OpenBLAS-v0.2.14-Win64-int64
-fi
-pkg_ffile=$pkg_file.zip
-pkg_dir=$pkg_file
-pkg_url=http://sourceforge.net/projects/openblas/files/v0.2.14/
-
-pkg_deps_gcc=''
-pkg_deps_py=''
+pkg_deps_gcc=
+pkg_deps_py=
 #----------------------------------------
 work_home=$QSTK_WORK_HOME
-user_name=OpenBLAS
-apps_name=OpenBLAS
-apps_more=sourceforge
+user_name=numpy
+apps_name=numpy
+apps_more=github
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
-#qdev_check
-#qdev_try
-#qdev_tst
+qdev_check
+qdev_try
+qdev_tst
