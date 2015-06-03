@@ -96,8 +96,12 @@ loop_wget() {
 	if [ ! -f $1 ]; then
 		exe_loop=1
 		while [ $exe_loop = 1 ]; do
-			wget -c -T 30 -t 3 $wget_quiet "$2" \
-				&>$QDKE_LOGDIR/$user_name-$FUNCNAME-download
+			#wget -c -T 30 -t 3 $wget_quiet "$2" 
+			wget -c -T 30 -t 3 $wget_quiet \
+			--no-check-certificate \
+			--user-agent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (.NET CLR 3.5.30729)" \
+      $2 \
+				&>$QDKE_LOGDIR/$user_name-$FUNCNAME-$(basename $1)-download
 			if [ $? = 0 ]; then
 				break;
 			fi

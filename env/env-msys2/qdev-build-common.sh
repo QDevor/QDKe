@@ -69,14 +69,17 @@ qdev_set() {
 	user_name=$2
 	apps_name=$3
 	apps_more=$4
-	# echo work_home=$work_home,user_name=$user_name,apps_name=$apps_name,apps_more=$apps_more
+	echo work_home=$work_home,user_name=$user_name,apps_name=$apps_name,apps_more=$apps_more
 	
-	qdev_build_top=$work_home/$user_name
-	[ -n $apps_name ] && qdev_build_top=$qdev_build_top/$apps_name
+	qdev_build_top=$work_home
+	
+	[ x$user_name != "x" ] && qdev_build_top=$qdev_build_top/$user_name
 	qdev_build_src=$qdev_build_top
-	[ -n $apps_more ] && qdev_build_src=$qdev_build_top/$apps_more
-	qdev_build_dir=$qdev_build_src.build
+	qdev_build_dir=$qdev_build_top
 	
+	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_top=$qdev_build_top/$apps_name
+	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_src=$qdev_build_top/$apps_more
+	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_dir=$qdev_build_src.build
 	
 #	if [[ -n $apps_more ]]; then
 #		qdev_build_top=$work_home/$user_name/$apps_name
@@ -87,6 +90,10 @@ qdev_set() {
 #		qdev_build_src=$qdev_build_top/$apps_name
 #		qdev_build_dir=$qdev_build_top/$apps_name.build
 #	fi
+	
+	echo qdev_build_top=$qdev_build_top
+	echo qdev_build_src=$qdev_build_src
+	echo qdev_build_dir=$qdev_build_dir
 	
 	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 	
