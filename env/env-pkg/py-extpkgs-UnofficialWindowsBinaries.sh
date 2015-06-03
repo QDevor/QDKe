@@ -46,13 +46,13 @@ extpkgs_uwb_findPkgByName() {
 
 extpkgs_uwb_getPkg() {
 	pkg_url=$extpkgs_uwb_dnl/$pkg_ffile
-	cd cd $qdev_build_top || die
+	cd $qdev_build_top || die
 	loop_curl $pkg_ffile $pkg_url
 }
 
 extpkgs_uwb_installPkg() {
 	qdev_set					$work_home $user_name $apps_name $apps_more
-	cd cd $qdev_build_top || die
+	cd $qdev_build_top || die
 	extpkgs_uwb_findPkgByName $apps_name
 	extpkgs_uwb_getPkg
 	
