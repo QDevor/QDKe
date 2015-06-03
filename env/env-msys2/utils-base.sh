@@ -91,6 +91,20 @@ loop_curl() {
 		done
 	fi
 }
+
+loop_wget() {
+	if [ ! -f $1 ]; then
+		exe_loop=1
+		while [ $exe_loop = 1 ]; do
+			wget -c -T 30 -t 3 $wget_quiet "$2" \
+				&>$QDKE_LOGDIR/$user_name/$FUNCNAME-download
+			if [ $? = 0 ]; then
+				break;
+			fi
+			sleep 3
+		done
+	fi
+}
 #----------------------------------------
 _utils_base_init
 # exe_cmd

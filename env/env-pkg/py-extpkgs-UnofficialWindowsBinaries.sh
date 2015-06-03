@@ -47,7 +47,7 @@ extpkgs_uwb_findPkgByName() {
 extpkgs_uwb_getPkg() {
 	pkg_url=$extpkgs_uwb_dnl/$pkg_ffile
 	cd $qdev_build_top || die
-	loop_curl $pkg_ffile $pkg_url
+	loop_wget $pkg_ffile $pkg_url
 }
 
 extpkgs_uwb_installPkg() {
