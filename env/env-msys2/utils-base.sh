@@ -97,7 +97,7 @@ loop_wget() {
 		exe_loop=1
 		while [ $exe_loop = 1 ]; do
 			wget -c -T 30 -t 3 $wget_quiet "$2" \
-				&>$QDKE_LOGDIR/$user_name/$FUNCNAME-download
+				&>$QDKE_LOGDIR/$user_name-$FUNCNAME-download
 			if [ $? = 0 ]; then
 				break;
 			fi
