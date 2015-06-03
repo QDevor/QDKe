@@ -71,15 +71,22 @@ qdev_set() {
 	apps_more=$4
 	# echo work_home=$work_home,user_name=$user_name,apps_name=$apps_name,apps_more=$apps_more
 	
-	if [[ -n $apps_more ]]; then
-		qdev_build_top=$work_home/$user_name/$apps_name
-		qdev_build_src=$qdev_build_top/$apps_more
-		qdev_build_dir=$qdev_build_top/$apps_more.build
-	else
-		qdev_build_top=$work_home/$user_name
-		qdev_build_src=$qdev_build_top/$apps_name
-		qdev_build_dir=$qdev_build_top/$apps_name.build
-	fi
+	qdev_build_top=$work_home/$user_name
+	[ -n $apps_name ] && qdev_build_top=$qdev_build_top/$apps_name
+	qdev_build_src=$qdev_build_top
+	[ -n $apps_more ] && qdev_build_src=$qdev_build_top/$apps_more
+	qdev_build_dir=$qdev_build_src.build
+	
+	
+#	if [[ -n $apps_more ]]; then
+#		qdev_build_top=$work_home/$user_name/$apps_name
+#		qdev_build_src=$qdev_build_top/$apps_more
+#		qdev_build_dir=$qdev_build_top/$apps_more.build
+#	else
+#		qdev_build_top=$work_home/$user_name
+#		qdev_build_src=$qdev_build_top/$apps_name
+#		qdev_build_dir=$qdev_build_top/$apps_name.build
+#	fi
 	
 	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 	
