@@ -57,8 +57,8 @@ _utils_python_initVer() {
 	
 	export PYINSTALL=conda
 	
-#	export PYINSTALL1=pip
-#	export PYINSTALL2=easy_install
+	export PYINSTALL1=pip
+	export PYINSTALL2=easy_install
 	
 	export QDKE_PYTHON_ROOT=$PYTHON_ROOT
 	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/Lib/site-packages

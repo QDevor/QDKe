@@ -37,7 +37,7 @@ qdev_init() {
 	utils_python_install sqlalchemy
 #	utils_python_install pymongo
 #	utils_python_install 'openpyxl<2.0.0'
-	utils_python_install tushare
+	$PYINSTALL1 install tushare
 }
 
 # qdev_set
