@@ -25,7 +25,7 @@ if "x%INCLUDE_CHECK_DFLT_VARS_BATCH%" == "xtrue" (
 
 :: Default setting to true
 :----------------------------------------
-if "!QDKe_VAR_MSYS2!" == "" (
+if "x!QDKe_VAR_MSYS2!" == "x" (
 	set QDKe_VAR_MSYS2=true
 )
 
@@ -33,8 +33,8 @@ if "!QDKe_VAR_MSYS2!" == "" (
 :: Default setting to MINGW32(x32) and MINGW64(x64)
 :: MSYS MINGW32 MINGW64
 :----------------------------------------
-if "!MSYSTEM!" == "" (
-	if "!QDKe_VAR_xCMD!" == "x32" (
+if "x!MSYSTEM!" == "x" (
+	if "x!QDKe_VAR_xCMD!" == "xx32" (
 		set MSYSTEM=MINGW32
 	) else (
 		set MSYSTEM=MINGW64
@@ -45,14 +45,14 @@ if "!MSYSTEM!" == "" (
 :----------------------------------------
 :: Default setting to false
 :----------------------------------------
-if "!QDKe_VAR_INCLUDED_MINGW!" == "" (
+if "x!QDKe_VAR_INCLUDED_MINGW!" == "x" (
 	set QDKe_VAR_INCLUDED_MINGW=false
 )
 
 :----------------------------------------
 :: Default setting to false
 :----------------------------------------
-if "!QDKe_VAR_UAC!" == "" (
+if "x!QDKe_VAR_UAC!" == "x" (
 	set QDKe_VAR_UAC=false
 )
 
@@ -66,7 +66,7 @@ if "x%QDKe_VAR_MSSDK_VER%" == "x" (
 :----------------------------------------
 :: Default setting to 2010(WINXP) or 2013(WIN7)
 :----------------------------------------
-if "!QDKe_VAR_MSVS_VER_YEAR!" == "" (
+if "x!QDKe_VAR_MSVS_VER_YEAR!" == "x" (
 	set QDKe_VAR_MSVS_VER_YEAR=2013
 	if "x%QDKe_VAR_IS_XP%" == "xtrue" set QDKe_VAR_MSVS_VER_YEAR=2010
 )
@@ -74,10 +74,10 @@ if "!QDKe_VAR_MSVS_VER_YEAR!" == "" (
 :----------------------------------------
 :: Default setting to 27
 :----------------------------------------
-if "!QDKe_VAR_PYTHON_VER!" == "" (
+if "x!QDKe_VAR_PYTHON_VER!" == "x" (
 	set QDKe_VAR_PYTHON_VER=27
 )
-if "!QDKe_VAR_PYTHON_TYPE!" == "" (
+if "x!QDKe_VAR_PYTHON_TYPE!" == "x" (
 	set QDKe_VAR_PYTHON_TYPE=Miniconda
 )
 

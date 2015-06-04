@@ -55,7 +55,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-patch.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-msys2.sh
-if [ x$QDKe_VAR_PYTHON_TYPE = "xminiconda" ]; then
+if [ x$QDKe_VAR_PYTHON_TYPE = "xMiniconda" ]; then
 	. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-miniconda.sh
 else
 	if [ x$PYTHON_ROOT = "x" ]; then
