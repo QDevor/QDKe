@@ -45,157 +45,26 @@ _utils_python_initVer() {
 	export PYVER3=`$PYTHON --version 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1-3`
 	#echo v1=$PYVER, v2=$PYVER2, v3=$PYVER3
 	
-	export PIP=pip
+	export PYINSTALL=conda
 	
-	export EASY_INSTALL=easy_install
+#	export PYINSTALL1=pip
+#	export PYINSTALL2=easy_install
 	
 	export QDKE_PYTHON_ROOT=$PYTHON_ROOT
 	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/Lib/site-packages
-	export PYTHONPATH=$PYTHONPATH:$QDKe_PYSP_PATH
+#	export PYTHONPATH=$PYTHONPATH:$QDKe_PYSP_PATH
 	
-	log_warning "We Are Running ON Win Python $PYVER3."
+	log_warning "We Are Running ON Miniconda Python $PYVER3."
 }
 
 _utils_python_initDeps() {
 	:
-	$PIP install setuptools
-}
-
-_utils_python_installByPipCheck() {
-	if [[ $# -lt 1 ]]; then
-    log_error "Usage: $FUNCNAME deps."
+	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
+		conda install \
+			numpy scipy matplotlib pandas numba \
+			scikit-learn ipython ipython-notebook PIL
+		touch $TMP/$FUNCNAME-stamp
 	fi
-	
-	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-	 pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | grep "="   | cut -d '=' -f2`
-	check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	if test "$check_pkg_exist" == ""; then
-		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-		check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	fi
-#	echo $check_pkg_exist
-
-	if test "$check_pkg_exist" != ""; then
-#		log_warning "$pkgname - Found."
-		return 0
-	else
-#		log_warning "$pkgname - Not Found."
-		return 1
-	fi
-}
-
-_utils_python_installByPip() {
-	# log_info "$FUNCNAME"
-	
-	if [[ $# -lt 1 ]]; then
-    log_error "Usage: $FUNCNAME deps1,deps2,..."
-	fi
-	
-	is_xp=$QDKe_VAR_IS_XP
-	arch=$QDKe_VAR_ARCH
-	for dep in $@; do
-		_utils_python_installByPipCheck $dep
-		if [[ $? == "0" ]]; then
-			log_warning "$pkgname - Installed - Ignore."
-			continue
-			# return 0
-		fi
-		
-		log_warning "$pkgname - Installing."
-		doloop=1
-		while [ $doloop = 1 ]; do
-			$PIP -v install $dep
-			if [ $? = 0 ]; then
-				break;
-			fi
-			log_warning "$pkgname - Install failed - auto try again."
-			sleep 3
-		done
-		
-	done
-}
-
-_utils_python_installBySetuptoolsCheck() {
-	if [[ $# -lt 1 ]]; then
-    log_error "Usage: $FUNCNAME deps."
-	fi
-	
-	check_pkg_exist_file=$QDKe_PYSP_PATH/easy-install.pth
-	
-	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-	 pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | grep "="   | cut -d '=' -f2`
-#	echo $pkgname, $pkgver
-	check_pkg_exist=`cat $check_pkg_exist_file | grep "\./$pkgname-.*"`
-	if test "$check_pkg_exist" == ""; then
-		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-		check_pkg_exist=`cd $check_pkg_exist_file >/dev/null 2>&1 && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	fi
-
-	if test "$check_pkg_exist" != ""; then
-#		log_warning "$pkgname - Found."
-		return 0
-	else
-#		log_warning "$pkgname - Not Found."
-		return 1
-	fi
-}
-
-_utils_python_installBySetuptools() {
-	# log_info "$FUNCNAME"
-	
-	if [[ $# -lt 1 ]]; then
-    log_error "Usage: $FUNCNAME deps1,deps2,..."
-	fi
-	
-	is_xp=$QDKe_VAR_IS_XP
-	arch=$QDKe_VAR_ARCH
-	for dep in $@; do
-		_utils_python_installBySetuptoolsCheck $dep
-		#_utils_python_installByPipCheck $dep
-		if [[ $? == "0" ]]; then
-			log_warning "$pkgname - Installed - Ignore."
-			continue
-			# return 0
-		fi
-		
-		log_warning "$pkgname - Installing."
-		doloop=1
-		while [ $doloop = 1 ]; do
-			$EASY_INSTALL $dep
-			if [ $? = 0 ]; then
-				break;
-			fi
-			log_warning "$pkgname - Install failed - auto try again."
-			sleep 3
-		done
-		
-	done
-}
-
-utils_python_checkPkgExist() {
-	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-	# pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | grep "="   | cut -d '=' -f2`
-	
-	check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	if test "$check_pkg_exist" == ""; then
-		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-		check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	fi
-	if test "$check_pkg_exist" != ""; then
-		return 1
-	fi
-	
-	check_pkg_exist_file=$QDKe_PYSP_PATH/easy-install.pth
-	check_pkg_exist=`cat $check_pkg_exist_file | grep "\./$pkgname-.*"`
-	if test "$check_pkg_exist" == ""; then
-		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
-		check_pkg_exist=`cd $check_pkg_exist_file >/dev/null 2>&1 && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
-	fi
-	if test "$check_pkg_exist" != ""; then
-		return 1
-	fi
-	
-	return 0
 }
 
 utils_python_install() {
@@ -203,11 +72,7 @@ utils_python_install() {
     log_error "Usage: $FUNCNAME deps1,deps2,..."
 	fi
 
-	if [[ $QDKe_VAR_IS_XP == "true" ]] && [[ x$PYVER = "x3" ]] ; then
-		_utils_python_installBySetuptools $@
-	else
-		_utils_python_installByPip $@
-	fi
+	conda $@
 }
 
 _utils_python_initVer
