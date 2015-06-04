@@ -60,7 +60,7 @@ _utils_python_initVer() {
 _utils_python_initDeps() {
 	:
 	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
-		conda install \
+		echo 'y' | conda install \
 			numpy scipy matplotlib pandas numba \
 			scikit-learn ipython ipython-notebook PIL
 		touch $TMP/$FUNCNAME-stamp
