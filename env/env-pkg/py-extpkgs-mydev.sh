@@ -33,6 +33,7 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/py-extpkgs-UWB.sh
 #----------------------------------------
 qdev_try_qstk() {
+	log_info "$FUNCNAME - $PROGNAME."
 	apps_name=numpy					&& extpkgs_uwb_installPkg || die
 	apps_name=scipy					&& extpkgs_uwb_installPkg || die
 	apps_name=pandas				&& extpkgs_uwb_installPkg || die
@@ -44,13 +45,15 @@ qdev_try_qstk() {
 	apps_name=wxPython			&& extpkgs_uwb_installPkg || die
 	apps_name=h5py					&& extpkgs_uwb_installPkg || die
 	apps_name=matplotlib		&& extpkgs_uwb_installPkg || die
-	apps_name=vigra					&& extpkgs_uwb_installPkg || die
-	apps_name=pillow				&& extpkgs_uwb_installPkg || die
-#	PyGSL provides an interface for the GNU Scientific Library (gsl).
-	apps_name=PyGSL					&& extpkgs_uwb_installPkg || die
+	apps_name=vigranumpy		&& extpkgs_uwb_installPkg || die
+	apps_name=Pillow				&& extpkgs_uwb_installPkg || die
 }
 #----------------------------------------
+# Other useful packages and applications not currently available on this method
 qdev_try_misc() {
+	log_info "$FUNCNAME - $PROGNAME."
+	#	PyGSL provides an interface for the GNU Scientific Library (gsl).
+	apps_name=PyGSL					&& extpkgs_uwb_installPkg || die
 	# pyCGNS provides an interface to the CGNS/SIDS data model.
 	apps_name=pyCGNS				&& extpkgs_uwb_installPkg || die
 	# PyCrypto provides cryptographic modules.
@@ -99,5 +102,5 @@ qdev_init
 #qdev_check
 #qdev_try
 qdev_try_qstk
-qdev_try_misc
+# qdev_try_misc
 #qdev_tst

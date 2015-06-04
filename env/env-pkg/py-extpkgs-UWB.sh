@@ -34,6 +34,15 @@ export PYTHON=python2
 #numpy-1.9.2+mkl-cp27-none-win32.whl
 #wget -q -O- 'http://www.lfd.uci.edu/~gohlke/pythonlibs/' | grep -i '\>numpy&#8209*.whl\<\/a\>'
 extpkgs_uwb_saveHomeHtml() {
+	current_datetime=`date +%m`
+	filedate=`stat tt.txt | grep Modify | awk '{print $2}'`
+	filetime=`stat tt.txt | grep Modify | awk '{split($3,var,".");print var[1]}'`
+	file_datetime=`date -d "$filedate $filetime" +%m
+	timedelta=`expr $current_datetime - $file_datetime`
+	#if [ "$timedelta" -gt "180" ];then
+	if [ "$timedelta" -gt "5" ];then
+		rm -rf $TMP/${PROGNAME}-stamp
+	fi
 	if [ -f $TMP/${PROGNAME}-stamp ] && [ -f $TMP/py-extpkgs_home.html ]; then
 		return 0
 	fi
@@ -83,14 +92,14 @@ extpkgs_uwb_getPkg() {
 }
 
 extpkgs_uwb_installPkg() {
-	if [ -f $qdev_build_top/$FUNCNAME-stamp ]; then
-		qdev_set					$work_home $user_name $apps_name $apps_more
-		cd $qdev_build_top || die
-		extpkgs_uwb_findPkgByName $apps_name
-		extpkgs_uwb_getPkg
-		
+	qdev_set					$work_home $user_name $apps_name $apps_more
+	cd $qdev_build_top || die
+	extpkgs_uwb_findPkgByName $apps_name
+	extpkgs_uwb_getPkg
+	
+	if [ -f $qdev_build_top/$FUNCNAME-$pkg_nam-stamp ]; then
 		$PIP install $_pkg_ffile || die
-		touch $qdev_build_top/$FUNCNAME-stamp
+		touch $qdev_build_top/$FUNCNAME-$pkg_nam-stamp
 	fi
 }
 
