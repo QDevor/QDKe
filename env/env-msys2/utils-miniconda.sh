@@ -37,6 +37,16 @@ _FNNAME_UTILS_PYTHON=${_FN_UTILS_PYTHON%.*}
 # PyCrypto and Paramiko using the 2010 version and 
 # execute the import module:
 #----------------------------------------
+
+#----------------------------------------
+# Python 2.7
+# http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86.exe
+# https://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe
+# Python 3.4
+# https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe
+# https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe
+#----------------------------------------
+
 _utils_python_initVer() {
 	export PYTHON=python
 	
