@@ -31,14 +31,15 @@ export PYTHON=python2
 . $PROGDIR/../env-pkg/py-django-common.sh
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
+[ x$QDKe_VAR_PYTHON_TYPE = "xMiniconda" ] && export PYTHON=python
 
 qdev_init() {
 	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
-		utils_python_install lxml
-		utils_python_install sqlalchemy
+		utils_python_install lxml ||die
+		utils_python_install sqlalchemy ||die
 #		utils_python_install pymongo
 #		utils_python_install 'openpyxl<2.0.0'
-		$PYINSTALL1 install tushare
+		$PYINSTALL1 install tushare ||die
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
