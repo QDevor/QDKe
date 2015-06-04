@@ -82,7 +82,7 @@ utils_python_install() {
     log_error "Usage: $FUNCNAME deps1,deps2,..."
 	fi
 
-	conda $@
+	conda install $@
 }
 
 _utils_python_initVer
