@@ -77,12 +77,62 @@ _utils_python_initDeps() {
 	fi
 }
 
+utils_python_checkPkgExist() {
+	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+	# pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | grep "="   | cut -d '=' -f2`
+	
+	check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	if test "$check_pkg_exist" == ""; then
+		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+		check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	fi
+	if test "$check_pkg_exist" != ""; then
+		return 1
+	fi
+	
+	check_pkg_exist_file=$QDKe_PYSP_PATH/easy-install.pth
+	if [ ! -f $check_pkg_exist_file ]; then
+		return 0
+	fi
+	
+	check_pkg_exist=`cat $check_pkg_exist_file | grep "\./$pkgname-.*"`
+	if test "$check_pkg_exist" == ""; then
+		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+		check_pkg_exist=`cd $check_pkg_exist_file >/dev/null 2>&1 && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	fi
+	if test "$check_pkg_exist" != ""; then
+		return 1
+	fi
+	
+	return 0
+}
+
 utils_python_install() {
 	if [[ $# -lt 1 ]]; then
     log_error "Usage: $FUNCNAME deps1,deps2,..."
 	fi
-
-	conda install $@
+	
+	for dep in $@; do
+		check_pkg_exist=`utils_python_checkPkgExist $dep`
+		if [ x$check_pkg_exist = "x1" ];then
+			log_info "Python Installed - $dep."
+			continue
+		else
+			log_info "Python Installing - $dep."
+		fi
+		
+		doloop=1
+		while [ $doloop = 1 ]; do
+			conda clean --lock
+			echo 'y' | conda install $@
+			
+			if [ $? = 0 ]; then
+				break;
+			fi
+			log_warning "$pkgname - Install failed - auto try again."
+			sleep 3
+		done	# while [ $doloop = 1 ]
+	done		# for dep in $@
 }
 
 _utils_python_initVer
