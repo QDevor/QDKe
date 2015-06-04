@@ -37,9 +37,10 @@ qdev_init() {
 	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
 		utils_python_install lxml ||die
 		utils_python_install sqlalchemy ||die
-#		utils_python_install pymongo
-#		utils_python_install 'openpyxl<2.0.0'
+		utils_python_install pymongo
+		utils_python_install 'openpyxl<2.0.0'
 		$PYINSTALL1 install tushare ||die
+		echo 'y' | conda install
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
