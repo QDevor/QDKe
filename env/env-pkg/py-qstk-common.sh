@@ -93,6 +93,7 @@ _py_qstk_common_init() {
 #	export PYTHONPATH=$PYTHONPATH:/usr/local/lib/NAG/
 #	export NAG_KUSARI_FILE=/usr/local/lib/NAG/nagkey.txt
 
+	[ -f $MSYS_ROOT/usr/bin/link.exe ] && \
 	mv $MSYS_ROOT/usr/bin/link.exe $MSYS_ROOT/usr/bin/link.exe.msys
 }
 

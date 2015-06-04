@@ -30,14 +30,49 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 . $PROGDIR/../env-pkg/py-qstk-common.sh
 #----------------------------------------
-. $PROGDIR/../env-pkg/py-extpkgs-UnofficialWindowsBinaries.sh
+. $PROGDIR/../env-pkg/py-extpkgs-UWB.sh
 #----------------------------------------
-qdev_try() {
-	apps_name=numpy && extpkgs_uwb_installPkg || die
-	apps_name=scipy && extpkgs_uwb_installPkg || die
-	apps_name=pandas && extpkgs_uwb_installPkg || die
+qdev_try_qstk() {
+	apps_name=numpy					&& extpkgs_uwb_installPkg || die
+	apps_name=scipy					&& extpkgs_uwb_installPkg || die
+	apps_name=pandas				&& extpkgs_uwb_installPkg || die
+	if   [ x$PYVER = "2" ]; then
+		apps_name=MySQL-python	&& extpkgs_uwb_installPkg || die
+	elif [ x$PYVER = "3" ]; then
+		apps_name=Mysqlclient		&& extpkgs_uwb_installPkg || die
+	fi
+	apps_name=wxPython			&& extpkgs_uwb_installPkg || die
+	apps_name=h5py					&& extpkgs_uwb_installPkg || die
+	apps_name=matplotlib		&& extpkgs_uwb_installPkg || die
+	apps_name=vigra					&& extpkgs_uwb_installPkg || die
+	apps_name=pillow				&& extpkgs_uwb_installPkg || die
+#	PyGSL provides an interface for the GNU Scientific Library (gsl).
+	apps_name=PyGSL					&& extpkgs_uwb_installPkg || die
 }
-
+#----------------------------------------
+qdev_try_misc() {
+	# pyCGNS provides an interface to the CGNS/SIDS data model.
+	apps_name=pyCGNS				&& extpkgs_uwb_installPkg || die
+	# PyCrypto provides cryptographic modules.
+	apps_name=PyCrypto			&& extpkgs_uwb_installPkg || die
+	# PyDSTool, a dynamical systems modeling, simulation and analysis environment.
+	apps_name=PyDSTool			&& extpkgs_uwb_installPkg || die
+	# Pyffmpeg, a wrapper for FFmpeg, a solution to record, convert and stream audio and video.
+	apps_name=Pyffmpeg			&& extpkgs_uwb_installPkg || die
+	# PyFFTW3 are bindings to the FFTW C library.
+	apps_name=PyFFTW3				&& extpkgs_uwb_installPkg || die
+	# PyGreSQL interfaces to a PostgreSQL database.
+	apps_name=PyGreSQL			&& extpkgs_uwb_installPkg || die
+	# pyOpenSSL, an interface to the OpenSSL library.
+	apps_name=pyOpenSSL			&& extpkgs_uwb_installPkg || die
+	# PyQt5, a set of bindings for the Qt5 application framework
+	apps_name=PyQt5					&& extpkgs_uwb_installPkg || die
+	# Scikit-bio (unstable) provides data structures, algorithms, and educational resources for bioinformatics.
+	apps_name=Scikit-bio		&& extpkgs_uwb_installPkg || die
+	# Scikit-tracker, objects detection and robust tracking for cell biology.
+	apps_name=Scikit-tracker	&& extpkgs_uwb_installPkg || die
+}
+#----------------------------------------
 #
 # Required and optional software
 #
@@ -62,5 +97,7 @@ qdev_init
 #qdev_setmore
 #qdev_get
 #qdev_check
-qdev_try
+#qdev_try
+qdev_try_qstk
+qdev_try_misc
 #qdev_tst

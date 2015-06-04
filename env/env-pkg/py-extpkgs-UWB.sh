@@ -83,12 +83,15 @@ extpkgs_uwb_getPkg() {
 }
 
 extpkgs_uwb_installPkg() {
-	qdev_set					$work_home $user_name $apps_name $apps_more
-	cd $qdev_build_top || die
-	extpkgs_uwb_findPkgByName $apps_name
-	extpkgs_uwb_getPkg
-	
-	$PIP install $_pkg_ffile || die
+	if [ -f $qdev_build_top/$FUNCNAME-stamp ]; then
+		qdev_set					$work_home $user_name $apps_name $apps_more
+		cd $qdev_build_top || die
+		extpkgs_uwb_findPkgByName $apps_name
+		extpkgs_uwb_getPkg
+		
+		$PIP install $_pkg_ffile || die
+		touch $qdev_build_top/$FUNCNAME-stamp
+	fi
 }
 
 #

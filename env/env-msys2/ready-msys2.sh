@@ -136,6 +136,7 @@ _ready_msys2_init() {
 	_ready_msys2_updating_basepkgs
 	_ready_msys2_updating_extrakgs
 	
+	[ -f $MSYS_ROOT/usr/bin/link.exe.msys ] && \
 	mv $MSYS_ROOT/usr/bin/link.exe.msys $MSYS_ROOT/usr/bin/link.exe
 }
 

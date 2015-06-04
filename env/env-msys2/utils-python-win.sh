@@ -43,7 +43,7 @@ _utils_python_initVer() {
 	export  PYVER=`$PYTHON --version 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1-1`
 	export PYVER2=`$PYTHON --version 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1-2`
 	export PYVER3=`$PYTHON --version 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1-3`
-	echo v1=$PYVER, v2=$PYVER2, v3=$PYVER3
+	#echo v1=$PYVER, v2=$PYVER2, v3=$PYVER3
 	
 	export PIP=pip
 	

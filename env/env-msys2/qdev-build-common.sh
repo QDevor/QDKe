@@ -91,9 +91,9 @@ qdev_set() {
 #		qdev_build_dir=$qdev_build_top/$apps_name.build
 #	fi
 	
-	echo qdev_build_top=$qdev_build_top
-	echo qdev_build_src=$qdev_build_src
-	echo qdev_build_dir=$qdev_build_dir
+	#echo qdev_build_top=$qdev_build_top
+	#echo qdev_build_src=$qdev_build_src
+	#echo qdev_build_dir=$qdev_build_dir
 	
 	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
 	
