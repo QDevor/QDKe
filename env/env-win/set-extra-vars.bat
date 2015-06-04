@@ -46,15 +46,15 @@ call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
 :----------------------------------------
 :: common include, lib
 :----------------------------------------
-set INCLUDE=%QDK_OPT_DIR%/include
-rem set LIB=%QDK_OPT_DIR%/lib
-set LIBPATH=%QDK_OPT_DIR%/lib
+set "INCLUDE=%QDK_OPT_DIR%/include"
+rem set "LIB=%QDK_OPT_DIR%/lib"
+set "LIBPATH=%QDK_OPT_DIR%/lib"
 
 :----------------------------------------
 :: ready python
 :----------------------------------------
-set PYTHONPATH=%LIBPATH%
-set PATH=%PATH%;%LIBPATH%
+set "PYTHONPATH=%LIBPATH%"
+set "PATH=%PATH%;%LIBPATH%"
 
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true

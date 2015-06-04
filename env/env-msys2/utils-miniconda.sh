@@ -62,7 +62,7 @@ _utils_python_initVer() {
 	
 	export QDKE_PYTHON_ROOT=$PYTHON_ROOT
 	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/Lib/site-packages
-#	export PYTHONPATH=$PYTHONPATH:$QDKe_PYSP_PATH
+#	export PYTHONPATH=$PYTHONPATH:$QDKe_PYSP_PATH:$PATH
 	
 	log_warning "We Are Running ON Miniconda Python $PYVER3."
 }
