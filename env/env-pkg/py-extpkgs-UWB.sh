@@ -35,9 +35,9 @@ export PYTHON=python2
 #wget -q -O- 'http://www.lfd.uci.edu/~gohlke/pythonlibs/' | grep -i '\>numpy&#8209*.whl\<\/a\>'
 extpkgs_uwb_saveHomeHtml() {
 	current_datetime=`date +%m`
-	filedate=`stat tt.txt | grep Modify | awk '{print $2}'`
-	filetime=`stat tt.txt | grep Modify | awk '{split($3,var,".");print var[1]}'`
-	file_datetime=`date -d "$filedate $filetime" +%m
+	filedate=`stat $TMP/py-extpkgs_home.html | grep Modify | awk '{print $2}'`
+	filetime=`stat $TMP/py-extpkgs_home.html | grep Modify | awk '{split($3,var,".");print var[1]}'`
+	file_datetime=`date -d "$filedate $filetime" +%m`
 	timedelta=`expr $current_datetime - $file_datetime`
 	#if [ "$timedelta" -gt "180" ];then
 	if [ "$timedelta" -gt "5" ];then
@@ -56,7 +56,7 @@ extpkgs_uwb_findPkgByName() {
 	_pkg_pyver=cp`echo $PYVER2 | tr -d '.'`
 	_pkg_typ=win_amd64
 	[ x$QDKe_VAR_IS_XP = "xtrue" ] && _pkg_typ=win32
-	echo _pkg_pyver=$_pkg_pyver, _pkg_typ=$_pkg_typ
+	#echo _pkg_pyver=$_pkg_pyver, _pkg_typ=$_pkg_typ
 	
 	pkg_nam=$1
 	pkgverrel=`cat $QDKE_TMP/py-extpkgs_home.html | \
@@ -74,12 +74,12 @@ extpkgs_uwb_findPkgByName() {
 	[ x$_pkg_rtyp = "xany" ] && _pkg_typ=$_pkg_rtyp
 	[ x$_pkg_rpyver = "xpy2.py3" ] && _pkg_pyver=$_pkg_rpyver
 	
-	echo pkgverrel=$pkgverrel
-	echo _pkg_rver=$_pkg_rver, _pkg_rpyver=$_pkg_rpyver, _pkg_rtyp=$_pkg_rtyp
-	echo _pkg_pyver=$_pkg_pyver, _pkg_typ=$_pkg_typ
+	#echo pkgverrel=$pkgverrel
+	#echo _pkg_rver=$_pkg_rver, _pkg_rpyver=$_pkg_rpyver, _pkg_rtyp=$_pkg_rtyp
+	#echo _pkg_pyver=$_pkg_pyver, _pkg_typ=$_pkg_typ
 	
 	_pkg_ffile=$pkg_nam-$_pkg_rver-$_pkg_pyver-none-$_pkg_typ.whl
-	echo _pkg_ffile=$_pkg_ffile
+	#echo _pkg_ffile=$_pkg_ffile
 	
 	[ x$pkgverrel = "x" ] && log_error "$FUNCNAME - Not Found pkg($pkg_nam) version."
 }
@@ -97,9 +97,20 @@ extpkgs_uwb_installPkg() {
 	extpkgs_uwb_findPkgByName $apps_name
 	extpkgs_uwb_getPkg
 	
-	if [ -f $qdev_build_top/$FUNCNAME-$pkg_nam-stamp ]; then
+	check_pkg_exist=utils_python_checkPkgExist
+	
+	if [ x$check_pkg_exist = x"1" ]; then
+		log_info "Python Installed - $pkg_nam."
+		return 1
+	else
+		log_info "Python Installing - $pkg_nam."
+	fi
+	
+	if [ ! -f $qdev_build_top/$FUNCNAME-$pkg_nam-stamp ]; then
 		$PIP install $_pkg_ffile || die
 		touch $qdev_build_top/$FUNCNAME-$pkg_nam-stamp
+	else
+		log_info "Python Installing Ignore - $pkg_nam."
 	fi
 }
 

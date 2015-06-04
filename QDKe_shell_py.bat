@@ -56,7 +56,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: py-bashpy-stock-django
 :: py-myapp-djcs
 :+++++++++++++++++++++++++++++++++++++
-set DJN=py-extpkgs-mydev
+set DJN=py-myapp-djcs
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

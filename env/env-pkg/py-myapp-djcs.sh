@@ -33,10 +33,10 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	utils_python_install django_stockandflow
-	utils_python_install sqlalchemy
-	utils_python_install pymongo
-	utils_python_install 'openpyxl<2.0.0'
+	utils_python_install lxml
+#	utils_python_install sqlalchemy
+#	utils_python_install pymongo
+#	utils_python_install 'openpyxl<2.0.0'
 	utils_python_install tushare
 }
 

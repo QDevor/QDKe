@@ -37,7 +37,7 @@ qdev_try_qstk() {
 	apps_name=numpy					&& extpkgs_uwb_installPkg || die
 	apps_name=scipy					&& extpkgs_uwb_installPkg || die
 	apps_name=pandas				&& extpkgs_uwb_installPkg || die
-	if   [ x$PYVER = "2" ]; then
+	if [ x$PYVER = "2" ]; then
 		apps_name=MySQL-python	&& extpkgs_uwb_installPkg || die
 	elif [ x$PYVER = "3" ]; then
 		apps_name=Mysqlclient		&& extpkgs_uwb_installPkg || die
@@ -47,6 +47,9 @@ qdev_try_qstk() {
 	apps_name=matplotlib		&& extpkgs_uwb_installPkg || die
 	apps_name=vigranumpy		&& extpkgs_uwb_installPkg || die
 	apps_name=Pillow				&& extpkgs_uwb_installPkg || die
+	apps_name=lxml					&& extpkgs_uwb_installPkg || die
+	apps_name=SQLAlchemy		&& extpkgs_uwb_installPkg || die
+	apps_name=pymongo				&& extpkgs_uwb_installPkg || die
 }
 #----------------------------------------
 # Other useful packages and applications not currently available on this method

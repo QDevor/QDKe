@@ -50,7 +50,7 @@ _utils_python_initVer() {
 	export EASY_INSTALL=easy_install
 	
 	export QDKE_PYTHON_ROOT=$PYTHON_ROOT
-	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/site-packages
+	export QDKe_PYSP_PATH=$QDKE_PYTHON_ROOT/Lib/site-packages
 	
 	log_warning "We Are Running ON Win Python $PYVER3."
 }
@@ -169,6 +169,32 @@ _utils_python_installBySetuptools() {
 		done
 		
 	done
+}
+
+utils_python_checkPkgExist() {
+	pkgname=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+	# pkgver=`echo $1 | tr -s "=" | tr '[A-Z]' '[a-z]' | tr '-' '_' | grep "="   | cut -d '=' -f2`
+	
+	check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	if test "$check_pkg_exist" == ""; then
+		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+		check_pkg_exist=`cd $QDKe_PYSP_PATH && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	fi
+	if test "$check_pkg_exist" != ""; then
+		return 1
+	fi
+	
+	check_pkg_exist_file=$QDKe_PYSP_PATH/easy-install.pth
+	check_pkg_exist=`cat $check_pkg_exist_file | grep "\./$pkgname-.*"`
+	if test "$check_pkg_exist" == ""; then
+		pkgname=`echo $1 | tr -s "=" | tr '[a-z]' '[A-Z]' | tr '-' '_' | tr '=' ' ' | cut -d ' ' -f1`
+		check_pkg_exist=`cd $check_pkg_exist_file >/dev/null 2>&1 && ls -F | grep "/" | sed 's/.$//' | grep "^$pkgname" | head -1`
+	fi
+	if test "$check_pkg_exist" != ""; then
+		return 1
+	fi
+	
+	return 0
 }
 
 utils_python_install() {
