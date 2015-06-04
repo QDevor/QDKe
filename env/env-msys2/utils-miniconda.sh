@@ -73,6 +73,8 @@ _utils_python_initDeps() {
 		echo 'y' | conda install \
 			numpy scipy matplotlib pandas numba \
 			scikit-learn ipython ipython-notebook PIL || die
+		echo 'y' | conda install \
+			django || die
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
