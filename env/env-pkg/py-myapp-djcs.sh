@@ -33,11 +33,14 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	utils_python_install lxml
-	utils_python_install sqlalchemy
-#	utils_python_install pymongo
-#	utils_python_install 'openpyxl<2.0.0'
-	$PYINSTALL1 install tushare
+	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
+		utils_python_install lxml
+		utils_python_install sqlalchemy
+#		utils_python_install pymongo
+#		utils_python_install 'openpyxl<2.0.0'
+		$PYINSTALL1 install tushare
+		touch $TMP/$FUNCNAME-stamp
+	fi
 }
 
 # qdev_set
