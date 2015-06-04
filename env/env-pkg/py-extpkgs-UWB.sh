@@ -97,7 +97,7 @@ extpkgs_uwb_installPkg() {
 	extpkgs_uwb_findPkgByName $apps_name
 	extpkgs_uwb_getPkg
 	
-	check_pkg_exist=utils_python_checkPkgExist
+	check_pkg_exist=`utils_python_checkPkgExist $pkg_nam`
 	
 	if [ x$check_pkg_exist = x"1" ]; then
 		log_info "Python Installed - $pkg_nam."

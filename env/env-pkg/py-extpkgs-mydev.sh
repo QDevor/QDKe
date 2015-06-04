@@ -34,6 +34,7 @@ export PYTHON=python2
 #----------------------------------------
 qdev_try_qstk() {
 	log_info "$FUNCNAME - $PROGNAME."
+	apps_name=Cython				&& extpkgs_uwb_installPkg || die
 	apps_name=numpy					&& extpkgs_uwb_installPkg || die
 	apps_name=scipy					&& extpkgs_uwb_installPkg || die
 	apps_name=pandas				&& extpkgs_uwb_installPkg || die

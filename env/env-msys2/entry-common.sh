@@ -55,10 +55,14 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-patch.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-msys2.sh
-if [ x$PYTHON_ROOT = "x" ]; then
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python.sh
+if [ x$QDKe_VAR_PYTHON_TYPE = "xminiconda" ]; then
+	. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-miniconda.sh
 else
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python-win.sh
+	if [ x$PYTHON_ROOT = "x" ]; then
+		. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python.sh
+	else
+		. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-python-win.sh
+	fi
 fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-mysql.sh
 #----------------------------------------

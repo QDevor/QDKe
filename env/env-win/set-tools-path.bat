@@ -140,6 +140,12 @@ set "JRE7_HOME=!JAVA7_ROOT!/jre7"
 :-------------------------------------
 set "PYTHON27_ROOT=%QDK_ROOT%/Python27"
 set "PYTHON34_ROOT=%QDK_ROOT%/Python34"
+
+if "x!QDKe_VAR_PYTHON_TYPE!" == "xMiniconda" (
+	set "PYTHON27_ROOT=!QDK_ROOT!/Miniconda"
+	set "PYTHON34_ROOT=!QDK_ROOT!/Miniconda3"
+)
+
 set "PYTHON_ROOT=%PYTHON27_ROOT%"
 if x%QDKe_VAR_PYTHON_VER% == "x27" set "PYTHON_ROOT=%PYTHON27_ROOT%"
 if x%QDKe_VAR_PYTHON_VER% == "x34" set "PYTHON_ROOT=%PYTHON34_ROOT%"

@@ -77,6 +77,9 @@ if "!QDKe_VAR_MSVS_VER_YEAR!" == "" (
 if "!QDKe_VAR_PYTHON_VER!" == "" (
 	set QDKe_VAR_PYTHON_VER=27
 )
+if "!QDKe_VAR_PYTHON_TYPE!" == "" (
+	set QDKe_VAR_PYTHON_TYPE=Miniconda
+)
 
 :----------------RUN-ONCE----------------
 set INCLUDE_CHECK_DFLT_VARS_BATCH=true

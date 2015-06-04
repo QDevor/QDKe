@@ -31,13 +31,14 @@ export PYTHON=python2
 #----------------------------------------
 
 _py_django_common_init() {
-	utils_msys2_installByPacman sqlite3
-	utils_msys2_installByPacman $PYTHON-pandas
+	:
+	# utils_msys2_installByPacman sqlite3
+	# utils_msys2_installByPacman $PYTHON-pandas
 	
 	# utils_python_install django==1.8.1
 	# utils_python_install django_crontab
-	_utils_python_installByPip django==1.8.1
-	_utils_python_installByPip django_crontab
+	# _utils_python_installByPip django==1.8.1
+	# _utils_python_installByPip django_crontab
 }
 
 # qdev_django_init
