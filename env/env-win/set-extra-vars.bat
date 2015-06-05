@@ -56,6 +56,7 @@ set "LIBPATH=%QDK_OPT_DIR%/lib"
 set "PYTHONPATH=%LIBPATH%"
 set "PATH=%PATH%;%LIBPATH%"
 
+set HDF5_DIR=%PYTHON_ROOT%/Library
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true
 :EOF

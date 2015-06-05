@@ -74,7 +74,7 @@ _utils_python_initDeps() {
 			numpy scipy matplotlib pandas numba \
 			scikit-learn ipython ipython-notebook PIL || die
 		echo 'y' | conda install \
-			MySQL-python django || die
+			MySQL-python django pytables HDF5 h5py || die
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
