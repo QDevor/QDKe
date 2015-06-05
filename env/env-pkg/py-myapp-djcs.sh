@@ -39,9 +39,22 @@ qdev_init() {
 		utils_python_install sqlalchemy ||die
 		utils_python_install pymongo
 		utils_python_install 'openpyxl<2.0.0'
-		$PYINSTALL1 install tushare ||die
 		echo 'y' | conda install
 		touch $TMP/$FUNCNAME-stamp
+	fi
+}
+
+qdev_initmore() {
+	current_datetime=`date +%d`
+	filedate=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{print $2}'`
+	filetime=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{split($3,var,".");print var[1]}'`
+	file_datetime=`date -d "$filedate $filetime" +%d`
+	timedelta=`expr $current_datetime - $file_datetime`
+	#if [ "$timedelta" -gt "180" ];then
+	if [ "$timedelta" -gt "5" ];then
+		cd $QSTK_WORK_HOME/waditu/tushare/github ||die
+		git fetch https://github.com/waditu/tushare HEAD ||die
+		$PYTHON install tushare ||die
 	fi
 }
 
@@ -104,6 +117,7 @@ apps_name=djcs
 apps_more=github
 #----------------------------------------
 qdev_init
+qdev_initmore
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
