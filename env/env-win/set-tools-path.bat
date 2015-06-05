@@ -122,19 +122,25 @@ set "MYSQL57_SERVER_ROOT=%MYSQL_MSI_ROOT%/MySQL Server 5.7"
 set "MYSQL_UTILITIES_ROOT=%MYSQL_MSI_ROOT%/MySQL Fabric 1.5.4 & MySQL Utilities 1.5.4 1.5"
 set "MYSQL_UTILITIES_EXT_ROOT=%MYSQL57_UTILITIES_ROOT%/Doctrine extensions for PHP
 
-set "MYSQL_SERVER_ROOT=%MYSQL57_SERVER_ROOT%"
-if "x%QDKe_VAR_IS_XP%" == "xtrue" set "MYSQL_SERVER_ROOT=%MYSQL56_SERVER_ROOT%"
+set "MYSQL_SERVER_ROOT=!MYSQL57_SERVER_ROOT!"
+if "x!QDKe_VAR_IS_XP!" == "xtrue" (
+  set "MYSQL_SERVER_ROOT=!MYSQL56_SERVER_ROOT!"
+)
 :-------------------------------------
 :: JAVA
 :-------------------------------------
-set "JAVA_ROOT=D:/cygwin/opt/Java"
-set "JAVA6_ROOT=%JAVA_ROOT%"
-set "JAVA6_HOME=!JAVA6_ROOT!/jdk6"
-set "JRE6_HOME=!JAVA6_ROOT!/jre6"
+set "JDK16_VER=1.6"
+set "JDK17_VER=1.7"
+set "JDK18_VER=1.8.0_45"
+if "x!QDKe_VAR_IS_XP!" == "xtrue" (
+  set "JDK18_VER=1.8.0_45"
+)
+set "JDK_VER=!JDK18_VER!"
 
-set "JAVA7_ROOT=%JAVA_ROOT%"
-set "JAVA7_HOME=!JAVA7_ROOT!/jdk7"
-set "JRE7_HOME=!JAVA7_ROOT!/jre7"
+rem set "JRE_HOME=!JAVA_ROOT!/jre"
+set "JRE_HOME=!QDK_ROOT!/Java/jre!JDK_VER!"
+set "JAVA_HOME=!QDK_ROOT!/Java/jdk!JDK_VER!"
+set "JAVA_ROOT=!JAVA_HOME!"
 :-------------------------------------
 :: Python
 :-------------------------------------

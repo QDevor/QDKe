@@ -61,10 +61,7 @@ rem set "PATH=!PATH!;!QDK_ROOT!//mysql-gpl/bin"
 :----------------------------------------
 :: Java
 :----------------------------------------
-set "JAVA_ROOT=!JAVA6_ROOT!"
-set "JAVA_HOME=!JAVA6_HOME!"
-set "JRE_HOME=!JRE6_HOME!"
-set "PATH=!PATH!;!JAVA_HOME!/bin"
+set "PATH=!PATH!;!JAVA_ROOT!/bin"
 :----------------------------------------
 :: Python
 :----------------------------------------

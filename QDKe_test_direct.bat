@@ -44,7 +44,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 
 :: 
-set work_home=home/qstk_home/QDevor/djcs/github/src/python
+set work_home=home/qstk_home/QDevor/djcs/github/src
 set apps_name=djcs.py
 cd %work_home% && python %apps_name%
 cmd
