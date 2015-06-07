@@ -114,15 +114,17 @@ utils_github_updateWithResume() {
 	apps_name=$3
 	
 	check_file=$work_home/$user_name/$apps_name/github/.git/FETCH_HEAD
-	current_datetime=`date +%d`
-	filedate=`stat $check_file | grep Modify | awk '{print $2}'`
-	filetime=`stat $check_file | grep Modify | awk '{split($3,var,".");print var[1]}'`
-	file_datetime=`date -d "$filedate $filetime" +%d`
-	timedelta=`expr $current_datetime - $file_datetime`
-	#if [ "$timedelta" -gt "180" ];then
-	if [ ! "$timedelta" -gt "30" ];then
-		log_warning "$user_name/$apps_name/github - update too frequently."
-		return 0
+	if [ -f $check_file ]; then
+  	current_datetime=`date +%d`
+  	filedate=`stat $check_file | grep Modify | awk '{print $2}'`
+  	filetime=`stat $check_file | grep Modify | awk '{split($3,var,".");print var[1]}'`
+  	file_datetime=`date -d "$filedate $filetime" +%d`
+  	timedelta=`expr $current_datetime - $file_datetime`
+  	#if [ "$timedelta" -gt "180" ];then
+  	if [ ! "$timedelta" -gt "30" ];then
+  		log_warning "$user_name/$apps_name/github - update too frequently."
+  		return 0
+  	fi
 	fi
 	
 	log_info "$FUNCNAME"

@@ -77,7 +77,7 @@ qdev_setmore() {
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
-	_django_work_home=$qdev_build_src/src/python
+	_django_work_home=$qdev_build_src/src
 	_django_projectname=mysite
 	_django_appname=myapp
 	
@@ -92,8 +92,8 @@ qdev_try() {
 qdev_tst() {
 	cd $qdev_build_dir || die
 	
-	# $PYTHON src/python/core/test.py
-	$PYTHON src/python/djcs.py
+	# $PYTHON src/core/test.py
+	$PYTHON src/djcs.py
 	
 	# qdev_django_runserver
 	
