@@ -45,10 +45,15 @@ qdev_init() {
 
 _py_install_tushare() {
 	current_datetime=`date +%d`
-	filedate=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{print $2}'`
-	filetime=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{split($3,var,".");print var[1]}'`
-	file_datetime=`date -d "$filedate $filetime" +%d`
-	timedelta=`expr $current_datetime - $file_datetime`
+	file=$QDKe_PYSP_PATH/tushare/__init__.py
+	if [ -f $file ]; then
+  	filedate=`stat $file | grep Modify | awk '{print $2}'`
+  	filetime=`stat $file | grep Modify | awk '{split($3,var,".");print var[1]}'`
+  	file_datetime=`date -d "$filedate $filetime" +%d`
+  	timedelta=`expr $current_datetime - $file_datetime`
+  else
+    timedelta=1000
+	fi
 	#if [ "$timedelta" -gt "180" ];then
 	if [ "$timedelta" -gt "5" ];then
 		cd $QSTK_WORK_HOME/waditu/tushare/github ||die
@@ -59,11 +64,15 @@ _py_install_tushare() {
 
 _py_install_quantdigger() {
 	current_datetime=`date +%d`
-	filedate=`stat $QDKe_PYSP_PATH/quantdigger/__init__.py | grep Modify | awk '{print $2}'`
-	filetime=`stat $QDKe_PYSP_PATH/quantdigger/__init__.py | grep Modify | awk '{split($3,var,".");print var[1]}'`
-	file_datetime=`date -d "$filedate $filetime" +%d`
-	timedelta=`expr $current_datetime - $file_datetime`
-	#if [ "$timedelta" -gt "180" ];then
+	file=$QDKe_PYSP_PATH/quantdigger/__init__.py
+	if [ -f $file ]; then
+  	filedate=`stat $file | grep Modify | awk '{print $2}'`
+  	filetime=`stat $file | grep Modify | awk '{split($3,var,".");print var[1]}'`
+  	file_datetime=`date -d "$filedate $filetime" +%d`
+  	timedelta=`expr $current_datetime - $file_datetime`
+  else
+    timedelta=1000
+	fi
 	if [ "$timedelta" -gt "5" ];then
 		cd $QSTK_WORK_HOME/QuantFans/quantdigger/github ||die
 		git fetch https://github.com/QuantFans/quantdigger HEAD ||die
@@ -72,9 +81,41 @@ _py_install_quantdigger() {
 	fi
 }
 
+_py_install_talib() {
+	current_datetime=`date +%d`
+	file=$QDKe_PYSP_PATH/talib/__init__.py
+	if [ -f $file ]; then
+  	filedate=`stat $file | grep Modify | awk '{print $2}'`
+  	filetime=`stat $file | grep Modify | awk '{split($3,var,".");print var[1]}'`
+  	file_datetime=`date -d "$filedate $filetime" +%d`
+  	timedelta=`expr $current_datetime - $file_datetime`
+  else
+    timedelta=1000
+	fi
+	if [ "$timedelta" -gt "5" ];then
+	  [ -d $QSTK_WORK_HOME/mrjbq7/ta-lib/github ] && mkdir -p $QSTK_WORK_HOME/mrjbq7/ta-lib/github && \
+	    cd $QSTK_WORK_HOME/mrjbq7/ta-lib/github && \
+	    git init
+		cd $QSTK_WORK_HOME/mrjbq7/ta-lib/github ||die
+		git fetch https://github.com/mrjbq7/ta-lib HEAD ||die
+		export TA_INCLUDE_PATH=$MSSDK_ROOT/include
+		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+		  export TA_LIBRARY_PATH=$MSSDK_ROOT/Lib
+		else
+		  export TA_LIBRARY_PATH=$MSSDK_ROOT/Lib/x64
+		fi
+#    if 'TA_INCLUDE_PATH' in os.environ:
+#            include_dirs.append(os.environ['TA_INCLUDE_PATH'])
+#    if 'TA_LIBRARY_PATH' in os.environ:
+#            lib_talib_dirs.append(os.environ['TA_LIBRARY_PATH'])
+		$PYTHON setup.py install ||die
+	fi
+}
+
 qdev_initmore() {
 	_py_install_tushare
 	_py_install_quantdigger
+	_py_install_talib
 	bash
 }
 
