@@ -116,22 +116,21 @@ _py_install_talib() {
 }
 
 _py_install_talib2() {
-  [ -f $QDKE_VAR/$FUCNAME-stamp ] && return 0
+  [ -f $QDKE_VAR/$FUNCNAME-stamp ] && return 0
   url=http://www.lfd.uci.edu/~gohlke/pythonlibs/68tmfkay/TA_Lib-0.4.9-cp27-none-win_amd64.whl
   if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
     url=http://www.lfd.uci.edu/~gohlke/pythonlibs/68tmfkay/TA_Lib-0.4.9-cp27-none-win32.whl
   fi
   cd $QDKE_TMP ||die
-  loop_cur TA_Lib-0.4.9-cp27-none-win_amd64.whl $url
+  loop_wget TA_Lib-0.4.9-cp27-none-win_amd64.whl $url
   pip install TA_Lib-0.4.9-cp27-none-win_amd64.whl
-  touch $QDKE_VAR/$FUCNAME-stamp
+  touch $QDKE_VAR/$FUNCNAME-stamp
 }
 
 qdev_initmore() {
 	_py_install_tushare
 	_py_install_quantdigger
 	_py_install_talib2
-	bash
 }
 
 # qdev_set
