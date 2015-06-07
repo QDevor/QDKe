@@ -39,7 +39,7 @@ qdev_init() {
 		utils_python_install sqlalchemy ||die
 		utils_python_install pymongo
 		utils_python_install 'openpyxl<2.0.0'
-		echo 'y' | conda install
+		echo 'y' | pip install quantdigger
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
