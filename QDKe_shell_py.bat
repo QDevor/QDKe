@@ -29,7 +29,7 @@ setlocal enabledelayedexpansion
 :--Default setting to false
 :--Default setting to true
 rem None 2005 2008
-set QDKe_VAR_MSVS_VER_YEAR=2008
+set QDKe_VAR_MSVS_VER_YEAR=2010
 :-------------------------------------
 rem Default setting to VXPSP2(WINXP) or V71(WIN7)
 rem VXPSP2 V60A V70 V70A V71

@@ -98,8 +98,8 @@ _py_install_talib() {
 	    git init && \
 	    git remote add origin https://github.com/mrjbq7/ta-lib
 		cd $QSTK_WORK_HOME/mrjbq7/ta-lib/github ||die
-		git fetch https://github.com/mrjbq7/ta-lib HEAD ||die
-		git checkout -b master remotes/origin/master -- ||die
+		git fetch https://github.com/mrjbq7/ta-lib HEAD
+		git checkout -b master remotes/origin/master --
 		export TA_INCLUDE_PATH=$MSSDK_ROOT/include
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		  export TA_LIBRARY_PATH=$MSSDK_ROOT/Lib
@@ -115,10 +115,22 @@ _py_install_talib() {
 	fi
 }
 
+_py_install_talib2() {
+  [ -f $QDKE_VAR/$FUCNAME-stamp ] && return 0
+  url=http://www.lfd.uci.edu/~gohlke/pythonlibs/68tmfkay/TA_Lib-0.4.9-cp27-none-win_amd64.whl
+  if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
+    url=http://www.lfd.uci.edu/~gohlke/pythonlibs/68tmfkay/TA_Lib-0.4.9-cp27-none-win32.whl
+  fi
+  cd $QDKE_TMP ||die
+  loop_cur TA_Lib-0.4.9-cp27-none-win_amd64.whl $url
+  pip install TA_Lib-0.4.9-cp27-none-win_amd64.whl
+  touch $QDKE_VAR/$FUCNAME-stamp
+}
+
 qdev_initmore() {
 	_py_install_tushare
 	_py_install_quantdigger
-	_py_install_talib
+	_py_install_talib2
 	bash
 }
 

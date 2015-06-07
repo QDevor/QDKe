@@ -29,6 +29,13 @@ setlocal enabledelayedexpansion
 :--Default setting to false
 set QDKe_VAR_INCLUDED_MINGW=true
 :--Default setting to true
+rem None 2005 2008
+set QDKe_VAR_MSVS_VER_YEAR=2010
+:-------------------------------------
+rem Default setting to VXPSP2(WINXP) or V71(WIN7)
+rem VXPSP2 V60A V70 V70A V71
+set QDKe_VAR_MSSDK_VER=V60A
+:-------------------------------------
 :-------------------------------------
 
 :: Checking QDKe Env

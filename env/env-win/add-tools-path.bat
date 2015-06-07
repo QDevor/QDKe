@@ -26,11 +26,14 @@ if "x%INCLUDE_ADD_TOOLS_PATH_BATCH%" == "xtrue" (
 :: Run vcvars32.bat at first
 :----------------------------------------
 if x%QDKe_VAR_MSVS_VER_YEAR% == "xNone" goto :skip_add_tools_path_msvs
-set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
+rem set "PATH=!PATH!;!MSVS_VC_ROOT!/bin"
 set "MSVS_VCVARSALL_BATCH=%MSVS_VC_ROOT%/vcvarsall.bat"
 if exist "!MSVS_VCVARSALL_BATCH!" (
-	echo [QDKe] - We Are Calling vcvars32.bat Will Reset Envirment Variables.
-	call "!MSVS_VCVARSALL_BATCH!"
+	echo [QDKe] - We Are Calling vcvars32.bat !QDKe_VAR_MSVC_ARCH! Will Reset Envirment Variables.
+	rem call "!MSVS_VCVARSALL_BATCH!" !QDKe_VAR_MSVC_ARCH!
+	set "PATH=!PATH!;!MSVS_VC_ROOT!/bin/amd64"
+	set INCLUDE=!MSVS_VC_ROOT!/include;!INCLUDE!
+	set LIB=!MSVS_VC_ROOT!/lib;!INCLUDE!
 	echo [QDKe] - We Are Adding Microsoft Visual Studio.
 ) else (
 	echo [QDKe] - We Are Finding Microsoft Visual Studio Not Exist.
