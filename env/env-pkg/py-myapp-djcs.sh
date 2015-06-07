@@ -64,7 +64,7 @@ _py_install_tushare() {
 
 _py_install_quantdigger() {
 	current_datetime=`date +%d`
-	file=$QDKe_PYSP_PATH/quantdigger/__init__.py
+	file=$QDKe_PYSP_PATH/QuantDigger-0.141-py2.7.egg/quantdigger/__init__.py
 	if [ -f $file ]; then
   	filedate=`stat $file | grep Modify | awk '{print $2}'`
   	filetime=`stat $file | grep Modify | awk '{split($3,var,".");print var[1]}'`
