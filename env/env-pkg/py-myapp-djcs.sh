@@ -93,11 +93,13 @@ _py_install_talib() {
     timedelta=1000
 	fi
 	if [ "$timedelta" -gt "5" ];then
-	  [ -d $QSTK_WORK_HOME/mrjbq7/ta-lib/github ] && mkdir -p $QSTK_WORK_HOME/mrjbq7/ta-lib/github && \
+	  [ ! -d $QSTK_WORK_HOME/mrjbq7/ta-lib/github ] && mkdir -p $QSTK_WORK_HOME/mrjbq7/ta-lib/github && \
 	    cd $QSTK_WORK_HOME/mrjbq7/ta-lib/github && \
-	    git init
+	    git init && \
+	    git remote add origin https://github.com/mrjbq7/ta-lib
 		cd $QSTK_WORK_HOME/mrjbq7/ta-lib/github ||die
 		git fetch https://github.com/mrjbq7/ta-lib HEAD ||die
+		git checkout -b master remotes/origin/master -- ||die
 		export TA_INCLUDE_PATH=$MSSDK_ROOT/include
 		if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
 		  export TA_LIBRARY_PATH=$MSSDK_ROOT/Lib
@@ -108,6 +110,7 @@ _py_install_talib() {
 #            include_dirs.append(os.environ['TA_INCLUDE_PATH'])
 #    if 'TA_LIBRARY_PATH' in os.environ:
 #            lib_talib_dirs.append(os.environ['TA_LIBRARY_PATH'])
+    patch -f -p1 -u <$QDKE_PATCHDIR/*mrjbq7-ta-lib-before-build.patch
 		$PYTHON setup.py install ||die
 	fi
 }

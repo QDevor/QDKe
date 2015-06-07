@@ -1,0 +1,14 @@
+diff -upr -x '*.bak' -x github.orig -x '*.*.orig' -x '*.rej' -x '*.*.rej' -x default.release -x default.release.done -x libseh -x source_downloads github.orig/setup.py github/setup.py
+--- github.orig/setup.py	2015-06-07 17:21:46.504380200 +0800
++++ github/setup.py	2015-06-07 17:18:02.399562100 +0800
+@@ -51,6 +51,10 @@ if sys.platform == "win32":
+     lib_talib_name = 'ta_libc_cdr'
+     include_dirs = [r"c:\ta-lib\c\include"]
+     lib_talib_dirs = [r"c:\ta-lib\c\lib"]
++    if 'TA_INCLUDE_PATH' in os.environ:
++            include_dirs.append(os.environ['TA_INCLUDE_PATH'])
++    if 'TA_LIBRARY_PATH' in os.environ:
++            lib_talib_dirs.append(os.environ['TA_LIBRARY_PATH'])
+ 
+ # Do not require numpy or cython for just querying the package
+ if not query_only:

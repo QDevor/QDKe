@@ -43,10 +43,10 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: mysql-server
+:: mysql-server mrjbq7-talib
 :: 
 :+++++++++++++++++++++++++++++++++++++
-set DJN=mysql-server
+set DJN=mrjbq7-talib
 bash --login -i -c "../env/env-diff/diff-%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
