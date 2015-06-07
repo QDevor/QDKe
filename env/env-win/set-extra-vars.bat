@@ -50,13 +50,6 @@ set "INCLUDE=%QDK_OPT_DIR%/include"
 rem set "LIB=%QDK_OPT_DIR%/lib"
 set "LIBPATH=%QDK_OPT_DIR%/lib"
 
-:----------------------------------------
-:: ready python
-:----------------------------------------
-set "PYTHONPATH=%LIBPATH%"
-set "PATH=%PATH%;%LIBPATH%"
-
-set HDF5_DIR=%PYTHON_ROOT%/Library
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true
 :EOF

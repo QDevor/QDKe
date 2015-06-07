@@ -43,7 +43,7 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: runner_djcs runner_quantdigger
-goto :runner_quantdigger
+goto :runner_djcs
 :+++++++++++++++++++++++++++++++++++++
 :runner_quantdigger
 set work_home=home/qstk_home/QuantFans/quantdigger/github/quantdigger/demo
