@@ -39,12 +39,11 @@ qdev_init() {
 		utils_python_install sqlalchemy ||die
 		utils_python_install pymongo
 		utils_python_install 'openpyxl<2.0.0'
-		echo 'y' | pip install quantdigger
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
 
-qdev_initmore() {
+_py_install_tushare() {
 	current_datetime=`date +%d`
 	filedate=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{print $2}'`
 	filetime=`stat $QDKe_PYSP_PATH/tushare/__init__.py | grep Modify | awk '{split($3,var,".");print var[1]}'`
@@ -54,8 +53,29 @@ qdev_initmore() {
 	if [ "$timedelta" -gt "5" ];then
 		cd $QSTK_WORK_HOME/waditu/tushare/github ||die
 		git fetch https://github.com/waditu/tushare HEAD ||die
-		$PYTHON install tushare ||die
+		$PYTHON setup.py install ||die
 	fi
+}
+
+_py_install_quantdigger() {
+	current_datetime=`date +%d`
+	filedate=`stat $QDKe_PYSP_PATH/quantdigger/__init__.py | grep Modify | awk '{print $2}'`
+	filetime=`stat $QDKe_PYSP_PATH/quantdigger/__init__.py | grep Modify | awk '{split($3,var,".");print var[1]}'`
+	file_datetime=`date -d "$filedate $filetime" +%d`
+	timedelta=`expr $current_datetime - $file_datetime`
+	#if [ "$timedelta" -gt "180" ];then
+	if [ "$timedelta" -gt "5" ];then
+		cd $QSTK_WORK_HOME/QuantFans/quantdigger/github ||die
+		git fetch https://github.com/QuantFans/quantdigger HEAD ||die
+		$PYTHON install_dependency.py install ||die
+		$PYTHON setup.py install ||die
+	fi
+}
+
+qdev_initmore() {
+	_py_install_tushare
+	_py_install_quantdigger
+	bash
 }
 
 # qdev_set

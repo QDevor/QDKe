@@ -42,10 +42,20 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-
-:: 
+:: runner_djcs runner_quantdigger
+goto :runner_quantdigger
+:+++++++++++++++++++++++++++++++++++++
+:runner_quantdigger
+set work_home=home/qstk_home/QuantFans/quantdigger/github/quantdigger/demo
+set apps_name=main.py
+goto :runner_start
+:+++++++++++++++++++++++++++++++++++++
+:runner_djcs
 set work_home=home/qstk_home/QDevor/djcs/github/src
 set apps_name=djcs.py
+goto :runner_start
+:+++++++++++++++++++++++++++++++++++++
+:runner_start
 cd %work_home% && python %apps_name%
 cmd
 :+++++++++++++++++++++++++++++++++++++
