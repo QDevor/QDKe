@@ -27,6 +27,7 @@ if "x%INCLUDE_SET_LAST_VARS_BATCH%" == "xtrue" (
 set "PYTHONPATH=%LIBPATH%"
 set "PATH=%PATH%;%LIBPATH%"
 
+set DISTUTILS_USE_SDK=1
 set "QDKe_PYSP_PATH=!PYTHON_ROOT!/Lib/site-packages"
 set HDF5_DIR=%PYTHON_ROOT%/Library
 :----------------RUN-ONCE----------------

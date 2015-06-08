@@ -20,14 +20,22 @@ if "x%INCLUDE_CLEAR_DFLT_VARS_BATCH%" == "xtrue" (
 )
 :----------------RUN-ONCE----------------
 
+:----------------------------------------
+:: Clear INCLUDE, LIB, LIBPATH Variable and resetting
+:----------------------------------------
+set "INCLUDE="
+set "LIB="
+set "LIBPATH="
+:----------------------------------------
 :: Clear PATH Variable and resetting
-:-------------------------------------
+:----------------------------------------
 
 set "ORIGINAL_PATH=%PATH%"
 set "PATH="
 
 :: Add WINDOWS PATH...
 set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
+:----------------------------------------
 
 :----------------RUN-ONCE----------------
 set INCLUDE_CLEAR_DFLT_VARS_BATCH=true

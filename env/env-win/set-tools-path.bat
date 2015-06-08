@@ -32,86 +32,20 @@ set QDKE_D_PGM_FILES_DIR=%QDKE_WIN7_D_PGM_FILES_DIR%"
 if "x%QDKe_VAR_IS_XP%" == "xtrue" set "QDKE_D_PGM_FILES_DIR=%QDKE_XP_D_PGM_FILES_DIR%"
 :-------------------------------------
 :: Microsoft Visual Studio
-:: Microsoft Visual Studio 2008 Service Pack 1
-:: https://www.microsoft.com/en-us/download/details.aspx?id=10986
-:: 
-:: You must at least run the Visual Studio GUI once
-:: 
-:: http://matthew-brett.github.io/pydagogue/python_msvc.html
-:: 
-:: VC++ version	_MSC_VER	Alternative name
-:: Version 1.0	800	 
-:: Version 2.0	900	 
-:: Version 2.x	900	 
-:: Version 4.0	1000	 
-:: Version 5.0	1100	 
-:: Version 6.0	1200	 
-:: Version 7.0	1300	Visual Studio 2002
-:: Version 7.1	1310	Visual Studio 2003
-:: Version 8.0	1400	Visual Studio 2005
-:: Version 9.0	1500	Visual Studio 2008
-:: Version 10.0	1600	Visual Studio 2010
-:: Version 11.0	1700	Visual Studio 2012
-:: Version 12.0	1800	Visual Studio 2013
 :-------------------------------------
-set "MSVS_2005_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 8.0"
-set "MSVS_2008_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 9.0"
-set "MSVS_2010_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 10.0"
-set "MSVS_2012_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 11.0"
-set "MSVS_2013_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft Visual Studio 12.0"
+:-------------------------------------
+:: Microsoft Windows SDK
+:: -----------------------------------
+call %~dp0set-env-msvc.bat
+:-------------------------------------
 
-set "MSVS_2005_VC_ROOT=%MSVS_2005_ROOT%/VC"
-set "MSVS_2008_VC_ROOT=%MSVS_2008_ROOT%/VC"
-set "MSVS_2010_VC_ROOT=%MSVS_2010_ROOT%/VC"
-set "MSVS_2013_VC_ROOT=%MSVS_2013_ROOT%/VC"
 
-set VS80COMNTOOLS=!MSVS_2005_ROOT!/Common7/Tools/
-set VS90COMNTOOLS=!MSVS_2008_ROOT!/Common7/Tools/
-set VS100COMNTOOLS=!MSVS_2010_ROOT!/Common7/Tools/
-
-set "MSVS_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_ROOT!"
-set "MSVS_VC_ROOT=!MSVS_%QDKe_VAR_MSVS_VER_YEAR%_VC_ROOT!"
-
-set DISTUTILS_USE_SDK=1
-set MSSdk=1
 :-------------------------------------
 :: Microsoft SQL Server
 :-------------------------------------
 set "MSSQL_ROOT=%QDKE_C_PGM_FILES_DIR%/Microsoft SQL Server/100"
 set "MSSQL_TOOLS_ROOT=%MSSQL_ROOT%/Tools/Binn"
 set "MSSQL_DTS_ROOT=%MSSQL_ROOT%/DTS/Binn"
-:-------------------------------------
-:: Microsoft Windows SDK
-:: -----------------------------------
-:: Microsoft Platform SDK for Windows XP SP2
-:: 
-:: -----------------------------------
-:: Microsoft Windows SDK for Windows 7 and .NET Framework 4 (ISO)
-:: Windows SDK 7.1 do not support version up to Microsoft Visual C++ 2010 x86 Redistributable - 10.0.30319
-:: https://www.microsoft.com/en-us/download/details.aspx?id=8442
-:: GRMSDK_EN_DVD.iso is a version for x86 environment.
-:: GRMSDKX_EN_DVD.iso is a version for x64 environment.
-:: GRMSDKIAI_EN_DVD.iso is a version for Itanium environment.
-:: http://download.microsoft.com/download/F/1/0/F10113F5-B750-4969-A255-274341AC6BCE/GRMSDKX_EN_DVD.iso
-:: windows 7 - What SDK version to download?
-:: http://stackoverflow.com/questions/20115186/what-sdk-version-to-download
-:: -----------------------------------
-:-------------------------------------
-set "MSSDK_VXPSP2_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft Platform SDK for Windows XP SP2"
-set "MSSDK_V60A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v6.0A"
-set "MSSDK_V70_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0"
-set "MSSDK_V70A_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.0A"
-set "MSSDK_V71_ROOT=%QDKE_XP_C_PGM_FILES_DIR%/Microsoft SDKs/Windows/v7.1"
-
-set "MSSDK_ROOT=!MSSDK_%QDKe_VAR_MSSDK_VER%_ROOT!" && goto :skip_set_tools_path_mssdk
-if "x%QDKe_VAR_IS_XP%" == "xtrue" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
-if exist "!MSSDK_V71_ROOT!" set "MSSDK_ROOT=!MSSDK_V71_ROOT!" && goto :skip_set_tools_path_mssdk
-if exist "!MSSDK_V70_ROOT!" set "MSSDK_ROOT=!MSSDK_V70_ROOT!" && goto :skip_set_tools_path_mssdk
-if exist "!MSSDK_V70A_ROOT!" set "MSSDK_ROOT=!MSSDK_V70A_ROOT!" && goto :skip_set_tools_path_mssdk
-if exist "!MSSDK_V60A_ROOT!" set "MSSDK_ROOT=!MSSDK_V60A_ROOT!" && goto :skip_set_tools_path_mssdk
-if "x%QDKe_VAR_IS_XP%" != "xtrue" goto :skip_set_tools_path_mssdk
-if exist "!MSSDK_VXPSP2_ROOT!" set "MSSDK_ROOT=!MSSDK_VXPSP2_ROOT!" && goto :skip_set_tools_path_mssdk
-:skip_set_tools_path_mssdk
 :-------------------------------------
 :: MySQL
 :-------------------------------------
