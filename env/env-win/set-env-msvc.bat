@@ -34,7 +34,7 @@ set "QDKe_VAR_MSVS_VER_YEAR="
 if "x!QDKe_VAR_FORCE_MSVS_VER_YEAR!" == "x" (
   goto :skip_check_qdke_var_msvs_ver_year
 )
-if "x!QDKe_VAR_FORCE_MSVS_VER_YEAR!" != "xNone" (
+if "x!QDKe_VAR_FORCE_MSVS_VER_YEAR!" == "xNone" (
   goto :skip_check_qdke_var_msvs_ver_year
 )
 set "QDKe_VAR_MSVS_VER_YEAR=!QDKe_VAR_FORCE_MSVS_VER_YEAR!"
@@ -60,16 +60,16 @@ if "x!QDKe_VAR_MSVS_VER_YEAR!" == "x" (
 ::                      - v6.1  - v7.1  - 64bit
 if "x!QDKe_VAR_MSSDK_VER!" == "x" (
 	if "x!QDKe_VAR_MSVS_VER_YEAR!" == "x2008" (
-		set "QDKe_VAR_MSSDK_VER=V6.0A"
+		set "QDKe_VAR_MSSDK_VER=V60A"
 		if "x!QDKe_VAR_xCMD!" == "xx64" (
-			set "QDKe_VAR_MSSDK_VER=V6.1"
+			set "QDKe_VAR_MSSDK_VER=V61"
 		)
 		goto :prompt_set_qdke_var_mssdk_ver
 	)
 	if "x!QDKe_VAR_MSVS_VER_YEAR!" == "x2010" (
-		set "QDKe_VAR_MSSDK_VER=V7.0A"
+		set "QDKe_VAR_MSSDK_VER=V70A"
 		if "x!QDKe_VAR_xCMD!" == "xx64" (
-			set "QDKe_VAR_MSSDK_VER=V7.1"
+			set "QDKe_VAR_MSSDK_VER=V71"
 		)
 		goto :prompt_set_qdke_var_mssdk_ver
 	)
@@ -79,6 +79,7 @@ if "x!QDKe_VAR_MSSDK_VER!" == "x" (
 )
 :prompt_set_qdke_var_mssdk_ver
 echo [QDKe] - We Are Setting environment for using Microsoft Visual Studio !QDKe_VAR_MSVS_VER_YEAR! !QDKe_VAR_MSVC_ARCH! tools.
+echo [QDKe] - We Are Setting environment for using Microsoft Windows SDK !QDKe_VAR_MSSDK_VER! tools.
 :skip_set_qdke_var_mssdk_ver
 :----------------------------------------
 :: Microsoft Visual Studio
@@ -204,6 +205,10 @@ if "x!QDKe_VAR_xCMD!" == "xx32" (
 	set "PATH=!PATH!;!MSSDK_ROOT!/bin"
 )
 
+rem amd64 ia64
+rem x86_amd64 x86_ia64
+set "QDKe_VAR_MSVS_TOOL_ARCH=x86_amd64"
+
 if "x!QDKe_VAR_xCMD!" == "xx64" (
 	set "INCLUDE=!INCLUDE!;!MSVS_VC_ROOT!/include"
 	set "INCLUDE=!INCLUDE!;!QDKE_C_PGM_FILES_DIR!/VC/include"
@@ -212,7 +217,7 @@ if "x!QDKe_VAR_xCMD!" == "xx64" (
 	
 	set "LIB=!LIB!;!MSVS_VC_ROOT!/Lib/amd64"
 	rem set "LIB=!LIB!;!MSVS_VC_ROOT!/lib"
-	set "LIB=!LIB!;!MSSDK_ROOT!/Lib/X64"
+	set "LIB=!LIB!;!MSSDK_ROOT!/Lib/x64"
 	
 	set "LIBPATH=!LIBPATH!;!MSNETFX64_ROOT!/v3.5"
 	set "LIBPATH=!LIBPATH!;!MSNETFX_ROOT!/v3.5"
@@ -222,7 +227,7 @@ if "x!QDKe_VAR_xCMD!" == "xx64" (
 	set "PATH=!PATH!;!MSVS_VC_ROOT!/bin/amd64"
 	set "PATH=!PATH!;!MSVS_VC_ROOT!/VCPackages"
 	set "PATH=!PATH!;!MSVS_ROOT!/Common7/IDE"
-	set "PATH=!PATH!;!MSSDK_ROOT!/bin/X64"
+	set "PATH=!PATH!;!MSSDK_ROOT!/bin/x64"
 	set "PATH=!PATH!;!MSSDK_ROOT!/bin"
 	set "PATH=!PATH!;!MSNETFX64_ROOT!/v3.5"
 	set "PATH=!PATH!;!MSNETFX_ROOT!/v3.5"

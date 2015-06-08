@@ -37,6 +37,7 @@ if "x%QDKe_VAR_IS_XP%" == "xtrue" set "QDKE_D_PGM_FILES_DIR=%QDKE_XP_D_PGM_FILES
 :: Microsoft Windows SDK
 :: -----------------------------------
 call %~dp0set-env-msvc.bat
+echo [QDKe] - We Are Finishing settting MSVS and MSSDK Env.
 :-------------------------------------
 
 
