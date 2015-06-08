@@ -28,12 +28,14 @@ setlocal enabledelayedexpansion
 :-------------------------------------
 :--Default setting to false
 :--Default setting to true
+:Assumeing system detect
 rem None 2005 2008
-set QDKe_VAR_MSVS_VER_YEAR=2010
+set QDKe_VAR_FORCE_MSVS_VER_YEAR=2010
 :-------------------------------------
-rem Default setting to VXPSP2(WINXP) or V71(WIN7)
+rem Default setting to V60A(WINXP) or V71(WIN7)
+rem Depending On Variable QDKe_VAR_MSVS_VER_YEAR
 rem VXPSP2 V60A V70 V70A V71
-set QDKe_VAR_MSSDK_VER=V60A
+rem set QDKe_VAR_MSSDK_VER=V60A
 :-------------------------------------
 
 :: Checking QDKe Env

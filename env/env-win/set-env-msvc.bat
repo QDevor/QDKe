@@ -19,7 +19,7 @@ if "x%INCLUDE_SET_ENV_MSVC_BATCH%" == "xtrue" (
 	goto :EOF
 )
 :----------------RUN-ONCE----------------
-
+:----------------------------------------
 if "x!QDKE_C_PGM_FILES_DIR!" == "x" (
 	echo [QDKe] - [Error] - We Are Checking QDKE_C_PGM_FILES_DIR is not setting.
 	goto :EOF
@@ -27,6 +27,33 @@ if "x!QDKE_C_PGM_FILES_DIR!" == "x" (
 if "x!QDKE_D_PGM_FILES_DIR!" == "x" (
 	echo [QDKe] - [Error] - We Are Checking QDKE_D_PGM_FILES_DIR is not setting.
 	goto :EOF
+)
+:----------------------------------------
+set "QDKe_VAR_MSSDK_VER="
+set "QDKe_VAR_MSVS_VER_YEAR="
+if "x!QDKe_VAR_FORCE_MSVS_VER_YEAR!" == "x" (
+  goto :skip_check_qdke_var_msvs_ver_year
+)
+if "x!QDKe_VAR_FORCE_MSVS_VER_YEAR!" != "xNone" (
+  goto :skip_check_qdke_var_msvs_ver_year
+)
+set "QDKe_VAR_MSVS_VER_YEAR=!QDKe_VAR_FORCE_MSVS_VER_YEAR!"
+:skip_check_qdke_var_msvs_ver_year
+:----------------------------------------
+if "x!QDKe_VAR_MSVS_VER_YEAR!" == "x" (
+  if "x!QDKe_VAR_xCMD!" == "xx32" (
+    if "x!QDKe_VAR_IS_XP!" == "xtrue" (
+      set "QDKe_VAR_MSVS_VER_YEAR=2008"
+    ) else (
+      set "QDKe_VAR_MSVS_VER_YEAR=2010"
+    )
+  ) else (
+    if "x!QDKe_VAR_IS_XP!" == "xtrue" (
+      echo [QDKe] - We Are Checking Error on XP run the specified  MSVS x64 type.
+    ) else (
+      set "QDKe_VAR_MSVS_VER_YEAR=2010"
+    )
+  )
 )
 :----------------------------------------
 :: Microsoft Windows XP - v6.0A - v7.0A - 32bit
@@ -183,7 +210,7 @@ if "x!QDKe_VAR_xCMD!" == "xx64" (
 	set "INCLUDE=!INCLUDE!;!MSSDK_ROOT!/include"
 	set "INCLUDE=!INCLUDE!;!MSSDK_ROOT!/include/gl"
 	
-	set "LIB=!LIB!;!QDKE_C_PGM_FILES_DIR!/VC/Lib/amd64"
+	set "LIB=!LIB!;!MSVS_VC_ROOT!/Lib/amd64"
 	rem set "LIB=!LIB!;!MSVS_VC_ROOT!/lib"
 	set "LIB=!LIB!;!MSSDK_ROOT!/Lib/X64"
 	
