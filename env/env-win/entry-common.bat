@@ -32,9 +32,11 @@ call %~dp0set-extra-vars.bat
 :----------------------------------------
 call %~dp0check-dflt-vars.bat
 :----------------------------------------
-call %~dp0set-tools-path.bat
-call %~dp0add-tools-path.bat
-call %~dp0set-msys2-path.bat
+call %~dp0set-env-core.bat
+call %~dp0add-env-core.bat
+:----------------------------------------
+call %~dp0set-env-msys2.bat
+call %~dp0set-env-android.bat
 :----------------------------------------
 call %~dp0set-last-vars.bat
 rem call %~dp0unset-dflt-vars.bat

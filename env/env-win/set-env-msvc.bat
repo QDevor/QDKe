@@ -235,7 +235,7 @@ if "x!QDKe_VAR_xCMD!" == "xx64" (
 	set "PATH=!PATH!;!MSNETFX_ROOT!/v2.0.50727"
 )
 :----------------------------------------
-
+echo [QDKe] - We Are Finishing settting MSVS and MSSDK Env.
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_ENV_MSVC_BATCH=true
 :EOF

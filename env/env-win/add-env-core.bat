@@ -22,16 +22,6 @@ if "x%INCLUDE_ADD_TOOLS_PATH_BATCH%" == "xtrue" (
 
 :: Add Tools to PATH
 :----------------------------------------
-:: Microsoft Visual Studio
-:: Run vcvars32.bat at first
-:----------------------------------------
-
-:skip_add_tools_path_msvs
-:: Microsoft Platform SDK
-:----------------------------------------
-
-:skip_add_tools_path_mssdk
-:----------------------------------------
 
 :----------------------------------------
 :: Microsoft SQL Server
@@ -58,6 +48,10 @@ set "PATH=!PATH!;!JAVA_ROOT!/bin"
 set "PATH=!PYTHON_ROOT!;!PATH!"
 set "PATH=!PYTHON_ROOT!/Tools;!PATH!"
 set "PATH=!PYTHON_ROOT!/Scripts;!PATH!"
+:----------------------------------------
+:: Nodejs
+:----------------------------------------
+set "PATH=!NODEJS_ROOT!;!PATH!"
 :----------------------------------------
 
 :----------------------------------------

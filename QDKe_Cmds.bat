@@ -44,7 +44,7 @@ echo [QDKe] - We Are Checking QDKe Env.
 call env/env-win/entry-common.bat
 :-------------------------------------
 
-rem echo "%PATH%"
+echo "%PATH%"
 
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Start...
