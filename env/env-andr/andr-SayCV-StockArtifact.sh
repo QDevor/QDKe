@@ -47,23 +47,6 @@ qdev_setmore() {
 
 # qdev_get
 # qdev_check
-
-qdev_patch_smart() {
-	:
-	if [ -f $qdev_build_src/${FUNCNAME}-stamp ]; then
-		return 0
-	fi
-	
-	cd $qdev_build_src ||die
-	
-	# sdk.dir=?
-	needed_patch_file=$qdev_build_src/local.properties
-	sed -i -e "s/\(sdk.dir=\).*/\1$ANDROID_SDK_ROOT/" \
-		$needed_patch_file
-	
-	touch $qdev_build_src/${FUNCNAME}-stamp
-}
-
 # qdev_try
 # qdev_try_extra
 
@@ -98,7 +81,6 @@ qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
 qdev_get
 qdev_check
-qdev_patch_smart
 # qdev_try
 # qdev_try_extra
 qdev_tst

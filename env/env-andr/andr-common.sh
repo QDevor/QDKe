@@ -35,8 +35,36 @@ _andr_common_init() {
 	export QDEV_ANDR_WORK_HOME=$WORK_HOME/andr_home
 }
 
+andr_common_patch_local_properties() {
+	:
+	if [ -f $qdev_build_src/${FUNCNAME}-stamp ]; then
+		return 0
+	fi
+	
+	cd $qdev_build_src ||die
+	
+	# sdk.dir=?
+	needed_patch_file=$qdev_build_src/local.properties
+	if [ ! -f $needed_patch_file ]; then
+		return 0
+	fi
+	
+	_andr_sdk_root=$( \
+		cygpath -w $ANDROID_SDK_ROOT | \
+		sed -e "s,\\\,\\\\\\\,g" | \
+		sed -e "s,\\\,\\\\\\\,g" \
+	)
+	#echo $_andr_sdk_root
+	sed -i -e 's,\(sdk.dir=\).*,\1'$_andr_sdk_root',' \
+		$needed_patch_file
+	
+	touch $qdev_build_src/${FUNCNAME}-stamp
+}
+
 andr_gradle_buildDbg() {
 	:
+	andr_common_patch_local_properties ||die
+	
 	doloop=1
 	while [ $doloop = 1 ]; do
 		./gradlew assembleDebug 2>&1 | \
@@ -51,4 +79,5 @@ andr_gradle_buildDbg() {
 
 #----------------------------------------
 _andr_common_init
+# andr_common_patch_local_properties
 #----------------------------------------
