@@ -50,9 +50,9 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: andr-
+:: SayCV-StockArtifact
 :+++++++++++++++++++++++++++++++++++++
-set DJN=andr-
+set DJN=andr-SayCV-StockArtifact
 bash --login -i -c "../env/env-andr/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

@@ -87,7 +87,8 @@ _utils_git_checkArgs() {
 		# return 1
 	fi
 	# echo $1 $2 $3 $4
-	if [ $4 != "github" ] || \
+
+	if [ $4 != "github" ] && \
 	   [ $4 != "bitbucket" ] \
 	   ; then
 	   log_error "We Are Checking git host are not support."

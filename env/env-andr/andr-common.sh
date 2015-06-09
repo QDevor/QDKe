@@ -40,7 +40,7 @@ andr_gradle_buildDbg() {
 	doloop=1
 	while [ $doloop = 1 ]; do
 		./gradlew assembleDebug 2>&1 | \
-			tee $QDKE_LOGDIR/${PROGNAME}_${FUNCNAME}.log \
+			tee $QDKE_LOGDIR/${PROGNAME}_${FUNCNAME}.log
 		if [ $? = 0 ]; then
 			break;
 		fi

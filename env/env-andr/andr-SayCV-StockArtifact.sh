@@ -29,7 +29,7 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
-. $PROGDIR/../env-njs/njs-common.sh
+. $PROGDIR/../env-andr/andr-common.sh
 #----------------------------------------
 
 _njs_common_init() {
@@ -68,7 +68,7 @@ pkg_url=
 
 pkg_deps_njs=''
 #----------------------------------------
-work_home=$QDEV_NJS_WORK_HOME
+work_home=$QDEV_ANDR_WORK_HOME
 user_name=SayCV
 apps_name=StockArtifact
 apps_more=bitbucket
