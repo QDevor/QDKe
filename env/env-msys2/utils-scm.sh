@@ -56,9 +56,9 @@ scm_prepare() {
 	utils_scm_checkArgs $1 $2 $3 $4
 	
 	case $apps_more in
-		github)		    SCM_URL_0='https://github.com'
+		github)		    SCM_URL_0='https://github.com/'$user_name'/'$apps_name''
 						      ;;
-		bitbucket)		SCM_URL_0='https://bitbucket.com'
+		bitbucket)		SCM_URL_0='https://bitbucket.com/'$user_name'/'$apps_name''
 						      ;;
 		*)			log_error "We Are Checking SCM HOST are not support."
 		        return 1
@@ -137,8 +137,9 @@ scm_check_updateLast() {
   		log_warning "${FUNCNAME} - ${apps_name} -> update too frequently."
   		return 1
   	fi
+  	return 0
 	fi
-	return 0
+	return 1
 }
 #----------------------------------------
 scm_update() {
