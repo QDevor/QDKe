@@ -30,11 +30,11 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
-_njs_common_init() {
+_andr_common_init() {
 	:
-	export QDEV_NJS_WORK_HOME=$WORK_HOME/njs_home
+	export QDEV_ANDR_WORK_HOME=$WORK_HOME/andr_home
 }
 
 #----------------------------------------
-_njs_common_init
+_andr_common_init
 #----------------------------------------

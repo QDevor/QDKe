@@ -29,12 +29,57 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
+. $PROGDIR/../env-njs/njs-common.sh
+#----------------------------------------
 
 _njs_common_init() {
 	:
-	export QDEV_NJS_WORK_HOME=$WORK_HOME/njs_home
+
+}
+
+# qdev_init() {
+
+# qdev_set
+
+qdev_setmore() {
+	:
+}
+
+# qdev_get
+# qdev_check
+# qdev_try
+# qdev_try_extra
+qdev_tst() {
+	:
+	cd $qdev_build_src ||die
+	start o2o.cmd &
 }
 
 #----------------------------------------
-_njs_common_init
+#
+# Required and optional software
+#
+pkg=
+pkg_ver=
+pkg_file=$pkg-$pkg_ver
+pkg_ffile=$pkg_file.zip
+pkg_dir=$pkg-$pkg_ver
+pkg_url=
+
+pkg_deps_njs=''
+#----------------------------------------
+work_home=$QDEV_NJS_WORK_HOME
+user_name=SayCV
+apps_name=o2o-stock
+apps_more=github
+# Standard Source Distribution
+#----------------------------------------
+qdev_init
+qdev_set					$work_home $user_name $apps_name $apps_more
+qdev_setmore
+qdev_get
+qdev_check
+# qdev_try
+# qdev_try_extra
+qdev_tst
 #----------------------------------------
