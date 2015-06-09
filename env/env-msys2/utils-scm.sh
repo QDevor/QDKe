@@ -55,15 +55,17 @@ scm_prepare() {
 	
 	utils_scm_checkArgs $1 $2 $3 $4
 	
-	case $apps_more in
-		github)		    SCM_URL_0='https://github.com/'$user_name'/'$apps_name''
-						      ;;
-		bitbucket)		SCM_URL_0='https://bitbucket.com/'$user_name'/'$apps_name''
-						      ;;
-		*)			log_error "We Are Checking SCM HOST are not support."
-		        return 1
-							;;
-	esac
+	if [ -z $SCM_URL_0 ] && [ -z $SCM_URL_1 ];then
+  	case $apps_more in
+  		github)		    SCM_URL_0='https://github.com/'$user_name'/'$apps_name''
+  						      ;;
+  		bitbucket)		SCM_URL_0='https://bitbucket.com/'$user_name'/'$apps_name''
+  						      ;;
+  		*)			log_error "We Are Checking SCM HOST are not support."
+  		        return 1
+  							;;
+  	esac
+	fi
 	
 	case $scm_type in
 		cvs)		SCM_URL_0=cvs
