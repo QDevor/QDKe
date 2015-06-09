@@ -52,7 +52,7 @@ qdev_setmore() {
 qdev_tst() {
 	:
 	cd $qdev_build_src ||die
-	start o2o.cmd &
+	andr_gradle_buildDbg ||die
 }
 
 #----------------------------------------
@@ -70,8 +70,8 @@ pkg_deps_njs=''
 #----------------------------------------
 work_home=$QDEV_NJS_WORK_HOME
 user_name=SayCV
-apps_name=o2o-stock
-apps_more=github
+apps_name=StockArtifact
+apps_more=bitbucket
 # Standard Source Distribution
 #----------------------------------------
 qdev_init

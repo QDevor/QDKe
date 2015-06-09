@@ -65,7 +65,7 @@ utils_git_set() {
 	fi
 }
 
-utils_git_check() {
+utils_git_checkUser() {
 	global_name=$(git config --global user.name)
 	global_email=$(git config --global user.email)
 	repository_name=$(git config user.name)
@@ -80,10 +80,109 @@ utils_git_check() {
 	exit 0
 	fi 
 }
+#----------------------------------------
+_utils_git_checkArgs() {
+	if [[ $# -lt 4 ]]; then
+		log_error "We Are Checking arguments mismatch."
+		# return 1
+	fi
+	# echo $1 $2 $3 $4
+	if [ $4 != "github" ] || \
+	   [ $4 != "bitbucket" ] \
+	   ; then
+	   log_error "We Are Checking git host are not support."
+	fi
+	
+	scm_host='https://'$4'.com'
+	
+	return 0
+}
+# $1 - work_home, $2 - user_name, $3 - apps_name $4 - apps_more
+utils_git_cloneWithResume () {
+	_utils_git_checkArgs $1 $2 $3 $4
+	work_home=$1
+	user_name=$2
+	apps_name=$3
+	apps_more=$4
+	
+	log_info "$FUNCNAME"
+	cd $work_home || die
+	
+	if [ ! -d $user_name/$apps_name/$apps_more ]; then
+		cd $work_home || die
+		mkdir -p $user_name/$apps_name/$apps_more > /dev/null 2>&1
+		cd $user_name/$apps_name/$apps_more || die
+		#set HOME=`pwd`
+		
+		git init
+		
+		doloop=1
+		while [ $doloop = 1 ]; do
+			#  git fetch https://github.com/google/zopfli
+			log_info "$scm_host/$user_name/$apps_name."
+			git fetch $scm_host/$user_name/$apps_name
+			
+			if [ $? = 0 ]; then
+				git remote add origin $scm_host/$user_name/$apps_name
+				# git fetch -v "origin"
+				# git checkout -b master remotes/origin/master --
+				git checkout FETCH_HEAD
+				# git fetch https://github.com/google/zopfli HEAD
+				log_warning "$user_name/$apps_name/$apps_more - clone successful."
+				break;
+			fi
+			log_warning "$user_name/$apps_name/$apps_more - clone failed - will run again."
+			log_warning "$?"
+			sleep 1
+		done
+	else
+		log_warning "$user_name/$apps_name/$apps_more - cloned formerly."
+	fi
+	
+	return 0
+}
 
+# $1 - work_home, $2 - user_name, $3 - apps_name $4 - apps_more
+utils_git_updateWithResume() {
+	_utils_git_checkArgs $1 $2 $3 $4
+	work_home=$1
+	user_name=$2
+	apps_name=$3
+	apps_more=$4
+	
+	check_file=$work_home/$user_name/$apps_name/$apps_more/.git/FETCH_HEAD
+	if [ -f $check_file ]; then
+  	current_datetime=`date +%d`
+  	filedate=`stat $check_file | grep Modify | awk '{print $2}'`
+  	filetime=`stat $check_file | grep Modify | awk '{split($3,var,".");print var[1]}'`
+  	file_datetime=`date -d "$filedate $filetime" +%d`
+  	timedelta=`expr $current_datetime - $file_datetime`
+  	#if [ "$timedelta" -gt "180" ];then
+  	if [ ! "$timedelta" -gt "30" ];then
+  		log_warning "$user_name/$apps_name/$apps_more - update too frequently."
+  		return 0
+  	fi
+	fi
+	
+	log_info "$FUNCNAME"
+	cd $work_home || die
+	cd $user_name/$apps_name/github || die
+	
+	#git pull -v --progress  "origin"
+	git fetch $scm_host/$user_name/$apps_name HEAD
+	git show-branch --list --reflog=1
+	
+	if [[ $? == "0" ]]; then
+		log_warning "$user_name/$apps_name/$apps_more - update successful."
+		return 0
+	else
+		log_warning "$user_name/$apps_name/$apps_more - update failed."
+		log_warning "$?"
+		return 1
+	fi
+}
+#----------------------------------------
 _utils_git_init
-
 work_home=$QDKE_ROOT && utils_git_set
-
-# utils_git_check
-
+# utils_git_checkUser
+#----------------------------------------

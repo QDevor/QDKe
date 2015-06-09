@@ -51,8 +51,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/ready-msys2.sh
 #----------------------------------------
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-extract.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
-. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-scm.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-patch.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-msys2.sh
 if [ x$QDKe_VAR_PYTHON_TYPE = "xMiniconda" ]; then

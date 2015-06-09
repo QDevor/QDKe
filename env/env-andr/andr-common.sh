@@ -35,6 +35,20 @@ _andr_common_init() {
 	export QDEV_ANDR_WORK_HOME=$WORK_HOME/andr_home
 }
 
+andr_gradle_buildDbg() {
+	:
+	doloop=1
+	while [ $doloop = 1 ]; do
+		./gradlew assembleDebug 2>&1 | \
+			tee $QDKE_LOGDIR/${PROGNAME}_${FUNCNAME}.log \
+		if [ $? = 0 ]; then
+			break;
+		fi
+		log_warning "${PROGNAME}_${FUNCNAME} - Build failed - auto try again."
+		sleep 3	
+	done
+}
+
 #----------------------------------------
 _andr_common_init
 #----------------------------------------

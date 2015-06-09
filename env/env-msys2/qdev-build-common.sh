@@ -101,8 +101,8 @@ qdev_set() {
 }
 
 qdev_get() {
-	utils_github_cloneWithResume   $work_home $user_name $apps_name
-	utils_github_updateWithResume  $work_home $user_name $apps_name
+	utils_git_cloneWithResume   $work_home $user_name $apps_name $apps_more
+	utils_git_updateWithResume  $work_home $user_name $apps_name $apps_more
 }
 
 qdev_check() {
