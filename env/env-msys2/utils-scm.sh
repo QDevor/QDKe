@@ -23,18 +23,18 @@ FILENAME=`basename $0`
 PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 #----------------------------------------
-if [ x&scm_type = "x" ]; then
+if [ x$scm_type = "x" ]; then
   scm_type=git
 fi
 
-if [ x&scm_type = "xgit" ]; then
+if [ x$scm_type = "xgit" ]; then
 :
 #. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
 #. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
 #. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
-elif [ x&scm_type = "xcvs" ]; then
+elif [ x$scm_type = "xcvs" ]; then
 :
-elif [ x&scm_type = "xhg" ]; then
+elif [ x$scm_type = "xhg" ]; then
 :
 fi
 #----------------------------------------
@@ -44,25 +44,29 @@ utils_scm_checkArgs() {
 		# return 1
 	fi
 	# echo $1 $2 $3 $4
-
-	if [ $4 != "github" ] && \
-	   [ $4 != "bitbucket" ] \
-	   ; then
-	   log_error "We Are Checking SCM HOST are not support."
-	fi
-	
-	scm_host='https://'$4'.com'
 	
 	return 0
 }
 #----------------------------------------
 scm_prepare() {
-  scm_work_home=$user_name/$apps_name/$apps_more
+  scm_work_home=$work_home/$user_name/$apps_name/$apps_more
+	[ -d $scm_work_home ] || mkdir -p $scm_work_home > /dev/null 2>&1
+	#echo $scm_work_home
 	
 	utils_scm_checkArgs $1 $2 $3 $4
 	
+	case $apps_more in
+		github)		    SCM_URL_0='https://github.com'
+						      ;;
+		bitbucket)		SCM_URL_0='https://bitbucket.com'
+						      ;;
+		*)			log_error "We Are Checking SCM HOST are not support."
+		        return 1
+							;;
+	esac
+	
 	case $scm_type in
-		cvs)		SCM_EXE=cvs
+		cvs)		SCM_URL_0=cvs
 						SCM_TAG=.$SCM_EXE;;
 		svn)		SCM_EXE=svn
 						SCM_TAG=.$SCM_EXE;;
@@ -76,7 +80,7 @@ scm_prepare() {
 	esac
 	
 	if [ -d "$scm_work_home/${SCM_TAG}" ]; then
-		log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Has cloned."
+		log_warning "${FUNCNAME} - ${apps_name} -> Has cloned."
 		return 1
 	fi
 	
@@ -85,23 +89,23 @@ scm_prepare() {
 	elif [ -n "${SCM_URL_1}" ]; then
     SCM_URL=${SCM_URL_1}
   else
-    log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Ignored."
+    log_warning "${FUNCNAME} - ${apps_name} -> Ignored."
     return 1
   fi
 }
 #----------------------------------------
 scm_clone() {
-	log_headline "${FUNCNAME} - ${PROGNAME} - ${apps_name}"
+	log_info "${FUNCNAME} - ${apps_name}"
 	
 	export MDK_CLONE_REPO_DONE_BEFORE=1
-	scm_prepare
+	scm_prepare $1 $2 $3 $4
 	if [ $? == "1" ]; then
 	  return 1
 	fi
 	
-	log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Try clone source."
+	log_warning "${FUNCNAME} - ${apps_name} -> Try clone source."
 	cd $scm_work_home ||die
-#	log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Cleaning directory to clone."
+#	log_warning "${FUNCNAME} - ${apps_name} -> Cleaning directory to clone."
 #	rm -rf *
 	
 	if [ x$scm_type = "xgit" ]; then
@@ -114,7 +118,7 @@ scm_clone() {
 	  $SCM_EXE clone ${SCM_URL} .
 	fi
 	
-	log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Clone done."
+	log_warning "${FUNCNAME} - ${apps_name} -> Clone done."
 	
 	return 0
 }
@@ -130,7 +134,7 @@ scm_check_updateLast() {
   	timedelta=`expr $current_datetime - $file_datetime`
   	#if [ "$timedelta" -gt "180" ];then
   	if [ ! "$timedelta" -gt "30" ];then
-  		log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> update too frequently."
+  		log_warning "${FUNCNAME} - ${apps_name} -> update too frequently."
   		return 1
   	fi
 	fi
@@ -138,9 +142,9 @@ scm_check_updateLast() {
 }
 #----------------------------------------
 scm_update() {
-	log_headline "${FUNCNAME} - ${PROGNAME} - ${apps_name}"
+	log_info "${FUNCNAME} - ${apps_name}"
   
-	scm_prepare
+	scm_prepare $1 $2 $3 $4
 	if [ $? == "1" ]; then
 	  return 1
 	fi
@@ -150,7 +154,7 @@ scm_update() {
 	  return 1
 	fi
 	
-	log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Try Updating source."
+	log_warning "${FUNCNAME} - ${apps_name} -> Try Updating source."
 	cd $scm_work_home ||die
 	
 	if [ x$scm_type = "xgit" ]; then
@@ -162,7 +166,7 @@ scm_update() {
 	  $SCM_EXE update ${SCM_URL} .
 	fi
 	
-	log_warning "${FUNCNAME} - ${PROGNAME} - ${apps_name} -> Updating done."
+	log_warning "${FUNCNAME} - ${apps_name} -> Updating done."
 	
 	return 0
 }
