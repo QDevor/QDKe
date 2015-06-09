@@ -23,19 +23,11 @@ FILENAME=`basename $0`
 PROGTYPE=${FILENAME#*.}
 PROGNAME=${FILENAME%.*}
 #----------------------------------------
+. $_PGMDIR_ENTRY_COMMON/env-msys2/ready-git.sh
+#----------------------------------------
+#----------------------------------------
 if [ x$scm_type = "x" ]; then
   scm_type=git
-fi
-
-if [ x$scm_type = "xgit" ]; then
-:
-#. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-git.sh
-#. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
-#. $_PGMDIR_ENTRY_COMMON/env-msys2/utils-github.sh
-elif [ x$scm_type = "xcvs" ]; then
-:
-elif [ x$scm_type = "xhg" ]; then
-:
 fi
 #----------------------------------------
 utils_scm_checkArgs() {

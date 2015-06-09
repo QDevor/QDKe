@@ -37,6 +37,28 @@ _utils_git_init() {
 	
 	alias gc='git commit'
 	alias gcv='git commit --no-verify'
+	
+	if [[ "$USERNAME" == "" || "$USEREMAIL" == "" ]]; then
+		log_error "We Are Checking USERNAME and USEREMAIL - NULL."
+		# return 1
+	fi
+	
+	if [ x$QDKe_HOST_OS = "xLinux" ]; then
+		_gitconfig=$HOME/.gitconfig
+	else
+		_gitconfig=$WORK_HOME/.gitconfig
+	fi
+
+	if [[ ! -f $_gitconfig ]]; then
+		log_info "We Are Creating $WORK_HOME/.gitconfig."
+		echo "[user]"                    >$_gitconfig
+		echo "	name = $USERNAME"       >>$_gitconfig
+		echo "	email = $USEREMAIL"     >>$_gitconfig
+		echo "[core]"                   >>$_gitconfig
+		echo "	autocrlf = false"       >>$_gitconfig
+	else
+		log_info "We Are Finding $WORK_HOME/.gitconfig."	
+	fi
 }
 
 utils_git_set() {
