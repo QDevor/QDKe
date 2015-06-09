@@ -107,8 +107,10 @@ scm_clone() {
 	cd $scm_work_home ||die
 #	log_warning "${FUNCNAME} - ${apps_name} -> Cleaning directory to clone."
 #	rm -rf *
+	pwd
 	
 	if [ x$scm_type = "xgit" ]; then
+	  $SCM_EXE init
 	  $SCM_EXE fetch ${SCM_URL}
 	  $SCM_EXE remote add origin ${SCM_URL}
 		# git fetch -v "origin"
@@ -157,6 +159,7 @@ scm_update() {
 	
 	log_warning "${FUNCNAME} - ${apps_name} -> Try Updating source."
 	cd $scm_work_home ||die
+	pwd
 	
 	if [ x$scm_type = "xgit" ]; then
 	  #git pull -v --progress  "origin"
