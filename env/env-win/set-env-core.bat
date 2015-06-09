@@ -54,14 +54,16 @@ if "x!QDKe_VAR_IS_XP!" == "xtrue" (
 )
 :-------------------------------------
 :: JAVA
+:: Windows XP not support up to 1.8
 :-------------------------------------
 set "JDK16_VER=1.6"
-set "JDK17_VER=1.7"
+set "JDK17_VER=1.7.0_79"
 set "JDK18_VER=1.8.0_45"
-if "x!QDKe_VAR_IS_XP!" == "xtrue" (
-  set "JDK18_VER=1.8.0_45"
-)
+
 set "JDK_VER=!JDK18_VER!"
+if "x!QDKe_VAR_IS_XP!" == "xtrue" (
+  set "JDK_VER=!JDK17_VER!"
+)
 
 rem set "JRE_HOME=!JAVA_ROOT!/jre"
 set "JRE_HOME=!QDK_ROOT!/Java/jre!JDK_VER!"
