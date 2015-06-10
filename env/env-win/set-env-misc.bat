@@ -31,30 +31,6 @@ set "GOPATH=!QDKE_HOME!/go_home"
 set "PATH=!PATH!;!GOPATH!/bin"
 set "PATH=!PATH!;!GOROOT!/bin"
 set "PATH=!PATH!;!GOROOT!/pkg/tool/windows_386"
-rem goto :skip_check_version_golang
-set "checkVerPrompt=[Checking] - Golang"
-set "checkVerPrompt=!checkVerPrompt!!QDKe_VAR_SPACE_30!"
-set "checkVerPrompt=!checkVerPrompt:~0,25! -"
-set print_version=go version
-set version=
-!print_version! >nul 2>&1
-	if not "!errorlevel!" == "9009" (
-		set _token_counts=0
-		for /F "usebackq tokens=1,2* delims= " %%v in (`!print_version!`) do (
-			if !_token_counts! == 0 (
-				set version=%%x
-			)
-			set /a _token_counts=!_token_counts!+1
-		)
-		rem set version=!version:~8,42!
-	)
-	
-	if not "x!version!" == "x" (
-		echo !checkVerPrompt! !version!.
-	) else (
-		echo !checkVerPrompt! !QDKe_VAR_UNKOWN_VERSION!.
-	)
-:skip_check_version_golang
 :-------------------------------------
 
 :-------------------------------------
@@ -62,30 +38,6 @@ set version=
 :-------------------------------------
 set "RUST_ROOT=!QDK_ROOT!/Rust"
 set "PATH=!PATH!;!RUST_ROOT!/bin"
-rem goto :skip_check_version_rust
-set "checkVerPrompt=[Checking] - Rust"
-set "checkVerPrompt=!checkVerPrompt!!QDKe_VAR_SPACE_30!"
-set "checkVerPrompt=!checkVerPrompt:~0,25! -"
-set print_version=rust --version
-set version=
-!print_version! >nul 2>&1
-	if not "!errorlevel!" == "9009" (
-		set _token_counts=0
-		for /F "usebackq tokens=1* delims= " %%v in (`!print_version!`) do (
-			if !_token_counts! == 0 (
-				set version=%%v%%w
-			)
-			set /a _token_counts=!_token_counts!+1
-		)
-		rem set version=!version:~8,42!
-	)
-	
-	if not "x!version!" == "x" (
-		echo !checkVerPrompt! !version!.
-	) else (
-		echo !checkVerPrompt! !QDKe_VAR_UNKOWN_VERSION!.
-	)
-:skip_check_version_rust
 :-------------------------------------
 
 :-------------------------------------

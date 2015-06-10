@@ -39,6 +39,7 @@ call %~dp0set-env-msys2.bat
 call %~dp0set-env-android.bat
 call %~dp0set-env-misc.bat
 :----------------------------------------
+call %~dp0check-env-ver.bat
 call %~dp0set-last-vars.bat
 rem call %~dp0unset-dflt-vars.bat
 :----------------RUN-ONCE----------------
