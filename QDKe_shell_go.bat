@@ -51,9 +51,9 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: michaeldv-mop
+:: michaeldv-mop ProfessorBeekums-PbStockResearcher
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-michaeldv-mop
+set DJN=go-ProfessorBeekums-PbStockResearcher
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

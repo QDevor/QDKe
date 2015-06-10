@@ -59,8 +59,8 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-go install github.com/michaeldv/mop/cmd
-mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
+rem go install github.com/michaeldv/mop/cmd
+rem mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
 !PGM_NAME!
