@@ -22,6 +22,9 @@ if "x%INCLUDE_SET_EXTRA_VARS_BATCH%" == "xtrue" (
 
 :: Setting extra-vars
 :----------------------------------------
+set "QDKe_VAR_SPACE_30=                              "
+set "QDKe_VAR_UNKOWN_VERSION=Unkown Version"
+:----------------------------------------
 set "ORIGIN_USERNAME=%USERNAME%"
 set "ORIGIN_HOMEPATH=%HOMEPATH%"
 set "ORIGIN_USERPROFILE=%USERPROFILE%"
