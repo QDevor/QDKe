@@ -1,6 +1,28 @@
+ PbStockScraper.go     |  2 +-
+ devConfig             |  1 +
  tmpStore/TempStore.go | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ 3 files changed, 15 insertions(+), 6 deletions(-)
 
+diff --git a/PbStockScraper.go b/PbStockScraper.go
+index ed5df3d..515d4a1 100644
+--- a/PbStockScraper.go
++++ b/PbStockScraper.go
+@@ -22,7 +22,7 @@ func main() {
+ 
+ 	flag.Parse()
+ 
+-	c := config.NewConfig("/home/beekums/Projects/stockResearch/config")
++	c := config.NewConfig("devConfig")
+ 
+ 	log.Println("Loaded config: ", c)
+ 
+diff --git a/devConfig b/devConfig
+new file mode 100644
+index 0000000..c652dfd
+--- /dev/null
++++ b/devConfig
+@@ -0,0 +1 @@
++{ "TmpDir":"pbsrtmp", "MysqlDb":"mystock", "MysqlUser":"root", "MysqlPass":"123456" }
 diff --git a/tmpStore/TempStore.go b/tmpStore/TempStore.go
 index 6fab746..75b4015 100644
 --- a/tmpStore/TempStore.go
