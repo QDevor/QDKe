@@ -45,7 +45,7 @@ if not exist !PGM_NAME!-patch-stamp (
   	patch -f -p0 -u <!QDKE_PATCHDIR!/%%a
   )
 	cd !PGM_WORK_HOME!
-	touch !PGM_NAME!-patch-stamp
+	touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )
 :----------------------------------------
 cd !PGM_WORK_HOME!
