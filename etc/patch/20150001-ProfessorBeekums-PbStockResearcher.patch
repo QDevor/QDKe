@@ -1,8 +1,8 @@
- tmpStore/TempStore.go | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ tmpStore/TempStore.go | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
 diff --git a/tmpStore/TempStore.go b/tmpStore/TempStore.go
-index 6fab746..50a6774 100644
+index 6fab746..75b4015 100644
 --- a/tmpStore/TempStore.go
 +++ b/tmpStore/TempStore.go
 @@ -5,6 +5,7 @@ import (
@@ -13,7 +13,7 @@ index 6fab746..50a6774 100644
  	"syscall"
  )
  
-@@ -69,11 +70,19 @@ func (ts *TempStore) getDirPath(bucket string) string {
+@@ -69,11 +70,18 @@ func (ts *TempStore) getDirPath(bucket string) string {
  }
  
  func getPercentDiskFree(dir string) float64 {
@@ -23,18 +23,17 @@ index 6fab746..50a6774 100644
 -	free := float64(stat.Bfree * uint64(stat.Bsize))
 -	total := float64(stat.Blocks * uint64(stat.Bsize))
 +	h := syscall.MustLoadDLL("kernel32.dll")
-+	c := h.MustFindProc("GetDiskFreeSpaceExW")
-+	lpFreeBytesAvailable := int64(0)
-+	lpTotalNumberOfBytes := int64(0)
-+	lpTotalNumberOfFreeBytes := int64(0)
-+	c.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr("F:"))),
-+	    uintptr(unsafe.Pointer(&lpFreeBytesAvailable)),
-+	    uintptr(unsafe.Pointer(&lpTotalNumberOfBytes)),
-+	    uintptr(unsafe.Pointer(&lpTotalNumberOfFreeBytes)))
-+	
-+	free := float64(lpTotalNumberOfFreeBytes)
-+	total := float64(lpTotalNumberOfBytes)
-+	
++  c := h.MustFindProc("GetDiskFreeSpaceExW")
++  lpFreeBytesAvailable := int64(0)
++  lpTotalNumberOfBytes := int64(0)
++  lpTotalNumberOfFreeBytes := int64(0)
++  c.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr("F:"))),
++      uintptr(unsafe.Pointer(&lpFreeBytesAvailable)),
++      uintptr(unsafe.Pointer(&lpTotalNumberOfBytes)),
++      uintptr(unsafe.Pointer(&lpTotalNumberOfFreeBytes)))
++  
++  free := float64(lpTotalNumberOfFreeBytes)
++  total := float64(lpTotalNumberOfBytes)
  
  	return free / total
  }

@@ -99,7 +99,7 @@ set "QDKE_VAR=!QDKE_VAR:%_old_char%=%_new_char%!"
 set "QDKE_ETC=!QDKE_ETC:%_old_char%=%_new_char%!"
 
 set "QDKE_STAMPDIR=!QDKE_STAMPDIR:%_old_char%=%_new_char%!"
-set "QDKE_LOGDIR=!QDKE_LOGIDR:%_old_char%=%_new_char%!"
+set "QDKE_LOGDIR=!QDKE_LOGDIR:%_old_char%=%_new_char%!"
 set "QDKE_PATCHDIR=!QDKE_PATCHDIR:%_old_char%=%_new_char%!"
 :-------------------------------------
 

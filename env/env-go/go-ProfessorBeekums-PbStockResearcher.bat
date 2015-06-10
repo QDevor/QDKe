@@ -42,7 +42,7 @@ if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Patching  - !PGM_USER!/!PGM_NAME!.
 	cd !QDKE_PATCHDIR!
 	for /f "delims=" %%a in ('dir /b *-%PGM_USER%-%PGM_NAME%*.patch') do (
-  	patch -f -p0 -u <!QDKE_PATCHDIR!/%%a
+  	cd !PGM_WORK_HOME! && patch -f -p1 -u <!QDKE_PATCHDIR!/%%a
   )
 	cd !PGM_WORK_HOME!
 	touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
