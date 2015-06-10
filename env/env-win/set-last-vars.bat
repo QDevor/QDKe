@@ -22,6 +22,11 @@ if "x%INCLUDE_SET_LAST_VARS_BATCH%" == "xtrue" (
 
 :: Setting last-vars
 :----------------------------------------
+set "QDK_STAMPDIR=%MSYS_ROOT%/var/ready_qdk"
+set "_win_QDK_STAMPDIR=%QDK_STAMPDIR%"
+set "_win_QDK_STAMPDIR=!_win_QDK_STAMPDIR:/=\!"
+if not exist %_win_QDK_STAMPDIR% mkdir %_win_QDK_STAMPDIR% >nul 2>&1
+:----------------------------------------
 :: ready python
 :----------------------------------------
 set "PYTHONPATH=%LIBPATH%"

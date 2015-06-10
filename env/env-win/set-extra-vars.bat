@@ -25,6 +25,9 @@ if "x%INCLUDE_SET_EXTRA_VARS_BATCH%" == "xtrue" (
 set "QDKe_VAR_SPACE_30=                              "
 set "QDKe_VAR_UNKOWN_VERSION=Unkown Version"
 :----------------------------------------
+set "QDKe_VAR_DATE_DIFF=date -t"
+set "QDKe_VAR_DATE_DIFF=!QDKe_VAR_DATE_DIFF:~0,3!"
+:----------------------------------------
 set "ORIGIN_USERNAME=%USERNAME%"
 set "ORIGIN_HOMEPATH=%HOMEPATH%"
 set "ORIGIN_USERPROFILE=%USERPROFILE%"
@@ -49,9 +52,9 @@ call %QDKE_ENV%/env-win/check-dirs-exist.bat %args%
 :----------------------------------------
 :: common include, lib
 :----------------------------------------
-set "INCLUDE=%QDK_OPT_DIR%/include"
-rem set "LIB=%QDK_OPT_DIR%/lib"
-set "LIBPATH=%QDK_OPT_DIR%/lib"
+set "INCLUDE=%QDK_OPTDIR%/include"
+rem set "LIB=%QDK_OPTDIR%/lib"
+set "LIBPATH=%QDK_OPTDIR%/lib"
 
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_EXTRA_VARS_BATCH=true

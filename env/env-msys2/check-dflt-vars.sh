@@ -27,6 +27,8 @@ _FN_CHECK_DFLT_VARS=`basename $0`
 _FNTYPE_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS#*.}
 _FNNAME_CHECK_DFLT_VARS=${_FN_CHECK_DFLT_VARS%.*}
 #----------------------------------------
+#	export QDKe_VAR_DATE_DIFF=$(date +%Y%m%d)
+export QDKe_VAR_DATE_DIFF=$(date +%Y)
 
 #----------------RUN-ONCE----------------
 export INCLUDE_CHECK_DFLT_VARS_SCRIPT=true

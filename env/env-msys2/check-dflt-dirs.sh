@@ -46,10 +46,11 @@ fi
 export QDK_ROOT=`cygpath -u $QDK_ROOT`
 export QDK_OPT_DIR=$QDK_ROOT/opt
 
-export QDK_STAMP_DIR=/var/ready_qdk
-export QDKE_STAMP_DIR=$QDKE_VAR/ready_qdke
+export QDK_STAMPDIR=/var/ready_qdk
+export QDKE_STAMPDIR=$QDKE_VAR/ready_qdke
 export QDKE_LOGDIR=$QDKE_VAR/log
-	
+export QDKE_PATCHDIR=$QDKE_ETC/patch
+
 export WORK_HOME=$QDKE_HOME
 export HOME=$WORK_HOME
 export TEMP=$QDKE_TMP

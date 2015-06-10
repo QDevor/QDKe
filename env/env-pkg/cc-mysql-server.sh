@@ -41,10 +41,10 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-$PROGNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
 		# utils_msys2_installByPacman m4 bison
 		utils_msys2_installByPacman boost
-		touch $QDK_STAMP_DIR/$FUNCNAME-$PROGNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp
 	fi
 }
 

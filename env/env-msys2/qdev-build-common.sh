@@ -36,19 +36,19 @@ PROGNAME=${FILENAME%.*}
 #----------------------------------------
 
 _qdev_build_lookup_gcc_predefined_macro() {
-	if [ ! -f $QDKE_STAMP_DIR/$FUNCNAME-stamp-gcc ]; then
+	if [ ! -f $QDKE_STAMPDIR/$FUNCNAME-stamp-gcc ]; then
 		local src_file=lookup_gcc_predefined_macro.c
 		echo "int main(void) {}" >$QDKE_TMP/$src_file
 		$1gcc -dM -E $QDKE_TMP/$src_file \
 			>$QDKE_ETC/current_gcc_predefined_macro || die
-		touch $QDKE_STAMP_DIR/$FUNCNAME-stamp-gcc
+		touch $QDKE_STAMPDIR/$FUNCNAME-stamp-gcc
 	fi
-	if [ ! -f $QDKE_STAMP_DIR/$FUNCNAME-stamp-g++ ]; then
+	if [ ! -f $QDKE_STAMPDIR/$FUNCNAME-stamp-g++ ]; then
 		local src_file=lookup_gcc_predefined_macro.cc
 		echo "int main(void) {}" >$QDKE_TMP/$src_file
 		$1g++ -dM -E $QDKE_TMP/$src_file \
 			>$QDKE_ETC/current_g++_predefined_macro || die
-		touch $QDKE_STAMP_DIR/$FUNCNAME-stamp-g++
+		touch $QDKE_STAMPDIR/$FUNCNAME-stamp-g++
 	fi
 }
 

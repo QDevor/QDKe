@@ -32,9 +32,21 @@ set "PGM_HOST=github.com"
 set "PGM_WORK_HOME=!GOPATH!/src/!PGM_HOST!/!PGM_USER!/!PGM_NAME!"
 set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
-echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
-echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
-go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
+echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
+:----------------------------------------
+echo [Building][Go] - Cloneing  - !PGM_USER!/!PGM_NAME!.
+go get !PGM_HOST!/!PGM_USER!/!PGM_NAME! ||goto :EOF
+:----------------------------------------
+cd !PGM_WORK_HOME! ||goto :EOF
+if not exist !PGM_NAME!-patch-stamp (
+	echo [Building][Go] - Patching  - !PGM_USER!/!PGM_NAME!.
+	cd !QDKE_PATCHDIR!
+	for /f "delims=" %%a in ('dir /b *-%PGM_USER%-%PGM_NAME%*.patch') do (
+  	patch -f -p0 -u <!QDKE_PATCHDIR!/%%a
+  )
+	cd !PGM_WORK_HOME!
+	touch !PGM_NAME!-patch-stamp
+)
 :----------------------------------------
 cd !PGM_WORK_HOME!
 dir *.ui >nul 2>&1
@@ -69,7 +81,7 @@ go run PbStockScraper.go -year=2011 -quarter=1 2>!QDKE_LOGIDR!/stockResearch.err
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
 :----------------------------------------
-
+echo [Building][Go] - Ending    - !PGM_BATCH_FILE!.
 :----------------RUN-ONCE----------------
 set INCLUDE_GO_INSTRANCE_BATCH=true
 :EOF
