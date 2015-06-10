@@ -35,7 +35,7 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
 echo [Building][Go] - Cloneing  - !PGM_USER!/!PGM_NAME!.
-go get !PGM_HOST!/!PGM_USER!/!PGM_NAME! ||goto :EOF
+go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
 :----------------------------------------
 cd !PGM_WORK_HOME! ||goto :EOF
 if not exist !PGM_NAME!-patch-stamp (
