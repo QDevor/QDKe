@@ -76,7 +76,7 @@ rem mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
 rem !PGM_NAME!
-go run PbStockScraper.go -year=2011 -quarter=1 2>!QDKE_LOGIDR!/stockResearch.err 1>!QDKE_LOGIDR!/stockResearch.out &
+go run PbStockScraper.go -year=2011 -quarter=1 2>!QDKE_LOGDIR!/stockResearch.err 1>!QDKE_LOGDIR!/stockResearch.out &
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
