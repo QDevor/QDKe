@@ -26,7 +26,7 @@ if "x%INCLUDE_SET_ENV_MISC_BATCH%" == "xtrue" (
 :-------------------------------------
 :: Golang
 :-------------------------------------
-set "GOROOT=!QDK_ROOT!/go"
+set "GOROOT=!MINGW_ROOT!/bin"
 set "GOPATH=!QDKE_HOME!/go_home"
 set "PATH=!PATH!;!GOPATH!/bin"
 set "PATH=!PATH!;!GOROOT!/bin"
