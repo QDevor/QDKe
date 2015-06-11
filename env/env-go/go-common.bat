@@ -29,14 +29,14 @@ set "PGM_GOPKG_HOST=gopkg.in"
 set "PGM_GITHUB_HOST=github.com"
 set "PGM_HOST=!PGM_GITHUB_HOST!"
 :----------------------------------------
-if not exist !QDKE_STAMPDIR!/!PGM_NAME!-patch-stamp (
+if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
 	echo [Go] - Cloneing  - Common Deps - golang.org x libs.
 	go get !PGM_HOST!/zieckey/golang.org
 	cp -rf !GOPATH!/src/!PGM_HOST!/zieckey/golang.org !GOPATH!/src/!PGM_GOLANG_HOST! ||goto :EOF
 	echo [Go] - Cloneing  - Common Deps - gopkg.in libs.
 	rem go get !PGM_GOPKG_HOST!
 	
-	touch !QDKE_STAMPDIR!/!PGM_NAME!-patch-stamp
+	touch !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
 echo [Go] - Cloneing  - Common Deps - Finished.

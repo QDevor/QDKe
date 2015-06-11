@@ -35,9 +35,9 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
 echo [Building][Go] - Cloneing  - Deps.
-if not exist !QDKE_TMP!/!PGM_NAME!-patch-stamp (
-	rem go get !PGM_HOST!/usr/name
-	touch !QDKE_TMP!/!PGM_NAME!-patch-stamp
+if not exist !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp (
+	go get !PGM_HOST!/michaeldv/termbox-go
+	touch !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
 echo [Building][Go] - Cloneing  - !PGM_USER!/!PGM_NAME!.
