@@ -38,8 +38,7 @@ echo [Building][Go] - Cloneing  - Deps.
 if not exist !QDKE_TMP!/!PGM_NAME!-patch-stamp (
 	go get !PGM_HOST!/PuerkitoBio/goquery
 	go get !PGM_HOST!/djimenez/iconv-go
-	go get !PGM_HOST!/zieckey/golang.org
-	rem touch !QDKE_TMP!/!PGM_NAME!-patch-stamp
+	touch !QDKE_TMP!/!PGM_NAME!-patch-stamp
 )
 :----------------------------------------
 echo [Building][Go] - Cloneing  - !PGM_USER!/!PGM_NAME!.
