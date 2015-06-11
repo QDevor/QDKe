@@ -84,7 +84,7 @@ mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
 rem !PGM_NAME!
-go run cmd/gsaterm.go
+go run cmd/gsaterm.go -log_dir=./ -v 5
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
