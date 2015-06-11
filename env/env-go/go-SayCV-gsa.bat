@@ -79,12 +79,12 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-rem go install github.com/!PGM_USER!/!PGM_NAME!/cmd
-rem mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
+go install github.com/!PGM_USER!/!PGM_NAME!/cmd
+mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
 rem !PGM_NAME!
-go run cmd/gsa.go
+go run cmd/gsaterm.go
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
