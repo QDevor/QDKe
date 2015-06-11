@@ -79,8 +79,8 @@ rem mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 echo [Building][Go] - Running   - Program.
 rem !PGM_NAME!
 rem go run PbStockScraper.go -year=2011 -quarter=1 2>!QDKE_LOGDIR!/stockResearch.err 1>!QDKE_LOGDIR!/stockResearch.out &
-go run PbStockScraper.go -year=2011 -quarter=1 &
-rem go run PbStockParser.go &
+rem go run PbStockScraper.go -year=2011 -quarter=1 &
+go run PbStockParser.go &
 rem go run PbStockResearcher.go &
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
