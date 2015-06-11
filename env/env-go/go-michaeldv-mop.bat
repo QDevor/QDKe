@@ -19,7 +19,7 @@ rem.
 echo [QDKe] - We Are Checking QDKe Env.
 call env/env-win/entry-common.bat
 :----------------------------------------
-
+call env/env-go/go-common.bat
 :----------------------------------------
 set "PGM_BATCH_FILE=%~n0"
 set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~3!"

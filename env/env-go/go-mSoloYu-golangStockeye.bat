@@ -34,6 +34,14 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
 echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
+echo [Building][Go] - Cloneing  - Deps.
+if not exist !QDKE_TMP!/!PGM_NAME!-patch-stamp (
+	go get !PGM_HOST!/PuerkitoBio/goquery
+	go get !PGM_HOST!/djimenez/iconv-go
+	go get !PGM_HOST!/zieckey/golang.org
+	rem touch !QDKE_TMP!/!PGM_NAME!-patch-stamp
+)
+:----------------------------------------
 echo [Building][Go] - Cloneing  - !PGM_USER!/!PGM_NAME!.
 go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
 :----------------------------------------
@@ -78,7 +86,7 @@ rem mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
 rem !PGM_NAME!
-go run PbStockScraper.go -year=2011 -quarter=1 2>!QDKE_LOGDIR!/stockResearch.err 1>!QDKE_LOGDIR!/stockResearch.out &
+go run stockmoreinfo.go mainhelper.go
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
