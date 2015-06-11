@@ -53,8 +53,9 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
 :: mSoloYu-golangStockeye
+:: SayCV-gsa
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-mSoloYu-golangStockeye
+set DJN=go-SayCV-gsa
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
