@@ -1,8 +1,36 @@
+ PbStockParser.go      |  2 +-
+ PbStockResearcher.go  |  2 +-
  PbStockScraper.go     |  2 +-
  devConfig             |  6 ++++++
- tmpStore/TempStore.go | 19 ++++++++++++++-----
- 3 files changed, 21 insertions(+), 6 deletions(-)
+ tmpStore/TempStore.go | 18 +++++++++++++-----
+ 5 files changed, 22 insertions(+), 8 deletions(-)
 
+diff --git a/PbStockParser.go b/PbStockParser.go
+index 49ab351..57644aa 100644
+--- a/PbStockParser.go
++++ b/PbStockParser.go
+@@ -22,7 +22,7 @@ func main() {
+ 
+ 	//flag.Parse()
+ 
+-	c := config.NewConfig("/home/beekums/Projects/stockResearch/config")
++	c := config.NewConfig("devConfig")
+ 
+ 	log.Println("Loaded config: ", c)
+ 
+diff --git a/PbStockResearcher.go b/PbStockResearcher.go
+index 2931dea..ba7b3f4 100644
+--- a/PbStockResearcher.go
++++ b/PbStockResearcher.go
+@@ -136,7 +136,7 @@ func postNoteFilters(w http.ResponseWriter, r *http.Request) {
+ func main() {
+ 	log.Println("Starting web server...")
+ 
+-	c := config.NewConfig("/home/beekums/Projects/stockResearch/config")
++	c := config.NewConfig("devConfig")
+ 
+ 	log.Println("Loaded config: ", c)
+ 
 diff --git a/PbStockScraper.go b/PbStockScraper.go
 index ed5df3d..515d4a1 100644
 --- a/PbStockScraper.go
@@ -29,7 +57,7 @@ index 0000000..51d2c57
 +	"MysqlPass":		"123456"
 +}
 diff --git a/tmpStore/TempStore.go b/tmpStore/TempStore.go
-index 6fab746..50a6774 100644
+index 6fab746..f771aac 100644
 --- a/tmpStore/TempStore.go
 +++ b/tmpStore/TempStore.go
 @@ -5,6 +5,7 @@ import (
@@ -40,7 +68,7 @@ index 6fab746..50a6774 100644
  	"syscall"
  )
  
-@@ -69,11 +70,19 @@ func (ts *TempStore) getDirPath(bucket string) string {
+@@ -69,11 +70,18 @@ func (ts *TempStore) getDirPath(bucket string) string {
  }
  
  func getPercentDiskFree(dir string) float64 {
@@ -61,7 +89,6 @@ index 6fab746..50a6774 100644
 +	
 +	free := float64(lpTotalNumberOfFreeBytes)
 +	total := float64(lpTotalNumberOfBytes)
-+	
  
  	return free / total
  }
