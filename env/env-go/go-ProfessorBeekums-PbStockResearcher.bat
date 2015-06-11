@@ -40,9 +40,11 @@ go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
 cd !PGM_WORK_HOME! ||goto :EOF
 if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Patching  - !PGM_USER!/!PGM_NAME!.
-	cd !QDKE_PATCHDIR!
+	set "_win_QDKE_PATCHDIR=!QDKE_PATCHDIR!"
+	set "_win_QDKE_PATCHDIR=!_win_QDKE_PATCHDIR:/=\!"
+	cd !_win_QDKE_PATCHDIR! ||goto :EOF
 	for /f "delims=" %%a in ('dir /b *-%PGM_USER%-%PGM_NAME%*.patch') do (
-  	cd !PGM_WORK_HOME! && patch -f -p1 -u <!QDKE_PATCHDIR!/%%a
+  	cd !PGM_WORK_HOME! && pwd && patch -f -p1 -u <!QDKE_PATCHDIR!/%%a
   )
 	cd !PGM_WORK_HOME!
 	touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp

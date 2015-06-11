@@ -1,7 +1,7 @@
  PbStockScraper.go     |  2 +-
- devConfig             |  1 +
- tmpStore/TempStore.go | 18 +++++++++++++-----
- 3 files changed, 15 insertions(+), 6 deletions(-)
+ devConfig             |  6 ++++++
+ tmpStore/TempStore.go | 19 ++++++++++++++-----
+ 3 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/PbStockScraper.go b/PbStockScraper.go
 index ed5df3d..515d4a1 100644
@@ -18,13 +18,18 @@ index ed5df3d..515d4a1 100644
  
 diff --git a/devConfig b/devConfig
 new file mode 100644
-index 0000000..c652dfd
+index 0000000..51d2c57
 --- /dev/null
 +++ b/devConfig
-@@ -0,0 +1 @@
-+{ "TmpDir":"pbsrtmp", "MysqlDb":"mystock", "MysqlUser":"root", "MysqlPass":"123456" }
+@@ -0,0 +1,6 @@
++{
++	"TmpDir":				"pbsrtmp",
++	"MysqlDb":			"mystock",
++	"MysqlUser":		"root",
++	"MysqlPass":		"123456"
++}
 diff --git a/tmpStore/TempStore.go b/tmpStore/TempStore.go
-index 6fab746..75b4015 100644
+index 6fab746..50a6774 100644
 --- a/tmpStore/TempStore.go
 +++ b/tmpStore/TempStore.go
 @@ -5,6 +5,7 @@ import (
@@ -35,7 +40,7 @@ index 6fab746..75b4015 100644
  	"syscall"
  )
  
-@@ -69,11 +70,18 @@ func (ts *TempStore) getDirPath(bucket string) string {
+@@ -69,11 +70,19 @@ func (ts *TempStore) getDirPath(bucket string) string {
  }
  
  func getPercentDiskFree(dir string) float64 {
@@ -45,17 +50,18 @@ index 6fab746..75b4015 100644
 -	free := float64(stat.Bfree * uint64(stat.Bsize))
 -	total := float64(stat.Blocks * uint64(stat.Bsize))
 +	h := syscall.MustLoadDLL("kernel32.dll")
-+  c := h.MustFindProc("GetDiskFreeSpaceExW")
-+  lpFreeBytesAvailable := int64(0)
-+  lpTotalNumberOfBytes := int64(0)
-+  lpTotalNumberOfFreeBytes := int64(0)
-+  c.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr("F:"))),
-+      uintptr(unsafe.Pointer(&lpFreeBytesAvailable)),
-+      uintptr(unsafe.Pointer(&lpTotalNumberOfBytes)),
-+      uintptr(unsafe.Pointer(&lpTotalNumberOfFreeBytes)))
-+  
-+  free := float64(lpTotalNumberOfFreeBytes)
-+  total := float64(lpTotalNumberOfBytes)
++	c := h.MustFindProc("GetDiskFreeSpaceExW")
++	lpFreeBytesAvailable := int64(0)
++	lpTotalNumberOfBytes := int64(0)
++	lpTotalNumberOfFreeBytes := int64(0)
++	c.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr("F:"))),
++	    uintptr(unsafe.Pointer(&lpFreeBytesAvailable)),
++	    uintptr(unsafe.Pointer(&lpTotalNumberOfBytes)),
++	    uintptr(unsafe.Pointer(&lpTotalNumberOfFreeBytes)))
++	
++	free := float64(lpTotalNumberOfFreeBytes)
++	total := float64(lpTotalNumberOfBytes)
++	
  
  	return free / total
  }
