@@ -50,15 +50,15 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: py-extpkgs-mydev py-numpy
-:: py-MySQL-python py-moist
-:: py-qstk py-mathatlas-vtjnash py-cvxopt py-tushare
-:: py-yjclegend-stockAnalyze py-jasti-StockPredictor
-:: py-aneumeier-stocks py-king2k23-stockexchange py-pabloleites-stockapp
-:: py-bashpy-stock-django
-:: py-myapp-djcs
+:: extpkgs-mydev numpy
+:: MySQL-python moist
+:: qstk py-mathatlas-vtjnash cvxopt tushare
+:: yjclegend-stockAnalyze jasti-StockPredictor
+:: aneumeier-stocks king2k23-stockexchange pabloleites-stockapp
+:: bashpy-stock-django alexcazacu-stockfight
+:: myapp-djcs
 :+++++++++++++++++++++++++++++++++++++
-set DJN=py-myapp-djcs
+set DJN=py-alexcazacu-stockfight
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

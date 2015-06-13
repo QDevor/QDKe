@@ -30,7 +30,7 @@ _FNNAME_READY_MSYS2=${_FN_READY_MSYS2%.*}
 
 _ready_msys2_updating_localpkgs() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
@@ -41,13 +41,13 @@ _ready_msys2_updating_localpkgs() {
 			log_warning "Updating local pkgs - failed - auto try again."
 			sleep 3
 		done
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-stamp
 	fi
 }
 
 _ready_msys2_updating_corekgs() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
@@ -58,7 +58,7 @@ _ready_msys2_updating_corekgs() {
 			log_warning "Updating core pkgs - failed - auto try again."
 			sleep 3
 		done
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-stamp
 		pause && exit 0
 	fi
 }
@@ -66,16 +66,16 @@ _ready_msys2_updating_corekgs() {
 _ready_msys2_autorebase() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
 	if [ x$QDKe_VAR_IS_XP = "xtrue" ]; then
-		if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+		if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 			start $MSYS_ROOT/autorebase.bat || die
-			touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+			touch $QDK_STAMPDIR/$FUNCNAME-stamp
 		fi
 	fi
 }
 
 _ready_msys2_updating_otherpkgs() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
@@ -86,13 +86,13 @@ _ready_msys2_updating_otherpkgs() {
 			log_warning "Updating other pkgs - failed - auto try again."
 			sleep 3
 		done
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-stamp
 	fi
 }
 
 _ready_msys2_updating_basepkgs() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
@@ -105,13 +105,13 @@ _ready_msys2_updating_basepkgs() {
 			log_warning "Updating base pkgs - failed - auto try again."
 			sleep 3
 		done
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-stamp
 	fi
 }
 
 _ready_msys2_updating_extrakgs() {
 	log_warning "$(echo $FUNCNAME | cut -f4-5 -d'_' | tr '_' ' ')."
-	if [ ! -f $QDK_STAMP_DIR/$FUNCNAME-stamp ]; then
+	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
 		doloop=1
 		while [ $doloop = 1 ]; do
 			rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
@@ -123,7 +123,7 @@ _ready_msys2_updating_extrakgs() {
 			log_warning "Updating extra pkgs - failed - auto try again."
 			sleep 3
 		done
-		touch $QDK_STAMP_DIR/$FUNCNAME-stamp
+		touch $QDK_STAMPDIR/$FUNCNAME-stamp
 	fi
 }
 
