@@ -59,7 +59,11 @@ qdev_setmore() {
 _py_install_requirements() {
   if [ ! -f $qdev_build_dir/$FUNCNAME-stamp ]; then
 		:
-		#utils_python_install pymongo
+		cd $qdev_build_dir ||die
+		pip install -r requirements.txt
+		pip install djangorestframework
+    pip install markdown       # Markdown support for the browsable API.
+    pip install django-filter  # Filtering support
 		touch $qdev_build_dir/$FUNCNAME-stamp
 	fi
 }
@@ -90,8 +94,9 @@ qdev_try() {
 }
 
 qdev_tst() {
-	cd $qdev_build_dir || die
+	cd $qdev_build_dir ||die
 	
+	cd $apps_name
 	$PYTHON manage.py runquotes & $PYTHON manage.py checkbets & $PYTHON manage.py check_fight & $PYTHON manage.py runserver
 	
 	# qdev_django_runserver
