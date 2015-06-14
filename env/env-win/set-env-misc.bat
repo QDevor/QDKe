@@ -14,32 +14,35 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_SET_ENV_MISC_BATCH%" == "xtrue" (
 	goto :EOF
 )
-
+:----------------RUN-ONCE----------------
 :: Setting Msic Envirement variables
-:-------------------------------------
+:----------------------------------------
 :: Default settings
-:-------------------------------------
+:----------------------------------------
 
-:-------------------------------------
+:----------------------------------------
 :: Golang
-:-------------------------------------
+:----------------------------------------
 set "GOROOT=!MINGW_ROOT!"
 set "GOPATH=!QDKE_HOME!/go_home"
+set "GOBIN=!GOPATH!/bin"
 set "PATH=!PATH!;!GOPATH!/bin"
 set "PATH=!PATH!;!GOROOT!/bin"
 set "PATH=!PATH!;!GOROOT!/pkg/tool/windows_386"
-:-------------------------------------
+:----------------------------------------
 
-:-------------------------------------
+:----------------------------------------
 :: Rust
-:-------------------------------------
+:----------------------------------------
 set "RUST_ROOT=!QDK_ROOT!/Rust"
 set "PATH=!PATH!;!RUST_ROOT!/bin"
-:-------------------------------------
+:----------------------------------------
 
-:-------------------------------------
+:----------------RUN-ONCE----------------
 set INCLUDE_SET_ENV_MISC_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

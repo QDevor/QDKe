@@ -1,5 +1,7 @@
 @echo off
 
+rem mode con:cols=160 lines=40
+
 echo.
 echo            Copyright (C) 2015 QDevor
 echo.
@@ -52,10 +54,10 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
-:: mSoloYu-golangStockeye
+:: mSoloYu-golangStockeye gizak-termui
 :: SayCV-gsa
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-SayCV-gsa
+set DJN=go-gizak-termui
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
