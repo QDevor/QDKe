@@ -2,6 +2,7 @@
 
 rem 1 - means origin size
 rem 2 - means two times origin size
+rem 5 - means full size
 call env/env-win/set-win-mode.bat 3
 
 echo.

@@ -28,15 +28,27 @@ for /f "tokens=1* delims==" %%a in ( 'wmic DESKTOPMONITOR  get ScreenWidth^,Scre
   if "!tee!" == "8" set QDKe_VAR_SCREEN_WIDTH=%%b
 )
 :----------------------------------------
-set /a QDKe_VAR_FONT_WIDTH=8
-set /a QDKe_VAR_FONT_HEIGHT=16
+set /a QDKe_VAR_FONT_WIDTH_1=3
+set /a QDKe_VAR_FONT_HEIGHT_1=5
+set /a QDKe_VAR_FONT_WIDTH_2=5
+set /a QDKe_VAR_FONT_HEIGHT_2=8
+set /a QDKe_VAR_FONT_WIDTH_3=6
+set /a QDKe_VAR_FONT_HEIGHT_3=12
+set /a QDKe_VAR_FONT_WIDTH_DFLT=8
+set /a QDKe_VAR_FONT_HEIGHT_DFLT=16
 set /a QDKe_VAR_FONT_WIDTH_5=8
 set /a QDKe_VAR_FONT_HEIGHT_5=18
 set /a QDKe_VAR_FONT_WIDTH_MAX=10
 set /a QDKe_VAR_FONT_HEIGHT_MAX=20
 :----------------------------------------
-set /a QDKe_VAR_SCREEN_WIDTH_NML=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_MAX%
-set /a QDKe_VAR_SCREEN_HEIGHT_NML=%QDKe_VAR_SCREEN_HEIGHT%/%QDKe_VAR_FONT_HEIGHT_MAX%
+set /a QDKe_VAR_SCREEN_WH_RATIO=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_SCREEN_HEIGHT%+1
+set /a QDKe_VAR_SCREEN_TERM_RATIO=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_SCREEN_HEIGHT%*4
+:----------------------------------------
+set /a QDKe_COLS_DFLT=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
+set /a QDKe_LINES_DFLT=%QDKe_COLS_DFLT%/%QDKe_VAR_SCREEN_WH_RATIO%
+
+set /a QDKe_COLS_FULL=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
+set /a QDKe_LINES_FULL=%QDKe_COLS_FULL%/%QDKe_VAR_SCREEN_WH_RATIO%
 :----------------------------------------
 rem mode con cols=%screenwidth%
 rem mode con lines=%screenheight%
@@ -100,23 +112,23 @@ if "x%IN_ARG%" == "x1" (
   goto :EOF
 )
 if "x%IN_ARG%" == "x2" (
-  set /a QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH_NML%/2
-  set /a QDKe_LINES=%QDKe_VAR_SCREEN_HEIGHT_NML%/2
+  set /a QDKe_COLS=%QDKe_COLS_DFLT%*2/4
+  set /a QDKe_LINES=!QDKe_COLS!/%QDKe_VAR_SCREEN_TERM_RATIO%
   goto :label_set_win_mode
 )
 if "x%IN_ARG%" == "x3" (
-  set /a QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH_NML%
-  set /a QDKe_LINES=%QDKe_VAR_SCREEN_HEIGHT_NML%
+  set /a QDKe_COLS=%QDKe_COLS_DFLT%*3/4
+  set /a QDKe_LINES=!QDKe_COLS!/%QDKe_VAR_SCREEN_TERM_RATIO%
   goto :label_set_win_mode
 )
 if "x%IN_ARG%" == "x4" (
-  set /a QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH_NML%*2
-  set /a QDKe_LINES=%QDKe_VAR_SCREEN_HEIGHT_NML%*2
+  set /a QDKe_COLS=%QDKe_COLS_DFLT%
+  set /a QDKe_LINES=%QDKe_LINES_DFLT%
   goto :label_set_win_mode
 )
 rem echo [QDKe][MODE] - [default]
-set QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH%
-set QDKe_LINES=%QDKe_VAR_SCREEN_HEIGHT%
+set /a QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
+set /a QDKe_LINES=%QDKe_COLS%/%QDKe_VAR_SCREEN_TERM_RATIO%
 goto :label_set_win_mode
 :----------------------------------------
 rem set QDKe_COLS=80
