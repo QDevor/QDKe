@@ -4,7 +4,6 @@ rem 1 - means origin size
 rem 2 - means two times origin size
 call env/env-win/set-win-mode.bat 3
 
-pause
 echo.
 echo            Copyright (C) 2015 QDevor
 echo.
