@@ -38,6 +38,9 @@ if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
 	echo [Go] - Cloneing  - Common Deps - gopkg.in libs.
 	rem go get !PGM_GOPKG_HOST!
 	
+	echo [Go] - Cloneing  - Common Deps - GBK mahonia libs.
+	go get !PGM_HOST!/axgle/mahonia
+	
 	touch !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
