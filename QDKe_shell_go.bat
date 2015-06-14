@@ -1,7 +1,10 @@
 @echo off
 
-rem mode con:cols=160 lines=40
+rem 1 - means origin size
+rem 2 - means two times origin size
+call env/env-win/set-win-mode.bat 3
 
+pause
 echo.
 echo            Copyright (C) 2015 QDevor
 echo.
@@ -57,7 +60,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: mSoloYu-golangStockeye gizak-termui
 :: SayCV-gsa
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-gizak-termui
+set DJN=go-SayCV-gsa
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
