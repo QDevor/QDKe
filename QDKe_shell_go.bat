@@ -57,10 +57,10 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
-:: mSoloYu-golangStockeye gizak-termui eliwjones-thebox
+:: mSoloYu-golangStockeye gizak-termui eliwjones-thebox d4l3k-talib
 :: SayCV-gsa 
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-SayCV-gsa
+set DJN=go-d4l3k-talib
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
