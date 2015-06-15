@@ -14,9 +14,11 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem.
 
+:----------------RUN-ONCE----------------
 if "x%INCLUDE_CHECK_WIN_VER_BATCH%" == "xtrue" (
 	goto :EOF
 )
+:----------------RUN-ONCE----------------
 
 rem uncomment following sentence, output debug info to be enabled separately
 rem set QDKe_VAR_DEBUG_%~n0=true
@@ -43,7 +45,7 @@ rem set QDKe_VAR_IS_XP=true
 
 :: CheckWindowsVersion by ver
 :: http://ss64.com/nt/ver.html
-:-------------------------------------
+:----------------------------------------
 rem  --> Check Windows Version
 
 set QDKe_VAR_WIN_VER="Unkown"
@@ -72,11 +74,11 @@ goto :QDKe_CHECK_WIN_VER_EOF
 
 	goto :QDKe_CHECK_WIN_VER_EOF
 
-:--------------------------------------
+:----------------------------------------
 
 
 :: CheckWindowsVersion by wmic
-:-------------------------------------
+:----------------------------------------
 REM  --> Check Windows Version
 for /f "tokens=3" %%a in ('wmic os get Caption') do if /i "%%a" neq "" set QDKe_VAR_WIN_VER=%%a
 if /i %QDKe_VAR_WIN_VER%==xp goto :XP
@@ -87,8 +89,10 @@ goto :QDKe_CHECK_WIN_VER_EOF
 :WIN7
 goto :QDKe_CHECK_WIN_VER_EOF
 
-:--------------------------------------
+:----------------------------------------
 
 :QDKe_CHECK_WIN_VER_EOF
+:----------------RUN-ONCE----------------
 set INCLUDE_CHECK_WIN_VER_BATCH=true
 :EOF
+:----------------RUN-ONCE----------------

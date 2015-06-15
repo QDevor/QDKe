@@ -24,8 +24,16 @@ setlocal ENABLEDELAYEDEXPANSION
 set /a tee=0
 for /f "tokens=1* delims==" %%a in ( 'wmic DESKTOPMONITOR  get ScreenWidth^,ScreenHeight^ /value' ) do (
   set /a tee+=1
-  if "!tee!" == "7" set QDKe_VAR_SCREEN_HEIGHT=%%b
-  if "!tee!" == "8" set QDKe_VAR_SCREEN_WIDTH=%%b
+  if "!tee!" == "3" set QDKe_VAR_SCREEN_HEIGHT=%%b
+  if "!tee!" == "4" set QDKe_VAR_SCREEN_WIDTH=%%b
+  rem echo %%b
+)
+:----------------------------------------
+if "x%QDKe_VAR_SCREEN_WIDTH%" == "x" (
+	set /a QDKe_VAR_SCREEN_WIDTH=1280
+)
+if "x%QDKe_VAR_SCREEN_HEIGHT%" == "x" (
+	set /a QDKe_VAR_SCREEN_HEIGHT=1024
 )
 :----------------------------------------
 set /a QDKe_VAR_FONT_WIDTH_1=3
@@ -137,7 +145,7 @@ rem mode con:cols=80 lines=300
 :----------------------------------------
 :label_set_win_mode
 :----------------------------------------
-  mode con:cols=%QDKe_COLS% lines=%QDKe_LINES%
+  rem mode con:cols=%QDKe_COLS% lines=%QDKe_LINES%
   rem echo [QDKe][MODE] - %IN_ARG%
   echo [QDKe][Screen] - %QDKe_VAR_SCREEN_WIDTH% x %QDKe_VAR_SCREEN_HEIGHT%
   echo [QDKe][MODE] - %QDKe_COLS% x %QDKe_LINES%
