@@ -42,8 +42,21 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
+:: runner_go_libs
 :: runner_djcs runner_quantdigger
-goto :runner_djcs
+goto :runner_go_libs
+:+++++++++++++++++++++++++++++++++++++
+:+++++++++++++++++++++++++++++++++++++
+:runner_go_libs
+go env
+set work_home=home\test_home
+set apps_name=talib
+if not exist %work_home% (
+  mkdir %work_home%
+)
+cd %work_home%
+go run example.go
+goto :runner_end
 :+++++++++++++++++++++++++++++++++++++
 :runner_quantdigger
 set work_home=home/qstk_home/QuantFans/quantdigger/github/quantdigger/demo
@@ -58,6 +71,7 @@ goto :runner_start
 :runner_start
 cd %work_home% && python %apps_name%
 cmd
+:runner_end
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
 echo [QDKe] - We Are Doing Jobs... Finish.

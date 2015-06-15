@@ -35,7 +35,6 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
 echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
 go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
-goto :EOF
 :----------------------------------------
 cd !PGM_WORK_HOME!
 dir *.ui >nul 2>&1
@@ -60,12 +59,13 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-cd cmd/collectord ||goto :EOF
-go install
-mv !GOPATH!/bin/collectord.exe !GOPATH!/bin/!PGM_NAME!.exe
+cd !PGM_WORK_HOME! ||goto :EOF
+rem example_trig_test talib_test
+go test
+rem mv !GOPATH!/bin/collectord.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
-!PGM_NAME! -root_dir=. -action=collect
+rem !PGM_NAME! -root_dir=. -action=collect
 rem !PGM_NAME! -root_dir=<dir> -action=clean -yymmdd=yesterday
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
