@@ -57,13 +57,15 @@ qdev_get_ssd_src() {
 	_pkg_dir=$pkg_dir
 	_pkg_url=$5
 	cd $QDKE_TMP || die
-	if [ -f $_pkg_ffile ]; then
-		return 0
+	if [ ! -f $_pkg_ffile ]; then
+		curl -O $_pkg_url
 	fi
-	curl -O $_pkg_url
+	
 	cd $qdev_build_top || die
-	extract $QDKE_TMP/$_pkg_ffile || die
-	mv $_pkg_dir $apps_more || die
+	if [ ! -d $apps_more ]; then
+	  extract $QDKE_TMP/$_pkg_ffile || die
+	  mv $_pkg_dir $apps_more || die
+	fi
 }
 
 qdev_get() {
