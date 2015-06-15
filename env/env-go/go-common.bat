@@ -40,6 +40,8 @@ if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
 	
 	echo [Go] - Cloneing  - Common Deps - GBK mahonia libs.
 	go get !PGM_HOST!/axgle/mahonia
+	echo [Go] - Cloneing  - Common Deps - http libs.
+	go get !PGM_HOST!/gorilla/http
 	
 	touch !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp
 )
