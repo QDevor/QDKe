@@ -60,7 +60,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: mSoloYu-golangStockeye gizak-termui eliwjones-thebox
 :: SayCV-gsa 
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-eliwjones-thebox
+set DJN=go-SayCV-gsa
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
