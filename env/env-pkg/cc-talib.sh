@@ -44,6 +44,7 @@ qdev_init() {
 
 qdev_setmore() {
 	:
+	qdev_build_dir=$qdev_build_src
 }
 
 qdev_get_ssd_src() {
