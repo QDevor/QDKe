@@ -49,14 +49,14 @@ set /a QDKe_VAR_FONT_HEIGHT_5=18
 set /a QDKe_VAR_FONT_WIDTH_MAX=10
 set /a QDKe_VAR_FONT_HEIGHT_MAX=20
 :----------------------------------------
-set /a QDKe_VAR_SCREEN_WH_RATIO=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_SCREEN_HEIGHT%+1
-set /a QDKe_VAR_SCREEN_TERM_RATIO=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_SCREEN_HEIGHT%*4
+set /a QDKe_VAR_SCREEN_WH_RATIO10=%QDKe_VAR_SCREEN_WIDTH%*10/%QDKe_VAR_SCREEN_HEIGHT%
+set /a QDKe_VAR_SCREEN_TERM_RATIO10=%QDKe_VAR_SCREEN_WIDTH%*10/%QDKe_VAR_SCREEN_HEIGHT%
 :----------------------------------------
 set /a QDKe_COLS_DFLT=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
-set /a QDKe_LINES_DFLT=%QDKe_COLS_DFLT%/%QDKe_VAR_SCREEN_WH_RATIO%
+set /a QDKe_LINES_DFLT=%QDKe_COLS_DFLT%*10/%QDKe_VAR_SCREEN_WH_RATIO10%
 
 set /a QDKe_COLS_FULL=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
-set /a QDKe_LINES_FULL=%QDKe_COLS_FULL%/%QDKe_VAR_SCREEN_WH_RATIO%
+set /a QDKe_LINES_FULL=%QDKe_COLS_FULL%*10/%QDKe_VAR_SCREEN_WH_RATIO10%
 :----------------------------------------
 rem mode con cols=%screenwidth%
 rem mode con lines=%screenheight%
@@ -121,12 +121,12 @@ if "x%IN_ARG%" == "x1" (
 )
 if "x%IN_ARG%" == "x2" (
   set /a QDKe_COLS=%QDKe_COLS_DFLT%*2/4
-  set /a QDKe_LINES=!QDKe_COLS!/%QDKe_VAR_SCREEN_TERM_RATIO%
+  set /a QDKe_LINES=!QDKe_COLS!*10/%QDKe_VAR_SCREEN_TERM_RATIO10%
   goto :label_set_win_mode
 )
 if "x%IN_ARG%" == "x3" (
   set /a QDKe_COLS=%QDKe_COLS_DFLT%*3/4
-  set /a QDKe_LINES=!QDKe_COLS!/%QDKe_VAR_SCREEN_TERM_RATIO%
+  set /a QDKe_LINES=!QDKe_COLS!*10/%QDKe_VAR_SCREEN_TERM_RATIO10%
   goto :label_set_win_mode
 )
 if "x%IN_ARG%" == "x4" (
@@ -136,7 +136,7 @@ if "x%IN_ARG%" == "x4" (
 )
 rem echo [QDKe][MODE] - [default]
 set /a QDKe_COLS=%QDKe_VAR_SCREEN_WIDTH%/%QDKe_VAR_FONT_WIDTH_DFLT%-4
-set /a QDKe_LINES=%QDKe_COLS%/%QDKe_VAR_SCREEN_TERM_RATIO%
+set /a QDKe_LINES=%QDKe_COLS%*10/%QDKe_VAR_SCREEN_TERM_RATIO10%
 goto :label_set_win_mode
 :----------------------------------------
 rem set QDKe_COLS=80
@@ -145,7 +145,7 @@ rem mode con:cols=80 lines=300
 :----------------------------------------
 :label_set_win_mode
 :----------------------------------------
-  rem mode con:cols=%QDKe_COLS% lines=%QDKe_LINES%
+  mode con:cols=%QDKe_COLS% lines=%QDKe_LINES%
   rem echo [QDKe][MODE] - %IN_ARG%
   echo [QDKe][Screen] - %QDKe_VAR_SCREEN_WIDTH% x %QDKe_VAR_SCREEN_HEIGHT%
   echo [QDKe][MODE] - %QDKe_COLS% x %QDKe_LINES%
