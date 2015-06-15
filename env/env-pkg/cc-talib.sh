@@ -89,7 +89,12 @@ qdev_build_fix() {
 qdev_build_config() {
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
-		../$apps_more/configure --prefix=$QDKE_USR/opt LDFLAGS="-lm"
+		../$apps_more/configure \
+		  --prefix=$QDKE_USR/opt \
+		  --host=''$QDKe_BUILD_TARGET'' \
+			--build=''$QDKe_BUILD_TARGET'' \
+		  LDFLAGS="-lm" \
+		  ||die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
 	fi
 }
