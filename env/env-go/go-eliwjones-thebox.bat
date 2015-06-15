@@ -59,12 +59,13 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-cd cmd ||goto :EOF
+cd cmd/collectord ||goto :EOF
 go install
-mv !GOPATH!/bin/cmd.exe !GOPATH!/bin/!PGM_NAME!.exe
+mv !GOPATH!/bin/collectord.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
-!PGM_NAME!
+!PGM_NAME! -root_dir=. -action=collect
+rem !PGM_NAME! -root_dir=<dir> -action=clean -yymmdd=yesterday
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"
