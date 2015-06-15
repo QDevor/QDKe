@@ -54,7 +54,7 @@ qdev_get_ssd_src() {
 	_pkg_ver=$2
 	_pkg_file=$3
 	_pkg_ffile=$4
-	_pkg_dir=$_pkg-$_pkg_ver
+	_pkg_dir=$pkg_dir
 	_pkg_url=$5
 	cd $QDKE_TMP || die
 	if [ -f $_pkg_ffile ]; then
