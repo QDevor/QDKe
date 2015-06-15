@@ -84,8 +84,11 @@ qdev_build_fix() {
 }
 
 qdev_build_config() {
-	cd $qdev_build_dir ||die
-	$qdev_build_src/configure --prefix=$QDKE_USR/opt LDFLAGS="-lm"
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
+		cd $qdev_build_dir ||die
+		../$apps_more/configure --prefix=$QDKE_USR/opt LDFLAGS="-lm"
+		touch $qdev_build_dir/${FUNCNAME}-stamp
+	fi
 }
 
 # qdev_build_cmake
