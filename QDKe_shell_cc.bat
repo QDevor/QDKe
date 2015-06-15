@@ -44,9 +44,9 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: cc-libseh cc-mysql-server
-:: 
+:: cc-talib
 :+++++++++++++++++++++++++++++++++++++
-set DJN=cc-mysql-server
+set DJN=cc-talib
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

@@ -36,7 +36,10 @@ echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
 echo [Building][Go] - Cloneing  - Deps.
 if not exist !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp (
-	go get !PGM_HOST!/michaeldv/termbox-go
+	echo [Building][Go] - Cloneing  - Deps - termbox-go.
+	go get !PGM_HOST!/michaeldv/termbox-go ||goto :EOF
+	echo [Building][Go] - Cloneing  - Deps - talib.
+	go get !PGM_HOST!/d4l3k/talib ||goto :EOF
 	touch !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
