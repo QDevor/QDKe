@@ -93,6 +93,8 @@ qdev_build_config() {
 		  --prefix=$QDKE_USR/opt \
 		  --host=''$QDKe_BUILD_TARGET'' \
 			--build=''$QDKe_BUILD_TARGET'' \
+			--enable-shared=yes \
+			--enable-static=yes \
 		  LDFLAGS="-lm" \
 		  ||die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
@@ -116,6 +118,15 @@ qdev_build_make_install() {
 		make install \
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-make$1
+	fi
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy ]; then
+		cd $QDKE_USR/opt/bin ||die
+		cp -rf ta-lib* $MINGW_ROOT/bin ||die
+		cd $QDKE_USR/opt/include ||die
+		cp -rf ta-lib $MINGW_ROOT/include ||die
+		cd $QDKE_USR/opt/lib ||die
+		cp -rf libta_lib* $MINGW_ROOT/lib ||die
+		touch $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy
 	fi
 }
 

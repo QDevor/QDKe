@@ -55,7 +55,7 @@ if not exist %work_home% (
   mkdir %work_home%
 )
 cd %work_home%
-go run example.go
+go build example.go
 goto :runner_end
 :+++++++++++++++++++++++++++++++++++++
 :runner_quantdigger

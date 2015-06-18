@@ -43,6 +43,9 @@ else
 	export QDKE_ETC=`cygpath -u $QDKE_ETC`
 fi
 #----------------------------------------
+export MSYS_ROOT=`cygpath -u $MSYS_ROOT`
+export MINGW_ROOT=`cygpath -u $MINGW_ROOT`
+#----------------------------------------
 export QDK_ROOT=`cygpath -u $QDK_ROOT`
 export QDK_OPT_DIR=$QDK_ROOT/opt
 
