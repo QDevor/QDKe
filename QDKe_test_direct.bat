@@ -56,6 +56,16 @@ if not exist %work_home% (
 )
 cd %work_home%
 go get github.com/d4l3k/talib
+cd /d %~dp0
+cd home\go_home\src\github.com\d4l3k\talib
+rem gem sources --remove https://rubygems.org/
+rem gem sources -a http://ruby.taobao.org/
+rem gem sources -l
+rem gem install cast pry
+rem ruby generate.rb ||goto :EOF
+go install
+cd /d %~dp0
+cd %work_home% ||goto :EOF
 go build example.go
 rem go run example.go
 goto :runner_end
@@ -83,6 +93,6 @@ title %~n0
 :-------------------------------------
 setlocal disabledelayedexpansion
 :-------------------------------------
-
+:EOF
 PAUSE
 EXIT
