@@ -87,6 +87,11 @@ qdev_build_fix() {
 }
 
 qdev_build_config() {
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-autogen ]; then
+	  cd $qdev_build_src ||die
+		./autogen.sh ||die
+	  touch $qdev_build_dir/${FUNCNAME}-stamp-autogen
+	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
 		../$apps_more/configure \

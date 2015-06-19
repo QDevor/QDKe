@@ -55,7 +55,9 @@ if not exist %work_home% (
   mkdir %work_home%
 )
 cd %work_home%
+go get github.com/d4l3k/talib
 go build example.go
+rem go run example.go
 goto :runner_end
 :+++++++++++++++++++++++++++++++++++++
 :runner_quantdigger
