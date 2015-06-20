@@ -27,6 +27,7 @@ setlocal enabledelayedexpansion
 :: settings requirements
 :-------------------------------------
 :--Default setting to false
+set QDKe_VAR_INCLUDED_MINGW=true
 :--Default setting to true
 :-------------------------------------
 
@@ -55,7 +56,7 @@ if not exist %work_home% (
   mkdir %work_home%
 )
 cd %work_home%
-go get github.com/d4l3k/talib
+rem go get github.com/d4l3k/talib
 cd /d %~dp0
 cd home\go_home\src\github.com\d4l3k\talib
 rem gem sources --remove https://rubygems.org/
@@ -63,6 +64,7 @@ rem gem sources -a http://ruby.taobao.org/
 rem gem sources -l
 rem gem install cast pry
 rem ruby generate.rb ||goto :EOF
+rem go install
 go install
 cd /d %~dp0
 cd %work_home% ||goto :EOF

@@ -34,7 +34,7 @@ rem set "PATH=!PATH!;!RUST_ROOT!/bin"
 :----------------------------------------
 :: Golang
 :----------------------------------------
-set "GOROOT=!MINGW_ROOT!"
+set "GOROOT=!QDK_ROOT!/go"
 set "GOPATH=!QDKE_HOME!/go_home"
 set "GOBIN=!GOPATH!/bin"
 set "PATH=!PATH!;!GOPATH!/bin"
