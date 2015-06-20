@@ -59,9 +59,9 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
 :: mSoloYu-golangStockeye gizak-termui eliwjones-thebox d4l3k-talib
 :: SayCV-gsa 
-:: golang-go
+:: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-d4l3k-talib
+set DJN=go-golang-mobile
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
