@@ -68,8 +68,8 @@ rem go install
 go install
 cd /d %~dp0
 cd %work_home% ||goto :EOF
-go build example.go
-rem go run example.go
+rem go build example.go
+go run example.go
 goto :runner_end
 :+++++++++++++++++++++++++++++++++++++
 :runner_quantdigger
