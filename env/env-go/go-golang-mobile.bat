@@ -35,6 +35,8 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
 echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
 go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!/cmd/gomobile
+echo [Building][Go] - It may take a while to initialize gomobile, please wait.
+gomobile init
 :----------------------------------------
 cd !PGM_WORK_HOME!
 dir *.ui >nul 2>&1
