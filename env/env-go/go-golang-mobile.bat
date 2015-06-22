@@ -35,8 +35,25 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
 echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
 go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!/cmd/gomobile
-echo [Building][Go] - It may take a while to initialize gomobile, please wait.
-gomobile init
+:----------------------------------------
+if not exist !QDKE_STAMPDIR!/!PGM_NAME!-stamp-init (
+  echo [Building][Go] - It may take a while to initialize gomobile, please wait.
+  gomobile init
+  touch !QDKE_STAMPDIR!/!PGM_NAME!-stamp-init
+)
+:----------------------------------------
+echo [Building][Go] - Cloneing  - Deps.
+if not exist !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp (
+	echo [Building][Go] - Cloneing  - Deps - freetype-go.
+	rem code.google.com/p/freetype-go/freetype
+	go get !PGM_HOST!/bitnick10/freetype-go
+  cd !PGM_WORK_HOME! ||goto :EOF
+  cd ..\..\..\ ||goto :EOF
+  mkdir code.google.com\p\freetype-go
+  cd code.google.com\p\freetype-go ||goto :EOF
+  cp -rf !GOPATH!/src/!PGM_HOST!/bitnick10/freetype-go ./freetype/
+	touch !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp
+)
 :----------------------------------------
 cd !PGM_WORK_HOME!
 dir *.ui >nul 2>&1
