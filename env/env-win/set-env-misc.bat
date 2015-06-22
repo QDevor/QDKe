@@ -34,12 +34,15 @@ rem set "PATH=!PATH!;!RUST_ROOT!/bin"
 :----------------------------------------
 :: Golang
 :----------------------------------------
-set "GOROOT=!QDK_ROOT!/go"
+set "GOLANG_ROOT=!QDK_ROOT!/golang"
+set "GOROOT=!GOLANG_ROOT!/go!QDKe_VAR_GO_VER!"
 set "GOPATH=!QDKE_HOME!/go_home"
 set "GOBIN=!GOPATH!/bin"
 set "PATH=!PATH!;!GOPATH!/bin"
 set "PATH=!PATH!;!GOROOT!/bin"
 set "PATH=!PATH!;!GOROOT!/pkg/tool/windows_386"
+
+set "GOROOT_BOOTSTRAP=!GOLANG_ROOT!/go1.4"
 :----------------------------------------
 
 :----------------------------------------

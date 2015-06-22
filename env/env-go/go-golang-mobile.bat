@@ -34,7 +34,7 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
 echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
 echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
-go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!
+go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!/cmd/gomobile
 :----------------------------------------
 cd !PGM_WORK_HOME!
 dir *.ui >nul 2>&1
@@ -61,7 +61,8 @@ echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
 cd !PGM_WORK_HOME! ||goto :EOF
 rem example_trig_test talib_test
-go test
+cd example\basic
+go run main.go
 rem mv !GOPATH!/bin/collectord.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.

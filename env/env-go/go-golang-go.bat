@@ -30,7 +30,8 @@ set "PGM_GITHUB_HOST=github.com"
 set "PGM_HOST=!PGM_GITHUB_HOST!"
 :----------------------------------------
 if not exist !QDKE_STAMPDIR!/!PGM_NAME!-exec-all-bat (
-  cd !GOROOT! ||goto :EOF
+  rem cd !GOROOT! ||goto :EOF
+  cd home\qdev_home\golang\go\github ||goto :EOF
 	cd src ||goto :EOF
 	call all.bat >!QDKE_LOGDIR!/golang-exec-all-bat.log 2>&1 ||goto :EOF
 	touch !QDKE_STAMPDIR!/!PGM_NAME!-exec-all-bat

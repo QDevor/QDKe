@@ -29,6 +29,10 @@ set "PGM_GOPKG_HOST=gopkg.in"
 set "PGM_GITHUB_HOST=github.com"
 set "PGM_HOST=!PGM_GITHUB_HOST!"
 :----------------------------------------
+rem cd !GOLANG_ROOT! ||goto :EOF
+rem unlink go
+rem mklink /D go go1.4
+:----------------------------------------
 if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
   echo [Go] - Cloneing  - Common Deps - golang glog libs.
 	go get !PGM_HOST!/golang/glog

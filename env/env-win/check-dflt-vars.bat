@@ -81,6 +81,13 @@ if "x!QDKe_VAR_PYTHON_TYPE!" == "x" (
 	set QDKe_VAR_PYTHON_TYPE=Miniconda
 )
 
+:----------------------------------------
+:: Default setting to 1.4
+:----------------------------------------
+if "x!QDKe_VAR_GO_VER!" == "x" (
+	set QDKe_VAR_GO_VER=1.4
+)
+
 :----------------RUN-ONCE----------------
 set INCLUDE_CHECK_DFLT_VARS_BATCH=true
 :EOF

@@ -43,6 +43,9 @@ rem Depending On Variable QDKe_VAR_MSVS_VER_YEAR
 rem VXPSP2 V60A V70 V70A V71
 rem set QDKe_VAR_MSSDK_VER=V60A
 :-------------------------------------
+rem Default setting to 1.4
+set QDKe_VAR_GO_VER=1.5
+:-------------------------------------
 
 :: Checking QDKe Env
 :-------------------------------------
