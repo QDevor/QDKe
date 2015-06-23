@@ -64,7 +64,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: SayCV-gsa 
 :: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-SayCV-gsa
+set DJN=go-golang-mobile
 call "env/env-go/%DJN%.bat"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

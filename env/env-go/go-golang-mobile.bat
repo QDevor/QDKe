@@ -45,13 +45,13 @@ if not exist !QDKE_STAMPDIR!/!PGM_NAME!-stamp-init (
 echo [Building][Go] - Cloneing  - Deps.
 if not exist !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp (
 	echo [Building][Go] - Cloneing  - Deps - freetype-go.
-	rem code.google.com/p/freetype-go/freetype
-	go get !PGM_HOST!/bitnick10/freetype-go
-  cd !PGM_WORK_HOME! ||goto :EOF
-  cd ..\..\..\ ||goto :EOF
-  mkdir code.google.com\p\freetype-go
-  cd code.google.com\p\freetype-go ||goto :EOF
-  cp -rf !GOPATH!/src/!PGM_HOST!/bitnick10/freetype-go ./freetype/
+	go get code.google.com/p/freetype-go/freetype
+	rem go get !PGM_HOST!/bitnick10/freetype-go
+  rem cd !PGM_WORK_HOME! ||goto :EOF
+  rem cd ..\..\..\ ||goto :EOF
+  rem mkdir code.google.com\p\freetype-go
+  rem cd code.google.com\p\freetype-go ||goto :EOF
+  rem cp -rf !GOPATH!/src/!PGM_HOST!/bitnick10/freetype-go ./freetype/
 	touch !QDKE_TMP!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
