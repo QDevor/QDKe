@@ -30,11 +30,12 @@ for /f "tokens=1* delims=-" %%a in ("!PGM_BATCH_FILE!") do (
 )
 set "PGM_HOST=github.com"
 set "PGM_WORK_HOME=!GOPATH!/src/!PGM_HOST!/!PGM_USER!/!PGM_NAME!"
+set "PGM_WORK_HOME=!GOPATH!/src/golang.org/x/mobile"
 set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
 echo [Building][Go] - Clone - !PGM_BATCH_FILE!.
 echo [Building][Go] - Clone - !PGM_USER!/!PGM_NAME!.
-go get !PGM_HOST!/!PGM_USER!/!PGM_NAME!/cmd/gomobile
+go get golang.org/x/mobile/cmd/gomobile
 :----------------------------------------
 if not exist !QDKE_STAMPDIR!/!PGM_NAME!-stamp-init (
   echo [Building][Go] - It may take a while to initialize gomobile, please wait.
