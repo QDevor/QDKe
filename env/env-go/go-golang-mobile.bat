@@ -81,8 +81,9 @@ echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
 cd !PGM_WORK_HOME! ||goto :EOF
 rem example_trig_test talib_test
-cd example\basic
-go run main.go
+rem cd example\basic
+rem go run main.go
+gomobile build golang.org/x/mobile/example/basic
 rem mv !GOPATH!/bin/collectord.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
