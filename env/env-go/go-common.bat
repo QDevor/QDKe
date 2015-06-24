@@ -47,6 +47,9 @@ if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
 	echo [Go] - Cloneing  - Common Deps - http libs.
 	go get !PGM_HOST!/gorilla/http
 	
+	echo [Go] - Cloneing  - Common Deps - Panda libs.
+	go get !PGM_HOST!/pandastream/go-panda
+	
 	touch !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp
 )
 :----------------------------------------
