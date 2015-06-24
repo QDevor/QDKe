@@ -24,8 +24,29 @@ echo [Go] - Cloneing  - Common Deps.
 set "PGM_BATCH_FILE=%~n0"
 set "PGM_NAME=!PGM_BATCH_FILE!"
 :----------------------------------------
+:: golang.org/x/blog ！ the content and server program for blog.golang.org.
+:: golang.org/x/crypto ！ additional cryptography packages.
+:: golang.org/x/exp ！ experimental code (handle with care).
+:: golang.org/x/image ！ additional imaging packages.
+:: golang.org/x/mobile ！ libraries and build tools for Go on Android.
+:: golang.org/x/net ！ additional networking packages.
+:: golang.org/x/sys ！ for low-level interactions with the operating system.
+:: golang.org/x/talks ！ the content and server program for talks.golang.org.
+:: golang.org/x/text ！ packages for working with text.
+:: golang.org/x/tools ！ godoc, vet, cover, and other tools.
+:: golang.org/x/benchmarks - benchmarks for the Go performance 
+:: golang.org/x/build - a continuous build client for the Go project.
 set "PGM_GOLANG_HOST=golang.org"
+:----------------------------------------
+:: labix.org/v2/mgo
+:: gopkg.in/mgo.v2
+:: gopkg.in/redis.v3
 set "PGM_GOPKG_HOST=gopkg.in"
+:----------------------------------------
+:: code.google.com/p/go-uuid/uuid
+:: code.google.com/p/freetype-go
+set "PGM_CODEGOOGLE_HOST=code.google.com/p"
+:----------------------------------------
 set "PGM_GITHUB_HOST=github.com"
 set "PGM_HOST=!PGM_GITHUB_HOST!"
 :----------------------------------------
