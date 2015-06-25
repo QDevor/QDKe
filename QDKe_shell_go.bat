@@ -61,11 +61,12 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
 :: mSoloYu-golangStockeye gizak-termui eliwjones-thebox d4l3k-talib
-:: skelterjohn-goui skelterjohn-go.uik skelterjohn-alum.inum
+:: skelterjohn-goui skelterjohn-go.uik skelterjohn-alum.inum skelterjohn-go.matrix
+:: nytlabs-streamtools ziutek-blas spate-vectormath gyuho-goraph
 :: SayCV-gsa 
 :: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-skelterjohn-alum.inum
+set DJN=go-nytlabs-streamtools
 if "1" == "1" (
   call "env/env-go/%DJN%.bat"
 ) else (
