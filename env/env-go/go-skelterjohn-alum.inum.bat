@@ -1,11 +1,4 @@
-rem.
-rem            Copyright (C) 2015 QDevor
-rem.
-rem  Licensed under the GNU General Public License, Version 3.0 (the License);
-rem  you may not use this file except in compliance with the License.
-rem  You may obtain a copy of the License at
-rem.
-rem            http://www.gnu.org/licenses/gpl-3.0.html
+
 rem.
 rem Unless required by applicable law or agreed to in writing, software
 rem distributed under the License is distributed on an AS IS BASIS,
@@ -59,12 +52,17 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-cd examples\pyworker ||goto :EOF
-go run main.go
-rem mv !GOPATH!/bin/example.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
-rem !PGM_NAME!
+cd examples\pyworker ||goto :EOF
+if "1" == "0" (
+  go run main.go
+) else (
+  go install
+  mv !GOPATH!/bin/pyworker.exe !GOPATH!/bin/!PGM_NAME!.exe
+  
+  !PGM_NAME!
+)
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"

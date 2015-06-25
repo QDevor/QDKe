@@ -59,12 +59,17 @@ if "!errorlevel!" == "0" (
 cd !PGM_WORK_HOME!
 echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
-cd examples\uiktest ||goto :EOF
-go run main.go
-rem mv !GOPATH!/bin/example.exe !GOPATH!/bin/!PGM_NAME!.exe
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
-rem !PGM_NAME!
+cd examples\uiktest ||goto :EOF
+if "1" == "0" (
+  go run main.go gordon.gif.go wde_windows.go
+) else (
+  go install
+  mv !GOPATH!/bin/uiktest.exe !GOPATH!/bin/!PGM_NAME!.exe
+  
+  !PGM_NAME!
+)
 :----------------------------------------
 echo [Building][Go] - Compiling - Doc.
 rem godoc -http=":8080"

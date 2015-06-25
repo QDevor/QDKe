@@ -58,8 +58,8 @@ if not exist !QDKE_STAMPDIR!/!PGM_NAME!-clone-deps-stamp (
   echo [Go] - Cloneing  - Common Deps - golang glog libs.
 	go get !PGM_HOST!/golang/glog
 	echo [Go] - Cloneing  - Common Deps - golang x libs.
-	go get !PGM_HOST!/zieckey/golang.org
-	cp -rf !GOPATH!/src/!PGM_HOST!/zieckey/golang.org !GOPATH!/src/!PGM_GOLANG_HOST! ||goto :EOF
+	rem go get !PGM_HOST!/zieckey/golang.org
+	rem cp -rf !GOPATH!/src/!PGM_HOST!/zieckey/golang.org !GOPATH!/src/!PGM_GOLANG_HOST! ||goto :EOF
 	echo [Go] - Cloneing  - Common Deps - gopkg.in libs.
 	rem go get !PGM_GOPKG_HOST!
 	

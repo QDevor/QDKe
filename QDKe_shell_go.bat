@@ -65,7 +65,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: SayCV-gsa 
 :: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-skelterjohn-go.uik
+set DJN=go-skelterjohn-alum.inum
 if "1" == "1" (
   call "env/env-go/%DJN%.bat"
 ) else (
