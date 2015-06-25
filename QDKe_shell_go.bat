@@ -61,12 +61,16 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: michaeldv-mop ProfessorBeekums-PbStockResearcher
 :: mSoloYu-golangStockeye gizak-termui eliwjones-thebox d4l3k-talib
+:: skelterjohn-goui skelterjohn-go.uik skelterjohn-alum.inum
 :: SayCV-gsa 
 :: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
-set DJN=go-SayCV-gsa
-rem call "env/env-go/%DJN%.bat"
-call "env/env-go/%DJN%.bat" > var/log/%~n0.log 2>&1
+set DJN=go-skelterjohn-go.uik
+if "1" == "1" (
+  call "env/env-go/%DJN%.bat"
+) else (
+  call "env/env-go/%DJN%.bat" > var/log/%~n0.log 2>&1
+)
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
 echo [QDKe] - We Are Doing Jobs... Finish.
