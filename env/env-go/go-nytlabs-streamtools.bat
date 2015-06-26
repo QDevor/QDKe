@@ -54,9 +54,9 @@ echo [Building][Go] - Compiling - Program.
 rem go build -ldflags="-s -w -H windowsgui"
 :----------------------------------------
 echo [Building][Go] - Running   - Program.
-cd examples\pyworker ||goto :EOF
-if "1" == "0" (
-  go run main.go
+cd tests ||goto :EOF
+if "1" == "1" (
+  go test
 ) else (
   go install
   mv !GOPATH!/bin/pyworker.exe !GOPATH!/bin/!PGM_NAME!.exe
