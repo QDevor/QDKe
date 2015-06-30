@@ -52,6 +52,13 @@ set "RUST_ROOT=!QDK_ROOT!/Rust"
 set "PATH=!PATH!;!RUST_ROOT!/bin"
 :----------------------------------------
 
+:----------------------------------------
+:: Bazaar on Windows
+:----------------------------------------
+set "BAZAAR_ROOT=!QDK_ROOT!/Bazaar"
+set "PATH=!PATH!;!BAZAAR_ROOT!"
+:----------------------------------------
+
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_ENV_MISC_BATCH=true
 :EOF
