@@ -67,10 +67,11 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: golang-go golang-mobile
 :+++++++++++++++++++++++++++++++++++++
 set DJN=go-SayCV-gsa
-if "1" == "1" (
-  call "env/env-go/%DJN%.bat"
-) else (
+set DJNLOG=1
+if "x%DJNLOG%" == "x1" (
   call "env/env-go/%DJN%.bat" > var/log/%~n0.log 2>&1
+) else (
+  call "env/env-go/%DJN%.bat"
 )
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
