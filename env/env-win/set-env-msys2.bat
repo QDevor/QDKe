@@ -71,6 +71,9 @@ if "!QDKe_VAR_MSYS2!" == "false" (
 :: Nothing to do
 :: Only set MSYSTEM=MINGW32
 :-------------------------------------
+if "x!MSYSTEM!" == "xMINGW32" (
+  set MINGW_ROOT=!MSYS_ROOT!/mingw32
+)
 
 :: Add MSYS or MINGW to PATH
 :-------------------------------------

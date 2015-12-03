@@ -37,6 +37,7 @@ rem VXPSP2 V60A V70 V70A V71
 set QDKe_VAR_MSSDK_VER=V60A
 :-------------------------------------
 :-------------------------------------
+rem set MSYSTEM=MINGW32
 
 :: Checking QDKe Env
 :-------------------------------------

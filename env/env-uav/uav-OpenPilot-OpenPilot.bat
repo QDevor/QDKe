@@ -43,7 +43,7 @@ if not exist !PGM_NAME!-patch-stamp (
 	
 	cd !PGM_WORK_HOME!
 	make all_sdk_install
-  make all
+  rem make all
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )

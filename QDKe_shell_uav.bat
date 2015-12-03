@@ -46,6 +46,7 @@ rem set QDKe_VAR_MSSDK_VER=V60A
 rem Default setting to 1.4
 set QDKe_VAR_GO_VER=1.5
 :-------------------------------------
+set MSYSTEM=MINGW32
 
 :: Checking QDKe Env
 :-------------------------------------
