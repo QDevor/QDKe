@@ -34,15 +34,18 @@ set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
 echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
+rem git clone git://git.openpilot.org/OpenPilot.git OpenPilot
+:----------------------------------------
 echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
 cd !PGM_WORK_HOME! ||goto :EOF
 if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
 	
 	cd !PGM_WORK_HOME!
-	make
+	make all_sdk_install
+  make all
 	
-	touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
+	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )
 :----------------------------------------
 

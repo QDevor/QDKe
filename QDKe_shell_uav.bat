@@ -65,7 +65,8 @@ echo [QDKe] - We Are Doing Jobs... Start.
 set DJN=OpenPilot-OpenPilot
 set DJNLOG=0
 if "x%DJNLOG%" == "x1" (
-  call "env/env-uav/uav-%DJN%.bat" > var/log/%~n0.log 2>&1
+  call "env/env-uav/uav-%DJN%.bat" > %~dp0var/log/%~n0.log 2>&1
+  %QDKT_UE% %~dp0var/log/%~n0.log
 ) else (
   call "env/env-uav/uav-%DJN%.bat"
 )

@@ -59,6 +59,14 @@ set "BAZAAR_ROOT=!QDK_ROOT!/Bazaar"
 set "PATH=!PATH!;!BAZAAR_ROOT!"
 :----------------------------------------
 
+:----------------------------------------
+:: UltraEdit on Windows
+:----------------------------------------
+set "ULTRAEDIT_ROOT=!QDK_ROOT!/UltraEdit"
+set "PATH=!PATH!;!ULTRAEDIT_ROOT!"
+set "QDKT_UE=Uedit32.exe"
+:----------------------------------------
+
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_ENV_MISC_BATCH=true
 :EOF
