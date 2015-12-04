@@ -63,9 +63,25 @@ rem call env/env-test/%DJN%.bat
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
-set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\bin"
-openpilotgcs
-cmd
+
+rem pacman -Sy
+
+:QDKE_LABEL_LOOP
+
+pushd "%cd%"
+cd /d %MSYS_ROOT%
+rm -rf var/lib/pacman/db.lck
+popd
+
+echo y | pacman -Su 
+if "!errorlevel!" == "0" (
+  goto :QDKE_LABEL_EOF
+) else (
+  ping 127.0.0.1 -n 2 >nul 
+  goto :QDKE_LABEL_LOOP
+)
+
+:QDKE_LABEL_EOF
 :: setlocal disabledelayedexpansion
 :-------------------------------------
 setlocal disabledelayedexpansion

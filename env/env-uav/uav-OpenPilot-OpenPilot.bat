@@ -44,8 +44,9 @@ if not exist !PGM_NAME!-patch-stamp (
 	cd !PGM_WORK_HOME!
 	rem sh ./make/scripts/win_sdk_install.sh
 	rem make arm_sdk_install
-	make sdl_install
+	rem make sdl_install
 	rem make all_sdk_install
+	echo !errorlevel!
 	if "!errorlevel!" == "0" (
     make all
   )
