@@ -42,8 +42,9 @@ if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
 	
 	cd !PGM_WORK_HOME!
-	make all_sdk_install
-  rem make all
+	rem sh ./make/scripts/win_sdk_install.sh
+	rem make all_sdk_install
+  make all
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )
