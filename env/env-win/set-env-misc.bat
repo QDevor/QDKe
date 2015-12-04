@@ -67,6 +67,14 @@ set "PATH=!PATH!;!ULTRAEDIT_ROOT!"
 set "QDKT_UE=Uedit32.exe"
 :----------------------------------------
 
+:----------------------------------------
+:: 7zip on Windows/msys2
+:----------------------------------------
+set "7ZIP_ROOT=!MSYS_ROOT!/usr/lib/p7zip"
+set "PATH=!PATH!;!7ZIP_ROOT!"
+set "SEVENZIP=7za.exe"
+:----------------------------------------
+
 :----------------RUN-ONCE----------------
 set INCLUDE_SET_ENV_MISC_BATCH=true
 :EOF
