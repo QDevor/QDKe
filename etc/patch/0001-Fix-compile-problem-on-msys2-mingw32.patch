@@ -1,3 +1,9 @@
+From 59154c8a7fa35fda56bf9f1a7509f030208a2fae Mon Sep 17 00:00:00 2001
+From: QDevor <QDevor@163.com>
+Date: Sat, 5 Dec 2015 16:21:08 +0100
+Subject: [PATCH 1/2] Fix compile problem on msys2/mingw32
+
+---
  .gitmodules                                             |  2 +-
  ground/openpilotgcs/copydata.pro                        | 17 +++++++++++------
  ground/openpilotgcs/src/libs/sdlgamepad/copydata.pro    |  3 ++-
@@ -5,6 +11,7 @@
  make/tools.mk                                           | 13 ++++++++-----
  overo                                                   |  1 +
  6 files changed, 28 insertions(+), 14 deletions(-)
+ create mode 160000 overo
 
 diff --git a/.gitmodules b/.gitmodules
 index 2ffdf87..3ca768e 100644
@@ -144,3 +151,6 @@ index 0000000..74a92ba
 +++ b/overo
 @@ -0,0 +1 @@
 +Subproject commit 74a92ba0fa4b7eb16d0282fa37a8c777c1d89e4c
+-- 
+2.6.3
+
