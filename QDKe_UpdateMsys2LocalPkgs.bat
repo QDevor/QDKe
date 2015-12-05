@@ -73,7 +73,8 @@ cd /d %MSYS_ROOT%
 rm -rf var/lib/pacman/db.lck
 popd
 
-echo y | pacman -Su 
+rem echo y | pacman -Su
+echo y | pacman -S mingw-w64-i686-mesa
 if "!errorlevel!" == "0" (
   goto :QDKE_LABEL_EOF
 ) else (

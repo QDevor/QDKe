@@ -1,0 +1,111 @@
+ ground/openpilotgcs/copydata.pro                         | 14 +++++++++-----
+ ground/openpilotgcs/src/plugins/ophid/inc/ophid_usbmon.h |  6 +++++-
+ make/tools.mk                                            | 13 ++++++++-----
+ 3 files changed, 22 insertions(+), 11 deletions(-)
+
+diff --git a/ground/openpilotgcs/copydata.pro b/ground/openpilotgcs/copydata.pro
+index 1961dc1..745a6f6 100644
+--- a/ground/openpilotgcs/copydata.pro
++++ b/ground/openpilotgcs/copydata.pro
+@@ -2,6 +2,8 @@ include(openpilotgcs.pri)
+ 
+ TEMPLATE = subdirs
+ 
++ICU_VER = 56
++
+ # Copy Qt runtime libraries into the build directory (to run or package)
+ equals(copyqt, 1) {
+ 
+@@ -142,9 +144,9 @@ GCS_LIBRARY_PATH
+                   Qt5MultimediaWidgets$${DS}.dll \
+                   Qt5Quick$${DS}.dll \
+                   Qt5Qml$${DS}.dll \
+-                  icuin53.dll \
+-                  icudt53.dll \
+-                  icuuc53.dll
++                  icuin$${ICU_VER}.dll \
++                  icudt$${ICU_VER}.dll \
++                  icuuc$${ICU_VER}.dll
+         # it is more robust to take the following DLLs from Qt rather than from MinGW
+         QT_DLLS += libgcc_s_dw2-1.dll \
+                    libstdc++-6.dll \
+@@ -233,14 +235,16 @@ GCS_LIBRARY_PATH
+             ssleay32.dll \
+             libeay32.dll
+         for(dll, OPENSSL_DLLS) {
+-            data_copy.commands += $(COPY_FILE) $$targetPath(\"$${OPENSSL_DIR}/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
++            #data_copy.commands += $(COPY_FILE) $$targetPath(\"$${OPENSSL_DIR}/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
++            data_copy.commands += $(COPY_FILE) $$targetPath(\"$$[QT_INSTALL_BINS]/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
+         }
+ 
+         # copy OpenGL DLL
+         OPENGL_DLLS = \
+             opengl32_32/opengl32.dll
+         for(dll, OPENGL_DLLS) {
+-            data_copy.commands += $(COPY_FILE) $$targetPath(\"$${MESAWIN_DIR}/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
++            #data_copy.commands += $(COPY_FILE) $$targetPath(\"$${MESAWIN_DIR}/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
++            data_copy.commands += $(COPY_FILE) $$targetPath(\"$$[QT_INSTALL_BINS]/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
+         }
+ 
+         data_copy.target = FORCE
+diff --git a/ground/openpilotgcs/src/plugins/ophid/inc/ophid_usbmon.h b/ground/openpilotgcs/src/plugins/ophid/inc/ophid_usbmon.h
+index eda2738..7e987de 100644
+--- a/ground/openpilotgcs/src/plugins/ophid/inc/ophid_usbmon.h
++++ b/ground/openpilotgcs/src/plugins/ophid/inc/ophid_usbmon.h
+@@ -54,13 +54,16 @@
+ #include <windows.h>
+ #include <dbt.h>
+ #include <setupapi.h>
+-#include <hidsdi.h>
++
+ 
+ // from working mingw hidsdi.h
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
++#include <hidsdi.h>
++
++#if 0
+ HIDAPI VOID WINAPI HidD_GetHidGuid(LPGUID);
+ HIDAPI BOOL WINAPI HidD_GetPreparsedData(HANDLE, PHIDP_PREPARSED_DATA *);
+ HIDAPI BOOL WINAPI HidD_FreePreparsedData(PHIDP_PREPARSED_DATA);
+@@ -70,6 +73,7 @@ HIDAPI BOOL WINAPI HidD_SetConfiguration(HANDLE, PHIDD_CONFIGURATION, ULONG);
+ HIDAPI BOOL WINAPI HidD_GetPhysicalDescriptor(HANDLE, PVOID, ULONG);
+ HIDAPI BOOL WINAPI HidD_GetIndexedString(HANDLE, ULONG, PVOID, ULONG);
+ HIDAPI BOOL WINAPI HidD_GetSerialNumberString(HANDLE, PVOID, ULONG);
++#endif
+ 
+ #ifdef __cplusplus
+ }
+diff --git a/make/tools.mk b/make/tools.mk
+index fb7ff75..adec50c 100644
+--- a/make/tools.mk
++++ b/make/tools.mk
+@@ -55,6 +55,9 @@ endif
+ #
+ ##############################
+ 
++EANY_PILOT_TOOLS_URL_0 := http://wiki.openpilot.org/download/attachments/18612236
++EANY_PILOT_TOOLS_URL_1 := https://github.com/librepilot/librepilot.github.io/raw/master/tools
++
+ ifeq ($(UNAME), Linux)
+     ifeq ($(ARCH), x86_64)
+         ARM_SDK_URL := https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2
+@@ -88,11 +91,11 @@ else ifeq ($(UNAME), Windows)
+     QT_SDK_URL     := http://download.qt-project.org/official_releases/qt/5.4/5.4.0/qt-opensource-windows-x86-mingw491_opengl-5.4.0.exe
+     QT_SDK_MD5_URL := http://download.qt-project.org/official_releases/qt/5.4/5.4.0/qt-opensource-windows-x86-mingw491_opengl-5.4.0.exe.md5
+     QT_SDK_ARCH    := mingw491_32
+-    NSIS_URL       := http://wiki.openpilot.org/download/attachments/18612236/nsis-2.46-unicode.tar.bz2
+-    SDL_URL        := http://wiki.openpilot.org/download/attachments/18612236/SDL-devel-1.2.15-mingw32.tar.gz
+-    OPENSSL_URL    := http://wiki.openpilot.org/download/attachments/18612236/openssl-1.0.1e-win32.tar.bz2
+-    UNCRUSTIFY_URL := http://wiki.openpilot.org/download/attachments/18612236/uncrustify-0.60-windows.tar.bz2
+-    DOXYGEN_URL    := http://wiki.openpilot.org/download/attachments/18612236/doxygen-1.8.3.1-windows.tar.bz2
++    NSIS_URL       := $(EANY_PILOT_TOOLS_URL_1)/nsis-2.46-unicode.tar.bz2
++    SDL_URL        := $(EANY_PILOT_TOOLS_URL_1)/SDL-devel-1.2.15-mingw32.tar.gz
++    OPENSSL_URL    := $(EANY_PILOT_TOOLS_URL_1)/openssl-1.0.1e-win32.tar.bz2
++    UNCRUSTIFY_URL := $(EANY_PILOT_TOOLS_URL_1)/uncrustify-0.60-windows.tar.bz2
++    DOXYGEN_URL    := $(EANY_PILOT_TOOLS_URL_1)/doxygen-1.8.3.1-windows.tar.bz2
+     MESAWIN_URL    := http://wiki.openpilot.org/download/attachments/18612236/mesawin.tar.gz
+ endif
+ 

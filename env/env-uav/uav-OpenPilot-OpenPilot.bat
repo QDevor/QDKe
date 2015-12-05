@@ -48,7 +48,7 @@ if not exist !PGM_NAME!-patch-stamp (
 	rem make all_sdk_install
 	echo !errorlevel!
 	if "!errorlevel!" == "0" (
-    make all
+    make all V=1
   )
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
