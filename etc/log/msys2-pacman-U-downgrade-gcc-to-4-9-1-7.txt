@@ -1,0 +1,3 @@
+pacman -U http://liquidtelecom.dl.sourceforge.net/project/msys2/REPOS/MINGW_GCC_4_9/i686/mingw-w64-i686-cloog-0.18.1-3-any.pkg.tar.xz
+pacman -U http://liquidtelecom.dl.sourceforge.net/project/msys2/REPOS/MINGW_GCC_4_9/i686/mingw-w64-i686-gcc-libs-4.9.1-7-any.pkg.tar.xz
+pacman -U http://liquidtelecom.dl.sourceforge.net/project/msys2/REPOS/MINGW_GCC_4_9/i686/mingw-w64-i686-gcc-4.9.1-7-any.pkg.tar.xz

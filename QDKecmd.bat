@@ -22,7 +22,7 @@ cd /d %~dp0
 	title %~n0
 set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\bin"
 set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\lib\openpilotgcs"
-openpilotgcs
+openpilotgcs -log eAnyPilotRun.log
 	cmd
 	echo last return - %errorlevel%.
 	goto :loop

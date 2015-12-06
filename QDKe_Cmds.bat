@@ -63,6 +63,8 @@ rem call env/env-test/%DJN%.bat
 echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
+pacman -Sl > msys2_remote_pkglist.txt
+
 set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\bin"
 set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\lib\openpilotgcs"
 openpilotgcs
@@ -71,6 +73,6 @@ cmd
 :-------------------------------------
 setlocal disabledelayedexpansion
 :-------------------------------------
-
+:eof
 PAUSE
 EXIT
