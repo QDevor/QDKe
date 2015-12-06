@@ -64,6 +64,7 @@ echo [QDKe] - We Are Doing Jobs... Finish.
 :+++++++++++++++++++++++++++++++++++++
 title %~n0
 set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\bin"
+set "PATH=%PATH%;home\uav_home\OpenPilot\OpenPilot\build\openpilotgcs_release\lib\openpilotgcs"
 openpilotgcs
 cmd
 :: setlocal disabledelayedexpansion
