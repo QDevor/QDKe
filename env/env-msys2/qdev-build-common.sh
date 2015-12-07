@@ -76,10 +76,11 @@ qdev_set() {
 	[ x$user_name != "x" ] && qdev_build_top=$qdev_build_top/$user_name
 	qdev_build_src=$qdev_build_top
 	qdev_build_dir=$qdev_build_top
+	qdev_install_dir=$qdev_build_top
 	
 	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_top=$qdev_build_top/$apps_name
 	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_src=$qdev_build_top/$apps_more
-	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_dir=$qdev_build_src.build
+	[ x$apps_name != "x" ] && [ x$apps_more != "x" ] && qdev_build_dir=$qdev_build_src.build && qdev_install_dir=$qdev_build_src.install
 	
 #	if [[ -n $apps_more ]]; then
 #		qdev_build_top=$work_home/$user_name/$apps_name
@@ -96,6 +97,7 @@ qdev_set() {
 	#echo qdev_build_dir=$qdev_build_dir
 	
 	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir >/dev/null 2>&1
+	[ -d $qdev_install_dir ] || mkdir -p $qdev_install_dir >/dev/null 2>&1
 	
 	# echo $qdev_build_dir
 }

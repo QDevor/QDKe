@@ -30,6 +30,7 @@ setlocal enabledelayedexpansion
 :--Default setting to true
 set QDKe_VAR_MSVS_VER_YEAR=None
 :----------------------------------------
+set MSYSTEM=MINGW32
 
 :: Checking QDKe Env
 :----------------------------------------
@@ -44,9 +45,9 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: cc-libseh cc-mysql-server
-:: cc-talib
+:: cc-talib cc-libkml
 :+++++++++++++++++++++++++++++++++++++
-set DJN=cc-talib
+set DJN=cc-libkml
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

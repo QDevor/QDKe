@@ -74,7 +74,7 @@ rm -rf var/lib/pacman/db.lck
 popd
 
 rem echo y | pacman -Su
-echo y | pacman -S mingw-w64-i686-mesa
+echo y | pacman -S mingw-w64-i686-ruby scons mingw-w64-i686-gdk-pixbuf2
 if "!errorlevel!" == "0" (
   goto :QDKE_LABEL_EOF
 ) else (
