@@ -1,17 +1,19 @@
- src/kml/base/file_posix.cc                        | 2 +-
+ src/kml/base/file_posix.cc                        | 4 ++++
  third_party/googletest-r108/src/gtest-filepath.cc | 4 ++++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ 2 files changed, 8 insertions(+)
 
 diff --git a/src/kml/base/file_posix.cc b/src/kml/base/file_posix.cc
-index 9816dc4..9ea55e4 100644
+index 9816dc4..897f5cf 100644
 --- a/src/kml/base/file_posix.cc
 +++ b/src/kml/base/file_posix.cc
-@@ -33,7 +33,7 @@
- #include <sys/stat.h>
+@@ -34,6 +34,10 @@
  #include <unistd.h>
  
--#ifdef _WIN32
-+#if 0
+ #ifdef _WIN32
++
++#include <fcntl.h>
++#include <windows.h>
++
  /* mkstemp extracted from libc/sysdeps/posix/tempname.c.  Copyright
   (C) 1991-1999, 2000, 2001, 2006 Free Software Foundation, Inc.
  
