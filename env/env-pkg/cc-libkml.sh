@@ -96,6 +96,7 @@ qdev_build_config() {
 	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
+		CC=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32-gcc \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
 			--disable-shared \

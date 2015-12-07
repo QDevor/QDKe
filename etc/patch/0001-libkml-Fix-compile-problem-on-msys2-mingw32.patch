@@ -1,0 +1,33 @@
+ src/kml/base/file_posix.cc                        | 2 +-
+ third_party/googletest-r108/src/gtest-filepath.cc | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/kml/base/file_posix.cc b/src/kml/base/file_posix.cc
+index 9816dc4..9ea55e4 100644
+--- a/src/kml/base/file_posix.cc
++++ b/src/kml/base/file_posix.cc
+@@ -33,7 +33,7 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ 
+-#ifdef _WIN32
++#if 0
+ /* mkstemp extracted from libc/sysdeps/posix/tempname.c.  Copyright
+  (C) 1991-1999, 2000, 2001, 2006 Free Software Foundation, Inc.
+ 
+diff --git a/third_party/googletest-r108/src/gtest-filepath.cc b/third_party/googletest-r108/src/gtest-filepath.cc
+index fc4b787..410fc03 100644
+--- a/third_party/googletest-r108/src/gtest-filepath.cc
++++ b/third_party/googletest-r108/src/gtest-filepath.cc
+@@ -264,7 +264,11 @@ bool FilePath::CreateFolder() const {
+   int result = _mkdir(pathname_.c_str());
+ #endif  // !WIN32_WCE
+ #else
++  #ifdef _WIN32
++  int result = mkdir(pathname_.c_str());
++  #else
+   int result = mkdir(pathname_.c_str(), 0777);
++  #endif
+ #endif  // _WIN32
+   if (result == -1) {
+     return this->DirectoryExists();  // An error is OK if the directory exists.
