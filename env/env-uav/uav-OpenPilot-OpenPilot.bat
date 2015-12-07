@@ -42,10 +42,22 @@ if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
 	
 	cd !PGM_WORK_HOME!
+
+	rem set "PATH=%MSYS_ROOT%/usr/bin;%QDKE_PURE_PATH%"
+goto :LABEL_SKIP_RESET_PATH_VAR	
+	rem set "PATH=!PGM_WORK_HOME!/tools/qt-5.4.0/Tools/mingw491_32/bin;!PATH!"
+	rem set "PATH=!PGM_WORK_HOME!/tools/qt-5.4.0/5.4/mingw491_32/bin;!PATH!"
+	
+	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/Tools/mingw491_32/bin;!PATH!"
+	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/Tools/mingw491_32/opt/bin;!PATH!"
+	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/5.4/mingw491_32/bin;!PATH!"
+:LABEL_SKIP_RESET_PATH_VAR
+	rem cmd
+	qmake -query QMAKE_SPEC
 	rem sh ./make/scripts/win_sdk_install.sh
-	rem make arm_sdk_install
-	rem make sdl_install
-	rem make all_sdk_install
+	rem make arm_sdk_install V=1
+	rem make sdl_install V=1
+	rem make all_sdk_install V=1
 	echo !errorlevel!
 	if "!errorlevel!" == "0" (
     make all V=1

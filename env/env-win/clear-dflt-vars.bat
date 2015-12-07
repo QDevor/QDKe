@@ -34,7 +34,8 @@ set "ORIGINAL_PATH=%PATH%"
 set "PATH="
 
 :: Add WINDOWS PATH...
-set "PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
+set "QDKE_PURE_PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
+set "PATH=%QDKE_PURE_PATH%"
 :----------------------------------------
 
 :----------------RUN-ONCE----------------
