@@ -96,13 +96,15 @@ qdev_build_config() {
 	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
-		CC=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32-gcc \
+		LIBKML_CC_PREFIX=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32
+		CC=$LIBKML_CC_PREFIX-gcc \
+		CXX=$LIBKML_CC_PREFIX-g++ \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
 			--disable-shared \
 			--enable-static \
-			--with-expat-include-dir="''$qdev_build_src''/third_party/expat.win32" \
-	    --with-expat-lib-dir="''$qdev_build_src''/third_party/expat.win32" \
+			--with-expat-include-dir="$qdev_build_src/third_party/expat.win32" \
+	    --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32" \
 		  LDFLAGS="-lm" \
 		  ||die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
@@ -127,10 +129,13 @@ qdev_build_make_install() {
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-make$1
 	fi
-	return 0
+	
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy ]; then
 		:
-		#touch $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy
+		cd $qdev_build_src/third_party/boost_1_34_1
+		cp -rf boost $qdev_install_dir/include \
+			|| die
+		touch $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy
 	fi
 }
 

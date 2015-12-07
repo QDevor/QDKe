@@ -50,6 +50,7 @@ if not exist !PGM_NAME!-patch-stamp (
 rem goto :LABEL_SKIP_RESET_PATH_VAR	
 	
 :LABEL_SKIP_RESET_PATH_VAR
+  rem env > before_call_mxe.env
 	bash --login -i -c "../env/env-mxe/mxe-any.sh %mxe_call_args%"
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp

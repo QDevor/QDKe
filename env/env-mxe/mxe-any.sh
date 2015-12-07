@@ -44,6 +44,7 @@ qdev_setmore() {
 	qdev_build_dir=$qdev_build_top
 	
 	[ -d $qdev_build_top ] || mkdir -p $qdev_build_top > /dev/null 2>&1
+	rm -rf $qdev_build_top/mxe > /dev/null 2>&1
 }
 
 qdev_get() {
@@ -81,7 +82,10 @@ qdev_build_fix() {
 qdev_build_make() {
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
-		make $@ \
+		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
+		make \
+		  MXE_TARGETS='i686-w64-mingw32.static' \
+		  $@ \
 			|| die
 		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
 	fi
