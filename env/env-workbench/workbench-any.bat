@@ -15,7 +15,7 @@ rem limitations under the License.
 rem.
 
 :----------------RUN-ONCE----------------
-if "x%INCLUDE_MXE_ANY_BATCH%" == "xtrue" (
+if "x%INCLUDE_WORKBENCH_ANY_BATCH%" == "xtrue" (
 	goto :EOF
 )
 :----------------RUN-ONCE----------------
@@ -25,12 +25,12 @@ if "x%INCLUDE_MXE_ANY_BATCH%" == "xtrue" (
 echo [QDKe] - We Are Checking QDKe Env.
 call env/env-win/entry-common.bat
 :----------------------------------------
-call env/env-uav/uav-common.bat
+call env/env-workbench/workbench-common.bat
 :----------------------------------------
 
 set "mxe_call_args=%*"
 set "PGM_BATCH_FILE=%~n0"
-set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~3!"
+set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~9!"
 rem for /f "tokens=x,y,m-n delims=chars" %%a in ("str")   do cmd
 for /f "tokens=1* delims=-" %%a in ("!PGM_BATCH_FILE!") do (
 	set PGM_USER=%%a
@@ -45,10 +45,10 @@ echo [Building][mxe] - Starting  - !PGM_USER!.
 :----------------------------------------
 rem git clone git://git.openpilot.org/OpenPilot.git OpenPilot
 :----------------------------------------
-echo [Building][mxe] - Makeing  - !PGM_USER!.
+echo [Building][WorkBench] - Makeing  - !PGM_USER!.
 
 if not exist !PGM_NAME!-patch-stamp (
-	echo [Building][mxe] - Makeing  - !PGM_USER!.
+	echo [Building][WorkBench] - Makeing  - !PGM_USER!.
 
 	rem cd !PGM_WORK_HOME!
 
@@ -56,16 +56,16 @@ if not exist !PGM_NAME!-patch-stamp (
 rem goto :LABEL_SKIP_RESET_PATH_VAR	
 	
 :LABEL_SKIP_RESET_PATH_VAR
-  rem env > before_call_mxe.env
-	bash --login -i -c "../env/env-mxe/mxe-any.sh %mxe_call_args%"
+  rem env > before_call_workbench.env
+	bash --login -i -c "../env/env-workbench/workbench-any.sh %workbench_call_args%"
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )
 :----------------------------------------
 
 :----------------------------------------
-echo [Building][MXE] - Ending    - !PGM_BATCH_FILE!.
+echo [Building][WorkBench] - Ending    - !PGM_BATCH_FILE!.
 :----------------RUN-ONCE----------------
-set INCLUDE_MXE_ANY_BATCH=true
+set INCLUDE_WORKBENCH_ANY_BATCH=true
 :EOF
 :----------------RUN-ONCE----------------

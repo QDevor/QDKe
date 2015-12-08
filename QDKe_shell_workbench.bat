@@ -60,20 +60,18 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: download EXCLUDE_PKGS='boost qt'
-:: gcc expat 
-:: pkgs for compile error - boost qt
-:: EXCLUDE_PKGS=^^'boost qt^^'
+:: workbench_start_date
 :+++++++++++++++++++++++++++++++++++++
-set "EXCLUDE_PKGS=boost qt"
+set workbench_start_date=2015-12-13
+
 set "DJN_LOOP_OFF=yes"
-set "DJN=all"
+set "DJN=%workbench_start_date%"
 set DJNLOG=0
 if "x%DJNLOG%" == "x1" (
-  call "env/env-mxe/mxe-any.bat" "%DJN%"> %~dp0var/log/%~n0.log 2>&1
+  call "env/env-workbench/workbench-any.bat" "%DJN%"> %~dp0var/log/%~n0.log 2>&1
   %QDKT_UE% %~dp0var/log/%~n0.log
 ) else (
-  call "env/env-mxe/mxe-any.bat" "%DJN%"
+  call "env/env-workbench/workbench-any.bat" "%DJN%"
 )
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
