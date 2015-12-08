@@ -85,12 +85,8 @@ qdev_build_make() {
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
 		#BUILD='i686-w64-mingw32.static'
 		echo [build] - [$@]
-		CC=i686-w64-mingw32-gcc \
-		make \
-		   \
-		  $@ \
-			|| die
-		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
+		make $@ || die
+		# touch $qdev_build_src/${FUNCNAME}-stamp-make$1
 	fi
 }
 
