@@ -101,7 +101,7 @@ qdev_build_config() {
 	  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
 		LIBKML_CC_PREFIX=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32
 		CC=$LIBKML_CC_PREFIX-gcc \
-		CXX=$LIBKML_CC_PREFIX-g++ \
+		CXX=$LIBKML_CC_PREFIX-gcc \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
 			--enable-shared=no \

@@ -83,9 +83,11 @@ qdev_build_make() {
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
+		#BUILD='i686-w64-mingw32.static'
+		echo [build] - [$@]
 		CC=i686-w64-mingw32-gcc \
 		make \
-		  BUILD='i686-w64-mingw32.static' \
+		   \
 		  $@ \
 			|| die
 		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
@@ -127,8 +129,8 @@ qdev_try() {
 	
 	# qdev_build_config
 	# qdev_build_cmake
-	qdev_build_make_download
-	# qdev_build_make $@
+	# qdev_build_make_download
+	qdev_build_make $@
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
