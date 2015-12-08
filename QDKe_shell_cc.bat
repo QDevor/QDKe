@@ -27,6 +27,7 @@ setlocal enabledelayedexpansion
 :: settings requirements
 :----------------------------------------
 :--Default setting to false
+set QDKe_VAR_INCLUDED_MINGW=true
 :--Default setting to true
 set QDKe_VAR_MSVS_VER_YEAR=None
 :----------------------------------------

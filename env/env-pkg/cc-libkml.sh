@@ -96,15 +96,18 @@ qdev_build_config() {
 	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
+		
+		#  --with-expat-include-dir="$qdev_build_src/third_party/expat.win32"
+	  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
 		LIBKML_CC_PREFIX=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32
 		CC=$LIBKML_CC_PREFIX-gcc \
 		CXX=$LIBKML_CC_PREFIX-g++ \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
-			--disable-shared \
-			--enable-static \
-			--with-expat-include-dir="$qdev_build_src/third_party/expat.win32" \
-	    --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32" \
+			--enable-shared=no \
+			--enable-static=yes \
+			--with-expat-include-dir="$MINGW_ROOT/include" \
+			--with-expat-lib-dir="$MINGW_ROOT/lib" \
 		  LDFLAGS="-lm" \
 		  ||die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
@@ -137,6 +140,12 @@ qdev_build_make_install() {
 			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy
 	fi
+	
+	current_dir=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools
+	cd $current_dir || die
+	rm -rf $current_dir/libkml >/dev/null 2>&1
+	mkdir -p $current_dir/libkml || die
+	cp -rf $qdev_install_dir/* $current_dir/libkml || die
 }
 
 qdev_try() {

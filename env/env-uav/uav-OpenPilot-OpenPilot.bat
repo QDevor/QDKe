@@ -63,7 +63,8 @@ goto :LABEL_SKIP_MAKE_INSTALL_TOOLS
 :LABEL_SKIP_MAKE_INSTALL_TOOLS
 	echo !errorlevel!
 	if "!errorlevel!" == "0" (
-    make all V=1
+    rem make all V=1
+    cd build/openpilotgcs_release/src/plugins/kmlexport && make all V=1
   )
 	
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp

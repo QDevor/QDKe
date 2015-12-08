@@ -83,10 +83,30 @@ qdev_build_make() {
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
+		CC=i686-w64-mingw32-gcc \
 		make \
-		  MXE_TARGETS='i686-w64-mingw32.static' \
+		  BUILD='i686-w64-mingw32.static' \
 		  $@ \
 			|| die
+		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
+	fi
+}
+
+qdev_build_make_download() {
+	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
+		cd $qdev_build_src
+		
+		doloop=1
+		while [ $doloop = 1 ]; do
+			#rm -rf /var/lib/pacman/db.lck > /dev/null 2>&1
+			make download --keep-going
+			if [ $? = 0 ]; then
+				break;
+			fi
+			log_warning "${FUNCNAME} - download failed - auto try again."
+			sleep 3
+		done
+    
 		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
 	fi
 }
@@ -107,7 +127,8 @@ qdev_try() {
 	
 	# qdev_build_config
 	# qdev_build_cmake
-	qdev_build_make $@
+	qdev_build_make_download
+	# qdev_build_make $@
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
