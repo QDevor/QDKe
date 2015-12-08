@@ -37,7 +37,28 @@ export PYTHON=python2
 #----------------------------------------
 
 #----------------------------------------
+workbench_common_prepare() {
+  workbench_key_file=$QDKE_ROOT/env/env-workbench/workbench.key
+  if [ ! -e $workbench_key_file ]; then
+    echo "WORKBENCH_COMMON_COMP_NAME=workbench_common_comp_name"     >$workbench_key_file
+    echo "WORKBENCH_COMMON_PROJ_NAME=workbench_common_proj_name"     >>$workbench_key_file
+    echo "WORKBENCH_COMMON_HW_BRD_NAME=workbench_common_hw_brd_name" >>$workbench_key_file
+  else
+    WORKBENCH_COMMON_COMP_NAME=$(cat $workbench_key_file   | grep "WORKBENCH_COMMON_COMP_NAME="   | sed 's/WORKBENCH_COMMON_COMP_NAME=//g')
+    WORKBENCH_COMMON_PROJ_NAME=$(cat $workbench_key_file   | grep "WORKBENCH_COMMON_PROJ_NAME="   | sed 's/WORKBENCH_COMMON_PROJ_NAME=//g')
+    WORKBENCH_COMMON_HW_BRD_NAME=$(cat $workbench_key_file | grep "WORKBENCH_COMMON_HW_BRD_NAME=" | sed 's/WORKBENCH_COMMON_HW_BRD_NAME=//g')
+    echo [debug] Reading config from $workbench_key_file:
+    echo [debug] WORKBENCH_COMMON_COMP_NAME=$WORKBENCH_COMMON_COMP_NAME
+    echo [debug] WORKBENCH_COMMON_PROJ_NAME=$WORKBENCH_COMMON_PROJ_NAME
+    echo [debug] WORKBENCH_COMMON_HW_BRD_NAME=$WORKBENCH_COMMON_HW_BRD_NAME
+  fi
+  
+  return 0
+}
+
 workbench_common_init() {
+  workbench_common_prepare
+  
   if [ -z $WORKBENCH_COMMON_COMP_NAME ]; then
     local_suffix=$(date +%Y-%m-%d)
     WORKBENCH_COMMON_COMP_NAME="nullcomp-$local_suffix"
@@ -48,8 +69,10 @@ workbench_common_init() {
     WORKBENCH_COMMON_PROJ_NAME="nullproj-$local_suffix"
   fi
   
-  WORKBENCH_COMMON_HW_VER_NAME="beta production"
-	WORKBENCH_COMMON_HW_BRD_NAME="test"
+  if [ -z $(echo $WORKBENCH_COMMON_HW_BRD_NAME | sed 's/ //g') ]; then
+	  local_suffix=$(date +%m-%d)
+    WORKBENCH_COMMON_HW_BRD_NAME="nullbrd-$local_suffix"
+	fi
 	
 	return 0
 }
@@ -66,8 +89,11 @@ workbench_common_conf_dirs() {
 }
 
 workbench_common_conf_contents() {
-	WORKBENCH_COMMON_SW_CONTENTS="tools third_party src examples tests"
-	WORKBENCH_COMMON_HW_CONTENTS="Assembly BOM Gerbers"
+	WORKBENCH_COMMON_SW_CONTENTS="tools third_party src docs examples tests"
+	WORKBENCH_COMMON_HW_CONTENTS="Assembly BOM Gerbers Schematics PCB"
+	
+	WORKBENCH_COMMON_HW_VER_NAME="rel_beta rel_production"
+	WORKBENCH_COMMON_HW_COM_NAME="com_docs com_datasheets"
 	return 0
 }
 
@@ -107,6 +133,69 @@ workbench_common_check_contents() {
     	done
     done
   done
+  
+	for comname in $WORKBENCH_COMMON_HW_COM_NAME
+  do
+	  [ -d $WORKBENCH_COMMON_HARDWARE_DIR/$comname ]     || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR/$comname
+	done
+	
+	return 0
+}
+
+workbench_common_copy_readme() {
+  cat \
+      $QDKE_ROOT/etc/template/readme-party-title.tpl \
+      $QDKE_ROOT/etc/template/readme-party-license.tpl \
+  > $TMP/readme-orig ||die
+  
+  _var=$(date +%Y)
+  sed -e "s/README_PARTY_LICENSE_YEAR/$_var/g" \
+      -e "s/README_PARTY_LICENSE_AUTHOR/anyDev/g" \
+  $TMP/readme-orig \
+  >$TMP/readme-tmp1
+  
+  sed -e "s/README_PARTY_TITLE_TPL_TITLE/$WORKBENCH_COMMON_PROJ_NAME/g" \
+      -e "s/README_PARTY_TITLE_TPL_DESC/Development Top Root Dir/g" \
+  $TMP/readme-tmp1 \
+  >$TMP/readme-tmp
+  cp -n $TMP/readme-tmp $WORKBENCH_COMMON_PROJ_DIR/README.rst
+  
+  sed -e "s/README_PARTY_TITLE_TPL_TITLE/$WORKBENCH_COMMON_PROJ_NAME - Software/g" \
+      -e "s/README_PARTY_TITLE_TPL_DESC/Placed all software files here/g" \
+  $TMP/readme-tmp1 \
+  >$TMP/readme-tmp
+  cp -n $TMP/readme-tmp $WORKBENCH_COMMON_SOFTWARE_DIR/README.rst
+  
+  sed -e "s/README_PARTY_TITLE_TPL_TITLE/$WORKBENCH_COMMON_PROJ_NAME - Hardware/g" \
+      -e "s/README_PARTY_TITLE_TPL_DESC/Placed all hardware files here/g" \
+  $TMP/readme-tmp1 \
+  >$TMP/readme-tmp
+  cp -n $TMP/readme-tmp $WORKBENCH_COMMON_HARDWARE_DIR/README.rst
+  
+	return 0
+}
+
+workbench_common_copy_proj() {
+	# copy proj common files
+	cp -n $QDKE_ROOT/QDKe_AnyCmds.bat $WORKBENCH_COMMON_PROJ_DIR/hw_cmds.bat
+  cp -n $QDKE_ROOT/QDKe_AnyCmds.bat $WORKBENCH_COMMON_PROJ_DIR/sw_cmds.bat
+	return 0
+}
+
+workbench_common_copy_soft() {
+	return 0
+}
+
+workbench_common_copy_hard() {
+  
+	return 0
+}
+
+workbench_common_copy() {
+	workbench_common_copy_readme
+	workbench_common_copy_proj
+	workbench_common_copy_soft
+	workbench_common_copy_hard
 	
 	return 0
 }
@@ -114,6 +203,8 @@ workbench_common_check_contents() {
 workbench_common_make() {
 	workbench_common_check_dirs
 	workbench_common_check_contents
+	
+	workbench_common_copy
 	return 0
 }
 #----------------------------------------

@@ -30,7 +30,7 @@ call env/env-workbench/workbench-common.bat
 
 set "mxe_call_args=%*"
 set "PGM_BATCH_FILE=%~n0"
-set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~9!"
+rem set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~9!"
 rem for /f "tokens=x,y,m-n delims=chars" %%a in ("str")   do cmd
 for /f "tokens=1* delims=-" %%a in ("!PGM_BATCH_FILE!") do (
 	set PGM_USER=%%a
@@ -41,14 +41,14 @@ rem set "PGM_WORK_HOME=!QDKE_HOME!/mxe_home"
 set "PGM_WORK_HOME=!QDKE_HOME!/mxe_home"
 set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
-echo [Building][mxe] - Starting  - !PGM_USER!.
+echo [Building][WorkBench] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
 rem git clone git://git.openpilot.org/OpenPilot.git OpenPilot
 :----------------------------------------
-echo [Building][WorkBench] - Makeing  - !PGM_USER!.
+echo [Building][WorkBench] - Makeing  - !PGM_BATCH_FILE!.
 
 if not exist !PGM_NAME!-patch-stamp (
-	echo [Building][WorkBench] - Makeing  - !PGM_USER!.
+	rem echo [Building][WorkBench] - Makeing  - !PGM_USER!.
 
 	rem cd !PGM_WORK_HOME!
 
