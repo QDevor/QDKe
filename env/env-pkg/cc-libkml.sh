@@ -99,18 +99,27 @@ qdev_build_config() {
 		
 		#  --with-expat-include-dir="$qdev_build_src/third_party/expat.win32"
 	  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
-		LIBKML_CC_PREFIX_QT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin/i686-w64-mingw32
-		LIBKML_CC_PREFIX_MXE=$QDKE_ROOT/home/mxe/usr/bin/i686-w64-mingw32
-		LIBKML_CC_PREFIX=$LIBKML_CC_PREFIX_MXE
-		CC=$LIBKML_CC_PREFIX-gcc \
-		CXX=$LIBKML_CC_PREFIX-g++ \
+		CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin
+    CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin
+    
+		LIBKML_CROSS_COMPILE=
+		export PATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT:$PATH"
+		
+		# cd $QDKE_ROOT/home/mxe
+		# i686-w64-mingw32-gcc -v 1.c
+		#
+	  
+		cd $qdev_build_dir ||die
+		CC=${LIBKML_CROSS_COMPILE}gcc \
+		CXX=${LIBKML_CROSS_COMPILE}g++ \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
-			--enable-shared=no \
-			--enable-static=yes \
+			--disable-shared \
+			--enable-static \
 			--with-expat-include-dir="$MINGW_ROOT/include" \
 			--with-expat-lib-dir="$MINGW_ROOT/lib" \
 		  LDFLAGS="-lm" \
+		  -v \
 		  ||die
 		touch $qdev_build_dir/${FUNCNAME}-stamp
 	fi

@@ -29,6 +29,7 @@ call %~dp0set-dflt-vars.bat
 call %~dp0set-dflt-dirs.bat
 :----------------------------------------
 call %~dp0set-extra-vars.bat
+call %~dp0set-extra-cross-compile.bat
 :----------------------------------------
 call %~dp0check-dflt-vars.bat
 :----------------------------------------

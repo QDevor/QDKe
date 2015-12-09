@@ -33,6 +33,17 @@ export PYTHON=python2
 #----------------------------------------
 
 qdev_init() {
+  export DONT_CHECK_REQUIREMENTS=1
+	touch $QDKE_ROOT/home/mxe/usr/installed/check-requirements >/dev/null 2>&1
+	touch $QDKE_ROOT/home/mxe/usr/x86_64-pc-mingw32/installed/lua >/dev/null 2>&1
+	
+	# mxe-conf pkgconf mingw-w64 binutils gcc
+	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/mxe-conf >/dev/null 2>&1
+	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/pkgconf >/dev/null 2>&1
+	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/mingw-w64 >/dev/null 2>&1
+	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/binutils >/dev/null 2>&1
+	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/gcc >/dev/null 2>&1
+	
 	return 0
 }
 
@@ -43,7 +54,7 @@ qdev_setmore() {
 	qdev_build_src=$qdev_build_top
 	qdev_build_dir=$qdev_build_top
 	
-	[ -d $qdev_build_top ] || mkdir -p $qdev_build_top > /dev/null 2>&1
+	[ -d $qdev_build_top ] || mkdir -p $qdev_build_top >/dev/null 2>&1
 	rm -rf $qdev_build_top/mxe > /dev/null 2>&1
 }
 
@@ -118,15 +129,85 @@ qdev_build_make_install() {
 	fi
 }
 
+qdev_dirty_do() {
+  :
+  return 0
+  log_info "$FUNCNAME - $PROGNAME"
+  
+  missing_dll=zlib1.dll libiconv-2.dll libgcc_s_dw2-1.dll libwinpthread-1.dll
+  
+  i686_w64_mingw32_missing_dll_srcdir=$QDK_ROOT/mingw32/bin
+  x86_64_w64_mingw32_missing_dll_srcdir=$QDK_ROOT/mingw64/bin
+  
+  i686_w64_mingw32_missing_dll_destdir=$QDKE_ROOT/home/mxe/i686-w64-mingw32.static/bin
+  x86_64_w64_mingw32_missing_dll_destdir=$QDKE_ROOT/home/mxe/x86_64-w64-mingw32.static/bin
+  mxe_missing_dll_destdir=$QDKE_ROOT/home/mxe/usr/bin
+  
+  missing_dll_srcdir=$i686_w64_mingw32_missing_dll_srcdir 
+  missing_dll_destdir=&mxe_missing_dll_destdir
+  
+    for dll in $missing_dll; do
+      dll=`echo $dep | tr '=' ' '`
+      cp -rf 
+    done
+  log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
+}
+
+qdev_dirty_undo() {
+  :
+  return 0
+  log_info "$FUNCNAME - $PROGNAME"
+  log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
+}
+
+qdev_dirty_copy_missing_dlls() {
+  if [ ! -f $qdev_build_src/usr/installed/${FUNCNAME}-stamp ]; then
+  
+    log_info "$FUNCNAME - $PROGNAME"
+    
+    missing_dll="zlib1.dll libiconv-2.dll libgcc_s_dw2-1.dll libwinpthread-1.dll"
+    
+    i686_w64_mingw32_missing_dll_srcdir=$MSYS_ROOT/mingw32/bin
+    x86_64_w64_mingw32_missing_dll_srcdir=$MSYS_ROOT/mingw64/bin
+    
+    i686_w64_mingw32_missing_dll_destdir=$QDKE_ROOT/home/mxe/i686-w64-mingw32.static/bin
+    x86_64_w64_mingw32_missing_dll_destdir=$QDKE_ROOT/home/mxe/x86_64-w64-mingw32.static/bin
+    mxe_missing_dll_destdir=$QDKE_ROOT/home/mxe/usr/bin
+    
+    missing_dll_srcdir=$i686_w64_mingw32_missing_dll_srcdir 
+    missing_dll_destdir=$mxe_missing_dll_destdir
+  
+    cd $qdev_build_src
+    
+    cd $missing_dll_srcdir
+    cp -rf $missing_dll $missing_dll_destdir
+    
+    #for dll in $missing_dll; do
+    #  dll=`echo $dep | tr ' ' ''`
+    #  cp -rf 
+    #done
+    
+    touch $qdev_build_src/usr/installed/${FUNCNAME}-stamp
+    
+    log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
+  fi
+  return 0
+}
+
 qdev_try() {
 	log_info "$FUNCNAME - $PROGNAME"
 	
 	cd $qdev_build_dir || die
 	
+	qdev_dirty_do
+	
 	# qdev_build_config
 	# qdev_build_cmake
 	# qdev_build_make_download
 	qdev_build_make $@
+	
+	qdev_dirty_undo
+	qdev_dirty_copy_missing_dlls
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }

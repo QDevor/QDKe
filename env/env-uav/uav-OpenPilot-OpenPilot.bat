@@ -42,19 +42,26 @@ if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
 	
 	cd !PGM_WORK_HOME!
-
+  
+  set "CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=!QDKE_ROOT!/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin"
+  set "CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=!QDKE_ROOT!/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin"
+  
+  rem _WIN _OPENPILOT
+  set "CROSS_COMPILE_QT_QMAKE_ROOT=!CROSS_COMPILE_QT_QMAKE_WIN_ROOT!"
+  set "CROSS_COMPILE_QT_MINGW_ROOT=!CROSS_COMPILE_QT_MINGW_WIN_ROOT!"
+  
+  rem _MSYS _MINGW32 _MINGW64 _MXE
+  set "CROSS_COMPILE_ROOT=!CROSS_COMPILE_MXE_ROOT!"
+  set "CROSS_COMPILE=!CROSS_COMPILE_MXE32_PREFIX!"
+  
+  set "TMP_PATH=!PATH!"
 goto :LABEL_SKIP_MAKE_INSTALL_TOOLS	
 	set "PATH=%MSYS_ROOT%/usr/bin;%QDKE_PURE_PATH%"
-	rem set "PATH=%QDKE_PURE_PATH%"
 	
-	rem set "PATH=!PGM_WORK_HOME!/tools/qt-5.4.0/Tools/mingw491_32/bin;!PATH!"
-	rem set "PATH=!PGM_WORK_HOME!/tools/qt-5.4.0/5.4/mingw491_32/bin;!PATH!"
-	
-	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/Tools/mingw491_32/bin;!PATH!"
-	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/Tools/mingw491_32/opt/bin;!PATH!"
-	set "PATH=!QDK_ROOT!/Qt/Qt5.4.0/5.4/mingw491_32/bin;!PATH!"
-
-	make libkml_install V=1
+	set "PATH=!CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT!;!PATH!"
+  set "PATH=!CROSS_COMPILE_ROOT!;!PATH!"
+  
+	rem make libkml_install V=1
 	rem qmake -query QMAKE_SPEC
 	rem sh ./make/scripts/win_sdk_install.sh
 	rem make arm_sdk_install V=1
@@ -63,10 +70,11 @@ goto :LABEL_SKIP_MAKE_INSTALL_TOOLS
 :LABEL_SKIP_MAKE_INSTALL_TOOLS
 	echo !errorlevel!
 	if "!errorlevel!" == "0" (
-    rem make all V=1
-    cd build/openpilotgcs_release/src/plugins/kmlexport && make all V=1
+    make all V=1
+    rem cd build/openpilotgcs_release/src/plugins/kmlexport && make all V=1
   )
 	
+	set "PATH=!TMP_PATH!"
 	rem touch !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp
 )
 :----------------------------------------
