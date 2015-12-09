@@ -47,6 +47,7 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-dflt-dirs.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-vars.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/check-QDKe-dirs.sh
+. $_PGMDIR_ENTRY_COMMON/env-msys2/check-extra-vars.sh
 #----------------------------------------
 . $_PGMDIR_ENTRY_COMMON/env-msys2/ready-msys2.sh
 #----------------------------------------

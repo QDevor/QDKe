@@ -34,6 +34,7 @@ export PYTHON=python2
 
 qdev_init() {
   export DONT_CHECK_REQUIREMENTS=1
+	return 0
 	
 	if [ "dirty_do" == "dirty_undo" ]; then
 	

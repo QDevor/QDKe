@@ -44,6 +44,8 @@ else
 fi
 #----------------------------------------
 export MSYS_ROOT=`cygpath -u $MSYS_ROOT`
+export MINGW32_ROOT=$MSYS_ROOT/mingw32
+export MINGW64_ROOT=$MSYS_ROOT/mingw64
 export MINGW_ROOT=`cygpath -u $MINGW_ROOT`
 #----------------------------------------
 export QDK_ROOT=`cygpath -u $QDK_ROOT`

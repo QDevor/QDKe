@@ -69,8 +69,8 @@ qdev_get_ssd_src() {
 }
 
 qdev_get() {
-	# qdev_get_ssd_src $@
-	scm_clone   $work_home $user_name $apps_name $apps_more
+	qdev_get_ssd_src $@
+	# scm_clone   $work_home $user_name $apps_name $apps_more
 	# scm_clone  $work_home $user_name $apps_name
 }
 
@@ -91,36 +91,24 @@ qdev_build_fix() {
 qdev_build_config() {
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-autogen ]; then
 	  cd $qdev_build_src ||die
-		./autogen.sh ||die
+		# ./autogen.sh ||die
 	  touch $qdev_build_dir/${FUNCNAME}-stamp-autogen
 	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
-		
-		#  --with-expat-include-dir="$qdev_build_src/third_party/expat.win32"
-	  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
-		CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin
-    CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin
+	  CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32
+    CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32
     
-		LIBKML_CROSS_COMPILE=
+		EXPAT_CROSS_COMPILE=$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT/i686-w64-mingw32-
+		EXPAT_CROSS_COMPILE=
 		
 		QDKE_PURE_PATH="/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem"
 		NEWPATH="$MSYS_ROOT/usr/bin"
-		NEWPATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT:$NEWPATH"
+		NEWPATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT/bin:$NEWPATH"
 		
-		export PATH="$NEWPATH"
-		
-		EXPAT_MSYS_ROOT=$MSYS_ROOT/usr
-		EXPAT_MXE32_ROOT=$MXE_MINGW32_ROOT
-		EXPAT_ROOT=$EXPAT_MXE32_ROOT
-		
-		# cd $QDKE_ROOT/home/mxe
-		# i686-w64-mingw32-gcc -v 1.c
-		#
-	  
 		cd $qdev_build_dir ||die
-		CC=${LIBKML_CROSS_COMPILE}gcc \
-		CXX=${LIBKML_CROSS_COMPILE}g++ \
+		CC=${EXPAT_CROSS_COMPILE}gcc \
+		CXX=${EXPAT_CROSS_COMPILE}g++ \
 		../$apps_more/configure \
 		  --prefix=''$qdev_install_dir'' \
 			--disable-shared \
@@ -154,18 +142,8 @@ qdev_build_make_install() {
 	fi
 	
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy ]; then
-		:
-		cd $qdev_build_src/third_party/boost_1_34_1
-		cp -rf boost $qdev_install_dir/include \
-			|| die
 		touch $qdev_build_dir/${FUNCNAME}-stamp-make-auxcopy
 	fi
-	
-	current_dir=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools
-	cd $current_dir || die
-	rm -rf $current_dir/libkml >/dev/null 2>&1
-	mkdir -p $current_dir/libkml || die
-	cp -rf $qdev_install_dir/* $current_dir/libkml || die
 }
 
 qdev_try() {
@@ -202,27 +180,26 @@ qdev_tst() {
 #
 # Required and optional software
 #
-pkg=ta-lib
-pkg_ver=0.4.0
-pkg_file=$pkg-$pkg_ver-src
+pkg=expat
+pkg_ver=2.1.0
+pkg_file=$pkg-$pkg_ver
 pkg_ffile=$pkg_file.tar.gz
 pkg_dir=$pkg
-# http://ncu.dl.sourceforge.net/project/ta-lib/ta-lib/0.4.0/ta-lib-0.4.0-src.tar.gz
-pkg_url=http://ncu.dl.sourceforge.net/project/ta-lib/ta-lib/0.4.0/$pkg_ffile
+pkg_url=http://ncu.dl.sourceforge.net/project/$pkg/$pkg/$pkg_ver/$pkg_ffile
 
 pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QDEV_WORK_HOME
-user_name=kubark42
-apps_name=libkml
-apps_more=github
+user_name=expat
+apps_name=expat
+apps_more=ssd
 # Standard Source Distribution
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
-qdev_get					$work_home $user_name $apps_name $apps_more
+qdev_get					$pkg $pkg_ver $pkg_file $pkg_ffile $pkg_url
 qdev_check
 qdev_try
-qdev_tst
+#qdev_tst
