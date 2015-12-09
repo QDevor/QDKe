@@ -34,6 +34,9 @@ export PYTHON=python2
 
 qdev_init() {
   export DONT_CHECK_REQUIREMENTS=1
+	
+	if [ "dirty_do" == "dirty_undo" ]; then
+	
 	touch $QDKE_ROOT/home/mxe/usr/installed/check-requirements >/dev/null 2>&1
 	touch $QDKE_ROOT/home/mxe/usr/x86_64-pc-mingw32/installed/lua >/dev/null 2>&1
 	
@@ -43,6 +46,8 @@ qdev_init() {
 	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/mingw-w64 >/dev/null 2>&1
 	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/binutils >/dev/null 2>&1
 	touch $QDKE_ROOT/home/mxe/usr/i686-w64-mingw32.static/installed/gcc >/dev/null 2>&1
+	
+	fi
 	
 	return 0
 }
