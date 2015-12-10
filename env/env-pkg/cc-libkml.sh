@@ -171,6 +171,8 @@ qdev_build_make_install() {
 	rm -rf $current_dir/libkml >/dev/null 2>&1
 	mkdir -p $current_dir/libkml || die
 	cp -rf $qdev_install_dir/* $current_dir/libkml || die
+	
+	cp $EXPAT_ROOT/bin/libexpat.a $current_dir/libkml/lib/libexpat.a || die
 }
 
 qdev_try() {
@@ -203,7 +205,7 @@ qdev_tst() {
 		
 		  # libkmlengine.a depends libkmlbase
 		  # 
-			cd $qdev_build_dir/examples/helloworld
+			cd $qdev_build_dir/examples
       make
       read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
       
