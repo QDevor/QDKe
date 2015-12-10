@@ -43,12 +43,14 @@ else
 	export QDKE_ETC=`cygpath -u $QDKE_ETC`
 fi
 #----------------------------------------
-export MSYS_ROOT=`cygpath -u $MSYS_ROOT`
+# avoid convert root directory to /
+# export MSYS_ROOT=`cygpath -u $MSYS_ROOT`
 export MINGW32_ROOT=$MSYS_ROOT/mingw32
 export MINGW64_ROOT=$MSYS_ROOT/mingw64
 export MINGW_ROOT=`cygpath -u $MINGW_ROOT`
 #----------------------------------------
 export QDK_ROOT=`cygpath -u $QDK_ROOT`
+export MSYS_ROOT=$QDK_ROOT/msys64
 export QDK_OPT_DIR=$QDK_ROOT/opt
 
 export QDK_STAMPDIR=/var/ready_qdk

@@ -48,7 +48,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: cc-libseh cc-mysql-server
 :: cc-talib cc-libkml cc-expat
 :+++++++++++++++++++++++++++++++++++++
-set DJN=cc-expat
+set DJN=cc-libkml
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

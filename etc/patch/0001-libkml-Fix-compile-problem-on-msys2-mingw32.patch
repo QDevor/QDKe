@@ -1,7 +1,76 @@
- src/kml/base/file_posix.cc                        | 4 ++++
- third_party/googletest-r108/src/gtest-filepath.cc | 4 ++++
- 2 files changed, 8 insertions(+)
+ examples/Makefile.am                              |  2 +-
+ examples/helloworld/Makefile.am                   | 12 ++++++------
+ src/kml/base/file_posix.cc                        |  4 ++++
+ third_party/googletest-r108/src/gtest-filepath.cc |  4 ++++
+ 4 files changed, 15 insertions(+), 7 deletions(-)
 
+diff --git a/examples/Makefile.am b/examples/Makefile.am
+index 098b4b6..2f27c8a 100644
+--- a/examples/Makefile.am
++++ b/examples/Makefile.am
+@@ -3,7 +3,7 @@ SUBDIRS = \
+ 	engine \
+ 	gpx \
+ 	gx \
+-	hellonet \
++	 \
+ 	helloworld \
+ 	java \
+ 	kml \
+diff --git a/examples/helloworld/Makefile.am b/examples/helloworld/Makefile.am
+index c1c10eb..15525ed 100644
+--- a/examples/helloworld/Makefile.am
++++ b/examples/helloworld/Makefile.am
+@@ -31,14 +31,14 @@ circlegen_LDADD = \
+ 
+ checklinks_SOURCES = checklinks.cc
+ checklinks_LDADD = \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ countkml_SOURCES = countkml.cc
+ countkml_LDADD = \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ helloattrs_SOURCES = helloattrs.cc
+@@ -108,28 +108,28 @@ prettykml_LDADD = \
+ 
+ printgeometry_SOURCES = printgeometry.cc
+ printgeometry_LDADD = \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ sharedstyles_SOURCES = sharedstyles.cc
+ sharedstyles_LDADD = \
+ 	$(top_builddir)/src/kml/convenience/libkmlconvenience.la \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ simplifylines_SOURCES = simplifylines.cc
+ simplifylines_LDADD = \
+ 	$(top_builddir)/src/kml/convenience/libkmlconvenience.la \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ sortplacemarks_SOURCES = sortplacemarks.cc
+ sortplacemarks_LDADD = \
+-	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/engine/libkmlengine.la \
++	$(top_builddir)/src/kml/dom/libkmldom.la \
+ 	$(top_builddir)/src/kml/base/libkmlbase.la
+ 
+ EXTRA_DIST = \
 diff --git a/src/kml/base/file_posix.cc b/src/kml/base/file_posix.cc
 index 9816dc4..897f5cf 100644
 --- a/src/kml/base/file_posix.cc

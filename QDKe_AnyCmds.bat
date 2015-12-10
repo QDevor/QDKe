@@ -31,7 +31,8 @@ set "QDKE_PURE_PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 set "PATH=%QDKE_PURE_PATH%"
 
 set "PATH=%MXE_ROOT%/usr/x86_64-pc-mingw32/bin;%MXE_ROOT%/usr/bin;%PATH%"
-set "PATH=%PATH%;%MINGW32_ROOT%/bin;%MSYS_ROOT%/usr/bin"
+rem set "PATH=%PATH%;%MINGW32_ROOT%/bin"
+set "PATH=%PATH%;%MSYS_ROOT%/usr/bin"
 
 set QDKE_CROSS_COMPILE=i686-w64-mingw32.static-
 set QDKE_CC=%QDKE_CROSS_COMPILE%gcc
@@ -48,7 +49,7 @@ set MSYSTEM=MINGW32
 
 :loop
 	title %~n0
-
+  
 	cmd
 	echo last return - %errorlevel%.
 	goto :loop

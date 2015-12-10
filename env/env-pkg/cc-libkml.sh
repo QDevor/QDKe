@@ -30,9 +30,31 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
+# Must get patch from here: 
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=692055;msg=5
+
 #----------------------------------------
 
 qdev_init() {
+	#  --with-expat-include-dir="$qdev_build_src/third_party/expat.win32"
+  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
+  CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin
+  CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin
+  
+  LIBKML_CROSS_COMPILE=
+  
+  QDKE_PURE_PATH="/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem"
+  NEWPATH="$MSYS_ROOT/usr/bin"
+  NEWPATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT:$NEWPATH"
+  
+  export PATH="$NEWPATH"
+  
+  EXPAT_MSYS_ROOT=$MSYS_ROOT/usr
+  EXPAT_MXE32_ROOT=$MXE_MINGW32_ROOT
+  EXPAT_QDKE_ROOT=$QDKE_ROOT/home/qdev_home/expat/expat/ssd.install
+  
+  EXPAT_ROOT=$EXPAT_QDKE_ROOT
+		
 	return 0
 	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
 		
@@ -96,23 +118,6 @@ qdev_build_config() {
 	fi
 	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp ]; then
 		cd $qdev_build_dir ||die
-		
-		#  --with-expat-include-dir="$qdev_build_src/third_party/expat.win32"
-	  #  --with-expat-lib-dir="$qdev_build_src/third_party/expat.win32"
-		CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin
-    CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin
-    
-		LIBKML_CROSS_COMPILE=
-		
-		QDKE_PURE_PATH="/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem"
-		NEWPATH="$MSYS_ROOT/usr/bin"
-		NEWPATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT:$NEWPATH"
-		
-		export PATH="$NEWPATH"
-		
-		EXPAT_MSYS_ROOT=$MSYS_ROOT/usr
-		EXPAT_MXE32_ROOT=$MXE_MINGW32_ROOT
-		EXPAT_ROOT=$EXPAT_MXE32_ROOT
 		
 		# cd $QDKE_ROOT/home/mxe
 		# i686-w64-mingw32-gcc -v 1.c
@@ -193,8 +198,30 @@ qdev_tst() {
   #cd $qdev_build_dir/testdata
   #make installcheck
   
-  cd $qdev_build_dir/examples
-  make
+    doloop=1
+		while [ $doloop = 1 ]; do
+		
+		  # libkmlengine.a depends libkmlbase
+		  # 
+			cd $qdev_build_dir/examples/helloworld
+      make
+      read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
+      
+      echo -ne '\b \n'
+      case $_press_key in
+      Y | y) echo
+        echo "fine ,continue on ..";;
+      N | n) echo
+        echo "fine ,continue on ..";;
+      Q | q) echo
+        echo "OK, goodbye...";
+        break;;
+      *) echo
+        echo "fine ,continue on ..";;
+      esac
+      
+			sleep 3
+		done
   
   log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
@@ -225,4 +252,4 @@ qdev_setmore
 qdev_get					$work_home $user_name $apps_name $apps_more
 qdev_check
 qdev_try
-qdev_tst
+#qdev_tst

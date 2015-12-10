@@ -30,6 +30,7 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
+
 #----------------------------------------
 
 qdev_init() {
@@ -56,9 +57,22 @@ qdev_get_ssd_src() {
 	_pkg_ffile=$4
 	_pkg_dir=$pkg_dir
 	_pkg_url=$5
+	
 	cd $QDKE_TMP || die
+	rm -rf expat-2.1.0.tar.gz
+	
+	# -m            总连接超时秒，包含连接超时
+	# --retry-delay 等待多少秒重连
+	# --retry       重连次数
+	retryCount=10
+	retryDelaySeconds=1
+	retryLimitSeconds=1000
+	
+	echo call args: $@
+	
 	if [ ! -f $_pkg_ffile ]; then
-		curl -O $_pkg_url
+		# curl -m $retryLimitSeconds --retry-delay $retryDelaySeconds --retry $retryCount -O $_pkg_url
+		loop_wget $_pkg_ffile $_pkg_url
 	fi
 	
 	cd $qdev_build_top || die
@@ -105,6 +119,8 @@ qdev_build_config() {
 		QDKE_PURE_PATH="/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem"
 		NEWPATH="$MSYS_ROOT/usr/bin"
 		NEWPATH="$CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT/bin:$NEWPATH"
+		
+		export PATH="$NEWPATH"
 		
 		cd $qdev_build_dir ||die
 		CC=${EXPAT_CROSS_COMPILE}gcc \
@@ -184,8 +200,8 @@ pkg=expat
 pkg_ver=2.1.0
 pkg_file=$pkg-$pkg_ver
 pkg_ffile=$pkg_file.tar.gz
-pkg_dir=$pkg
-pkg_url=http://ncu.dl.sourceforge.net/project/$pkg/$pkg/$pkg_ver/$pkg_ffile
+pkg_dir=$pkg_file
+pkg_url=http://download.sourceforge.net/project/$pkg/$pkg/$pkg_ver/$pkg_ffile
 
 pkg_deps_gcc=''
 pkg_deps_py=''
