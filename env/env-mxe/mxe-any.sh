@@ -110,7 +110,7 @@ qdev_build_make() {
 		  # make $@
 		  
 		  # Do Not Loop ...
-		  make $@ --keep-going
+		  make EXCLUDE_PKGS='boost qt' --keep-going
 		  break
 		  
 		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
