@@ -101,8 +101,35 @@ qdev_build_make() {
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
 		#BUILD='i686-w64-mingw32.static'
-		echo [build] - [$@]
-		make $@ || die
+		
+		doloop=1
+		while [ $doloop = 1 ]; do
+		  
+		  echo [build] - [$@]
+		  
+		  make $@
+		  
+		  # Do Not Loop ...
+		  # make $@ || die
+		  # break
+		  
+		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
+      echo -ne '\b \n'
+      case $_press_key in
+      Y | y) echo
+        echo "fine ,continue on ..";;
+      N | n) echo
+        echo "fine ,continue on ..";;
+      Q | q) echo
+        echo "OK, goodbye...";
+        break;;
+      *) echo
+        echo "fine ,continue on ..";;
+      esac
+      
+			sleep 3
+		done
+		
 		# touch $qdev_build_src/${FUNCNAME}-stamp-make$1
 	fi
 }
