@@ -107,11 +107,11 @@ qdev_build_make() {
 		  
 		  echo [build] - [$@]
 		  
-		  make $@
+		  # make $@
 		  
 		  # Do Not Loop ...
-		  # make $@ || die
-		  # break
+		  make $@ --keep-going
+		  break
 		  
 		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
       echo -ne '\b \n'

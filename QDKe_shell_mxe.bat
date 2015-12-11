@@ -60,11 +60,11 @@ rem echo "%PATH%"
 :: Doing Jobs Start...
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
-:: download
+:: download EXCLUDE_PKGS='gcc'
 :: gcc expat qt 
 :: pkgs for compile error - boost
 :+++++++++++++++++++++++++++++++++++++
-set DJN=qt
+set DJN=EXCLUDE_PKGS='gcc'
 set DJNLOG=0
 if "x%DJNLOG%" == "x1" (
   call "env/env-mxe/mxe-any.bat" "%DJN%"> %~dp0var/log/%~n0.log 2>&1
