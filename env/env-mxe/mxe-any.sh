@@ -97,6 +97,9 @@ qdev_build_fix() {
 # qdev_build_cmake
 
 qdev_build_make() {
+	in_args=$@
+	# echo $in_args
+	in_args=$(echo $in_args | sed -e "s,\^,\',g")
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
@@ -105,12 +108,12 @@ qdev_build_make() {
 		doloop=1
 		while [ $doloop = 1 ]; do
 		  
-		  echo [build] - [$@]
+		  echo [build] - [$in_args]
 		  
-		  # make $@
+		  # make "$in_args"
 		  
 		  # Do Not Loop ...
-		  make EXCLUDE_PKGS='boost qt' --keep-going
+		  make "$in_args" --keep-going
 		  break
 		  
 		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
