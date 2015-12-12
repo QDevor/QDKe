@@ -104,6 +104,7 @@ qdev_build_make() {
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
 		#BUILD='i686-w64-mingw32.static'
+		export CMAKE_GENERATOR="MSYS Makefiles"
 		
 		doloop=1
 		while [ $doloop = 1 ]; do

@@ -63,7 +63,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: download EXCLUDE_PKGS='boost qt'
 :: gcc expat 
 :: pkgs for compile error - boost qt
-:: EXCLUDE_PKGS='boost qt'
+:: EXCLUDE_PKGS=^^'boost qt^^'
 :+++++++++++++++++++++++++++++++++++++
 set "DJN=EXCLUDE_PKGS=^^'boost qt^^'"
 set DJNLOG=0
