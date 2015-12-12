@@ -65,7 +65,8 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: pkgs for compile error - boost qt
 :: EXCLUDE_PKGS=^^'boost qt^^'
 :+++++++++++++++++++++++++++++++++++++
-set "DJN=EXCLUDE_PKGS=^^'boost qt^^'"
+set "EXCLUDE_PKGS=boost qt"
+set "DJN=all"
 set DJNLOG=0
 if "x%DJNLOG%" == "x1" (
   call "env/env-mxe/mxe-any.bat" "%DJN%"> %~dp0var/log/%~n0.log 2>&1

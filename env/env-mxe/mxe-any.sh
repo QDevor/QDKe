@@ -109,12 +109,17 @@ qdev_build_make() {
 		doloop=1
 		while [ $doloop = 1 ]; do
 		  
-		  echo [build] - [$in_args]
-		  
-		  # make "$in_args"
+		  # echo [build] - [$@]
+		  # make $@
 		  
 		  # Do Not Loop ...
-		  make "$in_args" --keep-going
+		  if [ x$1 == xall ]; then
+		    echo [build] - [EXCLUDE_PKGS='$EXCLUDE_PKGS']
+		    make EXCLUDE_PKGS='$EXCLUDE_PKGS' --keep-going
+		  else
+		    echo [build] - [$@]
+		    make $@ --keep-going
+		  fi
 		  break
 		  
 		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
