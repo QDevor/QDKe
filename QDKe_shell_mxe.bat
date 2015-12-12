@@ -66,7 +66,8 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: EXCLUDE_PKGS=^^'boost qt^^'
 :+++++++++++++++++++++++++++++++++++++
 set "EXCLUDE_PKGS=boost qt"
-set "DJN=all"
+set "DJN_LOOP_OFF=no"
+set "DJN=sdl"
 set DJNLOG=0
 if "x%DJNLOG%" == "x1" (
   call "env/env-mxe/mxe-any.bat" "%DJN%"> %~dp0var/log/%~n0.log 2>&1

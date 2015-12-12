@@ -97,9 +97,9 @@ qdev_build_fix() {
 # qdev_build_cmake
 
 qdev_build_make() {
-	in_args=$@
+	# in_args=$@
 	# echo $in_args
-	in_args=$(echo $in_args | sed -e "s,\^,\',g")
+	# in_args=$(echo $in_args | sed -e "s,\^,\',g")
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
 		#make MXE_TARGETS='x86_64-w64-mingw32.static i686-w64-mingw32.static'
@@ -114,13 +114,16 @@ qdev_build_make() {
 		  
 		  # Do Not Loop ...
 		  if [ x$1 == xall ]; then
-		    echo [build] - [EXCLUDE_PKGS='$EXCLUDE_PKGS']
-		    make EXCLUDE_PKGS='$EXCLUDE_PKGS' --keep-going
+		    echo [build] - [EXCLUDE_PKGS="$EXCLUDE_PKGS"]
+		    make EXCLUDE_PKGS="$EXCLUDE_PKGS" --keep-going
 		  else
 		    echo [build] - [$@]
 		    make $@ --keep-going
 		  fi
-		  break
+		  
+		  if [ x$DJN_LOOP_OFF == xyes ]; then
+		    break
+		  fi
 		  
 		  read -n1 -p "Press 'q' to continue and any other key to again..." _press_key
       echo -ne '\b \n'

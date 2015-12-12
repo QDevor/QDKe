@@ -41,6 +41,7 @@ set QDKE_CXX=%QDKE_CROSS_COMPILE%g++
 set CC=%QDKE_CC%
 set CXX=%QDKE_CXX%
 
+set HOME=%cd%
 set TMP=%cd%/tmp
 set TMPDIR=%TMP%
 set TEMP=%TMP%
