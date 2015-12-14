@@ -37,10 +37,11 @@ export PYTHON=python2
 #----------------------------------------
 for filename in `ls $QDKE_ROOT/env/env-workbench/`
 do
-    if [ -f $filename ]; then
+    if [ -f $PROGDIR/../env-workbench/$filename ]; then
       case $filename in
-        workbench-fn-*.sh) 
-          . $PROGDIR/../env-msys2/$filename
+        workbench-fn-*.sh)
+          echo [debug] Will included $PROGDIR/../env-workbench/$filename
+          . $PROGDIR/../env-workbench/$filename
           ;;
         *) 
           continue;;
@@ -76,13 +77,6 @@ workbench_common_init() {
   else
     WORKBENCH_COMMON_COMP_NAME_PREFIX=$(echo $WORKBENCH_COMMON_COMP_NAME | cut -f1 -d'-')
     WORKBENCH_COMMON_COMP_NAME_SUFFIX=$(echo $WORKBENCH_COMMON_COMP_NAME | cut -f2 -d'-')
-  fi
-  
-  if [ $WORKBENCH_COMMON_COMP_NAME_PREFIX == $WORKBENCH_COMMON_COMP_NAME_SUFFIX ]; then
-    local_suffix=$(date +%Y-%m-%d)
-    #workbench_fn_ls_files $WORK_HOME/workbench $WORKBENCH_COMMON_COMP_NAME_PREFIX*
-    #WORKBENCH_COMMON_COMP_NAME="$WORKBENCH_COMMON_COMP_NAME_PREFIX-$local_suffix"
-    echo [debug] Changes WORKBENCH_COMMON_COMP_NAME=$WORKBENCH_COMMON_COMP_NAME
   fi
 
 	if [ -z $WORKBENCH_COMMON_PROJ_NAME ]; then
@@ -127,7 +121,26 @@ workbench_common_conf() {
 
 workbench_common_check_dirs() {
 	[ -d $WORKBENCH_COMMON_ROOT_DIR ]     || mkdir -p $WORKBENCH_COMMON_ROOT_DIR
+	
 	[ -d $WORKBENCH_COMMON_COMP_DIR ]     || mkdir -p $WORKBENCH_COMMON_COMP_DIR
+	_var_compstamp_exists=false
+	for dirname in `ls $WORKBENCH_COMMON_COMP_DIR`
+  do
+    if [ -f $WORKBENCH_COMMON_COMP_DIR/$dirname ]; then
+      case $dirname in
+        *.compstamp) 
+          _var_compstamp_exists=true
+          break;;
+        *) 
+          continue;;
+      esac
+    fi
+  done
+	if [ x$_var_compstamp_exists == xfalse ]; then
+	  touch $WORKBENCH_COMMON_COMP_DIR/$(date +%Y-%m-%d).compstamp
+	fi
+	
+	
 	[ -d $WORKBENCH_COMMON_PROJ_DIR ]     || mkdir -p $WORKBENCH_COMMON_PROJ_DIR
 	[ -d $WORKBENCH_COMMON_HARDWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR
 	[ -d $WORKBENCH_COMMON_SOFTWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_SOFTWARE_DIR

@@ -15,19 +15,19 @@
 # limitations under the License.
 #
 
-echo [debug] Include `basename $0`
+echo [debug] Include workbench-fn-ls.sh
 
 # $1 - current dir
 # $2 - list current dirs  regular expression
 # $3 - list current files regular expression
 # return - 'current_dirs="" and current_files=""'
-workbench_fn_ls() {
+function workbench_fn_ls() {
 	local_dirname=""
 	local_filename=""
 	
 	for dirname in `ls $1`
   do
-    if [ -n $2 ] && [ -d $dirname ]; then
+    if [ ! x$2 == x ] && [ -d $dirname ]; then
       case $dirname in
         $2) 
           local_dirname="$local_dirname $dirname"
@@ -36,7 +36,7 @@ workbench_fn_ls() {
           continue;;
       esac
     fi
-    if [ -n $3 ] && [ -f $dirname ]; then
+    if [ ! x$3 == x ] && [ -f $dirname ]; then
       case $dirname in
         $3) 
           local_filename="$local_filename $dirname"
@@ -47,17 +47,19 @@ workbench_fn_ls() {
     fi
   done
   
-  return "current_dirs=$local_dirname and current_files=$local_dirname"
+  ret_val="current_dirs-$local_dirname and current_files-$local_dirname"
+  echo [debug] $ret_val
+  #return $ret_val
 }
 
-workbench_fn_ls_dirs() {
-  local_retval=workbench_fn_ls $1 $2
-  local_retdirs=$(echo $local_retval | sed 's/\(current_dirs=.* and \)\(current_files=.*\)/\2/g' | tr -d '\"')
+function workbench_fn_ls_dirs() {
+  local_retval=`workbench_fn_ls "$1" $2`
+  local_retdirs=$(echo $local_retval | sed 's/\(current_dirs-.* and \)\(current_files-.*\)/\2/g' | tr -d '\"')
   return $local_retdirs
 }
 
-workbench_fn_ls_files() {
-  local_retval=workbench_fn_ls $1 * $2
-  local_retfiles=$(echo $local_retval | sed -e 's/\(current_dirs=.*\)\( and current_files=.*\)/\1/g' | tr -d '\"')
+function workbench_fn_ls_files() {
+  local_retval=`workbench_fn_ls "$1" "" $2`
+  local_retfiles=$(echo $local_retval | sed -e 's/\(current_dirs-.*\)\( and current_files-.*\)/\1/g' | tr -d '\"')
   return $local_retfiles
 }
