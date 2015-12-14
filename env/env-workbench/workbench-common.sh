@@ -35,7 +35,18 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
-
+for filename in `ls $QDKE_ROOT/env/env-workbench/`
+do
+    if [ -f $filename ]; then
+      case $filename in
+        workbench-fn-*.sh) 
+          . $PROGDIR/../env-msys2/$filename
+          ;;
+        *) 
+          continue;;
+      esac
+    fi
+done
 #----------------------------------------
 workbench_common_prepare() {
   workbench_key_file=$QDKE_ROOT/env/env-workbench/workbench.key
@@ -62,8 +73,18 @@ workbench_common_init() {
   if [ -z $WORKBENCH_COMMON_COMP_NAME ]; then
     local_suffix=$(date +%Y-%m-%d)
     WORKBENCH_COMMON_COMP_NAME="nullcomp-$local_suffix"
+  else
+    WORKBENCH_COMMON_COMP_NAME_PREFIX=$(echo $WORKBENCH_COMMON_COMP_NAME | cut -f1 -d'-')
+    WORKBENCH_COMMON_COMP_NAME_SUFFIX=$(echo $WORKBENCH_COMMON_COMP_NAME | cut -f2 -d'-')
   fi
-	
+  
+  if [ $WORKBENCH_COMMON_COMP_NAME_PREFIX == $WORKBENCH_COMMON_COMP_NAME_SUFFIX ]; then
+    local_suffix=$(date +%Y-%m-%d)
+    #workbench_fn_ls_files $WORK_HOME/workbench $WORKBENCH_COMMON_COMP_NAME_PREFIX*
+    #WORKBENCH_COMMON_COMP_NAME="$WORKBENCH_COMMON_COMP_NAME_PREFIX-$local_suffix"
+    echo [debug] Changes WORKBENCH_COMMON_COMP_NAME=$WORKBENCH_COMMON_COMP_NAME
+  fi
+
 	if [ -z $WORKBENCH_COMMON_PROJ_NAME ]; then
     local_suffix=$(date +%m-%d)
     WORKBENCH_COMMON_PROJ_NAME="nullproj-$local_suffix"
