@@ -123,25 +123,42 @@ workbench_common_check_dirs() {
 	[ -d $WORKBENCH_COMMON_ROOT_DIR ]     || mkdir -p $WORKBENCH_COMMON_ROOT_DIR
 	
 	[ -d $WORKBENCH_COMMON_COMP_DIR ]     || mkdir -p $WORKBENCH_COMMON_COMP_DIR
-	_var_compstamp_exists=false
+	_var_stamp_exists=false
 	for dirname in `ls $WORKBENCH_COMMON_COMP_DIR`
   do
     if [ -f $WORKBENCH_COMMON_COMP_DIR/$dirname ]; then
       case $dirname in
         *.compstamp) 
-          _var_compstamp_exists=true
+          _var_stamp_exists=true
           break;;
         *) 
           continue;;
       esac
     fi
   done
-	if [ x$_var_compstamp_exists == xfalse ]; then
+	if [ x$_var_stamp_exists == xfalse ]; then
 	  touch $WORKBENCH_COMMON_COMP_DIR/$(date +%Y-%m-%d).compstamp
 	fi
 	
 	
 	[ -d $WORKBENCH_COMMON_PROJ_DIR ]     || mkdir -p $WORKBENCH_COMMON_PROJ_DIR
+	_var_stamp_exists=false
+	for dirname in `ls $WORKBENCH_COMMON_PROJ_DIR`
+  do
+    if [ -f $WORKBENCH_COMMON_PROJ_DIR/$dirname ]; then
+      case $dirname in
+        *.projstamp) 
+          _var_stamp_exists=true
+          break;;
+        *) 
+          continue;;
+      esac
+    fi
+  done
+	if [ x$_var_stamp_exists == xfalse ]; then
+	  touch $WORKBENCH_COMMON_PROJ_DIR/$(date +%Y-%m-%d).projstamp
+	fi
+	
 	[ -d $WORKBENCH_COMMON_HARDWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR
 	[ -d $WORKBENCH_COMMON_SOFTWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_SOFTWARE_DIR
 	
