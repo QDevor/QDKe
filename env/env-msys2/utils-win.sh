@@ -28,12 +28,26 @@ PROGNAME=${FILENAME%.*}
 # http://superuser.com/questions/455364/how-to-create-a-shortcut-using-a-batch-script
 # 
 utils_win_create_desktop_shortcut() {
+  # not work,so
+  BACKUP_USERPROFILE=$USERPROFILE
+  USERPROFILE=$ORIGIN_USERPROFILE
+  USERPROFILE_UNIX=`cygpath -u $USERPROFILE`
+  
   RANDOM=`openssl rand -base64 8`
   SCRIPT="$RANDOM-$RANDOM-$RANDOM-$RANDOM.vbs"
   
   shortcut_path=`cygpath -w $1`
   shortcut_path=`echo $shortcut_path | sed -e 's/\\//\\\/g'`
   shortcut_name=`basename $1`
+  
+  echo [debug] $USERPROFILE_UNIX/Desktop/$shortcut_name.lnk
+  #pushd $USERPROFILE_UNIX
+  if [ -e $USERPROFILE_UNIX/Desktop/$shortcut_name.lnk ]; then
+    echo [debug] Checking Exists - $USERPROFILE_UNIX/Desktop/$shortcut_name.lnk
+    return
+  fi
+  #popd
+  
   echo [debug] call_arg=$1
   echo [debug] shortcut_path=$shortcut_path
   echo [debug] shortcut_name=$shortcut_name
@@ -48,10 +62,11 @@ utils_win_create_desktop_shortcut() {
 #  echo oMyShortCut.WorkingDirectory = \"c:\\\" >>$SCRIPT
   echo oMyShortCut.Save >>$SCRIPT
   
-  # not work
   echo [debug] cscript //Nologo $SCRIPT
   cscript //Nologo $SCRIPT
+  
   rm $SCRIPT
+  USERPROFILE=$BACKUP_USERPROFILE
 }
 
 # utils_win_create_desktop_shortcut $@
