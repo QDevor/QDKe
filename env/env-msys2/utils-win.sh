@@ -48,6 +48,7 @@ utils_win_create_desktop_shortcut() {
 #  echo oMyShortCut.WorkingDirectory = \"c:\\\" >>$SCRIPT
   echo oMyShortCut.Save >>$SCRIPT
   
+  # not work
   echo [debug] cscript //Nologo $SCRIPT
   cscript //Nologo $SCRIPT
   rm $SCRIPT
