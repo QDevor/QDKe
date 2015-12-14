@@ -1,6 +1,9 @@
 
 *.bak
 *.log
+
+*.key
+
 home
 tmp
 usr
