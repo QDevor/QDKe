@@ -123,6 +123,8 @@ workbench_common_check_dirs() {
 	[ -d $WORKBENCH_COMMON_ROOT_DIR ]     || mkdir -p $WORKBENCH_COMMON_ROOT_DIR
 	
 	[ -d $WORKBENCH_COMMON_COMP_DIR ]     || mkdir -p $WORKBENCH_COMMON_COMP_DIR
+	utils_win_create_desktop_shortcut $WORKBENCH_COMMON_COMP_DIR
+  
 	_var_stamp_exists=false
 	for dirname in `ls $WORKBENCH_COMMON_COMP_DIR`
   do
