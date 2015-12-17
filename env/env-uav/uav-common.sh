@@ -52,7 +52,7 @@ done
 
 
 uav_common_init() {
-	
+  
 	return 0
 }
 
@@ -69,6 +69,7 @@ uav_common_make() {
 # uav_common_init
 # uav_common_conf
 # uav_common_make
+export QUAV_WORK_HOME=$WORK_HOME/uav_home
 #----------------RUN-ONCE----------------
 export INCLUDE_UAV_COMMON_SCRIPT=true
 fi

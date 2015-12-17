@@ -59,7 +59,7 @@ uav_any_main() {
 }
 
 #----------------------------------------
-work_home=$QDEV_WORK_HOME
+work_home=$QUAV_WORK_HOME
 user_name=paparazzi
 apps_name=paparazzi
 apps_more=github
