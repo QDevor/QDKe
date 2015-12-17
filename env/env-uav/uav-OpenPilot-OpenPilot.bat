@@ -22,7 +22,7 @@ call env/env-win/entry-common.bat
 call env/env-uav/uav-common.bat
 :----------------------------------------
 set "PGM_BATCH_FILE=%~n0"
-set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~3!"
+set "PGM_BATCH_FILE=!PGM_BATCH_FILE:~4!"
 rem for /f "tokens=x,y,m-n delims=chars" %%a in ("str")   do cmd
 for /f "tokens=1* delims=-" %%a in ("!PGM_BATCH_FILE!") do (
 	set PGM_USER=%%a
@@ -32,11 +32,11 @@ set "PGM_HOST=github.com"
 set "PGM_WORK_HOME=!QDKE_HOME!/uav_home/!PGM_USER!/!PGM_NAME!"
 set "PGM_WORK_HOME=!PGM_WORK_HOME:/=\!"
 :----------------------------------------
-echo [Building][Go] - Starting  - !PGM_BATCH_FILE!.
+echo [Building][UAV] - Starting  - !PGM_BATCH_FILE!.
 :----------------------------------------
 rem git clone git://git.openpilot.org/OpenPilot.git OpenPilot
 :----------------------------------------
-echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
+echo [Building][UAV] - Makeing  - !PGM_USER!/!PGM_NAME!.
 cd !PGM_WORK_HOME! ||goto :EOF
 if not exist !PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
@@ -85,8 +85,4 @@ goto :LABEL_SKIP_MAKE_INSTALL_TOOLS
 :----------------------------------------
 
 :----------------------------------------
-echo [Building][Go] - Ending    - !PGM_BATCH_FILE!.
-:----------------RUN-ONCE----------------
-set INCLUDE_GO_INSTRANCE_BATCH=true
-:EOF
-:----------------RUN-ONCE----------------
+echo [Building][UAV] - Ending    - !PGM_BATCH_FILE!.
