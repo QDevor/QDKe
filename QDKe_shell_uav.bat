@@ -61,9 +61,9 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: OpenPilot-OpenPilot
-:: 
+:: paparazzi-paparazzi
 :+++++++++++++++++++++++++++++++++++++
-set DJN=OpenPilot-OpenPilot
+set DJN=paparazzi-paparazzi
 set DJNLOG=1
 if "x%DJNLOG%" == "x1" (
   call "env/env-uav/uav-%DJN%.bat" > %~dp0var/log/%~n0.log 2>&1
