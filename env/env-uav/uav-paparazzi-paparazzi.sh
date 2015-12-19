@@ -69,7 +69,7 @@ work_home=$QUAV_WORK_HOME
 user_name=paparazzi
 apps_name=paparazzi
 apps_more=github
-msys2_deps='ocaml ocaml-findlib'
+msys2_deps='ocaml ocaml-camlp4 ocaml-findlib'
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
