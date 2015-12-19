@@ -22,8 +22,8 @@ set "QDK_ROOT=D:/qdk"
 set "QDKE_ROOT=D:/work_code/qdke"
 
 set "MSYS_ROOT=%QDK_ROOT%/msys64"
-set "MINGW32_ROOT=%MSYS_ROOT%/ming32"
-set "MINGW64_ROOT=%MSYS_ROOT%/ming64"
+set "MINGW32_ROOT=%MSYS_ROOT%/mingw32"
+set "MINGW64_ROOT=%MSYS_ROOT%/mingw64"
 
 set "MSYSTEM=MINGW32"
 set "MXE_ROOT=%QDKE_ROOT%/home/mxe"
@@ -32,12 +32,14 @@ set "QDKE_PURE_PATH=C:/WINDOWS/system32;C:/WINDOWS;C:/WINDOWS/System32/Wbem"
 set "PATH=%QDKE_PURE_PATH%"
 
 set "PATH=%MXE_ROOT%/usr/x86_64-pc-mingw32/bin;%MXE_ROOT%/usr/bin;%PATH%"
-rem set "PATH=%PATH%;%MINGW32_ROOT%/bin"
+set "PATH=%PATH%;%MINGW32_ROOT%/bin"
 set "PATH=%PATH%;%MSYS_ROOT%/usr/bin"
 
 set "QDKE_CROSS_COMPILE=i686-w64-mingw32.static-"
 set "QDKE_CC=%QDKE_CROSS_COMPILE%gcc"
 set "QDKE_CXX=%QDKE_CROSS_COMPILE%g++"
+
+set "OCAMLFIND_CONF=%MINGW32_ROOT%/etc/findlib.conf"
 
 set "CC=%QDKE_CC%"
 set "CXX=%QDKE_CXX%"

@@ -33,7 +33,11 @@ export MXE_MINGW32_ROOT=$MXE_ROOT/usr/i686-w64-mingw32.static
 export MXE_MINGW64_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.static
 export MXE_MINGW32_SHARED_ROOT=$MXE_ROOT/usr/i686-w64-mingw32.shared
 export MXE_MINGW64_SHARED_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.shared
-
+#----------------------------------------
+export OCAMLFIND_CONF=$MINGW64_ROOT/etc/findlib.conf
+if [ x$QDKe_VAR_ARCH == xi686 ]; then
+export OCAMLFIND_CONF=$MINGW32_ROOT/etc/findlib.conf
+fi
 #----------------RUN-ONCE----------------
 export INCLUDE_CHECK_EXTRA_VARS_SCRIPT=true
 fi
