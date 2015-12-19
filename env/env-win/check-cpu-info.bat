@@ -78,6 +78,11 @@ if "!xCMD!" == "x32" (
 	set "QDKe_VAR_MSVC_ARCH=x86"
 )
 
+if "x!MSYSTEM!" == "xMINGW32" (
+	set "QDKe_VAR_ARCH=i686"
+	set "QDKe_VAR_MSVC_ARCH=x86"
+)
+
 echo [QDKe] - We Are Running !xCMD!(cmd) On !xOS!(os).
 
 :-------------------------------------

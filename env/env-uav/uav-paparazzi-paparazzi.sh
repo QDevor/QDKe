@@ -29,9 +29,15 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/entry-common.sh
 . $PROGDIR/../env-uav/uav-common.sh
 #----------------------------------------
-# qdev_init
+qdev_init() {
+  if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
+		utils_msys2_installByPacman $msys2_deps
+#		touch $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp
+	fi
+}
+
 qdev_setmore() {
-  
+#  qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
@@ -42,12 +48,12 @@ uav_any_init() {
 }
 
 uav_any_conf() {
-  uav_common_conf
+#  uav_common_conf
   return 0
 }
 
 uav_any_make() {
-  uav_common_make
+  uav_common_make -C $qdev_build_src
   return 0
 }
 
@@ -63,6 +69,7 @@ work_home=$QUAV_WORK_HOME
 user_name=paparazzi
 apps_name=paparazzi
 apps_more=github
+msys2_deps='ocaml ocaml-findlib'
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
