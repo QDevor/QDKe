@@ -42,6 +42,8 @@ set "QDKE_CFG_PATH=!MINGW_ROOT!"
 set "PKG_CONFIG_PATH=!QDKE_CFG_PATH!/lib/pkgconfig"
 set "OCAMLFIND_CONF=!QDKE_CFG_PATH!/etc/findlib.conf"
 rem This variable overrides the location of the configuration file findlib.conf. It must contain the absolute path name of this file.
+goto :LABEL_SKIP_SET_OCAML_ENV
+echo [debug] [WIN] Setting Ocamlfind ENv.
 rem set "OCAMLPATH=!QDKE_CFG_PATH!/lib/ocaml"
 rem This variable may contain an additional search path for package directories. It is treated as if the directories were prepended to the configuration variable path.
 rem set "OCAMLFIND_DESTDIR=!OCAMLPATH!"
@@ -58,6 +60,7 @@ rem This variable overrides the configuration variable ldconf.
 rem set "OCAMLFIND_IGNORE_DUPS_IN=!OCAMLPATH!"
 rem This variable instructs findlib not to emit warnings that packages or module occur several times. 
 rem The variable must be set to the directory where the packages reside that are to be ignored for this warning.
+:LABEL_SKIP_SET_OCAML_ENV
 :----------------------------------------
 :: SSL
 :----------------------------------------

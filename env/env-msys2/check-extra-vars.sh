@@ -34,6 +34,8 @@ export MXE_MINGW64_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.static
 export MXE_MINGW32_SHARED_ROOT=$MXE_ROOT/usr/i686-w64-mingw32.shared
 export MXE_MINGW64_SHARED_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.shared
 #----------------------------------------
+if [ x1 == x2 ]; then
+echo [debug] [MSYS] Setting Ocamlfind Env.
 export QDKE_CFG_PATH=$MINGW64_ROOT
 if [ x$QDKe_VAR_ARCH == xi686 ]; then
 export QDKE_CFG_PATH=$MINGW32_ROOT
@@ -57,6 +59,7 @@ export OCAMLFIND_LDCONF=$QDKE_CFG_PATH/lib/ocaml
 #export OCAMLFIND_IGNORE_DUPS_IN=$OCAMLPATH
 # This variable instructs findlib not to emit warnings that packages or module occur several times. 
 # The variable must be set to the directory where the packages reside that are to be ignored for this warning.
+fi
 #----------------RUN-ONCE----------------
 export INCLUDE_CHECK_EXTRA_VARS_SCRIPT=true
 fi

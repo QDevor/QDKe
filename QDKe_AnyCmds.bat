@@ -41,12 +41,15 @@ set "PATH=%MXE_ROOT%/usr/x86_64-pc-mingw32/bin;%MXE_ROOT%/usr/bin;%PATH%"
 set "PATH=%PATH%;%MINGW32_ROOT%/bin"
 set "PATH=%PATH%;%MSYS_ROOT%/usr/bin"
 
+set "QDKE_OCAML_ROOT=%QDK_ROOT%/Ocaml"
+set "PATH=%QDKE_OCAML_ROOT%/bin;%PATH%"
+
 set "QDKE_CROSS_COMPILE=i686-w64-mingw32.static-"
 set "QDKE_CC=%QDKE_CROSS_COMPILE%gcc"
 set "QDKE_CXX=%QDKE_CROSS_COMPILE%g++"
 
-set "PKG_CONFIG_PATH=%MINGW_ROOT%/lib/pkgconfig"
-set "OCAMLFIND_CONF=%MINGW_ROOT%/etc/findlib.conf"
+rem set "PKG_CONFIG_PATH=%MINGW_ROOT%/lib/pkgconfig"
+rem set "OCAMLFIND_CONF=%MINGW_ROOT%/etc/findlib.conf"
 
 set "CC=%QDKE_CC%"
 set "CXX=%QDKE_CXX%"

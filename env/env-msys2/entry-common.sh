@@ -67,6 +67,8 @@ fi
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-mysql.sh
 . $_PGMDIR_ENTRY_COMMON/env-msys2/utils-win.sh
 #----------------------------------------
+. $_PGMDIR_ENTRY_COMMON/env-msys2/fix-ocaml.sh
+#----------------------------------------
 . $_PGMDIR_ENTRY_COMMON/env-msys2/tpl-build-gnu.sh
 #----------------------------------------
 
