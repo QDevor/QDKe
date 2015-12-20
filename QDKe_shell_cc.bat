@@ -46,10 +46,10 @@ rem echo "%PATH%"
 echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: cc-libseh cc-mysql-server
-:: cc-talib cc-libkml cc-expat
+:: cc-talib cc-libkml cc-expat cc-ivy
 :: ocaml-xml-light ocaml-labgtk ocaml-ivy ocaml-netclient
 :+++++++++++++++++++++++++++++++++++++
-set DJN=ocaml-labgtk
+set DJN=ocaml-ivy
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
