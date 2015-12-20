@@ -34,8 +34,29 @@ export MXE_MINGW64_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.static
 export MXE_MINGW32_SHARED_ROOT=$MXE_ROOT/usr/i686-w64-mingw32.shared
 export MXE_MINGW64_SHARED_ROOT=$MXE_ROOT/usr/x86_64-w64-mingw32.shared
 #----------------------------------------
-export PKG_CONFIG_PATH=$MINGW64_ROOT/lib/pkgconfig
-export OCAMLFIND_CONF=$MINGW64_ROOT/etc/findlib.conf
+export QDKE_CFG_PATH=$MINGW64_ROOT
+if [ x$QDKe_VAR_ARCH == xi686 ]; then
+export QDKE_CFG_PATH=$MINGW64_ROOT
+fi
+export PKG_CONFIG_PATH=$QDKE_CFG_PATH/lib/pkgconfig
+export OCAMLFIND_CONF=$QDKE_CFG_PATH/etc/findlib.conf
+# This variable overrides the location of the configuration file findlib.conf. It must contain the absolute path name of this file.
+export OCAMLPATH=$QDKE_CFG_PATH/lib/ocaml
+# This variable may contain an additional search path for package directories. It is treated as if the directories were prepended to the configuration variable path.
+export OCAMLFIND_DESTDIR=$OCAMLPATH
+# This variable overrides the configuration variable destdir.
+export OCAMLFIND_METADIR=$OCAMLPATH
+# This variable overrides the configuration variable metadir.
+# export OCAMLFIND_COMMANDS=$QDKE_CFG_PATH/bin
+# This variable overrides the configuration variables ocamlc, ocamlopt, ocamlcp, ocamlmktop, ocamldoc, ocamldep, and/or ocamlbrowser.
+export CAMLLIB=$OCAMLPATH
+export OCAMLLIB=$OCAMLPATH
+# This variable overrides the configuration variable stdlib.
+export OCAMLFIND_LDCONF=$OCAMLPATH
+# This variable overrides the configuration variable ldconf.
+#export OCAMLFIND_IGNORE_DUPS_IN=$OCAMLPATH
+# This variable instructs findlib not to emit warnings that packages or module occur several times. 
+# The variable must be set to the directory where the packages reside that are to be ignored for this warning.
 if [ x$QDKe_VAR_ARCH == xi686 ]; then
 export PKG_CONFIG_PATH=$MINGW64_ROOT/lib/pkgconfig
 export OCAMLFIND_CONF=$MINGW32_ROOT/etc/findlib.conf
