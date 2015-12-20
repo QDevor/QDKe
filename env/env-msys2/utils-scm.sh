@@ -53,6 +53,8 @@ scm_prepare() {
   						      ;;
   		bitbucket)		SCM_URL_0='https://bitbucket.com/'$user_name'/'$apps_name''
   						      ;;
+  		ocamlcore)		SCM_URL_0='https://forge.ocamlcore.org/anonscm/git/'$user_name'/'$apps_name'.git'
+  						      ;;
   		*)			log_error "We Are Checking SCM HOST are not support."
   		        return 1
   							;;

@@ -27,7 +27,9 @@ PROGNAME=${FILENAME%.*}
 export PYTHON=python2
 #----------------------------------------
 . $PROGDIR/../env-msys2/entry-common.sh
-. $PROGDIR/../env-uav/uav-common.sh
+. $PROGDIR/../env-msys2/qdev-build-common.sh
+#----------------------------------------
+
 #----------------------------------------
 qdev_init() {
   if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
@@ -37,44 +39,70 @@ qdev_init() {
 }
 
 qdev_setmore() {
-#  qdev_build_dir=$qdev_build_src
+  qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
 #----------------------------------------
-uav_any_init() {
-  uav_common_init
+qdev_any_init() {
+  qdev_init
   return 0
 }
 
-uav_any_conf() {
-#  uav_common_conf
+qdev_any_conf() {
+  qdev_build_config
   return 0
 }
 
-uav_any_make() {
-  uav_common_make -C $qdev_build_src Q=''
+qdev_any_make() {
+  qdev_build_make
   return 0
 }
 
-uav_any_main() {
-  uav_any_init
-  uav_any_conf
-  uav_any_make
+qdev_any_install() {
+  qdev_build_make_install
   return 0
 }
 
+qdev_any_main() {
+  #qdev_any_init
+  #qdev_any_conf
+  qdev_any_make
+  qdev_any_install
+  
+  return 0
+}
+
+# qdev_try
+# qdev_tst
+
+#
+# Required and optional software
+#
+pkg=xml-light
+pkg_ver=2.2
+pkg_file=$pkg-$pkg_ver
+pkg_ffile=$pkg_file.zip
+pkg_dir=$pkg
+# http://tech.motion-twin.com/zip/xml-light-2.2.zip
+pkg_url=http://tech.motion-twin.com/zip/$pkg_ffile
+
+pkg_deps_gcc=''
+pkg_deps_py=''
 #----------------------------------------
-# https://forge.ocamlcore.org
-work_home=$QUAV_WORK_HOME
-user_name=paparazzi
-apps_name=paparazzi
-apps_more=github
-msys2_deps='pkg-config gtk2 gxml xml-light ocaml ocaml-camlp4 ocaml-findlib'
+work_home=$QDEV_WORK_HOME
+user_name=lablgtk
+apps_name=lablgtk
+apps_more=ocamlcore
+# https://forge.ocamlcore.org/anonscm/git/lablgtk/lablgtk.git
+# https://forge.ocamlcore.org/frs/download.php/1479/lablgtk-2.18.3.tar.gz
+# Standard Source Distribution
 #----------------------------------------
-qdev_init
+#qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore
-qdev_get					$work_home $user_name $apps_name $apps_more
-
-uav_any_main
+qdev_get					$pkg $pkg_ver $pkg_file $pkg_ffile $pkg_url
+qdev_check
+#qdev_try
+#qdev_tst
+qdev_any_main

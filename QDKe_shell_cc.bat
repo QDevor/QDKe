@@ -47,9 +47,9 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :+++++++++++++++++++++++++++++++++++++
 :: cc-libseh cc-mysql-server
 :: cc-talib cc-libkml cc-expat
-:: ocaml-xml-light
+:: ocaml-xml-light ocaml-labgtk ocaml-ivy ocaml-netclient
 :+++++++++++++++++++++++++++++++++++++
-set DJN=ocaml-xml-light
+set DJN=ocaml-labgtk
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...
