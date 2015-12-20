@@ -40,7 +40,7 @@ set HDF5_DIR=%PYTHON_ROOT%/Library
 :----------------------------------------
 set "QDKE_CFG_PATH=!MINGW_ROOT!"
 set "PKG_CONFIG_PATH=!QDKE_CFG_PATH!/lib/pkgconfig"
-set "OCAMLFIND_CONF=!QDKE_CFG_PATH!/etc/findlib.conf"
+rem set "OCAMLFIND_CONF=!QDKE_CFG_PATH!/etc/findlib.conf"
 rem This variable overrides the location of the configuration file findlib.conf. It must contain the absolute path name of this file.
 goto :LABEL_SKIP_SET_OCAML_ENV
 echo [debug] [WIN] Setting Ocamlfind ENv.

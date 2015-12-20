@@ -24,7 +24,7 @@ else
 fix_ocaml_findlib_conf() {
   if [ ! -f $QDK_STAMPDIR/$FUNCNAME-stamp ]; then
     #var_file=/mingw32/etc/findlib.conf 
-    var_file=$OCAMLFIND_CONF
+    #var_file=$OCAMLFIND_CONF
     #echo var_file=$var_file
     if [ x"$var_file" == x ]; then
       return 0

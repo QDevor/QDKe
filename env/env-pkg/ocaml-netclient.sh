@@ -32,6 +32,12 @@ export PYTHON=python2
 
 #----------------------------------------
 qdev_init() {
+  #export OCAMLFIND_CONF=$QDKE_CFG_PATH/etc/findlib.conf
+  OCAML_ROOT=`cygpath -w $QDK_ROOT/OCaml`
+  export OCAMLFIND_CONF=`cygpath -w $OCAML_ROOT/etc/findlib.conf`
+  export OCAMLLIB=`cygpath -w $OCAML_ROOT/lib`
+  export PATH=$QDK_ROOT/OCaml/bin:$PATH
+  return 0
   if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
 		utils_msys2_installByPacman $msys2_deps
 #		touch $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp
@@ -84,14 +90,28 @@ qdev_any_main() {
   qdev_build_dir_backup=$qdev_build_src
   qdev_build_src=$qdev_build_dir_backup.core
   qdev_build_dir=$qdev_build_src
-  [ -d $qdev_build_dir ] || cp -r $qdev_build_src $qdev_build_dir
+  #[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir
+  if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-copy-src ]; then
+    var=`basename $qdev_build_dir_backup`
+    cd $qdev_build_top
+    cp -rf $var $var.core || die
+    touch $qdev_build_dir/${FUNCNAME}-stamp-copy-src
+  fi
   
   qdev_any_conf # CORE only
   qdev_any_make all
   qdev_any_make opt
   
-  qdev_build_src=$qdev_build_dir_backup
+  qdev_build_src=$qdev_build_dir_backup.addon
   qdev_build_dir=$qdev_build_src
+  #[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir
+  if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-copy-src ]; then
+    var=`basename $qdev_build_dir_backup`
+    cd $qdev_build_top
+    cp -rf $var $var.addon || die
+    touch $qdev_build_dir/${FUNCNAME}-stamp-copy-src
+  fi
+  
   qdev_any_conf -disable-core
   
   qdev_any_make all \
