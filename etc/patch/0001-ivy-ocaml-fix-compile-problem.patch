@@ -1,0 +1,37 @@
+ Makefile | 6 +++---
+ civy.c   | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index d19a968..7598e70 100644
+--- a/Makefile
++++ b/Makefile
+@@ -110,9 +110,9 @@ ivy : $(IVYLIBS)
+ glibivy : $(GLIBIVYLIBS)
+ tkivy : $(TKLIBS)
+ 
+-IVY_ALL_LIBS = $(IVYLIBS) $(IVYSTATIC) dllivy-ocaml.so
+-GLIBIVY_ALL_LIBS = $(GLIBIVYLIBS) $(GLIBIVYSTATIC) dllglibivy-ocaml.so
+-TKIVY_ALL_LIBS = $(TKIVYLIBS) $(TKIVYSTATIC) dlltkivy-ocaml.so
++IVY_ALL_LIBS = $(IVYLIBS) $(IVYSTATIC)
++GLIBIVY_ALL_LIBS = $(GLIBIVYLIBS) $(GLIBIVYSTATIC)
++TKIVY_ALL_LIBS = $(TKIVYLIBS) $(TKIVYSTATIC)
+ 
+ IVY_INST_FILES = $(IVYMLI) $(IVYCMI) $(IVYCMX) $(IVY_ALL_LIBS)
+ GLIBIVY_INST_FILES = $(GLIBIVYMLI) $(GLIBIVYCMI) $(GLIBIVYCMX) $(GLIBIVY_ALL_LIBS)
+diff --git a/civy.c b/civy.c
+index 8ca8ef9..23e40c0 100644
+--- a/civy.c
++++ b/civy.c
+@@ -33,9 +33,9 @@ void app_cb(IvyClientPtr app, void *user_data, IvyApplicationEvent event )
+ value ivy_init(value vappName, value vready, value closure_name)
+ {
+   value * closure = caml_named_value(String_val(closure_name));
+-  char * appName = malloc(strlen(String_val(vappName))+1); /* Memory leak */
++  char * appName = (char *)malloc(strlen(String_val(vappName))+1); /* Memory leak */
+   strcpy(appName, String_val(vappName));
+-  char * ready = malloc(strlen(String_val(vready))+1); /* Memory leak */
++  char * ready = (char *)malloc(strlen(String_val(vready))+1); /* Memory leak */
+   strcpy(ready, String_val(vready));
+   IvyInit(appName, ready, app_cb, (void*)closure, 0, 0); /* When the "die callback" is called ??? */
+   return Val_unit;

@@ -1,0 +1,141 @@
+ src/Makefile.mingw   | 27 +++++++++++++++++++++++----
+ src/ivy.c            | 14 +++++++++++++-
+ src/timer.h          |  2 +-
+ tools/Makefile.mingw |  3 +++
+ 4 files changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/src/Makefile.mingw b/src/Makefile.mingw
+index 1e1e24a..faba2d2 100644
+--- a/src/Makefile.mingw
++++ b/src/Makefile.mingw
+@@ -24,6 +24,9 @@ XTINC =
+ XTLIB =  
+ GTKINC = `gtk-config --cflags`
+ GTKLIB = `gtk-config --libs`
++HAVE_GLIB = $(shell pkg-config --exists glib-2.0 && echo 'yes')
++GLIBINC = `pkg-config --cflags glib-2.0`
++GLIBLIB = `pkg-config --libs glib-2.0`
+ GLUTINC = -I/usr/include -I.
+ GLUTLIB = -L.
+ TCLINCL	= -I/usr/include/tcl8.4
+@@ -48,7 +51,7 @@ REGEXP= -DUSE_PCRE_REGEX -DPCRE_OPT=$(PCRE_OPT)
+ 
+ TOOLS_DIR = ../tools
+ CC=gcc
+-CFLAGS =  -DWIN32 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601  $(REGEXP) $(PCREINC)
++CFLAGS =  -DWIN32 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601  $(REGEXP) $(PCREINC) $(GLIBINC)
+ # IVY full debug
+ #CFLAGS = -g  -DDEBUG -DWIN32 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601  $(REGEXP) $(PCREINC)
+ OBJ = ivyloop.o timer.o ivysocket.o ivy.o ivybuffer.o ivyfifo.o ivybind.o intervalRegexp.o param.o
+@@ -65,9 +68,13 @@ export
+ .c.o:
+ 	$(CC) $(CFLAGS) -c $*.c
+ 
+-all: static-libs  shared-libs tools
++all: static-libs  shared-libs tools pkgconf
+ 
++ifeq ($(HAVE_GLIB),yes)
++static-libs: libivy.a libgivy.a libglibivy.a libtclivy.a
++else
+ static-libs: libivy.a libgivy.a
++endif
+ #static-libs: libivy.a libgivy.a libtclivy.a  
+ # not yiet libxtivy.a libgtkivy.a  need Modified Glut libglutivy.a
+ 
+@@ -84,6 +91,9 @@ givy.o: ivy.c
+ ivyglutloop.o: ivyglutloop.c ivyglutloop.h
+ 	$(CC) -c $(CFLAGS) $(GLUTINC) -o ivyglutloop.o ivyglutloop.c
+ 
++ivyglibloop.o: ivyglibloop.c ivyglibloop.h
++	$(CC) -c $(CFLAGS) $(GLIBINC) ivyglibloop.c
++
+ ivygtkloop.o: ivygtkloop.c ivygtkloop.h
+ 	$(CC) -c $(CFLAGS) $(GTKINC) -o ivygtkloop.o ivygtkloop.c
+ 
+@@ -120,9 +130,13 @@ libxtivy.a: $(XTOBJ)
+ 	$(RM) $@
+ 	ar cq $@ $(XTOBJ)
+ 
+-libgtkivy.a: $(GTKOBJ)
++libxtivy.a: $(XTOBJ)
++	$(RM) $@
++	ar cq $@ $(XTOBJ)
++
++libglibivy.a: $(GLIBOBJ)
+ 	$(RM) $@
+-	ar cq $@ $(GTKOBJ)
++	ar cq $@ $(GLIBOBJ)
+ 
+ libglutivy.a: $(GLUTOBJ)
+ 	$(RM) $@
+@@ -208,6 +222,11 @@ install: installlibs installbins installliblinks installdocs
+ tools: static-libs
+ 	@(cd $(TOOLS_DIR) && $(MAKE) -f Makefile.mingw)
+ 
++pkgconf:
++	for f in *.pc.in ; do \
++		sed -e 's,@PREFIX@,$(PREFIX),; s,@MAJOR@,$(MAJOR),; s,@MINOR@,$(MINOR),; s,@PCRELIB@,$(PCRELIB),; s,@EXTRALIB@,$(EXTRALIB),' $$f > $$(echo $$f | cut -f 1,2 -d .); \
++	done
++
+ rpm::
+ 	/usr/bin/rpmize
+ 
+diff --git a/src/ivy.c b/src/ivy.c
+index 7fbc553..e676073 100644
+--- a/src/ivy.c
++++ b/src/ivy.c
+@@ -29,7 +29,7 @@
+ #include <windows.h>
+ #include "timer.h"
+ #define snprintf _snprintf
+-#ifdef __MINGW32__
++#if !defined(__MINGW32__)
+ // should be removed in when defined in MinGW include of ws2tcpip.h
+ extern const char * WSAAPI inet_ntop(int af, const void *src,
+                              char *dst, socklen_t size);
+@@ -69,6 +69,18 @@ extern int WSAAPI inet_pton(int af, const char *src, void *dst);
+ #define DEFAULT_DOMAIN 127.255.255.255
+ #endif
+ 
++#ifndef timersub
++# define timersub(a, b, result)						\
++	do {								\
++		(result)->tv_sec = (a)->tv_sec - (b)->tv_sec;		\
++		(result)->tv_usec = (a)->tv_usec - (b)->tv_usec;        \
++		if ((result)->tv_usec < 0) {                            \
++			--(result)->tv_sec;				\
++			(result)->tv_usec += 1000000;			\
++		}                                                       \
++	} while (0)
++#endif
++
+ /* stringification et concatenation du domaine et du port en 2 temps :
+  * Obligatoire puisque la substitution de domain, et de bus n'est pas
+  * effectuée si on stringifie directement dans la macro GenerateIvyBus */
+diff --git a/src/timer.h b/src/timer.h
+index accad5b..2dd5753 100644
+--- a/src/timer.h
++++ b/src/timer.h
+@@ -36,7 +36,7 @@ void TimerRemove( TimerId id );
+ 
+ 
+  //  implemetation of gettimeofday for windows
+-#ifdef WIN32
++#if defined(WIN32) && !defined(__MINGW32__)
+ #include "time.h"
+ struct timezone 
+ {
+diff --git a/tools/Makefile.mingw b/tools/Makefile.mingw
+index 3137387..af2351a 100644
+--- a/tools/Makefile.mingw
++++ b/tools/Makefile.mingw
+@@ -27,6 +27,9 @@ GLUTLIB = -L.
+ TCLINCL	= -I/usr/include/tcl8.4
+ TCLLIB = -ltcl84
+ 
++PCREINC = $(shell pcre-config --cflags)
++PCRELIB = $(shell pcre-config --libs)
++
+ EXTRALIB= -L../src -lws2_32 
+ EXTRAINC=-I../src
+ 

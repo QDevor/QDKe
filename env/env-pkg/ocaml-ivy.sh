@@ -55,12 +55,14 @@ qdev_any_conf() {
 }
 
 qdev_any_make() {
-  qdev_build_make
+  #qdev_build_make
+  cd $qdev_build_dir
+  CC=i686-w64-mingw32-g++ make $@
   return 0
 }
 
 qdev_any_install() {
-  qdev_build_make_install
+  qdev_any_make install
   return 0
 }
 

@@ -49,7 +49,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: cc-talib cc-libkml cc-expat cc-ivy
 :: ocaml-xml-light ocaml-labgtk ocaml-ivy ocaml-netclient
 :+++++++++++++++++++++++++++++++++++++
-set DJN=ocaml-ivy
+set DJN=ocaml-netclient
 bash --login -i -c "../env/env-pkg/%DJN%.sh"
 :+++++++++++++++++++++++++++++++++++++
 :: Doing Jobs Finish...

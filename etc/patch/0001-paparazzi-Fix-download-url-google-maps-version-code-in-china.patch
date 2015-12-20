@@ -1,0 +1,16 @@
+ data/maps/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/maps/Makefile b/data/maps/Makefile
+index dd21fe1..61b8ff3 100644
+--- a/data/maps/Makefile
++++ b/data/maps/Makefile
+@@ -24,7 +24,7 @@ $(DATADIR):
+ $(DATADIR)/maps.google.com: $(DATADIR) FORCE
+ 	@echo "-----------------------------------------------"
+ 	@echo "DOWNLOAD: google maps version code";
+-	$(Q)wget -q -t 1 -T 10 --no-check-certificate -O $(@) http://maps.googleapis.com/maps/api/js || \
++	$(Q)wget -q -t 1 -T 10 --no-check-certificate -O $(@) http://maps.google.cn/maps/api/js || \
+ 		(rm -f $(@) && \
+ 		echo "Could not download google maps version code" && \
+ 		echo "-----------------------------------------------" && \

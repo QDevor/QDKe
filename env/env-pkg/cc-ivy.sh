@@ -55,12 +55,43 @@ qdev_any_conf() {
 }
 
 qdev_any_make() {
-  qdev_build_make
+  #qdev_build_make
+  cd $qdev_build_dir/src
+  make -f Makefile.mingw
+  
+  #cd $qdev_build_dir/tools
+  #make -f Makefile.mingw
+  
   return 0
 }
 
 qdev_any_install() {
-  qdev_build_make_install
+  #qdev_build_make_install
+  PREFIX=$MINGW_ROOT
+  
+  cd $qdev_build_dir/src
+  #install -m644 libivy.a $PREFIX/lib
+	#install -m644 libgivy.a $PREFIX/lib
+	#install -m644 libxtivy.a $PREFIX/lib
+	#install -m644 libtclivy.a $PREFIX/lib
+	#install -m644 libgtkivy.a $PREFIX/lib
+	for f in *.a
+	do
+	  install -m644 $f $PREFIX/lib
+	done
+	
+	for f in *.pc
+	do
+	  sed -i 's,^prefix=,prefix='$PREFIX',' $f
+	  install -m644 $f $PREFIX/lib/pkgconfig
+	done
+	
+	[ -d $PREFIX/include/Ivy ] || mkdir -p $PREFIX/include/Ivy
+	install -m644 *.h $PREFIX/include/Ivy
+	
+	cd $qdev_build_dir/tools
+	install -m755 ivyprobe $PREFIX/bin
+	#install -m755 ivyglutprobe $PREFIX/bin
   return 0
 }
 

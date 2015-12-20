@@ -55,12 +55,12 @@ qdev_any_conf() {
 }
 
 qdev_any_make() {
-  qdev_build_make
+  qdev_build_make $@
   return 0
 }
 
 qdev_any_install() {
-  qdev_build_make_install
+  #qdev_any_make install
   return 0
 }
 
