@@ -39,10 +39,21 @@ qdev_init() {
 }
 
 qdev_setmore() {
-  qdev_build_dir=$qdev_build_src
+  #qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
+
+qdev_build_config() {
+	[ -d $qdev_build_dir ] || mkdir -p $qdev_build_dir
+	if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
+		cd $qdev_build_dir
+		$qdev_build_src/configure \
+			 $@ \
+			|| die
+		touch $qdev_build_dir/${FUNCNAME}-stamp-config
+	fi
+}
 #----------------------------------------
 qdev_any_init() {
   qdev_init
@@ -50,7 +61,7 @@ qdev_any_init() {
 }
 
 qdev_any_conf() {
-  qdev_build_config
+  qdev_build_config $@
   return 0
 }
 
@@ -66,9 +77,33 @@ qdev_any_install() {
 
 qdev_any_main() {
   #qdev_any_init
-  #qdev_any_conf
-  qdev_any_make
-  qdev_any_install
+  
+  qdev_build_dir_backup=$qdev_build_src
+  qdev_build_dir=$qdev_build_dir_backup.core
+  [ -d $qdev_build_dir ] || cp $qdev_build_src $qdev_build_dir
+  qdev_any_conf # CORE only
+  qdev_any_make all
+  qdev_any_make opt
+  
+  $qdev_build_dir=$qdev_build_dir_backup
+  qdev_any_conf -disable-core
+  
+  qdev_any_make all \
+    INC_NETSYS="-package netsys" \ 
+    INC_NETSTRING="-package netstring" \ 
+    INC_EQUEUE="-package equeue" \ 
+    INC_NETCGI2="-package netcgi2" \ 
+    INC_NETCGI2_APACHE="-package netcgi2-apache" \ 
+    INC_NETPLEX="-package netplex" \ 
+    INC_NETCAMLBOX="-package netcamlbox" \ 
+    INC_RPC="-package rpc" \ 
+    INC_SHELL="-package shell" \ 
+    INC_NETGSSAPI="-package netgssapi"
+  # qdev_any_make opt
+  
+  # env OCAMLFIND_DESTDIR="<dir>" make install
+  # make uninstall
+  # qdev_any_install
   
   return 0
 }
