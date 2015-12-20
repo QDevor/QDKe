@@ -82,14 +82,16 @@ qdev_any_main() {
   #qdev_any_init
   
   qdev_build_dir_backup=$qdev_build_src
-  qdev_build_dir=$qdev_build_dir_backup.core
+  qdev_build_src=$qdev_build_dir_backup.core
+  qdev_build_dir=$qdev_build_src
   [ -d $qdev_build_dir ] || cp -r $qdev_build_src $qdev_build_dir
   
   qdev_any_conf # CORE only
   qdev_any_make all
   qdev_any_make opt
   
-  qdev_build_dir=$qdev_build_dir_backup
+  qdev_build_src=$qdev_build_dir_backup
+  qdev_build_dir=$qdev_build_src
   qdev_any_conf -disable-core
   
   qdev_any_make all \
