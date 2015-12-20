@@ -61,16 +61,19 @@ qdev_any_init() {
 }
 
 qdev_any_conf() {
+  log_info "$FUNCNAME - $PROGNAME"
   qdev_build_config $@
   return 0
 }
 
 qdev_any_make() {
+  log_info "$FUNCNAME - $PROGNAME"
   qdev_build_make $@
   return 0
 }
 
 qdev_any_install() {
+  log_info "$FUNCNAME - $PROGNAME"
   #qdev_any_make install
   return 0
 }
@@ -83,10 +86,10 @@ qdev_any_main() {
   [ -d $qdev_build_dir ] || cp -r $qdev_build_src $qdev_build_dir
   
   qdev_any_conf # CORE only
-  qdev_any_make all
-  qdev_any_make opt
+  qdev_any_make all -v
+  qdev_any_make opt -v
   
-  $qdev_build_dir=$qdev_build_dir_backup
+  qdev_build_dir=$qdev_build_dir_backup
   qdev_any_conf -disable-core
   
   qdev_any_make all \
