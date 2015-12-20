@@ -47,11 +47,10 @@ fix_ocaml_findlib_conf() {
 		echo "" >>$var_file
 		
 		touch $QDK_STAMPDIR/$FUNCNAME-stamp
-	#fi
+	fi
   return 0
 }
 #----------------------------------------
-echo 123
 fix_ocaml_findlib_conf
 #----------------RUN-ONCE----------------
 export INCLUDE_FIX_OCAML_SCRIPT=true
