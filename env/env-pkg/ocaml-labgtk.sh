@@ -39,7 +39,7 @@ qdev_init() {
 }
 
 qdev_setmore() {
-  #qdev_build_dir=$qdev_build_src
+  qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
@@ -61,7 +61,7 @@ qdev_any_make() {
 }
 
 qdev_any_install() {
-  qdev_build_make_install
+  qdev_build_make install
   return 0
 }
 
@@ -92,9 +92,9 @@ pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QDEV_WORK_HOME
-user_name=lablgtk
+user_name=garrigue
 apps_name=lablgtk
-apps_more=ocamlcore
+apps_more=github
 # https://forge.ocamlcore.org/anonscm/git/lablgtk/lablgtk.git
 # https://forge.ocamlcore.org/frs/download.php/1479/lablgtk-2.18.3.tar.gz
 # Standard Source Distribution

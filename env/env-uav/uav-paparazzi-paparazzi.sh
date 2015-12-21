@@ -37,7 +37,7 @@ qdev_init() {
 }
 
 qdev_setmore() {
-#  qdev_build_dir=$qdev_build_src
+  qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
@@ -49,11 +49,16 @@ uav_any_init() {
 
 uav_any_conf() {
 #  uav_common_conf
+  if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
+    uav_common_make clean
+    touch $qdev_build_dir/${FUNCNAME}-stamp-config
+	fi
   return 0
 }
 
 uav_any_make() {
-  uav_common_make -C $qdev_build_src Q=''
+  cd $qdev_build_dir
+  uav_common_make Q=''
   return 0
 }
 
