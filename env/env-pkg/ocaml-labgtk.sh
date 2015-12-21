@@ -62,6 +62,10 @@ qdev_any_make() {
 
 qdev_any_install() {
   qdev_build_make install
+  
+  cp -rf $QDKE_USR/bin/lablgtk2               $MINGW_ROOT/bin/lablgtk2
+  cp -rf $QDKE_USR/bin/lablgladecc2           $MINGW_ROOT/bin/lablgladecc2
+  cp -rf $QDKE_USR/bin/gdk_pixbuf_mlsource    $MINGW_ROOT/bin/gdk_pixbuf_mlsource
   return 0
 }
 
