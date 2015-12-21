@@ -49,7 +49,7 @@ echo [QDKe] - We Are Doing Jobs... Start.
 :: cc-talib cc-libkml cc-expat cc-ivy
 :: ocaml-xml-light ocaml-labgtk ocaml-ivy ocaml-netclient
 :+++++++++++++++++++++++++++++++++++++
-set DJN=ocaml-netclient
+set DJN=ocaml-xml-light
 set DJNLOG=1
 if "x%DJNLOG%" == "x1" (
   bash --login -i -c "../env/env-pkg/%DJN%.sh" > %~dp0var/log/%~n0.log 2>&1

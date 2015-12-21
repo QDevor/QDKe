@@ -67,7 +67,12 @@ qdev_get_ssd_src() {
 }
 
 qdev_get() {
-	qdev_get_ssd_src $@
+  if [ x"$apps_more" == xssd ]; then
+	  qdev_get_ssd_src $@
+	  return 0
+	fi
+	scm_clone   $work_home $user_name $apps_name $apps_more
+	#scm_update  $work_home $user_name $apps_name $apps_more
 }
 
 # qdev_check
@@ -100,7 +105,7 @@ qdev_build_make() {
 qdev_build_make_install() {
 	if [ ! -f $qdev_build_src/${FUNCNAME}-stamp-make$1 ]; then
 		cd $qdev_build_src
-		make install xml-light.cma \
+		make install \
 			|| die
 		touch $qdev_build_src/${FUNCNAME}-stamp-make$1
 	fi
@@ -119,7 +124,8 @@ qdev_try() {
 	# qdev_build_config
 	# qdev_build_cmake
 	# qdev_build_make
-	qdev_build_make_install
+	# qdev_build_make_install
+	qdev_build_make install_ocamlfind
 	
 	log_info "$FUNCNAME - $PROGNAME - Done - Sucessfull."
 }
@@ -141,10 +147,11 @@ pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QDEV_WORK_HOME
-user_name=xml-light
+user_name=ncannasse
 apps_name=xml-light
-apps_more=ssd
+apps_more=github
 # Standard Source Distribution
+# cvs -d:pserver:anonymous@cvs.motion-twin.com:/cvsroot co ocaml/xml-light
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more

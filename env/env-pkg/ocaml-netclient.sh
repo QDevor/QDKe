@@ -104,6 +104,7 @@ qdev_any_main() {
   
   #qdev_any_make install
   [ -d $qdev_build_dir/install_destdir ] || mkdir -p $qdev_build_dir/install_destdir
+  cd $qdev_build_dir
   env OCAMLFIND_DESTDIR="$qdev_build_dir/install_destdir" make install
   
   return 0
