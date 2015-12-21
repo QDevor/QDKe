@@ -39,7 +39,7 @@ qdev_init() {
 }
 
 qdev_setmore() {
-  qdev_build_dir=$qdev_build_src
+  #qdev_build_dir=$qdev_build_src
 	return 0
 }
 # qdev_get
@@ -50,12 +50,13 @@ qdev_any_init() {
 }
 
 qdev_any_conf() {
-  qdev_build_config
+  qdev_build_config --disable-gtktest
   return 0
 }
 
 qdev_any_make() {
   qdev_build_make
+  qdev_build_make opt
   return 0
 }
 
@@ -97,6 +98,7 @@ apps_more=ocamlcore
 # https://forge.ocamlcore.org/anonscm/git/lablgtk/lablgtk.git
 # https://forge.ocamlcore.org/frs/download.php/1479/lablgtk-2.18.3.tar.gz
 # Standard Source Distribution
+msys2_deps='libglade libgnomecanvas librsvg gtksourceview2'
 #----------------------------------------
 #qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more

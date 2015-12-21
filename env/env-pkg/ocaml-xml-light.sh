@@ -35,7 +35,7 @@ export PYTHON=python2
 qdev_init() {
 	return 0
 	if [ ! -f $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp ]; then
-		
+		utils_msys2_installByPacman $msys2_deps
 		touch $QDK_STAMPDIR/$FUNCNAME-$PROGNAME-stamp
 	fi
 }
