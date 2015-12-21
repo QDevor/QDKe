@@ -66,8 +66,8 @@ qdev_any_install() {
 }
 
 qdev_any_main() {
-  #qdev_any_init
-  #qdev_any_conf
+  qdev_any_init
+  qdev_any_conf
   qdev_any_make
   qdev_any_install
   
