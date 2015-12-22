@@ -102,7 +102,7 @@ apps_more=github
 # https://forge.ocamlcore.org/anonscm/git/lablgtk/lablgtk.git
 # https://forge.ocamlcore.org/frs/download.php/1479/lablgtk-2.18.3.tar.gz
 # Standard Source Distribution
-msys2_deps='libglade libgnomecanvas librsvg gtksourceview2'
+msys2_deps='libglade libgnomecanvas gnome-common librsvg gtksourceview2'
 #----------------------------------------
 #qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more

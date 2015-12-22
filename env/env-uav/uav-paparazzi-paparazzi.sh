@@ -53,8 +53,13 @@ uav_any_fix() {
 		sed -e "s,\\\,\\\\\\\,g" | \
 		sed -e "s,\\\,\\\\\\\,g" \
 	)
+	xlib_pprz_ocaml_path_1=$( \
+		cygpath -w $qdev_build_dir/sw/lib/ocaml | \
+		sed -e "s,\\\,\\\\\\\,g" \
+	)
   echo [debug] xlib_pprz_ocaml_path=$xlib_pprz_ocaml_path
-  fix_val=`cat $fix_file | grep "$xlib_pprz_ocaml_path"`
+  fix_val=`cat $fix_file | grep "$xlib_pprz_ocaml_path_1"`
+  echo [debug] fix_val=$fix_val
   fix_val_exists=true
   if [ x"$fix_val" == x ]; then
     fix_val_exists=false
@@ -110,7 +115,7 @@ work_home=$QUAV_WORK_HOME
 user_name=paparazzi
 apps_name=paparazzi
 apps_more=github
-msys2_deps='pkg-config gtk2 gxml xml-light ocaml ocaml-camlp4 ocaml-findlib'
+msys2_deps='pkg-config gtk2 gnome-common gxml xml-light ocaml ocaml-camlp4 ocaml-findlib'
 #----------------------------------------
 qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
