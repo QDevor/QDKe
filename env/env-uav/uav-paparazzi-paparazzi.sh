@@ -54,7 +54,7 @@ uav_any_fix() {
 		sed -e "s,\\\,\\\\\\\,g" \
 	)
   echo [debug] xlib_pprz_ocaml_path=$xlib_pprz_ocaml_path
-  fix_val=`cat $fix_file | gperf "$xlib_pprz_ocaml_path"`
+  fix_val=`cat $fix_file | grep "$xlib_pprz_ocaml_path"`
   fix_val_exists=true
   if [ x"$fix_val" == x ]; then
     fix_val_exists=false
