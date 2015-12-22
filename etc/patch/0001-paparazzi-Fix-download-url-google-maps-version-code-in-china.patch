@@ -1,9 +1,12 @@
  data/maps/Makefile                    |   2 +-
+ sw/Makefile.ocaml                     |   4 +-
  sw/ground_segment/cockpit/Makefile    |   2 +-
+ sw/lib/ocaml/Makefile                 |  10 +-
  sw/lib/ocaml/convert.c                |   2 +
  sw/lib/ocaml/cserial.c                | 194 +++++++++++++++++++++++++++++++++-
+ sw/supervision/Makefile               |   4 +-
  sw/tools/bluegiga_usb_dongle/Makefile |   2 +-
- 5 files changed, 198 insertions(+), 4 deletions(-)
+ 8 files changed, 211 insertions(+), 9 deletions(-)
 
 diff --git a/data/maps/Makefile b/data/maps/Makefile
 index dd21fe1..61b8ff3 100644
@@ -18,6 +21,18 @@ index dd21fe1..61b8ff3 100644
  		(rm -f $(@) && \
  		echo "Could not download google maps version code" && \
  		echo "-----------------------------------------------" && \
+diff --git a/sw/Makefile.ocaml b/sw/Makefile.ocaml
+index 4201f9e..70397a6 100644
+--- a/sw/Makefile.ocaml
++++ b/sw/Makefile.ocaml
+@@ -42,5 +42,5 @@ XLIBPPRZCMXA = $(XLIBPPRZCMA:.cma=.cmxa)
+ OCAMLDLL = -dllpath $(LIBPPRZDIR)
+ OCAMLXDLL = -dllpath $(LIBPPRZDIR)
+ 
+-OCAMLPATH:=$(shell echo $(LIBPPRZDIR):$(OCAMLPATH))
+-export OCAMLPATH
++#OCAMLPATH:=$(shell echo $(LIBPPRZDIR):$(OCAMLPATH))
++#export OCAMLPATH
 diff --git a/sw/ground_segment/cockpit/Makefile b/sw/ground_segment/cockpit/Makefile
 index 15a9279..95e6e8f 100644
 --- a/sw/ground_segment/cockpit/Makefile
@@ -31,6 +46,30 @@ index 15a9279..95e6e8f 100644
  CAMLP4_DEFS = -DGDK_NATIVE_WINDOW
  endif
  CAMLP4_DEFS ?=
+diff --git a/sw/lib/ocaml/Makefile b/sw/lib/ocaml/Makefile
+index 4cd4840..fbab749 100644
+--- a/sw/lib/ocaml/Makefile
++++ b/sw/lib/ocaml/Makefile
+@@ -80,10 +80,18 @@ GEN_DEP = expr_parser.ml expr_lexer.ml
+ TESTS_SRC = test/test_latlong.ml
+ TESTS_CMO = $(TESTS_SRC:.ml=.cmo)
+ 
+-all : byte native
++all : byte native install_subdir
+ byte : lib-pprz.cma xlib-pprz.cma xml_get.out META.pprz
+ native : lib-pprz.cmxa xlib-pprz.cmxa META.pprz
+ 
++install_subdir : byte native
++	@echo INSTALL $@
++	[ -d xlib-pprz ] || mkdir -p xlib-pprz
++	# cp -rf liblib-pprz.a dlllib-pprz.dll lib-pprz.cmxa lib-pprz.a libxlib-pprz.a dllxlib-pprz.dll xlib-pprz.cmxa xlib-pprz.a ./xlib-pprz
++	cp -rf *.cmi *.mli ./xlib-pprz
++	cp -rf *.cmxa *.cma ./xlib-pprz
++	cp -rf *.a *.dll ./xlib-pprz
++	cp META.pprz ./xlib-pprz/META
+ 
+ lib-pprz.cma liblib-pprz.a: $(CMO)
+ 	@echo OL $@
 diff --git a/sw/lib/ocaml/convert.c b/sw/lib/ocaml/convert.c
 index 3a16ec5..6905bd5 100644
 --- a/sw/lib/ocaml/convert.c
@@ -267,6 +306,21 @@ index 35f4ffb..29db77e 100644
 +  CAMLreturn (Val_int(0));
 +}
 +#endif
+diff --git a/sw/supervision/Makefile b/sw/supervision/Makefile
+index 3515368..c91cf01 100644
+--- a/sw/supervision/Makefile
++++ b/sw/supervision/Makefile
+@@ -38,8 +38,8 @@ LABLGTK2GNOMEUI = $(shell ocamlfind query -p-format lablgtk2.gnomeui 2>/dev/null
+ endif
+ 
+ INCLUDES =
+-XPKG = -package pprz.xlib,$(LABLGTK2GNOMEUI)
+-XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg pprz.xlib
++XPKG = -package xlib-pprz,$(LABLGTK2GNOMEUI),lablgtk2
++XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg xlib-pprz
+ 
+ PAPARAZZICENTERCMO = gtk_pc.cmo gtk_process.cmo pc_common.cmo pc_control_panel.cmo pc_aircraft.cmo paparazzicenter.cmo
+ 
 diff --git a/sw/tools/bluegiga_usb_dongle/Makefile b/sw/tools/bluegiga_usb_dongle/Makefile
 index fba9ada..a50e9c8 100644
 --- a/sw/tools/bluegiga_usb_dongle/Makefile

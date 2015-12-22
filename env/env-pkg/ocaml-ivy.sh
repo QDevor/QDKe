@@ -72,6 +72,8 @@ qdev_any_main() {
   qdev_any_make
   qdev_any_install
   
+  cd $qdev_build_dir
+   
   return 0
 }
 
