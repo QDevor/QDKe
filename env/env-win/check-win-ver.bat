@@ -40,6 +40,7 @@ if "x!QDKe_VAR_DEBUG_%~n0!" == "xtrue" (
 :: 7							6.0
 :: Sever2008R2		6.1
 :: 8							6.2
+:: 10             10.0
 
 rem set QDKe_VAR_IS_XP=true
 
@@ -51,11 +52,11 @@ rem  --> Check Windows Version
 set QDKe_VAR_WIN_VER="Unkown"
 for /f "delims=" %%a in ('ver') do call :.ver %%a
 
-if %QDKe_VAR_WIN_VER% GTR 6.2 (
+if %QDKe_VAR_WIN_VER_INT% GTR 100 (
 	echo [QDKe] - We Are Checking Windows Version - Unkown.
 ) else (
 	echo [QDKe] - We Are Checking Windows Version - !QDKe_VAR_WIN_VER!.
-	if !QDKe_VAR_WIN_VER! GEQ 6.0 (
+	if !QDKe_VAR_WIN_VER_INT! GEQ 60 (
 		set QDKe_VAR_IS_XP=false
 	) else (
 		set QDKe_VAR_IS_XP=true
@@ -69,7 +70,18 @@ goto :QDKe_CHECK_WIN_VER_EOF
 :.ver
 	if not "%2"=="" shift /1 &goto :.ver
 	set QDKe_VAR_WIN_VER=%1
-	set QDKe_VAR_WIN_VER=%QDKe_VAR_WIN_VER:~0,3%
+	for /F "usebackq tokens=1-3 delims=." %%v in ('!QDKe_VAR_WIN_VER!') do (
+	  set _local_loop_cnts=0
+	  if !_local_loop_cnts!==0 (
+		  set QDKe_VAR_WIN_VER_MAJOR=%%v
+		  set QDKe_VAR_WIN_VER_MINOR=%%w
+		  set QDKe_VAR_WIN_VER_PLUS=%%x
+		)
+		set /a _local_loop_cnts=!_local_loop_cnts!+1
+	)
+	rem set QDKe_VAR_WIN_VER=%QDKe_VAR_WIN_VER:~0,3%
+	set "QDKe_VAR_WIN_VER=!QDKe_VAR_WIN_VER_MAJOR!.!QDKe_VAR_WIN_VER_MINOR!"
+	set "QDKe_VAR_WIN_VER_INT=!QDKe_VAR_WIN_VER_MAJOR!!QDKe_VAR_WIN_VER_MINOR!"
 	exit /b
 
 	goto :QDKe_CHECK_WIN_VER_EOF
