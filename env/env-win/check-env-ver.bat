@@ -90,7 +90,7 @@ rem goto :skip_check_version_rust
 set "checkVerPrompt=[Checking] - Rust"
 set "checkVerPrompt=!checkVerPrompt!!QDKe_VAR_SPACE_30!"
 set "checkVerPrompt=!checkVerPrompt:~0,25! -"
-set print_version=rust --version
+set print_version=rustc --version
 set version=
 !print_version! >nul 2>&1
 	if not "!errorlevel!" == "9009" (
