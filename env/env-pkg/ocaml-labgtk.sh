@@ -42,8 +42,51 @@ qdev_setmore() {
   qdev_build_dir=$qdev_build_src
 	return 0
 }
+
 # qdev_get
+
+qdev_check() {
+  ocamlfind ocamlc -v
+	return 0
+}
 #----------------------------------------
+qdev_any_OcamlswitchedToVerWin() {
+  if [ x"$QDKE_OCAML_CFG_PATH_VER_WIN" == x ]; then
+    echo [ERROR] Args of QDKE_OCAML_CFG_PATH_VER_WIN Is Null.
+    exit 1
+  fi
+  if [ ! -d "$QDKE_OCAML_CFG_PATH_VER_WIN" ]; then
+    echo [ERROR] $QDKE_OCAML_CFG_PATH_VER_WIN Is No Such Directory.
+    exit 2
+  fi
+  
+  QDKE_OCAML_CFG_PATH=$QDKE_OCAML_CFG_PATH_VER_WIN
+  export OCAMLFIND_CONF=$QDKE_OCAML_CFG_PATH/etc/findlib.conf
+  export OCAMLLIB=$QDKE_OCAML_CFG_PATH/lib/ocaml
+  var_path=`cygpath -u $QDKE_OCAML_CFG_PATH`
+  export PATH=$var_path/bin:$PATH
+  return 0
+}
+
+qdev_any_OcamlswitchedToVerMingw() {
+  if [ x"$QDKE_OCAML_CFG_PATH_VER_MINGW" == x ]; then
+    echo [ERROR] Args of QDKE_OCAML_CFG_PATH_VER_MINGW Is Null.
+    exit 1
+  fi
+  if [ ! -d "$QDKE_OCAML_CFG_PATH_VER_MINGW" == x ]; then
+    echo [ERROR] $QDKE_OCAML_CFG_PATH_VER_MINGW Is No Such Directory.
+    exit 2
+  fi
+  
+  QDKE_OCAML_CFG_PATH=$QDKE_OCAML_CFG_PATH_VER_MINGW
+  #var_path=`cygpath -u $QDKE_OCAML_CFG_PATH`
+  export OCAMLFIND_CONF=$QDKE_OCAML_CFG_PATH/etc/findlib.conf
+  export OCAMLLIB=$QDKE_OCAML_CFG_PATH/lib/ocaml
+  var_path=`cygpath -u $QDKE_OCAML_CFG_PATH`
+  export PATH=$var_path/bin:$PATH
+  return 0
+}
+
 qdev_any_init() {
   qdev_init
   return 0
@@ -104,6 +147,7 @@ apps_more=github
 # Standard Source Distribution
 msys2_deps='libglade libgnomecanvas gnome-common librsvg gtksourceview2'
 #----------------------------------------
+#qdev_any_OcamlswitchedToVerWin
 #qdev_init
 qdev_set					$work_home $user_name $apps_name $apps_more
 qdev_setmore

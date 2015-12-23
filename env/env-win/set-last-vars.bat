@@ -38,25 +38,29 @@ set HDF5_DIR=%PYTHON_ROOT%/Library
 :----------------------------------------
 :: OCAML
 :----------------------------------------
-set "QDKE_CFG_PATH=!MINGW_ROOT!"
-set "PKG_CONFIG_PATH=!QDKE_CFG_PATH!/lib/pkgconfig"
-set "OCAMLFIND_CONF=!QDKE_CFG_PATH!/etc/findlib.conf"
-set "OCAMLLIB=!QDKE_CFG_PATH!/lib/ocaml"
+set "QDKE_OCAML_CFG_PATH_VER_WIN=!QDK_ROOT!/OCaml"
+set "QDKE_OCAML_CFG_PATH_VER_MINGW=!MINGW_ROOT!"
+
+set "QDKE_OCAML_CFG_PATH=!QDKE_OCAML_CFG_PATH_VER_MINGW!"
+
+set "PKG_CONFIG_PATH=!QDKE_OCAML_CFG_PATH!/lib/pkgconfig"
+set "OCAMLFIND_CONF=!QDKE_OCAML_CFG_PATH!/etc/findlib.conf"
+set "OCAMLLIB=!QDKE_OCAML_CFG_PATH!/lib/ocaml"
 rem This variable overrides the location of the configuration file findlib.conf. It must contain the absolute path name of this file.
 goto :LABEL_SKIP_SET_OCAML_ENV
 echo [debug] [WIN] Setting Ocamlfind ENv.
-rem set "OCAMLPATH=!QDKE_CFG_PATH!/lib/ocaml"
+rem set "OCAMLPATH=!QDKE_OCAML_CFG_PATH!/lib/ocaml"
 rem This variable may contain an additional search path for package directories. It is treated as if the directories were prepended to the configuration variable path.
 rem set "OCAMLFIND_DESTDIR=!OCAMLPATH!"
 rem This variable overrides the configuration variable destdir.
 rem set "OCAMLFIND_METADIR=!OCAMLPATH!"
 rem This variable overrides the configuration variable metadir.
-rem set "OCAMLFIND_COMMANDS=!QDKE_CFG_PATH!/bin"
+rem set "OCAMLFIND_COMMANDS=!QDKE_OCAML_CFG_PATH!/bin"
 rem This variable overrides the configuration variables ocamlc, ocamlopt, ocamlcp, ocamlmktop, ocamldoc, ocamldep, and/or ocamlbrowser.
-set "CAMLLIB=!QDKE_CFG_PATH!/lib/ocaml"
-set "OCAMLLIB=!QDKE_CFG_PATH!/lib/ocaml"
+set "CAMLLIB=!QDKE_OCAML_CFG_PATH!/lib/ocaml"
+set "OCAMLLIB=!QDKE_OCAML_CFG_PATH!/lib/ocaml"
 rem This variable overrides the configuration variable stdlib.
-set "OCAMLFIND_LDCONF=!QDKE_CFG_PATH!/lib/ocaml"
+set "OCAMLFIND_LDCONF=!QDKE_OCAML_CFG_PATH!/lib/ocaml"
 rem This variable overrides the configuration variable ldconf.
 rem set "OCAMLFIND_IGNORE_DUPS_IN=!OCAMLPATH!"
 rem This variable instructs findlib not to emit warnings that packages or module occur several times. 
