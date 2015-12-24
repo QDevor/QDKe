@@ -94,6 +94,7 @@ workbench_hw_engine_search() {
   tmplink=`cat $QDKE_TMP/outcome_link.txt | head -1 | sed "s/\"link\":\"\(.*\)\"/\1/g"`
   curl -y 60 -Y 1 -m 60 -L $tmplink -o $tmpfile
   
+  curl http://www.ti.com.cn/cn/lit/ds/symlink/$1.pdf -o DC2DC-Down-1D5A-TI-LM2831.pdf
   #pause
   #rm -rf tmpfile
 }
