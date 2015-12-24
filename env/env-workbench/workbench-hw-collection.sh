@@ -37,6 +37,8 @@ workbench_hw_collection_init() {
   hw_collect_organ=
   hw_collect_despc=
   hw_collect_brand=
+  hw_collect_file_prefix=
+  hw_collect_file_suffix=
   return 0
 }
 
