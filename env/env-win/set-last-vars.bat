@@ -67,6 +67,11 @@ rem This variable instructs findlib not to emit warnings that packages or module
 rem The variable must be set to the directory where the packages reside that are to be ignored for this warning.
 :LABEL_SKIP_SET_OCAML_ENV
 :----------------------------------------
+:: FLEXDLL
+:----------------------------------------
+set FLEXDLL_RELOCATE=00401000
+echo [debug] set FLEXDLL_RELOCATE=%FLEXDLL_RELOCATE%
+:----------------------------------------
 :: SSL
 :----------------------------------------
 :----------------RUN-ONCE----------------
