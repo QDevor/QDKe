@@ -99,6 +99,7 @@ workbench_common_conf_dirs() {
 	
 	export WORKBENCH_COMMON_HARDWARE_DIR=$WORKBENCH_COMMON_PROJ_DIR/hardware
 	export WORKBENCH_COMMON_SOFTWARE_DIR=$WORKBENCH_COMMON_PROJ_DIR/software
+	export WORKBENCH_COMMON_PREDEV_DIR=$WORKBENCH_COMMON_PROJ_DIR/preDev
 	
 	return 0
 }
@@ -106,6 +107,7 @@ workbench_common_conf_dirs() {
 workbench_common_conf_contents() {
 	WORKBENCH_COMMON_SW_CONTENTS="tools third_party src docs examples tests"
 	WORKBENCH_COMMON_HW_CONTENTS="Assembly BOM Gerbers Schematics PCB"
+	WORKBENCH_COMMON_PREDEV_CONTENTS="docs extLinks"
 	
 	WORKBENCH_COMMON_HW_VER_NAME="rel_beta rel_production"
 	WORKBENCH_COMMON_HW_COM_NAME="com_docs com_datasheets"
@@ -163,6 +165,7 @@ workbench_common_check_dirs() {
 	
 	[ -d $WORKBENCH_COMMON_HARDWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR
 	[ -d $WORKBENCH_COMMON_SOFTWARE_DIR ] || mkdir -p $WORKBENCH_COMMON_SOFTWARE_DIR
+	[ -d $WORKBENCH_COMMON_PREDEV_DIR   ] || mkdir -p $WORKBENCH_COMMON_PREDEV_DIR
 	
 #	[ -d $WORKBENCH_COMMON_HARDWARE_DIR/beta ]       || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR/beta
 #	[ -d $WORKBENCH_COMMON_HARDWARE_DIR/production ] || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR/production
@@ -192,6 +195,11 @@ workbench_common_check_contents() {
 	  [ -d $WORKBENCH_COMMON_HARDWARE_DIR/$comname ]     || mkdir -p $WORKBENCH_COMMON_HARDWARE_DIR/$comname
 	done
 	
+	
+	for dirname in $WORKBENCH_COMMON_PREDEV_CONTENTS
+	do
+	  [ -d $WORKBENCH_COMMON_PREDEV_DIR/$dirname ]     || mkdir -p $WORKBENCH_COMMON_PREDEV_DIR/$dirname
+	done
 	return 0
 }
 
@@ -225,6 +233,12 @@ workbench_common_copy_readme() {
   >$TMP/readme-tmp
   cp -n $TMP/readme-tmp $WORKBENCH_COMMON_HARDWARE_DIR/README.rst
   
+  sed -e "s/README_PARTY_TITLE_TPL_TITLE/$WORKBENCH_COMMON_PROJ_NAME - pre-Development/g" \
+      -e "s/README_PARTY_TITLE_TPL_DESC/Placed all pre-Development files here/g" \
+  $TMP/readme-tmp1 \
+  >$TMP/readme-tmp
+  cp -n $TMP/readme-tmp $WORKBENCH_COMMON_PREDEV_DIR/README.rst
+  
 	return 0
 }
 
@@ -253,11 +267,147 @@ workbench_common_copy() {
 	return 0
 }
 
+workbench_common_scmInit_comp() {
+	cd $WORKBENCH_COMMON_COMP_DIR ||die
+	if [ ! -d $WORKBENCH_COMMON_COMP_DIR/.git ]; then
+	  git init
+	  git checkout --no-track -b master
+	  git checkout --no-track -b dev
+	fi
+	return 0
+}
+workbench_common_scmInit_proj() {
+	cd $WORKBENCH_COMMON_PROJ_DIR ||die
+	if [ ! -d $WORKBENCH_COMMON_PROJ_DIR/.git ]; then
+	  git init
+	  git checkout --no-track -b master
+	  git checkout --no-track -b dev
+	fi
+	return 0
+}
+workbench_common_scmInit_comp_aux() {
+  cd $WORKBENCH_COMMON_COMP_DIR ||die
+	if [ -d $WORKBENCH_COMMON_COMP_DIR/.git ]; then
+	  
+	  # cd $WORKBENCH_COMMON_COMP_DIR ||die
+  	for dirname in `ls $WORKBENCH_COMMON_COMP_DIR`
+    do
+      echo [debug] dirname=$dirname
+      if [ ! -d $WORKBENCH_COMMON_COMP_DIR/$dirname ]; then
+        continue
+      fi
+      if [ $dirname == .git ]; then
+        continue
+      fi
+      if [ $dirname == cache ]; then
+        continue
+      fi
+      for exists in `git config --list | grep ^submodule. | cut -f 2 -d .`
+  	  do
+  	    echo [debug] exists=$exists
+  	    if [ $dirname == $exists ]; then
+          continue
+        fi
+        echo [debug] git submodule add $dirname
+  	    git submodule add -- $WORKBENCH_COMMON_COMP_DIR/$dirname $dirname
+  	  done
+  	done
+	fi
+	return 0
+}
+
+workbench_common_scmInit() {
+	workbench_common_scmInit_proj
+	workbench_common_scmInit_comp
+	workbench_common_scmInit_comp_aux
+	
+	return 0
+}
+
+# Assume the tar file store two backup *-1.7z *-2.7z
+# 
+workbench_common_tar_init() {
+	workbench_common_tar_dir=$WORKBENCH_COMMON_COMP_DIR/cache/tars
+	[ -d $workbench_common_tar_dir ]     || mkdir -p $workbench_common_tar_dir
+	return 0
+}
+workbench_common_tar_common() {
+	tar_target_prefix=workbench-tar-$1
+	tar_target_head_suffix=1.7z
+	tar_target_tail_suffix=2.7z
+	tar_target_head_file=$tar_target_prefix-$tar_target_head_suffix
+	tar_target_tail_file=$tar_target_prefix-$tar_target_tail_suffix
+	
+	tar_target_filename=
+	tar_target_includes=
+	tar_target_excludes=
+	
+	tar_target_filename=$tar_target_head_file
+	
+	cd $workbench_common_tar_dir ||die
+	if [ -f $tar_target_head_file ]; then
+  	if [ -f $tar_target_tail_file ]; then
+    	tar_target_head_stamp=`stat -c %Y $tar_target_head_file`
+    	tar_target_tail_stamp=`stat -c %Y $tar_target_tail_file`
+    	# if [ $t -ge 1330 -a $t -le 1430 ]; then
+    	if [ $tar_target_head_stamp -ge $tar_target_tail_stamp ]; then
+    	  tar_target_filename=$tar_target_tail_file
+    	# elif [ $[ $b - $a ] -gt 180 ]; then
+    	# command
+    	fi
+    else
+      tar_target_filename=$tar_target_tail_file
+  	fi
+	fi
+	
+	return 0
+}
+workbench_common_tar_execmd_7z() {
+  # tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:mf=bt4b:fb=64 -mmt -r"
+  tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
+	echo 7z a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
+	7z a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
+	return 0
+}
+workbench_common_tar_comp() {
+	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME
+	tar_target_includes=".git *.compstamp .gitmodules .gitignore"
+	tar_target_excludes=
+	
+	cd $WORKBENCH_COMMON_COMP_DIR ||die && ls
+	
+	workbench_common_tar_execmd_7z
+	
+	return 0
+}
+workbench_common_tar_proj() {
+	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME
+	tar_target_includes="*.projstamp .gitmodules .gitignore -ir!.git/*"
+	tar_target_excludes=
+	
+	cd $WORKBENCH_COMMON_PROJ_DIR ||die && ls
+	
+	workbench_common_tar_execmd_7z
+	
+	return 0
+}
+workbench_common_tar() {
+	workbench_common_tar_init
+	workbench_common_tar_proj
+	workbench_common_tar_comp
+	return 0
+}
+
 workbench_common_make() {
 	workbench_common_check_dirs
 	workbench_common_check_contents
 	
 	workbench_common_copy
+	
+	workbench_common_scmInit
+	
+	workbench_common_tar
+	
 	return 0
 }
 #----------------------------------------
