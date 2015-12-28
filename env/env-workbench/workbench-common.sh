@@ -333,8 +333,8 @@ workbench_common_tar_init() {
 }
 workbench_common_tar_common() {
 	tar_target_prefix=workbench-tar-$1
-	tar_target_head_suffix=1.7z
-	tar_target_tail_suffix=2.7z
+	tar_target_head_suffix=1.$2
+	tar_target_tail_suffix=2.$2
 	tar_target_head_file=$tar_target_prefix-$tar_target_head_suffix
 	tar_target_tail_file=$tar_target_prefix-$tar_target_tail_suffix
 	
@@ -363,31 +363,57 @@ workbench_common_tar_common() {
 	return 0
 }
 workbench_common_tar_execmd_7z() {
+  # export LANG='C.UTF_8'
   # tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:mf=bt4b:fb=64 -mmt -r"
   tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
-	echo 7z a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
-	7z a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
+	echo 7za a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
+	7za a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
+	# export LANG='zh_CN.UTF_8'
+	return 0
+}
+workbench_common_tar_execmd_targz() {
+  
+  tar zcvf "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
 	return 0
 }
 workbench_common_tar_comp() {
-	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME
-	tar_target_includes=".git *.compstamp .gitmodules .gitignore"
-	tar_target_excludes=
+	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME 7z
+	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME tar.gz
+	tar_target_includes="* -i!.gitmodules -i!.gitignore -ir!.git -x!*.bak -xr!cache -xr!uav-heli"
+	tar_target_excludes=""
 	
-	cd $WORKBENCH_COMMON_COMP_DIR ||die && ls
+	cd $WORKBENCH_COMMON_COMP_DIR ||die
 	
-	workbench_common_tar_execmd_7z
+	# tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
+	7za a -t7z $tar_cmd_args_extra -y \
+	  "$workbench_common_tar_dir/$tar_target_filename"  \
+	  * -i!.gitmodules -i!.gitignore -ir!.git \
+	  -x!*.bak -xr!cache -xr!uav-heli \
+	  "$tar_target_excludes"
+	# workbench_common_tar_execmd_7z
+	# workbench_common_tar_execmd_targz
 	
 	return 0
 }
 workbench_common_tar_proj() {
-	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME
-	tar_target_includes="*.projstamp .gitmodules .gitignore -ir!.git/*"
-	tar_target_excludes=
+	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME 7z
+	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME tar.gz
+	tar_target_includes="*.projstamp"
+	# tar_target_includes+=' *.gitmodules'
+	# tar_target_includes+=' *.gitignore'
+	tar_target_excludes=""
+	# tar_target_excludes="--exclude=tomcat/logs --exclude=tomcat/libs"
 	
-	cd $WORKBENCH_COMMON_PROJ_DIR ||die && ls
+	cd $WORKBENCH_COMMON_PROJ_DIR ||die
 	
-	workbench_common_tar_execmd_7z
+	tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
+	7za a -t7z $tar_cmd_args_extra -y \
+	  "$workbench_common_tar_dir/$tar_target_filename" \
+	  * -i!.gitmodules -i!.gitignore -ir!.git \
+	  -x!*.bak -xr!cache \
+	  "$tar_target_excludes"
+	# pwd && workbench_common_tar_execmd_7z
+	# workbench_common_tar_execmd_targz
 	
 	return 0
 }
