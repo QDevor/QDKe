@@ -376,6 +376,8 @@ workbench_common_tar_common() {
   	fi
 	fi
 	
+	rm -rf "$workbench_common_tar_dir/$tar_target_filename" >/dev/null 2>&1
+	
 	return 0
 }
 workbench_common_tar_rules_get() {
