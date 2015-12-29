@@ -470,10 +470,6 @@ workbench_common_tar_execmd_targz() {
 workbench_common_tar_comp() {
 	workbench_common_tar_common $TAR_RULES_TYPE_COMP $WORKBENCH_COMMON_COMP_NAME 7z
 	
-	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME tar.gz
-	tar_target_includes="* -i!.gitmodules -i!.gitignore -ir!.git -x!*.bak -xr!cache -xr!uav-heli"
-	tar_target_excludes=""
-	
 	cd $WORKBENCH_COMMON_COMP_DIR ||die
 	workbench_common_tar_execmd_7z
 	return 0
@@ -491,13 +487,6 @@ workbench_common_tar_comp() {
 }
 workbench_common_tar_proj() {
 	workbench_common_tar_common $TAR_RULES_TYPE_PROJ $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME 7z
-	
-	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME tar.gz
-	tar_target_includes="*.projstamp"
-	# tar_target_includes+=' *.gitmodules'
-	# tar_target_includes+=' *.gitignore'
-	tar_target_excludes=""
-	# tar_target_excludes="--exclude=tomcat/logs --exclude=tomcat/libs"
 	
 	cd $WORKBENCH_COMMON_PROJ_DIR ||die
 	workbench_common_tar_execmd_7z
