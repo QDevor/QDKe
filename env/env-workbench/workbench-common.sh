@@ -246,6 +246,10 @@ workbench_common_copy_proj() {
 	# copy proj common files
 	cp -n $QDKE_ROOT/QDKe_AnyCmds.bat $WORKBENCH_COMMON_PROJ_DIR/hw_cmds.bat
   cp -n $QDKE_ROOT/QDKe_AnyCmds.bat $WORKBENCH_COMMON_PROJ_DIR/sw_cmds.bat
+  
+  # copy comp && proj common files
+	cp -n $QDKE_ROOT/etc/template/workben-tar-rules.tpl $WORKBENCH_COMMON_COMP_DIR/workben-tar-rules.ini
+  cp -n $QDKE_ROOT/etc/template/workben-tar-rules.tpl $WORKBENCH_COMMON_PROJ_DIR/workben-tar-rules.ini
 	return 0
 }
 
@@ -329,12 +333,24 @@ workbench_common_scmInit() {
 workbench_common_tar_init() {
 	workbench_common_tar_dir=$WORKBENCH_COMMON_COMP_DIR/cache/tars
 	[ -d $workbench_common_tar_dir ]     || mkdir -p $workbench_common_tar_dir
+	
+	TAR_RULES_TYPE_COMP=0
+	TAR_RULES_TYPE_PROJ=1
+	
 	return 0
 }
 workbench_common_tar_common() {
-	tar_target_prefix=workbench-tar-$1
-	tar_target_head_suffix=1.$2
-	tar_target_tail_suffix=2.$2
+	# WORKBENCH_COMMON_TAR_RULES_FLAG="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:mf=bt4b:fb=64 -mmt -r"
+  WORKBENCH_COMMON_TAR_RULES_FLAG="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
+  WORKBENCH_TAR_RULES_FILES_INCLUDE="* -i!.gitignore -i!.gitmodules"
+  WORKBENCH_TAR_RULES_FILES_EXCLUDE="-x!*.bak"
+  WORKBENCH_TAR_RULES_DIRS_INCLUDE="-ir!.git"
+  WORKBENCH_TAR_RULES_DIRS_EXCLUDE="-xr!cache"
+  
+  tar_target_type=$1
+  tar_target_prefix=workbench-tar-$2
+	tar_target_head_suffix=1.$3
+	tar_target_tail_suffix=2.$3
 	tar_target_head_file=$tar_target_prefix-$tar_target_head_suffix
 	tar_target_tail_file=$tar_target_prefix-$tar_target_tail_suffix
 	
@@ -362,13 +378,80 @@ workbench_common_tar_common() {
 	
 	return 0
 }
+workbench_common_tar_rules_get() {
+  workbench_common_tar_rules_get_files_include=
+  workbench_common_tar_rules_get_files_exclude=
+  workbench_common_tar_rules_get_dirs_include=
+  workbench_common_tar_rules_get_dirs_exclude=
+  workbench_common_tar_rules_flag=
+  
+  workbench_common_tar_rules_file=$WORKBENCH_COMMON_COMP_DIR/workben-tar-rules.ini
+  
+  case $tar_target_type in
+    $TAR_RULES_TYPE_COMP)
+        WORKBENCH_TAR_RULES_DIRS_EXCLUDE="$WORKBENCH_TAR_RULES_DIRS_EXCLUDE -xr!$WORKBENCH_COMMON_COMP_NAME";;
+    $TAR_RULES_TYPE_PROJ)
+        workbench_common_tar_rules_get_file=$WORKBENCH_COMMON_PROJ_DIR/workben-tar-rules.ini;;
+    *)
+    echo [ERROR] [$FUNCNAME] - We can come here.
+    die;;
+  esac
+  echo [debug] - workbench_common_tar_rules_file=$workbench_common_tar_rules_file.
+  
+  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_FILES_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_INCLUDE=//g'`
+  do
+    workbench_common_tar_rules_get_files_include+=" -i!$rule"
+  done
+  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_FILES_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_EXCLUDE=//g'`
+  do
+    workbench_common_tar_rules_get_files_exclude+=" -x!$rule"
+  done
+  
+  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_DIRS_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_INCLUDE=//g'`
+  do
+    workbench_common_tar_rules_get_dirs_include+=" -ir!$rule"
+  done
+  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_DIRS_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_EXCLUDE=//g'`
+  do
+    workbench_common_tar_rules_get_dirs_exclude+=" -xr!$rule"
+  done
+  
+  if [ x"$workbench_common_tar_rules_get_files_include" == x ]; then
+    workbench_common_tar_rules_get_files_include="$WORKBENCH_TAR_RULES_FILES_INCLUDE"
+  fi
+  if [ x"$workbench_common_tar_rules_get_files_exclude" == x ]; then
+    workbench_common_tar_rules_get_files_exclude="$WORKBENCH_TAR_RULES_FILES_EXCLUDE"
+  fi
+  if [ x"$workbench_common_tar_rules_get_dirs_include" == x ]; then
+    workbench_common_tar_rules_get_dirs_include="$WORKBENCH_TAR_RULES_DIRS_INCLUDE"
+  fi
+  if [ x"$workbench_common_tar_rules_get_dirs_exclude" == x ]; then
+    workbench_common_tar_rules_get_dirs_exclude="$WORKBENCH_TAR_RULES_DIRS_EXCLUDE"
+  fi
+  
+  workbench_common_tar_rules_flag=" \
+    $workbench_common_tar_rules_get_files_include \
+    $workbench_common_tar_rules_get_files_exclude \
+    $workbench_common_tar_rules_get_dirs_include \
+    $workbench_common_tar_rules_get_dirs_exclude \
+    "
+  
+  return 0
+}
+
 workbench_common_tar_execmd_7z() {
-  # export LANG='C.UTF_8'
-  # tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:mf=bt4b:fb=64 -mmt -r"
-  tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
+  
+  workbench_common_tar_rules_get
+  
+  7za a -t7z $WORKBENCH_COMMON_TAR_RULES_FLAG -y \
+	  "$workbench_common_tar_dir/$tar_target_filename" \
+	  * \
+	  $workbench_common_tar_rules_flag
+  
+  return 0
+  
 	echo 7za a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
 	7za a -t7z $tar_cmd_args_extra -y "$workbench_common_tar_dir/$tar_target_filename" "$tar_target_includes" "$tar_target_excludes"
-	# export LANG='zh_CN.UTF_8'
 	return 0
 }
 workbench_common_tar_execmd_targz() {
@@ -377,12 +460,15 @@ workbench_common_tar_execmd_targz() {
 	return 0
 }
 workbench_common_tar_comp() {
-	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME 7z
+	workbench_common_tar_common $TAR_RULES_TYPE_COMP $WORKBENCH_COMMON_COMP_NAME 7z
+	
 	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME tar.gz
 	tar_target_includes="* -i!.gitmodules -i!.gitignore -ir!.git -x!*.bak -xr!cache -xr!uav-heli"
 	tar_target_excludes=""
 	
 	cd $WORKBENCH_COMMON_COMP_DIR ||die
+	workbench_common_tar_execmd_7z
+	return 0
 	
 	# tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
 	7za a -t7z $tar_cmd_args_extra -y \
@@ -396,7 +482,8 @@ workbench_common_tar_comp() {
 	return 0
 }
 workbench_common_tar_proj() {
-	workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME 7z
+	workbench_common_tar_common $TAR_RULES_TYPE_PROJ $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME 7z
+	
 	# workbench_common_tar_common $WORKBENCH_COMMON_COMP_NAME-$WORKBENCH_COMMON_PROJ_NAME tar.gz
 	tar_target_includes="*.projstamp"
 	# tar_target_includes+=' *.gitmodules'
@@ -405,6 +492,8 @@ workbench_common_tar_proj() {
 	# tar_target_excludes="--exclude=tomcat/logs --exclude=tomcat/libs"
 	
 	cd $WORKBENCH_COMMON_PROJ_DIR ||die
+	workbench_common_tar_execmd_7z
+	return 0
 	
 	tar_cmd_args_extra="-mx=9 -ms=200m -mf -mhc -mhcf -m0=LZMA:a=2:d=25:fb=64 -mmt -r"
 	7za a -t7z $tar_cmd_args_extra -y \
