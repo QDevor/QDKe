@@ -388,44 +388,48 @@ workbench_common_tar_rules_get() {
   workbench_common_tar_rules_file=$WORKBENCH_COMMON_COMP_DIR/workben-tar-rules.ini
   
   case $tar_target_type in
-    $TAR_RULES_TYPE_COMP)
+    $TAR_RULES_TYPE_COMP)echo [debug] TAR_RULES_TYPE_COMP.
         WORKBENCH_TAR_RULES_DIRS_EXCLUDE="$WORKBENCH_TAR_RULES_DIRS_EXCLUDE -xr!$WORKBENCH_COMMON_COMP_NAME";;
-    $TAR_RULES_TYPE_PROJ)
-        workbench_common_tar_rules_get_file=$WORKBENCH_COMMON_PROJ_DIR/workben-tar-rules.ini;;
+    $TAR_RULES_TYPE_PROJ)echo [debug] TAR_RULES_TYPE_PROJ.
+        workbench_common_tar_rules_file=$WORKBENCH_COMMON_PROJ_DIR/workben-tar-rules.ini;;
     *)
     echo [ERROR] [$FUNCNAME] - We can come here.
     die;;
   esac
   echo [debug] - workbench_common_tar_rules_file=$workbench_common_tar_rules_file.
   
-  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_FILES_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_INCLUDE=//g'`
+  for rule in `cat $workbench_common_tar_rules_file | grep "WORKBENCH_TAR_RULES_FILES_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_INCLUDE=//g'`
   do
     workbench_common_tar_rules_get_files_include+=" -i!$rule"
   done
-  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_FILES_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_EXCLUDE=//g'`
+  for rule in `cat $workbench_common_tar_rules_file | grep "WORKBENCH_TAR_RULES_FILES_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_FILES_EXCLUDE=//g'`
   do
     workbench_common_tar_rules_get_files_exclude+=" -x!$rule"
   done
-  
-  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_DIRS_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_INCLUDE=//g'`
+  for rule in `cat $workbench_common_tar_rules_file | grep "WORKBENCH_TAR_RULES_DIRS_INCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_INCLUDE=//g'`
   do
     workbench_common_tar_rules_get_dirs_include+=" -ir!$rule"
   done
-  for rule in `cat $workbench_common_tar_rules_get_file | grep "WORKBENCH_TAR_RULES_DIRS_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_EXCLUDE=//g'`
+  for rule in `cat $workbench_common_tar_rules_file | grep "WORKBENCH_TAR_RULES_DIRS_EXCLUDE=" | sed 's/WORKBENCH_TAR_RULES_DIRS_EXCLUDE=//g'`
   do
+    # echo [debug] rule in WORKBENCH_TAR_RULES_DIRS_EXCLUDE = $rule.
     workbench_common_tar_rules_get_dirs_exclude+=" -xr!$rule"
   done
   
   if [ x"$workbench_common_tar_rules_get_files_include" == x ]; then
+    echo [debug] resetting workbench_common_tar_rules_get_files_include.
     workbench_common_tar_rules_get_files_include="$WORKBENCH_TAR_RULES_FILES_INCLUDE"
   fi
   if [ x"$workbench_common_tar_rules_get_files_exclude" == x ]; then
+    echo [debug] resetting workbench_common_tar_rules_get_files_exclude=.
     workbench_common_tar_rules_get_files_exclude="$WORKBENCH_TAR_RULES_FILES_EXCLUDE"
   fi
   if [ x"$workbench_common_tar_rules_get_dirs_include" == x ]; then
+    echo [debug] resetting workbench_common_tar_rules_get_dirs_include.
     workbench_common_tar_rules_get_dirs_include="$WORKBENCH_TAR_RULES_DIRS_INCLUDE"
   fi
   if [ x"$workbench_common_tar_rules_get_dirs_exclude" == x ]; then
+    echo [debug] resetting workbench_common_tar_rules_get_dirs_exclude.
     workbench_common_tar_rules_get_dirs_exclude="$WORKBENCH_TAR_RULES_DIRS_EXCLUDE"
   fi
   
@@ -444,10 +448,11 @@ workbench_common_tar_execmd_7z() {
   
   workbench_common_tar_rules_get
   
+  exe_cmd "\
   7za a -t7z $WORKBENCH_COMMON_TAR_RULES_FLAG -y \
 	  "$workbench_common_tar_dir/$tar_target_filename" \
 	  * \
-	  $workbench_common_tar_rules_flag
+	  $workbench_common_tar_rules_flag"
   
   return 0
   
