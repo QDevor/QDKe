@@ -436,6 +436,7 @@ workbench_common_tar_rules_get() {
     $workbench_common_tar_rules_get_dirs_exclude \
     "
   
+  echo [debug] - workbench_common_tar_rules_flag=$workbench_common_tar_rules_flag.
   return 0
 }
 
