@@ -38,6 +38,10 @@ qdev_init() {
 
 qdev_setmore() {
   qdev_build_dir=$qdev_build_src
+  
+  export PAPARAZZI_HOME=$QDKE_USR/paparazzi
+  export PAPARAZZI_SRC=$qdev_build_src
+  
 	return 0
 }
 # qdev_get
