@@ -40,14 +40,14 @@ _qdev_build_lookup_gcc_predefined_macro() {
 		local src_file=lookup_gcc_predefined_macro.c
 		echo "int main(void) {}" >$QDKE_TMP/$src_file
 		$1gcc -dM -E $QDKE_TMP/$src_file \
-			>$QDKE_ETC/current_gcc_predefined_macro || die
+			>$QDKE_ETC/current_gcc_predefined_macro
 		touch $QDKE_STAMPDIR/$FUNCNAME-stamp-gcc
 	fi
 	if [ ! -f $QDKE_STAMPDIR/$FUNCNAME-stamp-g++ ]; then
 		local src_file=lookup_gcc_predefined_macro.cc
 		echo "int main(void) {}" >$QDKE_TMP/$src_file
 		$1g++ -dM -E $QDKE_TMP/$src_file \
-			>$QDKE_ETC/current_g++_predefined_macro || die
+			>$QDKE_ETC/current_g++_predefined_macro
 		touch $QDKE_STAMPDIR/$FUNCNAME-stamp-g++
 	fi
 }

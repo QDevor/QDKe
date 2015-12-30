@@ -72,9 +72,9 @@ _utils_python_initDeps() {
 	if [ ! -f $TMP/$FUNCNAME-stamp ]; then
 		echo 'y' | conda install \
 			numpy scipy matplotlib pandas numba \
-			scikit-learn ipython ipython-notebook PIL || die
+			scikit-learn ipython ipython-notebook PIL
 		echo 'y' | conda install \
-			MySQL-python django pytables HDF5 h5py || die
+			MySQL-python django pytables HDF5 h5py
 		touch $TMP/$FUNCNAME-stamp
 	fi
 }
