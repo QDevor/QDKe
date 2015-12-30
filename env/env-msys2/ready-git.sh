@@ -56,6 +56,8 @@ _utils_git_init() {
 		echo "	email = $USEREMAIL"     >>$_gitconfig
 		echo "[core]"                   >>$_gitconfig
 		echo "	autocrlf = false"       >>$_gitconfig
+		
+		cp -rf $_gitconfig $WORK_HOME/.gitconfig $ORIGIN_HOMEPATH/.gitconfig
 	else
 		log_info "We Are Finding $WORK_HOME/.gitconfig."	
 	fi
