@@ -107,7 +107,7 @@ workbench_common_conf_dirs() {
 workbench_common_conf_contents() {
 	WORKBENCH_COMMON_SW_CONTENTS="tools third_party src docs examples tests"
 	WORKBENCH_COMMON_HW_CONTENTS="Assembly BOM Gerbers Schematics PCB"
-	WORKBENCH_COMMON_PREDEV_CONTENTS="docs extLinks"
+	WORKBENCH_COMMON_PREDEV_CONTENTS="docs extDocs extImages extLinks extDevs"
 	
 	WORKBENCH_COMMON_HW_VER_NAME="rel_beta rel_production"
 	WORKBENCH_COMMON_HW_COM_NAME="com_docs com_datasheets"
