@@ -37,11 +37,9 @@ echo [Building][UAV] - Starting  - !PGM_BATCH_FILE!.
 rem git clone git://git.openpilot.org/OpenPilot.git OpenPilot
 :----------------------------------------
 echo [Building][UAV] - Makeing  - !PGM_USER!/!PGM_NAME!.
-cd !PGM_WORK_HOME! ||goto :EOF
-if not exist !PGM_NAME!-patch-stamp (
+
+if not exist !PGM_WORK_HOME!/!PGM_NAME!-patch-stamp (
 	echo [Building][Go] - Makeing  - !PGM_USER!/!PGM_NAME!.
-	
-	cd !PGM_WORK_HOME!
   
   set "CROSS_COMPILE_QT_QMAKE_OPENPILOT_ROOT=!QDKE_ROOT!/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/5.4/mingw491_32/bin"
   set "CROSS_COMPILE_QT_MINGW_OPENPILOT_ROOT=!QDKE_ROOT!/home/uav_home/OpenPilot/OpenPilot/tools/qt-5.4.0/Tools/mingw491_32/bin"

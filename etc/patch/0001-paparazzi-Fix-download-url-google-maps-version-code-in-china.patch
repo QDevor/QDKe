@@ -1,18 +1,24 @@
- data/maps/Makefile                    |   2 +-
+ data/maps/Makefile                    |   4 +-
  sw/Makefile.ocaml                     |   4 +-
  sw/ground_segment/cockpit/Makefile    |   2 +-
- sw/lib/ocaml/Makefile                 |  10 +-
+ sw/lib/ocaml/Makefile                 |  11 +-
  sw/lib/ocaml/convert.c                |   2 +
  sw/lib/ocaml/cserial.c                | 194 +++++++++++++++++++++++++++++++++-
  sw/supervision/Makefile               |   4 +-
  sw/tools/bluegiga_usb_dongle/Makefile |   2 +-
- 8 files changed, 211 insertions(+), 9 deletions(-)
+ 8 files changed, 213 insertions(+), 10 deletions(-)
 
 diff --git a/data/maps/Makefile b/data/maps/Makefile
-index dd21fe1..61b8ff3 100644
+index dd21fe1..2628ee9 100644
 --- a/data/maps/Makefile
 +++ b/data/maps/Makefile
-@@ -24,7 +24,7 @@ $(DATADIR):
+@@ -19,12 +19,12 @@ clean:
+ 	$(Q)rm -f $(DATADIR)/maps.google.com
+ 
+ $(DATADIR):
+-	mkdir $(DATADIR)
++	mkdir -p $(DATADIR)
+ 
  $(DATADIR)/maps.google.com: $(DATADIR) FORCE
  	@echo "-----------------------------------------------"
  	@echo "DOWNLOAD: google maps version code";
@@ -47,10 +53,10 @@ index 15a9279..95e6e8f 100644
  endif
  CAMLP4_DEFS ?=
 diff --git a/sw/lib/ocaml/Makefile b/sw/lib/ocaml/Makefile
-index 4cd4840..fbab749 100644
+index 4cd4840..f4d6c2f 100644
 --- a/sw/lib/ocaml/Makefile
 +++ b/sw/lib/ocaml/Makefile
-@@ -80,10 +80,18 @@ GEN_DEP = expr_parser.ml expr_lexer.ml
+@@ -80,10 +80,19 @@ GEN_DEP = expr_parser.ml expr_lexer.ml
  TESTS_SRC = test/test_latlong.ml
  TESTS_CMO = $(TESTS_SRC:.ml=.cmo)
  
@@ -67,6 +73,7 @@ index 4cd4840..fbab749 100644
 +	cp -rf *.cmxa *.cma ./xlib-pprz
 +	cp -rf *.a *.dll ./xlib-pprz
 +	cp META.pprz ./xlib-pprz/META
++	mv META.pprz META.pprz.1
  
  lib-pprz.cma liblib-pprz.a: $(CMO)
  	@echo OL $@
@@ -307,7 +314,7 @@ index 35f4ffb..29db77e 100644
 +}
 +#endif
 diff --git a/sw/supervision/Makefile b/sw/supervision/Makefile
-index 3515368..c91cf01 100644
+index 3515368..b86ffbc 100644
 --- a/sw/supervision/Makefile
 +++ b/sw/supervision/Makefile
 @@ -38,8 +38,8 @@ LABLGTK2GNOMEUI = $(shell ocamlfind query -p-format lablgtk2.gnomeui 2>/dev/null
@@ -316,7 +323,7 @@ index 3515368..c91cf01 100644
  INCLUDES =
 -XPKG = -package pprz.xlib,$(LABLGTK2GNOMEUI)
 -XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg pprz.xlib
-+XPKG = -package xlib-pprz,$(LABLGTK2GNOMEUI),lablgtk2
++XPKG = -package xlib-pprz,$(LABLGTK2GNOMEUI),lablgtk2.glade
 +XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg xlib-pprz
  
  PAPARAZZICENTERCMO = gtk_pc.cmo gtk_process.cmo pc_common.cmo pc_control_panel.cmo pc_aircraft.cmo paparazzicenter.cmo

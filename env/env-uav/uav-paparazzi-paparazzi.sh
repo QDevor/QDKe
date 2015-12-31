@@ -42,6 +42,8 @@ qdev_setmore() {
   export PAPARAZZI_HOME=$QDKE_USR/paparazzi
   export PAPARAZZI_SRC=$qdev_build_src
   
+  export PPZ_ORIGIN_HOME=$HOME
+  export HOME=$qdev_build_src
 	return 0
 }
 # qdev_get
@@ -76,6 +78,8 @@ uav_any_fix() {
 }
 
 uav_any_unfix() {
+  export HOME=$PPZ_ORIGIN_HOME
+  
   fix_file=$OCAMLFIND_CONF
   if [ ! -f $fix_file ]; then
     return 0
