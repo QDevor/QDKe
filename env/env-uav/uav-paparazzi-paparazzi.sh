@@ -104,6 +104,16 @@ uav_any_make() {
   return 0
 }
 
+uav_any_make_aircraft() {
+  cd $qdev_build_dir
+  
+	make -C /mnt/hgfs/vmwareShares/paparazzi -f Makefile.ac AIRCRAFT=krooz_quad clean_ac
+	make -C /mnt/hgfs/vmwareShares/paparazzi -f Makefile.ac AIRCRAFT=krooz_quad ap.compile
+	make -C /mnt/hgfs/vmwareShares/paparazzi -f Makefile.ac AIRCRAFT=krooz_quad FLASH_MODE=DFU-UTIL ap.upload
+	
+  return 0
+}
+
 uav_any_main() {
   uav_any_init
   uav_any_fix
