@@ -4,6 +4,7 @@
 
 *.key
 
+cache
 home
 tmp
 usr
