@@ -30,3 +30,7 @@ export PYTHON=python2
 . $PROGDIR/../env-msys2/qdev-build-common.sh
 #----------------------------------------
 
+diff_common_two_dirs() {
+  
+  diff -Naur -x '.git' -x 'COPYING' orig/ patched/ >$QDKE_TMP/my_changes.diff
+}
