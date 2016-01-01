@@ -44,6 +44,9 @@ qdev_setmore() {
   
   export PPZ_ORIGIN_HOME=$HOME
   export HOME=$qdev_build_src
+  
+  export PATH="$QDKE_ROOT/home/uav_home/OpenPilot/OpenPilot/tools/gcc-arm-none-eabi-4_9-2014q4/bin:$PATH"
+  export PREFIX=arm-none-eabi
 	return 0
 }
 # qdev_get
@@ -64,7 +67,7 @@ uav_any_fix() {
 		sed -e "s,\\\,\\\\\\\,g" \
 	)
   echo [debug] xlib_pprz_ocaml_path=$xlib_pprz_ocaml_path
-  fix_val=`cat $fix_file | grep "$xlib_pprz_ocaml_path_1"`
+  fix_val=`cat $fix_file | grep "path=" | grep "$xlib_pprz_ocaml_path"`
   echo [debug] fix_val=$fix_val
   fix_val_exists=true
   if [ x"$fix_val" == x ]; then
@@ -95,6 +98,9 @@ uav_any_init() {
 
 uav_any_conf() {
 #  uav_common_conf
+  
+  echo [debug] PAPARAZZI_HOME=$PAPARAZZI_HOME
+  echo [debug] PAPARAZZI_SRC=$PAPARAZZI_SRC
   if [ ! -f $qdev_build_dir/${FUNCNAME}-stamp-config ]; then
     uav_common_make clean
     touch $qdev_build_dir/${FUNCNAME}-stamp-config

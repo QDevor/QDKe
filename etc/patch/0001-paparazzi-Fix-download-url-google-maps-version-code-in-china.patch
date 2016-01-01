@@ -1,13 +1,41 @@
+ Makefile                              |   6 +-
  data/maps/Makefile                    |   4 +-
  sw/Makefile.ocaml                     |   4 +-
- sw/ground_segment/cockpit/Makefile    |   2 +-
+ sw/ground_segment/cockpit/Makefile    |   4 +-
+ sw/ground_segment/misc/davis2ivy.c    |   4 +-
+ sw/ground_segment/misc/kestrel2ivy.c  |   4 +-
  sw/lib/ocaml/Makefile                 |  11 +-
  sw/lib/ocaml/convert.c                |   2 +
  sw/lib/ocaml/cserial.c                | 194 +++++++++++++++++++++++++++++++++-
  sw/supervision/Makefile               |   4 +-
  sw/tools/bluegiga_usb_dongle/Makefile |   2 +-
- 8 files changed, 213 insertions(+), 10 deletions(-)
+ sw/tools/bluegiga_usb_dongle/main.c   |   2 +
+ 12 files changed, 225 insertions(+), 16 deletions(-)
 
+diff --git a/Makefile b/Makefile
+index 2a43d6e..572af19 100644
+--- a/Makefile
++++ b/Makefile
+@@ -74,8 +74,8 @@ TOOLS=sw/tools
+ # nothing should depend on these...
+ #
+ PPRZCENTER=sw/supervision
+-MISC=sw/ground_segment/misc
+-LOGALIZER=sw/logalizer
++MISC=#sw/ground_segment/misc
++LOGALIZER=#sw/logalizer
+ 
+ SUBDIRS = $(PPRZCENTER) $(MISC) $(LOGALIZER)
+ 
+@@ -168,7 +168,7 @@ sim_static: libpprz
+ 
+ ext:
+ 	$(MAKE) -C $(EXT)
+-	$(MAKE) -C $(TOOLS)/bluegiga_usb_dongle
++	# $(MAKE) -C $(TOOLS)/bluegiga_usb_dongle
+ 
+ #
+ # make misc subdirs
 diff --git a/data/maps/Makefile b/data/maps/Makefile
 index dd21fe1..2628ee9 100644
 --- a/data/maps/Makefile
@@ -40,9 +68,18 @@ index 4201f9e..70397a6 100644
 +#OCAMLPATH:=$(shell echo $(LIBPPRZDIR):$(OCAMLPATH))
 +#export OCAMLPATH
 diff --git a/sw/ground_segment/cockpit/Makefile b/sw/ground_segment/cockpit/Makefile
-index 15a9279..95e6e8f 100644
+index 15a9279..3b40466 100644
 --- a/sw/ground_segment/cockpit/Makefile
 +++ b/sw/ground_segment/cockpit/Makefile
+@@ -32,7 +32,7 @@ LIBS=
+ LIBSX=$(LIBS:.cma=.cmxa)
+ 
+ INCLUDES= -I ../multimon
+-PKG = -package pprz.xlib
++PKG = -package glibivy,pprz.xlib
+ LINKPKG = $(PKG) -linkpkg -dllpath-pkg pprz.xlib
+ 
+ LABLGTK2INIT = $(shell ocamlfind query -p-format lablgtk2.init 2>/dev/null)
 @@ -44,7 +44,7 @@ LABLGTK2_VER := $(shell ocamlfind query -format '%v' lablgtk2)
  # major.minor version
  LABLGTK2_MM := $(shell echo $(LABLGTK2_VER) | cut -f1,2 -d.)
@@ -52,8 +89,38 @@ index 15a9279..95e6e8f 100644
  CAMLP4_DEFS = -DGDK_NATIVE_WINDOW
  endif
  CAMLP4_DEFS ?=
+diff --git a/sw/ground_segment/misc/davis2ivy.c b/sw/ground_segment/misc/davis2ivy.c
+index b4a876b..8c6aa15 100644
+--- a/sw/ground_segment/misc/davis2ivy.c
++++ b/sw/ground_segment/misc/davis2ivy.c
+@@ -46,7 +46,9 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <errno.h>
+-#include <termios.h>
++#if !defined(__MINGW32__)
++#include <sys/termios.h>
++#endif
+ 
+ #include <signal.h>
+ 
+diff --git a/sw/ground_segment/misc/kestrel2ivy.c b/sw/ground_segment/misc/kestrel2ivy.c
+index 50ad8ef..782a446 100644
+--- a/sw/ground_segment/misc/kestrel2ivy.c
++++ b/sw/ground_segment/misc/kestrel2ivy.c
+@@ -57,7 +57,9 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <errno.h>
+-#include <termios.h>
++#if !defined(__MINGW32__)
++#include <sys/termios.h>
++#endif
+ 
+ #include <signal.h>
+ 
 diff --git a/sw/lib/ocaml/Makefile b/sw/lib/ocaml/Makefile
-index 4cd4840..f4d6c2f 100644
+index 4cd4840..ec7c9d7 100644
 --- a/sw/lib/ocaml/Makefile
 +++ b/sw/lib/ocaml/Makefile
 @@ -80,10 +80,19 @@ GEN_DEP = expr_parser.ml expr_lexer.ml
@@ -73,7 +140,7 @@ index 4cd4840..f4d6c2f 100644
 +	cp -rf *.cmxa *.cma ./xlib-pprz
 +	cp -rf *.a *.dll ./xlib-pprz
 +	cp META.pprz ./xlib-pprz/META
-+	mv META.pprz META.pprz.1
++	# mv META.pprz META.pprz.1
  
  lib-pprz.cma liblib-pprz.a: $(CMO)
  	@echo OL $@
@@ -314,7 +381,7 @@ index 35f4ffb..29db77e 100644
 +}
 +#endif
 diff --git a/sw/supervision/Makefile b/sw/supervision/Makefile
-index 3515368..b86ffbc 100644
+index 3515368..1b8f630 100644
 --- a/sw/supervision/Makefile
 +++ b/sw/supervision/Makefile
 @@ -38,8 +38,8 @@ LABLGTK2GNOMEUI = $(shell ocamlfind query -p-format lablgtk2.gnomeui 2>/dev/null
@@ -323,7 +390,7 @@ index 3515368..b86ffbc 100644
  INCLUDES =
 -XPKG = -package pprz.xlib,$(LABLGTK2GNOMEUI)
 -XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg pprz.xlib
-+XPKG = -package xlib-pprz,$(LABLGTK2GNOMEUI),lablgtk2.glade
++XPKG = -package xlib-pprz,$(LABLGTK2GNOMEUI),lablgtk2.glade ../lib/ocaml/gtk_tools.cmo
 +XLINKPKG = $(XPKG) -linkpkg -dllpath-pkg xlib-pprz
  
  PAPARAZZICENTERCMO = gtk_pc.cmo gtk_process.cmo pc_common.cmo pc_control_panel.cmo pc_aircraft.cmo paparazzicenter.cmo
@@ -341,3 +408,20 @@ index fba9ada..a50e9c8 100644
  # POSIX
  else
  	PLATFORM = POSIX
+diff --git a/sw/tools/bluegiga_usb_dongle/main.c b/sw/tools/bluegiga_usb_dongle/main.c
+index e098263..7c032f2 100644
+--- a/sw/tools/bluegiga_usb_dongle/main.c
++++ b/sw/tools/bluegiga_usb_dongle/main.c
+@@ -143,10 +143,12 @@ FUNCTION ANALYSIS:
+ #include <sys/stat.h>
+ 
+ #include <sys/types.h>
++#if !defined(__MINGW32__)
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+ #include <netdb.h>
++#endif
+ #include <time.h>
+ 
+ #include <pthread.h>
