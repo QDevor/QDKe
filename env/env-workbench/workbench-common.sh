@@ -250,6 +250,10 @@ workbench_common_copy_proj() {
   # copy comp && proj common files
 	cp -n $QDKE_ROOT/etc/template/workben-tar-rules.tpl $WORKBENCH_COMMON_COMP_DIR/workben-tar-rules.ini
   cp -n $QDKE_ROOT/etc/template/workben-tar-rules.tpl $WORKBENCH_COMMON_PROJ_DIR/workben-tar-rules.ini
+  
+  cp -n $QDKE_ROOT/etc/template/gitignore.tpl $WORKBENCH_COMMON_COMP_DIR/.gitignore
+  cp -n $QDKE_ROOT/etc/template/gitignore.tpl $WORKBENCH_COMMON_PROJ_DIR/.gitignore
+  
 	return 0
 }
 
@@ -277,6 +281,10 @@ workbench_common_scmInit_comp() {
 	  git init
 	  git checkout --no-track -b master
 	  git checkout --no-track -b dev
+	  NETDISK_REPO_URL=`cygpath -u $NETDISK_REPO_ROOT/$WORKBENCH_COMMON_COMP_NAME/root.git`
+	  [ -d $NETDISK_REPO_URL ] || mkdir -p $NETDISK_REPO_URL
+	  git remote add origin_netdisk $NETDISK_REPO_URL
+	  git clone --bare . $NETDISK_REPO_URL
 	fi
 	return 0
 }
@@ -286,6 +294,11 @@ workbench_common_scmInit_proj() {
 	  git init
 	  git checkout --no-track -b master
 	  git checkout --no-track -b dev
+	  
+	  NETDISK_REPO_URL=`cygpath -u $NETDISK_REPO_ROOT/$WORKBENCH_COMMON_COMP_NAME/$WORKBENCH_COMMON_PROJ_NAME.git`
+	  [ -d $NETDISK_REPO_URL ] || mkdir -p $NETDISK_REPO_URL
+	  git remote add origin_netdisk $NETDISK_REPO_URL
+	  git clone --bare . $NETDISK_REPO_URL
 	fi
 	return 0
 }

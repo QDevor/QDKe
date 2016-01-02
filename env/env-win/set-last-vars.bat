@@ -72,6 +72,17 @@ rem The variable must be set to the directory where the packages reside that are
 set FLEXDLL_RELOCATE=00401000
 echo [debug] set FLEXDLL_RELOCATE=%FLEXDLL_RELOCATE%
 :----------------------------------------
+:: NetDisk
+:----------------------------------------
+if exist H:/ (
+  set "NETDISK_ROOT=H:/NetDiskDevAnyRepo"
+) else (
+  set "NETDISK_ROOT=D:/NetDiskDevAnyRepo"
+)
+set "NETDISK_REPO_ROOT=!NETDISK_ROOT!/devAnyRepo"
+set "NETDISK_VENDOR="
+echo [debug] set NETDISK_REPO_ROOT=%NETDISK_REPO_ROOT%
+:----------------------------------------
 :: SSL
 :----------------------------------------
 :----------------RUN-ONCE----------------
