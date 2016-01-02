@@ -55,6 +55,8 @@ scm_prepare() {
   						      ;;
   		ocamlcore)		SCM_URL_0='https://forge.ocamlcore.org/anonscm/git/'$user_name'/'$apps_name'.git'
   						      ;;
+  		cnea)		      SCM_URL_0='https://svn.tls.cena.fr/svn/'$user_name'/'$apps_name''
+  						      ;;
   		*)			log_error "We Are Checking SCM HOST are not support."
   		        return 1
   							;;
@@ -112,6 +114,8 @@ scm_clone() {
 		# git fetch -v "origin"
 		# git checkout -b master remotes/origin/master --
 		$SCM_EXE checkout FETCH_HEAD
+	elif [ x$scm_type = "xsvn" ]; then
+	  $SCM_EXE checkout ${SCM_URL}
 	else
 	  $SCM_EXE clone ${SCM_URL} .
 	fi

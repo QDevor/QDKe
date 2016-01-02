@@ -39,6 +39,10 @@ qdev_init() {
 }
 
 qdev_setmore() {
+  if [ x$scm_type = "xsvn" ]; then
+    qdev_build_src=$qdev_build_src/trunk
+  fi
+  
   qdev_build_dir=$qdev_build_src
 	return 0
 }
@@ -66,6 +70,8 @@ qdev_any_make() {
 }
 
 qdev_any_install() {
+  log_info "${FUNCNAME} - ${apps_name}"
+  
   #qdev_build_make_install
   PREFIX=$MINGW_ROOT
   
@@ -95,11 +101,28 @@ qdev_any_install() {
   return 0
 }
 
+qdev_any_install_cnea() {
+  log_info "${FUNCNAME} - ${apps_name}"
+  
+  # PREFIX=$MINGW_ROOT
+  PREFIX=$QDKE_USR/tmp_cnea_ivy_c_install
+  
+  cd $qdev_build_dir/src
+  PREFIX=$PREFIX \
+  make -f Makefile.mingw install
+  
+  return 0
+}
+
 qdev_any_main() {
   #qdev_any_init
   #qdev_any_conf
   qdev_any_make
-  qdev_any_install
+  if [ x$apps_more = xcena ]; then
+    qdev_any_install
+  else
+    qdev_any_install
+  fi
   
   return 0
 }
@@ -122,10 +145,16 @@ pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QDEV_WORK_HOME
-user_name=flixr
+#user_name=flixr
+#apps_name=ivy-c
+#apps_more=github
+user_name=ivy
 apps_name=ivy-c
-apps_more=github
-# http://svn.tls.cena.fr/svn/ivy/ivy-c
+apps_more=cena
+scm_type=svn
+SCM_URL_0='https://svn.tls.cena.fr/svn/'$user_name'/'$apps_name'/trunk'
+# https://svn.tls.cena.fr/svn/ivy/ivy-c
+# https://svn.tls.cena.fr/wsvn/ivy/ivy-c
 # Standard Source Distribution
 #----------------------------------------
 #qdev_init

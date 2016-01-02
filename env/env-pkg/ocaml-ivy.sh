@@ -39,6 +39,10 @@ qdev_init() {
 }
 
 qdev_setmore() {
+  if [ x$scm_type = "xsvn" ]; then
+    qdev_build_src=$qdev_build_src/trunk
+  fi
+  
   qdev_build_dir=$qdev_build_src
 	return 0
 }
@@ -95,10 +99,16 @@ pkg_deps_gcc=''
 pkg_deps_py=''
 #----------------------------------------
 work_home=$QDEV_WORK_HOME
-user_name=flixr
+#user_name=flixr
+#apps_name=ivy-ocaml
+#apps_more=github
+user_name=ivy
 apps_name=ivy-ocaml
-apps_more=github
-# http://svn.tls.cena.fr/svn/ivy/ivy-ocaml
+apps_more=cena
+scm_type=svn
+SCM_URL_0='https://svn.tls.cena.fr/svn/'$user_name'/'$apps_name'/trunk'
+# https://svn.tls.cena.fr/svn/ivy/ivy-ocaml
+# https://svn.tls.cena.fr/wsvn/ivy/ivy-ocaml
 # Standard Source Distribution
 #----------------------------------------
 #qdev_init
