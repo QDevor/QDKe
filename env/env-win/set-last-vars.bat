@@ -80,8 +80,22 @@ if exist H:/ (
   set "NETDISK_ROOT=D:/NetDiskDevAnyRepo"
 )
 set "NETDISK_REPO_ROOT=!NETDISK_ROOT!/devAnyRepo"
+set "NETDISK_REPO_DEVANY_ROOT=!NETDISK_ROOT!/devAnyRepo/devAny"
+set "NETDISK_REPO_3RDPARTY_ROOT=!NETDISK_ROOT!/devAnyRepo/3rdParty"
 set "NETDISK_VENDOR="
 echo [debug] set NETDISK_REPO_ROOT=%NETDISK_REPO_ROOT%
+set "win_token=\"
+set "unix_token=/"
+
+set "var=!NETDISK_ROOT:%unix_token%=%win_token%!"
+if not exist !var! mkdir !var! >nul 2>&1
+set "var=!NETDISK_REPO_ROOT:%unix_token%=%win_token%!"
+if not exist !var! mkdir !var! >nul 2>&1
+set "var=!NETDISK_REPO_DEVANY_ROOT:%unix_token%=%win_token%!"
+if not exist !var! mkdir !var! >nul 2>&1
+set "var=!NETDISK_REPO_3RDPARTY_ROOT:%unix_token%=%win_token%!"
+if not exist !var! mkdir !var! >nul 2>&1
+
 :----------------------------------------
 :: SSL
 :----------------------------------------
