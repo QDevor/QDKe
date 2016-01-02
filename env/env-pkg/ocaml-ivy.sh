@@ -67,6 +67,14 @@ qdev_any_make() {
 
 qdev_any_install() {
   qdev_any_make install
+  
+  PREFIX=$MINGW_ROOT
+  cd $qdev_build_dir
+  
+  install -m644 dllivy-ocaml.dll $PREFIX/lib/ocaml/ivy
+	install -m644 dllglibivy-ocaml.dll $PREFIX/lib/ocaml/glibivy
+	install -m644 dlltkivy-ocaml.dll $PREFIX/lib/ocaml/tkivy
+	
   return 0
 }
 
